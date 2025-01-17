@@ -1,0 +1,54 @@
+{{define "new-project"}}
+    <!DOCTYPE html>
+    <html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Janus - New Project</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/dark-theme.css" rel="stylesheet">
+    </head>
+    <body>
+    <!-- Navigation Header -->
+    {{ template "navbar" . }}
+
+    <!-- Main Content -->
+    <div class="container-fluid py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h5 class="card-title mb-4">Create New Project</h5>
+
+                        {{if .Error}}
+                            <div class="alert alert-danger" role="alert">
+                                {{.Error}}
+                            </div>
+                        {{end}}
+
+                        <form method="POST" action="/project/new">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name"
+                                       name="name" required
+                                       value="{{.Name}}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description"
+                                          name="description" rows="3">{{.Description}}</textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Create Project</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>
+{{end}}

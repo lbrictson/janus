@@ -23,3 +23,14 @@ go.work.sum
 
 # env file
 .env
+
+# IDE files
+.idea/
+
+# Output of air
+tmp/
+
+# Ignore sqlite db
+*.db
+*.db-shm
+*.db-wal

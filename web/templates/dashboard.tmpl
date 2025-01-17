@@ -1,0 +1,114 @@
+{{define "dashboard"}}
+    <!DOCTYPE html>
+    <html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Janus - Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/dark-theme.css" rel="stylesheet">
+    </head>
+    <body>
+    <!-- Navigation Header -->
+    {{ template "navbar" . }}
+
+    <!-- Main Content -->
+    <div class="container-fluid py-4">
+        <!-- Metric Cards -->
+        <div class="row g-4 mb-4">
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">Successful Jobs (last 24h)</h6>
+                        <h2 class="card-title mb-0 text-success">{{.SuccessfulJobs}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">Failed Jobs (last 24h)</h6>
+                        <h2 class="card-title mb-0 text-danger">{{.FailedJobs}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">Running Jobs</h6>
+                        <h2 class="card-title mb-0 text-primary">{{.RunningJobs}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Table -->
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="d-flex gap-3 align-items-center">
+                        <h5 class="card-title mb-0">Projects</h5>
+                        {{ if eq .isAdmin true }}<a href="/project/new" class="btn btn-primary">Create Project</a>{{ end }}
+                    </div>
+                    <input type="text" class="form-control w-auto" id="projectSearch"
+                           placeholder="Search projects..." onkeyup="filterProjects()">
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="projectsTable">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Number of Jobs</th>
+                            <th>Last Job Run</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{range .Projects}}
+                            <tr>
+                                <td>{{.Name}}</td>
+                                <td>{{.Description}}</td>
+                                <td>{{.NumberOfJobs}}</td>
+                                <td>{{.LastJobRun}}</td>
+                                <td>
+                                    {{ if .CanAccess}}
+                                    <a href="/projects/{{.ID}}" class="btn btn-primary btn-sm">Go to project</a>
+                                    {{ else }}
+                                    <span class="badge bg-secondary">No Access</span>
+                                    {{ end }}
+                                </td>
+                            </tr>
+                        {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function filterProjects() {
+            const input = document.getElementById('projectSearch');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('projectsTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                const nameCell = rows[i].getElementsByTagName('td')[0];
+                if (nameCell) {
+                    const nameText = nameCell.textContent || nameCell.innerText;
+                    if (nameText.toLowerCase().indexOf(filter) > -1) {
+                        rows[i].style.display = '';
+                    } else {
+                        rows[i].style.display = 'none';
+                    }
+                }
+            }
+        }
+    </script>
+    </body>
+    </html>
+{{end}}

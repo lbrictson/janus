@@ -1,0 +1,123 @@
+/* Deep Ocean theme variables */
+:root {
+    --dark-bg: #0f172a;         /* Deep blue-black background */
+    --dark-surface: #1e293b;    /* Slightly lighter surface */
+    --dark-surface-lighter: #334155;
+    --dark-primary: #38bdf8;    /* Sky blue accent */
+    --dark-primary-hover: #0ea5e9;
+    --dark-text: #f1f5f9;
+    --dark-text-muted: #94a3b8;
+    --dark-border: #1e293b;
+    --dark-danger: #ef4444;
+}
+
+/* Base styles */
+body {
+    background-color: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+}
+
+/* Card styling */
+.card {
+    background-color: var(--dark-surface) !important;
+    border: 1px solid var(--dark-border) !important;
+}
+
+.login-card, .error-card {
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6) !important;
+}
+
+/* Form controls */
+.form-control {
+    background-color: var(--dark-surface-lighter) !important;
+    border-color: var(--dark-border) !important;
+    color: var(--dark-text) !important;
+}
+
+.form-control:focus {
+    background-color: var(--dark-surface-lighter) !important;
+    border-color: var(--dark-primary) !important;
+    box-shadow: 0 0 0 0.25rem rgba(56, 189, 248, 0.25) !important;
+}
+
+.form-label {
+    color: var(--dark-text) !important;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--dark-primary) !important;
+    border-color: var(--dark-primary) !important;
+    color: var(--dark-bg) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-primary-hover) !important;
+    border-color: var(--dark-primary-hover) !important;
+}
+
+.btn-outline-light {
+    color: var(--dark-text) !important;
+    border-color: var(--dark-text) !important;
+}
+
+.btn-outline-light:hover {
+    background-color: var(--dark-surface-lighter) !important;
+    color: var(--dark-text) !important;
+}
+
+/* Text colors */
+.text-muted {
+    color: var(--dark-text-muted) !important;
+}
+
+/* Alerts */
+.alert-danger {
+    background-color: rgba(239, 68, 68, 0.1) !important;
+    border-color: var(--dark-danger) !important;
+    color: var(--dark-danger) !important;
+}
+
+/* Horizontal rules */
+hr.border-secondary {
+    border-color: var(--dark-surface-lighter) !important;
+    opacity: 0.5;
+}
+
+/* Placeholder text */
+::placeholder {
+    color: var(--dark-text-muted) !important;
+    opacity: 0.7 !important;
+}
+
+/* Focus outline */
+*:focus {
+    outline-color: var(--dark-primary) !important;
+}
+
+/* Table styles */
+.table {
+    --bs-table-bg: var(--dark-surface) !important;
+    --bs-table-striped-bg: var(--dark-surface-lighter) !important;
+    --bs-table-hover-bg: var(--dark-surface-lighter) !important;
+    --bs-table-border-color: var(--dark-border) !important;
+    color: var(--dark-text) !important;
+}
+
+.table thead th {
+    border-bottom-color: var(--dark-border) !important;
+    background-color: var(--dark-surface) !important;
+    color: var(--dark-text-muted) !important;
+}
+
+.table tbody tr:hover {
+    color: var(--dark-text) !important;
+}
+
+/* Custom box shadows for depth */
+.shadow-custom {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}

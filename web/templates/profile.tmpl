@@ -1,0 +1,142 @@
+{{define "change-password"}}
+    <!DOCTYPE html>
+    <html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Janus - Change Password</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/dark-theme.css" rel="stylesheet">
+    </head>
+    <body>
+    <!-- Navigation Header -->
+    {{ template "navbar" . }}
+
+    <!-- Main Content -->
+    <div class="container-fluid py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h5 class="card-title text-center mb-4">Change Password</h5>
+
+                        {{if .Error}}
+                            <div class="alert alert-danger" role="alert">
+                                {{.Error}}
+                            </div>
+                        {{end}}
+
+                        {{if .Success}}
+                            <div class="alert alert-success" role="alert">
+                                {{.Success}}
+                            </div>
+                        {{end}}
+
+                        <form method="POST" action="/profile/password">
+                            <div class="mb-3">
+                                <label for="currentPassword" class="form-label">Current Password</label>
+                                <input type="password" class="form-control" id="currentPassword"
+                                       name="current_password" required autocomplete="current-password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPassword" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="newPassword"
+                                       name="new_password" required autocomplete="new-password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmPassword"
+                                       name="confirm_password" required autocomplete="new-password">
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Change Password</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>
+{{end}}
+
+{{define "api-key"}}
+    <!DOCTYPE html>
+    <html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Janus - API Key</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/dark-theme.css" rel="stylesheet">
+    </head>
+    <body>
+    <!-- Navigation Header -->
+    {{ template "navbar" . }}
+
+    <!-- Main Content -->
+    <div class="container-fluid py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-8 col-md-6">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h5 class="card-title text-center mb-4">API Key</h5>
+
+                        {{if .Success}}
+                            <div class="alert alert-success" role="alert">
+                                {{.Success}}
+                            </div>
+                        {{end}}
+
+                        {{if .Error}}
+                            <div class="alert alert-danger" role="alert">
+                                {{.Error}}
+                            </div>
+                        {{end}}
+
+                        <div class="mb-4">
+                            <label class="form-label">Your API Key</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control font-monospace"
+                                       value="{{.APIKey}}" readonly id="apiKeyInput">
+                                <button class="btn btn-outline-light" type="button"
+                                        onclick="copyAPIKey()">Copy</button>
+                            </div>
+                            <div class="form-text">Keep this key secure. It has the same permissions as your account.</div>
+                        </div>
+
+                        <form method="POST" action="/profile/api-key/regenerate"
+                              onsubmit="return confirm('Are you sure you want to regenerate your API key? The existing key will stop working immediately.');">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-warning">Regenerate API Key</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function copyAPIKey() {
+            const input = document.getElementById('apiKeyInput');
+            input.select();
+            input.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(input.value);
+
+            // Optional: Visual feedback
+            const button = document.querySelector('.input-group .btn');
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        }
+    </script>
+    </body>
+    </html>
+{{end}}
