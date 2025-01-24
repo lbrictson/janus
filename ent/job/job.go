@@ -46,8 +46,12 @@ const (
 	FieldLastRunTime = "last_run_time"
 	// FieldNextCronRunTime holds the string denoting the next_cron_run_time field in the database.
 	FieldNextCronRunTime = "next_cron_run_time"
+	// FieldScript holds the string denoting the script field in the database.
+	FieldScript = "script"
 	// FieldLastRunSuccess holds the string denoting the last_run_success field in the database.
 	FieldLastRunSuccess = "last_run_success"
+	// FieldCreatedByAPI holds the string denoting the created_by_api field in the database.
+	FieldCreatedByAPI = "created_by_api"
 	// EdgeProject holds the string denoting the project edge name in mutations.
 	EdgeProject = "project"
 	// EdgeHistory holds the string denoting the history edge name in mutations.
@@ -89,7 +93,9 @@ var Columns = []string{
 	FieldNotifyOnFailureChannelIds,
 	FieldLastRunTime,
 	FieldNextCronRunTime,
+	FieldScript,
 	FieldLastRunSuccess,
+	FieldCreatedByAPI,
 }
 
 // ForeignKeys holds the SQL foreign-keys that are owned by the "jobs"
@@ -132,6 +138,8 @@ var (
 	DefaultCreatedAt func() time.Time
 	// DefaultLastRunSuccess holds the default value on creation for the "last_run_success" field.
 	DefaultLastRunSuccess bool
+	// DefaultCreatedByAPI holds the default value on creation for the "created_by_api" field.
+	DefaultCreatedByAPI bool
 )
 
 // OrderOption defines the ordering options for the Job queries.
@@ -202,9 +210,19 @@ func ByNextCronRunTime(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldNextCronRunTime, opts...).ToFunc()
 }
 
+// ByScript orders the results by the script field.
+func ByScript(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldScript, opts...).ToFunc()
+}
+
 // ByLastRunSuccess orders the results by the last_run_success field.
 func ByLastRunSuccess(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldLastRunSuccess, opts...).ToFunc()
+}
+
+// ByCreatedByAPI orders the results by the created_by_api field.
+func ByCreatedByAPI(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCreatedByAPI, opts...).ToFunc()
 }
 
 // ByProjectField orders the results by project field.

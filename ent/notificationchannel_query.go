@@ -258,6 +258,18 @@ func (ncq *NotificationChannelQuery) Clone() *NotificationChannelQuery {
 
 // GroupBy is used to group vertices by one or more fields/columns.
 // It is often used with aggregate functions, like: count, max, mean, min, sum.
+//
+// Example:
+//
+//	var v []struct {
+//		Name string `json:"name,omitempty"`
+//		Count int `json:"count,omitempty"`
+//	}
+//
+//	client.NotificationChannel.Query().
+//		GroupBy(notificationchannel.FieldName).
+//		Aggregate(ent.Count()).
+//		Scan(ctx, &v)
 func (ncq *NotificationChannelQuery) GroupBy(field string, fields ...string) *NotificationChannelGroupBy {
 	ncq.ctx.Fields = append([]string{field}, fields...)
 	grbuild := &NotificationChannelGroupBy{build: ncq}
@@ -269,6 +281,16 @@ func (ncq *NotificationChannelQuery) GroupBy(field string, fields ...string) *No
 
 // Select allows the selection one or more fields/columns for the given query,
 // instead of selecting all fields in the entity.
+//
+// Example:
+//
+//	var v []struct {
+//		Name string `json:"name,omitempty"`
+//	}
+//
+//	client.NotificationChannel.Query().
+//		Select(notificationchannel.FieldName).
+//		Scan(ctx, &v)
 func (ncq *NotificationChannelQuery) Select(fields ...string) *NotificationChannelSelect {
 	ncq.ctx.Fields = append(ncq.ctx.Fields, fields...)
 	sbuild := &NotificationChannelSelect{NotificationChannelQuery: ncq}

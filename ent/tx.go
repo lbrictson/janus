@@ -16,8 +16,12 @@ type Tx struct {
 	Audit *AuditClient
 	// AuthConfig is the client for interacting with the AuthConfig builders.
 	AuthConfig *AuthConfigClient
+	// DataConfig is the client for interacting with the DataConfig builders.
+	DataConfig *DataConfigClient
 	// Job is the client for interacting with the Job builders.
 	Job *JobClient
+	// JobConfig is the client for interacting with the JobConfig builders.
+	JobConfig *JobConfigClient
 	// JobHistory is the client for interacting with the JobHistory builders.
 	JobHistory *JobHistoryClient
 	// NotificationChannel is the client for interacting with the NotificationChannel builders.
@@ -26,6 +30,10 @@ type Tx struct {
 	Project *ProjectClient
 	// ProjectUser is the client for interacting with the ProjectUser builders.
 	ProjectUser *ProjectUserClient
+	// SMTPConfig is the client for interacting with the SMTPConfig builders.
+	SMTPConfig *SMTPConfigClient
+	// Secret is the client for interacting with the Secret builders.
+	Secret *SecretClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
 
@@ -161,11 +169,15 @@ func (tx *Tx) Client() *Client {
 func (tx *Tx) init() {
 	tx.Audit = NewAuditClient(tx.config)
 	tx.AuthConfig = NewAuthConfigClient(tx.config)
+	tx.DataConfig = NewDataConfigClient(tx.config)
 	tx.Job = NewJobClient(tx.config)
+	tx.JobConfig = NewJobConfigClient(tx.config)
 	tx.JobHistory = NewJobHistoryClient(tx.config)
 	tx.NotificationChannel = NewNotificationChannelClient(tx.config)
 	tx.Project = NewProjectClient(tx.config)
 	tx.ProjectUser = NewProjectUserClient(tx.config)
+	tx.SMTPConfig = NewSMTPConfigClient(tx.config)
+	tx.Secret = NewSecretClient(tx.config)
 	tx.User = NewUserClient(tx.config)
 }
 

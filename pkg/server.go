@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
@@ -25,10 +26,18 @@ func RunServer(config *Config, db *ent.Client) {
 	// Serve static files from the embedded filesystem
 	e.StaticFS("/static", staticFS)
 	renderer := Renderer{
-		templates: template.Must(template.ParseFS(web.Assets, "templates/*.tmpl")),
+		templates: template.Must(template.New("").Funcs(template.FuncMap{
+			"json": func(v interface{}) template.JS {
+				b, err := json.Marshal(v)
+				if err != nil {
+					return template.JS("[]")
+				}
+				return template.JS(b)
+			},
+		}).ParseFS(web.Assets, "templates/*.tmpl")),
 	}
 	e.Renderer = &renderer
-	authC, err := getAuthconfig(ctx, db)
+	authC, err := getAuthConfig(ctx, db)
 	if err != nil {
 		panic(fmt.Sprintf("failed to get auth config: %v", err))
 	}
@@ -44,6 +53,7 @@ func RunServer(config *Config, db *ent.Client) {
 	unauthenticated.GET("/logout", destroySession)
 	// Dashboard pages
 	authenticatedRoutes.GET("/", renderDashboard(db))
+	adminRequired.GET("/projects/:id/delete", hookDeleteProject(db))
 	// User pages
 	adminRequired.GET("/users", renderUsersPage(db))
 	adminRequired.GET("/users/:id/edit", renderEditUserPage(db))
@@ -55,8 +65,16 @@ func RunServer(config *Config, db *ent.Client) {
 	adminRequired.POST("/users/:id/permissions", formUpdateUserPermissions(db))
 	// Notification pages
 	adminRequired.GET("/notifications", renderNotificationPage(db))
+	adminRequired.GET("/notifications/new", renderNewNotificationPage(db))
+	adminRequired.POST("/notifications/new", formCreateNotificationChannel(db))
+	adminRequired.GET("/notifications/:id/edit", renderNotificationChannelEditPage(db))
+	adminRequired.POST("/hook/notifications/:id/status", hookNotificationToggleStatus(db))
+	adminRequired.GET("/notifications/:id/delete", deleteNotificationChannel(db))
+	adminRequired.POST("/notifications/:id/edit", formEditNotificationChannel(db))
+	adminRequired.POST("/hook/notifications/:id/test", hookSendTestNotification(db, *config))
 	// Admin pages
 	adminRequired.GET("/admin", renderAdminPage(db, config))
+	adminRequired.POST("/admin/data-retention", formAdminDataRetention(db))
 	// Profile pages
 	authenticatedRoutes.GET("/profile/password", renderChangePasswordPage(db))
 	authenticatedRoutes.GET("/profile/api-key", renderAPIKeyViewPage(db))
@@ -66,6 +84,22 @@ func RunServer(config *Config, db *ent.Client) {
 	adminRequired.GET("/project/new", renderNewProjectView)
 	adminRequired.POST("/project/new", formNewProject(db))
 	authenticatedRoutes.GET("/projects/:id", renderProjectViewPage(db))
+	authenticatedRoutes.GET("/projects/:project_id/jobs/new", renderCreateJobView(db))
+	authenticatedRoutes.POST("/projects/:project_id/jobs/new", formCreateJob(db, config))
+	authenticatedRoutes.GET("/projects/:project_id/jobs/:job_id/edit", renderEditJobPage(db))
+	authenticatedRoutes.POST("/projects/:project_id/jobs/:job_id/edit", formEditJob(db))
+	authenticatedRoutes.GET("/projects/:project_id/jobs/:job_id/delete", hookDeleteJob(db))
+	adminRequired.GET("/projects/:id/secrets", renderProjectSecretsView(db))
+	adminRequired.GET("/projects/:id/secrets/new", renderProjectAddSecretsView(db))
+	adminRequired.POST("/projects/:id/secrets/new", formProjectAddSecret(db))
+	adminRequired.GET("/projects/:project_id/secrets/:secret_id/delete", hookDeleteSecret(db))
+	authenticatedRoutes.GET("/projects/:project_id/jobs/:job_id/run", renderRunJobView(db))
+	authenticatedRoutes.POST("/projects/:project_id/jobs/:job_id/run", formRunJob(db, *config))
+	authenticatedRoutes.GET("/projects/:project_id/jobs/:job_id/run/:history_id", renderJobHistorySingleItemView(db))
+	authenticatedRoutes.GET("/htmx/job/history/:history_id/output", htmxJobHistoryOutput())
+	authenticatedRoutes.GET("/projects/:project_id/jobs/:job_id/history", renderJobHistoryView(db))
+	adminRequired.GET("/projects/:project_id/edit", renderEditProjectPage(db))
+	adminRequired.POST("/projects/:project_id/edit", formEditProject(db))
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%v", config.Port)))
 }
 

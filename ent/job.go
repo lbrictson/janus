@@ -52,8 +52,12 @@ type Job struct {
 	LastRunTime time.Time `json:"last_run_time,omitempty"`
 	// NextCronRunTime holds the value of the "next_cron_run_time" field.
 	NextCronRunTime time.Time `json:"next_cron_run_time,omitempty"`
+	// Script holds the value of the "script" field.
+	Script string `json:"script,omitempty"`
 	// LastRunSuccess holds the value of the "last_run_success" field.
 	LastRunSuccess bool `json:"last_run_success,omitempty"`
+	// CreatedByAPI holds the value of the "created_by_api" field.
+	CreatedByAPI bool `json:"created_by_api,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the JobQuery when eager-loading is set.
 	Edges        JobEdges `json:"edges"`
@@ -99,11 +103,11 @@ func (*Job) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case job.FieldArguments, job.FieldNotifyOnStartChannelIds, job.FieldNotifyOnSuccessChannelIds, job.FieldNotifyOnFailureChannelIds:
 			values[i] = new([]byte)
-		case job.FieldScheduleEnabled, job.FieldAllowConcurrentRuns, job.FieldRequiresFileUpload, job.FieldLastRunSuccess:
+		case job.FieldScheduleEnabled, job.FieldAllowConcurrentRuns, job.FieldRequiresFileUpload, job.FieldLastRunSuccess, job.FieldCreatedByAPI:
 			values[i] = new(sql.NullBool)
 		case job.FieldID, job.FieldAverageDurationMs, job.FieldTimeoutSeconds:
 			values[i] = new(sql.NullInt64)
-		case job.FieldName, job.FieldDescription, job.FieldCronSchedule:
+		case job.FieldName, job.FieldDescription, job.FieldCronSchedule, job.FieldScript:
 			values[i] = new(sql.NullString)
 		case job.FieldLastEditTime, job.FieldCreatedAt, job.FieldLastRunTime, job.FieldNextCronRunTime:
 			values[i] = new(sql.NullTime)
@@ -234,11 +238,23 @@ func (j *Job) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				j.NextCronRunTime = value.Time
 			}
+		case job.FieldScript:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field script", values[i])
+			} else if value.Valid {
+				j.Script = value.String
+			}
 		case job.FieldLastRunSuccess:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field last_run_success", values[i])
 			} else if value.Valid {
 				j.LastRunSuccess = value.Bool
+			}
+		case job.FieldCreatedByAPI:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field created_by_api", values[i])
+			} else if value.Valid {
+				j.CreatedByAPI = value.Bool
 			}
 		case job.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -341,8 +357,14 @@ func (j *Job) String() string {
 	builder.WriteString("next_cron_run_time=")
 	builder.WriteString(j.NextCronRunTime.Format(time.ANSIC))
 	builder.WriteString(", ")
+	builder.WriteString("script=")
+	builder.WriteString(j.Script)
+	builder.WriteString(", ")
 	builder.WriteString("last_run_success=")
 	builder.WriteString(fmt.Sprintf("%v", j.LastRunSuccess))
+	builder.WriteString(", ")
+	builder.WriteString("created_by_api=")
+	builder.WriteString(fmt.Sprintf("%v", j.CreatedByAPI))
 	builder.WriteByte(')')
 	return builder.String()
 }

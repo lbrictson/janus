@@ -10,8 +10,9 @@ import (
 
 // Parameter represents a key-value pair for job execution parameters
 type Parameter struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
+	Name      string `json:"name"`
+	Value     string `json:"value"`
+	Sensitive bool   `json:"sensitive"`
 }
 
 // JobHistory holds the schema definition for the JobHistory entity.

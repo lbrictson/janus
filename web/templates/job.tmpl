@@ -1,0 +1,413 @@
+{{define "create-job"}}
+    <!DOCTYPE html>
+    <html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Janus - Create Job</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/dark-theme.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+        <link href="/static/css/select2.css" rel="stylesheet">
+    </head>
+    <body>
+    <!-- Navigation Header -->
+    {{ template "navbar" . }}
+
+    <!-- Main Content -->
+    <div class="container-fluid py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h5 class="card-title mb-4">Create New Job - {{.Project.Name}}</h5>
+
+                        {{if .Error}}
+                            <div class="alert alert-danger" role="alert">
+                                {{.Error}}
+                            </div>
+                        {{end}}
+
+                        <form method="POST" action="/projects/{{.Project.ID}}/jobs/new">
+                            <!-- Basic Information -->
+                            <div class="mb-4">
+                                <h6 class="mb-3">Basic Information</h6>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="timeout" class="form-label">Timeout (seconds)</label>
+                                    <input type="number" class="form-control" id="timeout" name="timeout_seconds"
+                                           value="{{ .DefaultTimeout }}">
+                                </div>
+                            </div>
+
+                            <!-- Schedule Settings -->
+                            <div class="mb-4">
+                                <h6 class="mb-3">Schedule Settings</h6>
+                                <div class="mb-3">
+                                    <label for="cronSchedule" class="form-label">Cron Schedule</label>
+                                    <input type="text" class="form-control" id="cronSchedule" name="cron_schedule"
+                                           placeholder="e.g., 0 0 * * *">
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="scheduleEnabled"
+                                               name="schedule_enabled">
+                                        <label class="form-check-label" for="scheduleEnabled">Enable Schedule</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="allowConcurrent"
+                                               name="allow_concurrent_runs">
+                                        <label class="form-check-label" for="allowConcurrent">Allow Concurrent Runs</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Arguments -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="mb-0">Arguments</h6>
+                                    <button type="button" class="btn btn-outline-light btn-sm" onclick="addArgument()">
+                                        Add Argument
+                                    </button>
+                                </div>
+                                <div id="arguments-container">
+                                    <!-- Arguments will be added here dynamically -->
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Script</label>
+                                    <textarea class="form-control" id="script" name="script" rows="10"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- File Upload Setting -->
+                            <div class="mb-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="requiresFile"
+                                           name="requires_file_upload">
+                                    <label class="form-check-label" for="requiresFile">Require File Upload</label>
+                                </div>
+                            </div>
+
+                            <!-- Notifications -->
+                            <div class="mb-4">
+                                <h6 class="mb-3">Notifications</h6>
+                                <div class="mb-3">
+                                    <label class="form-label">Notify on Start</label>
+                                    <select class="form-select select2" name="notify_on_start_channel_ids[]" multiple>
+                                        {{range .NotificationChannels}}
+                                            <option value="{{.ID}}">{{.Name}}</option>
+                                        {{end}}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Notify on Success</label>
+                                    <select class="form-select select2" name="notify_on_success_channel_ids[]" multiple>
+                                        {{range .NotificationChannels}}
+                                            <option value="{{.ID}}">{{.Name}}</option>
+                                        {{end}}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Notify on Failure</label>
+                                    <select class="form-select select2" name="notify_on_failure_channel_ids[]" multiple>
+                                        {{range .NotificationChannels}}
+                                            <option value="{{.ID}}">{{.Name}}</option>
+                                        {{end}}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Create Job</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                placeholder: 'Select channels...',
+                allowClear: true
+            });
+        });
+    </script>
+    <script>
+        let argumentCount = 0;
+
+        function addArgument() {
+            const container = document.getElementById('arguments-container');
+            const argumentDiv = document.createElement('div');
+            argumentDiv.className = 'card mb-3';
+            argumentDiv.innerHTML = `
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="mb-0">Argument ${argumentCount + 1}</h6>
+                    <button type="button" class="btn btn-outline-danger btn-sm"
+                            onclick="this.closest('.card').remove()">Remove</button>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" name="arg_names[]" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Default Value</label>
+                    <input type="text" class="form-control" name="arg_defaults[]">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Allowed Values (comma-separated, leave empty for any)</label>
+                    <input type="text" class="form-control" name="arg_allowed_values[]"
+                           placeholder="value1,value2,value3">
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="arg_sensitive[]"
+                           value="${argumentCount}">
+                    <label class="form-check-label">Sensitive (hide in logs)</label>
+                </div>
+            </div>
+        `;
+            container.appendChild(argumentDiv);
+            argumentCount++;
+        }
+    </script>
+    </body>
+    </html>
+{{end}}
+
+{{define "edit-job"}}
+    <!DOCTYPE html>
+    <html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Janus - Edit Job</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+        <link href="/static/css/dark-theme.css" rel="stylesheet">
+        <link href="/static/css/select2.css" rel="stylesheet">
+    </head>
+    <body>
+    <!-- Navigation Header -->
+    {{ template "navbar" . }}
+
+    <!-- Main Content -->
+    <div class="container-fluid py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h5 class="card-title mb-4">Edit Job - {{.Job.Name}}</h5>
+
+                        {{if .Error}}
+                            <div class="alert alert-danger" role="alert">
+                                {{.Error}}
+                            </div>
+                        {{end}}
+
+                        <form method="POST" action="/projects/{{.Project.ID}}/jobs/{{.Job.ID}}/edit">
+                            <!-- Basic Information -->
+                            <div class="mb-4">
+                                <h6 class="mb-3">Basic Information</h6>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           required value="{{.Job.Name}}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" name="description"
+                                              rows="3">{{.Job.Description}}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="timeout" class="form-label">Timeout (seconds)</label>
+                                    <input type="number" class="form-control" id="timeout"
+                                           name="timeout_seconds" value="{{.Job.TimeoutSeconds}}">
+                                </div>
+                            </div>
+
+                            <!-- Schedule Settings -->
+                            <div class="mb-4">
+                                <h6 class="mb-3">Schedule Settings</h6>
+                                <div class="mb-3">
+                                    <label for="cronSchedule" class="form-label">Cron Schedule</label>
+                                    <input type="text" class="form-control" id="cronSchedule"
+                                           name="cron_schedule" value="{{.Job.CronSchedule}}"
+                                           placeholder="e.g., 0 0 * * *">
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox"
+                                               id="scheduleEnabled" name="schedule_enabled"
+                                               {{if .Job.ScheduleEnabled}}checked{{end}}>
+                                        <label class="form-check-label" for="scheduleEnabled">Enable Schedule</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox"
+                                               id="allowConcurrent" name="allow_concurrent_runs"
+                                               {{if .Job.AllowConcurrentRuns}}checked{{end}}>
+                                        <label class="form-check-label" for="allowConcurrent">Allow Concurrent Runs</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Arguments -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="mb-0">Arguments</h6>
+                                    <button type="button" class="btn btn-outline-light btn-sm" onclick="addArgument()">
+                                        Add Argument
+                                    </button>
+                                </div>
+                                <div id="arguments-container">
+                                    <!-- Existing arguments will be populated via JavaScript -->
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Script</label>
+                                    <textarea class="form-control" id="script" name="script" rows="{{ .ScriptLines }}">{{ .Job.Script }}</textarea>
+                                </div>
+                            </div>
+
+                            <!-- File Upload Setting -->
+                            <div class="mb-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox"
+                                           id="requiresFile" name="requires_file_upload"
+                                           {{if .Job.RequiresFileUpload}}checked{{end}}>
+                                    <label class="form-check-label" for="requiresFile">Require File Upload</label>
+                                </div>
+                            </div>
+
+                            <!-- Notifications -->
+                            <div class="mb-4">
+                                <h6 class="mb-3">Notifications</h6>
+                                <div class="mb-3">
+                                    <label class="form-label">Notify on Start</label>
+                                    <select class="form-select select2" name="notify_on_start_channel_ids[]" multiple>
+                                        {{range .StartChannels}}
+                                            <option value="{{.ID}}" {{if .Selected }}selected{{end}}>
+                                                {{.Name}}
+                                            </option>
+                                        {{end}}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Notify on Success</label>
+                                    <select class="form-select select2" name="notify_on_success_channel_ids[]" multiple>
+                                        {{range .SuccessChannels}}
+                                            <option value="{{.ID}}" {{if .Selected}}selected{{end}}>
+                                                {{.Name}}
+                                            </option>
+                                        {{end}}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Notify on Failure</label>
+                                    <select class="form-select select2" name="notify_on_failure_channel_ids[]" multiple>
+                                        {{range .FailureChannels}}
+                                            <option value="{{.ID}}" {{if .Selected}}selected{{end}}>
+                                                {{.Name}}
+                                            </option>
+                                        {{end}}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <button type="button" class="btn btn-outline-danger" onclick="confirmDelete('{{.Job.ID}}')">Delete Job</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                placeholder: 'Select channels...',
+                allowClear: true
+            });
+        });
+    </script>
+    <script>
+        function confirmDelete(jobId) {
+            if (confirm('Are you sure you want to delete this job? This action cannot be undone.')) {
+                window.location.href = `/projects/{{.Project.ID}}/jobs/${jobId}/delete`;
+            }
+        }
+    </script>
+    <script>
+        let argumentCount = 0;
+
+        function addArgument(existingArg) {
+            const container = document.getElementById('arguments-container');
+            const argumentDiv = document.createElement('div');
+            argumentDiv.className = 'card mb-3';
+            argumentDiv.innerHTML = `
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="mb-0">Argument ${argumentCount + 1}</h6>
+                <button type="button" class="btn btn-outline-danger btn-sm"
+                        onclick="this.closest('.card').remove()">Remove</button>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="arg_names[]" required
+                       value="${existingArg ? (existingArg.Name || existingArg.name) : ''}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Default Value</label>
+                <input type="text" class="form-control" name="arg_defaults[]"
+                       value="${existingArg ? (existingArg.DefaultValue || existingArg.default_value) : ''}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Allowed Values (comma-separated, leave empty for any)</label>
+                <input type="text" class="form-control" name="arg_allowed_values[]"
+                       placeholder="value1,value2,value3"
+                       value="${existingArg ? (existingArg.AllowedValues || existingArg.allowed_values || []).join(',') : ''}">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="arg_sensitive[]"
+                       value="${argumentCount}" ${existingArg && (existingArg.Sensitive || existingArg.sensitive) ? 'checked' : ''}>
+                <label class="form-check-label">Sensitive (hide in logs)</label>
+            </div>
+        </div>
+    `;
+            container.appendChild(argumentDiv);
+            argumentCount++;
+        }
+
+        // Populate existing arguments
+        const existingArgs = {{.Job.Arguments | json}};
+        existingArgs.forEach(arg => addArgument(arg));
+    </script>
+    </body>
+    </html>
+{{end}}

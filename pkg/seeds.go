@@ -36,5 +36,41 @@ func ExecuteSeeds(ctx context.Context, db *ent.Client, config *Config) error {
 			return fmt.Errorf("failed to create seed auth config: %v", err)
 		}
 	}
+	// Seed the default data config
+	existingDataConfigs, _ := db.DataConfig.Query().Count(ctx)
+	if existingDataConfigs == 0 {
+		_, err := db.DataConfig.Create().
+			SetDaysToKeep(180).
+			Save(ctx)
+		if err != nil {
+			return fmt.Errorf("failed to create seed data config: %v", err)
+		}
+	}
+	// Seed the default smtp config
+	existingSMTPConfigs, _ := db.SMTPConfig.Query().Count(ctx)
+	if existingSMTPConfigs == 0 {
+		_, err := db.SMTPConfig.Create().
+			SetSMTPServer("localhost").
+			SetSMTPPort(1025).
+			SetSMTPUsername("admin@localhost").
+			SetSMTPPassword("Changeme!!!!!!").
+			SetSMTPSender("admin@localhost").
+			SetSMTPTLS(false).
+			Save(ctx)
+		if err != nil {
+			return fmt.Errorf("failed to create seed smtp config: %v", err)
+		}
+	}
+	// Seed default job data
+	existingJobConfig, _ := db.JobConfig.Query().Count(ctx)
+	if existingJobConfig == 0 {
+		_, err := db.JobConfig.Create().
+			SetMaxConcurrentJobs(100).
+			SetDefaultTimeoutSeconds(3600).
+			Save(ctx)
+		if err != nil {
+			return fmt.Errorf("failed to create seed job config: %v", err)
+		}
+	}
 	return nil
 }

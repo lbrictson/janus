@@ -48,6 +48,12 @@ func renderDashboard(db *ent.Client) echo.HandlerFunc {
 					LastJobRun:   lastRun,
 					NumberOfJobs: len(allProjects[p].Edges.Jobs),
 				}
+				history, _ := db.JobHistory.Query().Where(jobhistory.HasProjectWith(project.ID(allProjects[p].ID))).Order(ent.Desc(jobhistory.FieldCreatedAt)).First(c.Request().Context())
+				if history == nil {
+					projects[p].LastJobRun = "Never"
+				} else {
+					projects[p].LastJobRun = humanize.Time(history.CreatedAt)
+				}
 				projectWG.Done()
 			}(p)
 		}

@@ -18,6 +18,8 @@ type Config struct {
 	DBSSLMode       string `envconfig:"JANUS_DB_SSL_MODE" default:"disable"`
 	ServerURL       string `envconfig:"JANUS_URL" default:"http://localhost:8080"`
 	DevelopmentMode bool   `envconfig:"JANUS_DEVELOPMENT_MODE" default:"false"`
+	DisableMetrics  bool   `envconfig:"JANUS_DISABLE_METRICS" default:"false"`
+	MetricsPort     int    `envconfig:"JANUS_METRICS_PORT" default:"8081"`
 }
 
 func LoadConfig() (*Config, error) {

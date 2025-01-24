@@ -13,7 +13,7 @@ import (
 
 func loginPage(db *ent.Client, config *Config) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		authConfig, err := getAuthconfig(c.Request().Context(), db)
+		authConfig, err := getAuthConfig(c.Request().Context(), db)
 		if err != nil {
 			slog.Error("error getting auth config", "error", err)
 			return renderErrorPage(c, "Internal server error", http.StatusInternalServerError)
@@ -53,14 +53,17 @@ func loginForm(db *ent.Client, config *Config) echo.HandlerFunc {
 		form.Email = strings.ToLower(form.Email)
 		u, err := db.User.Query().Where(user.EmailEQ(form.Email)).Only(c.Request().Context())
 		if err != nil {
+			loginFailures.Inc()
 			slog.Warn("unknown user attempted to login", "email", form.Email)
 			return renderErrorPage(c, "Invalid email or password", http.StatusUnauthorized)
 		}
 		if compareHashAndPassword(u.EncryptedPassword, form.Password) != nil {
+			loginFailures.Inc()
 			slog.Warn("user entered invalid password", "email", form.Email)
 			return renderErrorPage(c, "Invalid email or password", http.StatusUnauthorized)
 		}
 		slog.Info("user logged in", "email", form.Email)
+		loginSuccesses.Inc()
 		return createNewSessionAndRedirect(c, "/", u)
 	}
 }

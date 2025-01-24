@@ -14,11 +14,15 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/lbrictson/janus/ent/audit"
 	"github.com/lbrictson/janus/ent/authconfig"
+	"github.com/lbrictson/janus/ent/dataconfig"
 	"github.com/lbrictson/janus/ent/job"
+	"github.com/lbrictson/janus/ent/jobconfig"
 	"github.com/lbrictson/janus/ent/jobhistory"
 	"github.com/lbrictson/janus/ent/notificationchannel"
 	"github.com/lbrictson/janus/ent/project"
 	"github.com/lbrictson/janus/ent/projectuser"
+	"github.com/lbrictson/janus/ent/secret"
+	"github.com/lbrictson/janus/ent/smtpconfig"
 	"github.com/lbrictson/janus/ent/user"
 )
 
@@ -82,11 +86,15 @@ func checkColumn(table, column string) error {
 		columnCheck = sql.NewColumnCheck(map[string]func(string) bool{
 			audit.Table:               audit.ValidColumn,
 			authconfig.Table:          authconfig.ValidColumn,
+			dataconfig.Table:          dataconfig.ValidColumn,
 			job.Table:                 job.ValidColumn,
+			jobconfig.Table:           jobconfig.ValidColumn,
 			jobhistory.Table:          jobhistory.ValidColumn,
 			notificationchannel.Table: notificationchannel.ValidColumn,
 			project.Table:             project.ValidColumn,
 			projectuser.Table:         projectuser.ValidColumn,
+			smtpconfig.Table:          smtpconfig.ValidColumn,
+			secret.Table:              secret.ValidColumn,
 			user.Table:                user.ValidColumn,
 		})
 	})

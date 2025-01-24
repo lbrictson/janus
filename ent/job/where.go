@@ -115,9 +115,19 @@ func NextCronRunTime(v time.Time) predicate.Job {
 	return predicate.Job(sql.FieldEQ(FieldNextCronRunTime, v))
 }
 
+// Script applies equality check predicate on the "script" field. It's identical to ScriptEQ.
+func Script(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldScript, v))
+}
+
 // LastRunSuccess applies equality check predicate on the "last_run_success" field. It's identical to LastRunSuccessEQ.
 func LastRunSuccess(v bool) predicate.Job {
 	return predicate.Job(sql.FieldEQ(FieldLastRunSuccess, v))
+}
+
+// CreatedByAPI applies equality check predicate on the "created_by_api" field. It's identical to CreatedByAPIEQ.
+func CreatedByAPI(v bool) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldCreatedByAPI, v))
 }
 
 // NameEQ applies the EQ predicate on the "name" field.
@@ -665,6 +675,71 @@ func NextCronRunTimeLTE(v time.Time) predicate.Job {
 	return predicate.Job(sql.FieldLTE(FieldNextCronRunTime, v))
 }
 
+// ScriptEQ applies the EQ predicate on the "script" field.
+func ScriptEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldScript, v))
+}
+
+// ScriptNEQ applies the NEQ predicate on the "script" field.
+func ScriptNEQ(v string) predicate.Job {
+	return predicate.Job(sql.FieldNEQ(FieldScript, v))
+}
+
+// ScriptIn applies the In predicate on the "script" field.
+func ScriptIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldIn(FieldScript, vs...))
+}
+
+// ScriptNotIn applies the NotIn predicate on the "script" field.
+func ScriptNotIn(vs ...string) predicate.Job {
+	return predicate.Job(sql.FieldNotIn(FieldScript, vs...))
+}
+
+// ScriptGT applies the GT predicate on the "script" field.
+func ScriptGT(v string) predicate.Job {
+	return predicate.Job(sql.FieldGT(FieldScript, v))
+}
+
+// ScriptGTE applies the GTE predicate on the "script" field.
+func ScriptGTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldGTE(FieldScript, v))
+}
+
+// ScriptLT applies the LT predicate on the "script" field.
+func ScriptLT(v string) predicate.Job {
+	return predicate.Job(sql.FieldLT(FieldScript, v))
+}
+
+// ScriptLTE applies the LTE predicate on the "script" field.
+func ScriptLTE(v string) predicate.Job {
+	return predicate.Job(sql.FieldLTE(FieldScript, v))
+}
+
+// ScriptContains applies the Contains predicate on the "script" field.
+func ScriptContains(v string) predicate.Job {
+	return predicate.Job(sql.FieldContains(FieldScript, v))
+}
+
+// ScriptHasPrefix applies the HasPrefix predicate on the "script" field.
+func ScriptHasPrefix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasPrefix(FieldScript, v))
+}
+
+// ScriptHasSuffix applies the HasSuffix predicate on the "script" field.
+func ScriptHasSuffix(v string) predicate.Job {
+	return predicate.Job(sql.FieldHasSuffix(FieldScript, v))
+}
+
+// ScriptEqualFold applies the EqualFold predicate on the "script" field.
+func ScriptEqualFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldEqualFold(FieldScript, v))
+}
+
+// ScriptContainsFold applies the ContainsFold predicate on the "script" field.
+func ScriptContainsFold(v string) predicate.Job {
+	return predicate.Job(sql.FieldContainsFold(FieldScript, v))
+}
+
 // LastRunSuccessEQ applies the EQ predicate on the "last_run_success" field.
 func LastRunSuccessEQ(v bool) predicate.Job {
 	return predicate.Job(sql.FieldEQ(FieldLastRunSuccess, v))
@@ -673,6 +748,16 @@ func LastRunSuccessEQ(v bool) predicate.Job {
 // LastRunSuccessNEQ applies the NEQ predicate on the "last_run_success" field.
 func LastRunSuccessNEQ(v bool) predicate.Job {
 	return predicate.Job(sql.FieldNEQ(FieldLastRunSuccess, v))
+}
+
+// CreatedByAPIEQ applies the EQ predicate on the "created_by_api" field.
+func CreatedByAPIEQ(v bool) predicate.Job {
+	return predicate.Job(sql.FieldEQ(FieldCreatedByAPI, v))
+}
+
+// CreatedByAPINEQ applies the NEQ predicate on the "created_by_api" field.
+func CreatedByAPINEQ(v bool) predicate.Job {
+	return predicate.Job(sql.FieldNEQ(FieldCreatedByAPI, v))
 }
 
 // HasProject applies the HasEdge predicate on the "project" edge.

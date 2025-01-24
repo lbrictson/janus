@@ -1,10 +1,15 @@
 package pkg
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
+	"github.com/lbrictson/janus/ent"
+	"github.com/lbrictson/janus/ent/project"
+	"github.com/lbrictson/janus/ent/projectuser"
+	"github.com/lbrictson/janus/ent/user"
 	"golang.org/x/crypto/bcrypt"
 	"log/slog"
 	"net/http"
@@ -53,6 +58,33 @@ func middlewareMustBeLoggedIn(next echo.HandlerFunc) echo.HandlerFunc {
 		c.Set("globalRole", s.Values["globalRole"])
 		return next(c)
 	}
+}
+
+func canUserEditProject(db *ent.Client, userID int, projectID int) bool {
+	p, err := db.ProjectUser.Query().WithUser().WithProject().Where(projectuser.HasProjectWith(project.IDEQ(projectID)), projectuser.HasUserWith(user.IDEQ(userID))).All(context.Background())
+	if err != nil {
+		slog.Error("error getting project user", "error", err)
+		return false
+	}
+	if len(p) == 0 {
+		return false
+	}
+	if p[0].CanEdit {
+		return true
+	}
+	return false
+}
+
+func canUserViewProject(db *ent.Client, userID int, projectID int) bool {
+	p, err := db.ProjectUser.Query().WithUser().WithProject().Where(projectuser.HasProjectWith(project.IDEQ(projectID)), projectuser.HasUserWith(user.IDEQ(userID))).All(context.Background())
+	if err != nil {
+		slog.Error("error getting project user", "error", err)
+		return false
+	}
+	if len(p) == 0 {
+		return false
+	}
+	return true
 }
 
 func middlewareAdminRequired(next echo.HandlerFunc) echo.HandlerFunc {

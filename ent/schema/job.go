@@ -58,7 +58,9 @@ func (Job) Fields() []ent.Field {
 			Optional(),
 		field.Time("last_run_time"),
 		field.Time("next_cron_run_time"),
+		field.Text("script"),
 		field.Bool("last_run_success").Default(true),
+		field.Bool("created_by_api").Default(false),
 	}
 }
 

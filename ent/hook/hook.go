@@ -33,6 +33,18 @@ func (f AuthConfigFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.AuthConfigMutation", m)
 }
 
+// The DataConfigFunc type is an adapter to allow the use of ordinary
+// function as DataConfig mutator.
+type DataConfigFunc func(context.Context, *ent.DataConfigMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f DataConfigFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.DataConfigMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DataConfigMutation", m)
+}
+
 // The JobFunc type is an adapter to allow the use of ordinary
 // function as Job mutator.
 type JobFunc func(context.Context, *ent.JobMutation) (ent.Value, error)
@@ -43,6 +55,18 @@ func (f JobFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) 
 		return f(ctx, mv)
 	}
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.JobMutation", m)
+}
+
+// The JobConfigFunc type is an adapter to allow the use of ordinary
+// function as JobConfig mutator.
+type JobConfigFunc func(context.Context, *ent.JobConfigMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f JobConfigFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.JobConfigMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.JobConfigMutation", m)
 }
 
 // The JobHistoryFunc type is an adapter to allow the use of ordinary
@@ -91,6 +115,30 @@ func (f ProjectUserFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value,
 		return f(ctx, mv)
 	}
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ProjectUserMutation", m)
+}
+
+// The SMTPConfigFunc type is an adapter to allow the use of ordinary
+// function as SMTPConfig mutator.
+type SMTPConfigFunc func(context.Context, *ent.SMTPConfigMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f SMTPConfigFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.SMTPConfigMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.SMTPConfigMutation", m)
+}
+
+// The SecretFunc type is an adapter to allow the use of ordinary
+// function as Secret mutator.
+type SecretFunc func(context.Context, *ent.SecretMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f SecretFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.SecretMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.SecretMutation", m)
 }
 
 // The UserFunc type is an adapter to allow the use of ordinary

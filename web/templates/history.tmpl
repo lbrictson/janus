@@ -1,0 +1,212 @@
+{{define "job-history-single"}}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Janus - Job History</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="/static/css/dark-theme.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    <style>
+        .loading-spinner {
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+   {{ template "navbar" . }}
+
+   <div class="container-fluid py-4">
+       <div class="card">
+           <div class="card-body">
+               <div class="mb-4">
+                   <h5 class="card-title">Job Run Details <a href="/projects/{{ .Project.ID }}" class="btn btn-sm btn-outline-light">Back to Project</a></h5>
+                   <p class="text-muted">{{.History.Edges.Job.Name}} - Run at {{.History.CreatedAt}}</p>
+               </div>
+
+               <!-- Status Banner -->
+               <div class="alert {{if eq .History.Status "success"}}alert-success{{end}}{{ if eq .History.Status "failed"}}alert-danger{{end}}{{ if eq .History.Status "running"}}alert-primary{{ end }} mb-4">
+                   <div class="d-flex justify-content-between align-items-center">
+                       <div>
+                           <h6 class="alert-heading mb-1">Status: {{.History.Status}}</h6>
+                           {{ if ne .History.Status "running" }}
+                           <p class="mb-0">Duration: {{.History.DurationMs}}ms</p>
+                           {{ end }}
+                       </div>
+                   </div>
+               </div>
+
+               <!-- Run Parameters -->
+               <div class="card mb-4">
+                   <div class="card-header">
+                       <h6 class="mb-0">Parameters</h6>
+                   </div>
+                   <div class="card-body">
+                       <dl class="row mb-0">
+                           {{range .History.Parameters}}
+                           <dt class="col-sm-3">{{.Name}}</dt>
+                           <dd class="col-sm-9">
+                               {{if .Sensitive}}
+                               <em class="text-muted">[Hidden]</em>
+                               {{else}}
+                               {{.Value}}
+                               {{end}}
+                           </dd>
+                           {{end}}
+                       </dl>
+                   </div>
+               </div>
+
+               <!-- Run Details -->
+               <div class="card mb-4">
+                   <div class="card-header">
+                       <div class="d-flex justify-content-between align-items-center">
+                           <h6 class="mb-0">Details</h6>
+                           <button class="btn btn-sm btn-outline-light" onclick="copyOutput()">Copy Output</button>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <dl class="row">
+                           <dt class="col-sm-3">Triggered By</dt>
+                           <dd class="col-sm-9">{{.History.TriggeredByEmail}}</dd>
+
+                           <dt class="col-sm-3">Trigger Type</dt>
+                           <dd class="col-sm-9">{{.History.Trigger}}</dd>
+                       </dl>
+                   </div>
+               </div>
+
+               <!-- Output -->
+               <div class="card">
+                   <div class="card-header">
+                       <h6 class="mb-0 me-2">Output{{ if .RealTimeOutput }} (Tailing output in real-time)<br />
+                       <div class="loading-spinner"></div>
+                       {{ end }}</h6>
+                   </div>
+                   <div class="card-body">
+                       {{ if .RealTimeOutput}}
+                          {{ template "output-slot" . }}
+                          {{ else }}
+                       <pre class="mb-0" id="jobOutput"><code>{{.History.Output}}</code></pre>
+                           {{ end }}
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+   <script>
+   function copyOutput() {
+       const output = document.getElementById('jobOutput').innerText;
+       navigator.clipboard.writeText(output);
+   }
+   </script>
+</body>
+</html>
+{{end}}
+
+{{ define "output-slot" }}
+    <pre class="mb-0" id="jobOutput" hx-get="/htmx/job/history/{{ .History.ID }}/output"
+         hx-trigger="load delay:1s"
+         hx-swap="outerHTML"><code>{{ .Output }}</code></pre>
+{{ end }}
+
+{{define "job-histories"}}
+    <!DOCTYPE html>
+    <html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Janus - Job History</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/dark-theme.css" rel="stylesheet">
+    </head>
+    <body>
+    {{ template "navbar" . }}
+
+    <div class="container-fluid py-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="card-title">Job History - {{.Job.Name}}</h5>
+                    <input type="text" class="form-control w-auto" id="historySearch"
+                           placeholder="Search history..." onkeyup="filterHistory()">
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="historyTable">
+                        <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Duration</th>
+                            <th>Triggered By</th>
+                            <th>Type</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{range .History}}
+                            <tr>
+                                <td>{{.FriendlyTime}}</td>
+                                <td>
+                                    {{if .WasSuccessful}}
+                                        <span class="badge bg-success">Success</span>
+                                    {{else}}
+                                        <span class="badge bg-danger">Failed</span>
+                                    {{end}}
+                                </td>
+                                <td>{{.DurationMs}}ms</td>
+                                <td>{{.TriggeredByEmail}}</td>
+                                <td>
+                                    <span class="badge bg-secondary">{{.Trigger}}</span>
+                                </td>
+                                <td>
+                                    <a href="/projects/{{$.Project.ID}}/jobs/{{$.Job.ID}}/run/{{.ID}}"
+                                       class="btn btn-primary btn-sm">View Details</a>
+                                </td>
+                            </tr>
+                        {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function filterHistory() {
+            const input = document.getElementById('historySearch');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('historyTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let text = '';
+                for (let j = 0; j < cells.length; j++) {
+                    text += cells[j].textContent || cells[j].innerText;
+                }
+                if (text.toLowerCase().indexOf(filter) > -1) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+    </body>
+    </html>
+{{end}}

@@ -183,6 +183,12 @@ func (jc *JobCreate) SetNextCronRunTime(t time.Time) *JobCreate {
 	return jc
 }
 
+// SetScript sets the "script" field.
+func (jc *JobCreate) SetScript(s string) *JobCreate {
+	jc.mutation.SetScript(s)
+	return jc
+}
+
 // SetLastRunSuccess sets the "last_run_success" field.
 func (jc *JobCreate) SetLastRunSuccess(b bool) *JobCreate {
 	jc.mutation.SetLastRunSuccess(b)
@@ -193,6 +199,20 @@ func (jc *JobCreate) SetLastRunSuccess(b bool) *JobCreate {
 func (jc *JobCreate) SetNillableLastRunSuccess(b *bool) *JobCreate {
 	if b != nil {
 		jc.SetLastRunSuccess(*b)
+	}
+	return jc
+}
+
+// SetCreatedByAPI sets the "created_by_api" field.
+func (jc *JobCreate) SetCreatedByAPI(b bool) *JobCreate {
+	jc.mutation.SetCreatedByAPI(b)
+	return jc
+}
+
+// SetNillableCreatedByAPI sets the "created_by_api" field if the given value is not nil.
+func (jc *JobCreate) SetNillableCreatedByAPI(b *bool) *JobCreate {
+	if b != nil {
+		jc.SetCreatedByAPI(*b)
 	}
 	return jc
 }
@@ -286,6 +306,10 @@ func (jc *JobCreate) defaults() {
 		v := job.DefaultLastRunSuccess
 		jc.mutation.SetLastRunSuccess(v)
 	}
+	if _, ok := jc.mutation.CreatedByAPI(); !ok {
+		v := job.DefaultCreatedByAPI
+		jc.mutation.SetCreatedByAPI(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -319,8 +343,14 @@ func (jc *JobCreate) check() error {
 	if _, ok := jc.mutation.NextCronRunTime(); !ok {
 		return &ValidationError{Name: "next_cron_run_time", err: errors.New(`ent: missing required field "Job.next_cron_run_time"`)}
 	}
+	if _, ok := jc.mutation.Script(); !ok {
+		return &ValidationError{Name: "script", err: errors.New(`ent: missing required field "Job.script"`)}
+	}
 	if _, ok := jc.mutation.LastRunSuccess(); !ok {
 		return &ValidationError{Name: "last_run_success", err: errors.New(`ent: missing required field "Job.last_run_success"`)}
+	}
+	if _, ok := jc.mutation.CreatedByAPI(); !ok {
+		return &ValidationError{Name: "created_by_api", err: errors.New(`ent: missing required field "Job.created_by_api"`)}
 	}
 	if len(jc.mutation.ProjectIDs()) == 0 {
 		return &ValidationError{Name: "project", err: errors.New(`ent: missing required edge "Job.project"`)}
@@ -415,9 +445,17 @@ func (jc *JobCreate) createSpec() (*Job, *sqlgraph.CreateSpec) {
 		_spec.SetField(job.FieldNextCronRunTime, field.TypeTime, value)
 		_node.NextCronRunTime = value
 	}
+	if value, ok := jc.mutation.Script(); ok {
+		_spec.SetField(job.FieldScript, field.TypeString, value)
+		_node.Script = value
+	}
 	if value, ok := jc.mutation.LastRunSuccess(); ok {
 		_spec.SetField(job.FieldLastRunSuccess, field.TypeBool, value)
 		_node.LastRunSuccess = value
+	}
+	if value, ok := jc.mutation.CreatedByAPI(); ok {
+		_spec.SetField(job.FieldCreatedByAPI, field.TypeBool, value)
+		_node.CreatedByAPI = value
 	}
 	if nodes := jc.mutation.ProjectIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

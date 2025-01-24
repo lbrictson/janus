@@ -40,6 +40,17 @@ var (
 		Columns:    AuthConfigsColumns,
 		PrimaryKey: []*schema.Column{AuthConfigsColumns[0]},
 	}
+	// DataConfigsColumns holds the columns for the "data_configs" table.
+	DataConfigsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "days_to_keep", Type: field.TypeInt, Default: 180},
+	}
+	// DataConfigsTable holds the schema information for the "data_configs" table.
+	DataConfigsTable = &schema.Table{
+		Name:       "data_configs",
+		Columns:    DataConfigsColumns,
+		PrimaryKey: []*schema.Column{DataConfigsColumns[0]},
+	}
 	// JobsColumns holds the columns for the "jobs" table.
 	JobsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -59,7 +70,9 @@ var (
 		{Name: "notify_on_failure_channel_ids", Type: field.TypeJSON, Nullable: true},
 		{Name: "last_run_time", Type: field.TypeTime},
 		{Name: "next_cron_run_time", Type: field.TypeTime},
+		{Name: "script", Type: field.TypeString, Size: 2147483647},
 		{Name: "last_run_success", Type: field.TypeBool, Default: true},
+		{Name: "created_by_api", Type: field.TypeBool, Default: false},
 		{Name: "project_jobs", Type: field.TypeInt},
 	}
 	// JobsTable holds the schema information for the "jobs" table.
@@ -70,18 +83,30 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "jobs_projects_jobs",
-				Columns:    []*schema.Column{JobsColumns[18]},
+				Columns:    []*schema.Column{JobsColumns[20]},
 				RefColumns: []*schema.Column{ProjectsColumns[0]},
-				OnDelete:   schema.NoAction,
+				OnDelete:   schema.Cascade,
 			},
 		},
 		Indexes: []*schema.Index{
 			{
 				Name:    "job_name_project_jobs",
 				Unique:  true,
-				Columns: []*schema.Column{JobsColumns[1], JobsColumns[18]},
+				Columns: []*schema.Column{JobsColumns[1], JobsColumns[20]},
 			},
 		},
+	}
+	// JobConfigsColumns holds the columns for the "job_configs" table.
+	JobConfigsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "max_concurrent_jobs", Type: field.TypeInt, Default: 100},
+		{Name: "default_timeout_seconds", Type: field.TypeInt, Default: 600},
+	}
+	// JobConfigsTable holds the schema information for the "job_configs" table.
+	JobConfigsTable = &schema.Table{
+		Name:       "job_configs",
+		Columns:    JobConfigsColumns,
+		PrimaryKey: []*schema.Column{JobConfigsColumns[0]},
 	}
 	// JobHistoriesColumns holds the columns for the "job_histories" table.
 	JobHistoriesColumns = []*schema.Column{
@@ -115,7 +140,7 @@ var (
 				Symbol:     "job_histories_projects_history",
 				Columns:    []*schema.Column{JobHistoriesColumns[12]},
 				RefColumns: []*schema.Column{ProjectsColumns[0]},
-				OnDelete:   schema.NoAction,
+				OnDelete:   schema.Cascade,
 			},
 		},
 		Indexes: []*schema.Index{
@@ -134,6 +159,16 @@ var (
 	// NotificationChannelsColumns holds the columns for the "notification_channels" table.
 	NotificationChannelsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "description", Type: field.TypeString, Nullable: true},
+		{Name: "type", Type: field.TypeEnum, Enums: []string{"discord", "slack", "email", "teams", "webhook", "pagerduty", "twilio_sms", "aws_sns", "aws_eventbridge"}},
+		{Name: "config", Type: field.TypeJSON, Nullable: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "enabled", Type: field.TypeBool, Default: true},
+		{Name: "retry_count", Type: field.TypeInt, Nullable: true, Default: 3},
+		{Name: "last_used", Type: field.TypeTime, Nullable: true},
+		{Name: "last_error", Type: field.TypeString, Nullable: true},
 	}
 	// NotificationChannelsTable holds the schema information for the "notification_channels" table.
 	NotificationChannelsTable = &schema.Table{
@@ -170,13 +205,52 @@ var (
 				Symbol:     "project_users_projects_projectUsers",
 				Columns:    []*schema.Column{ProjectUsersColumns[2]},
 				RefColumns: []*schema.Column{ProjectsColumns[0]},
-				OnDelete:   schema.NoAction,
+				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "project_users_users_projectUsers",
 				Columns:    []*schema.Column{ProjectUsersColumns[3]},
 				RefColumns: []*schema.Column{UsersColumns[0]},
-				OnDelete:   schema.NoAction,
+				OnDelete:   schema.Cascade,
+			},
+		},
+	}
+	// SMTPConfigsColumns holds the columns for the "smtp_configs" table.
+	SMTPConfigsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "smtp_server", Type: field.TypeString, Default: ""},
+		{Name: "smtp_port", Type: field.TypeInt, Default: 0},
+		{Name: "smtp_username", Type: field.TypeString, Default: ""},
+		{Name: "smtp_password", Type: field.TypeString, Default: ""},
+		{Name: "smtp_sender", Type: field.TypeString, Default: ""},
+		{Name: "smtp_tls", Type: field.TypeBool, Default: true},
+	}
+	// SMTPConfigsTable holds the schema information for the "smtp_configs" table.
+	SMTPConfigsTable = &schema.Table{
+		Name:       "smtp_configs",
+		Columns:    SMTPConfigsColumns,
+		PrimaryKey: []*schema.Column{SMTPConfigsColumns[0]},
+	}
+	// SecretsColumns holds the columns for the "secrets" table.
+	SecretsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "value", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "secret_project", Type: field.TypeInt, Nullable: true},
+	}
+	// SecretsTable holds the schema information for the "secrets" table.
+	SecretsTable = &schema.Table{
+		Name:       "secrets",
+		Columns:    SecretsColumns,
+		PrimaryKey: []*schema.Column{SecretsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "secrets_projects_project",
+				Columns:    []*schema.Column{SecretsColumns[5]},
+				RefColumns: []*schema.Column{ProjectsColumns[0]},
+				OnDelete:   schema.SetNull,
 			},
 		},
 	}
@@ -201,11 +275,15 @@ var (
 	Tables = []*schema.Table{
 		AuditsTable,
 		AuthConfigsTable,
+		DataConfigsTable,
 		JobsTable,
+		JobConfigsTable,
 		JobHistoriesTable,
 		NotificationChannelsTable,
 		ProjectsTable,
 		ProjectUsersTable,
+		SMTPConfigsTable,
+		SecretsTable,
 		UsersTable,
 	}
 )
@@ -216,4 +294,5 @@ func init() {
 	JobHistoriesTable.ForeignKeys[1].RefTable = ProjectsTable
 	ProjectUsersTable.ForeignKeys[0].RefTable = ProjectsTable
 	ProjectUsersTable.ForeignKeys[1].RefTable = UsersTable
+	SecretsTable.ForeignKeys[0].RefTable = ProjectsTable
 }

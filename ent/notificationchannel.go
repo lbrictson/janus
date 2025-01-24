@@ -3,19 +3,42 @@
 package ent
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
+	"time"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/lbrictson/janus/ent/notificationchannel"
+	"github.com/lbrictson/janus/ent/schema"
 )
 
 // NotificationChannel is the model entity for the NotificationChannel schema.
 type NotificationChannel struct {
-	config
+	config `json:"-"`
 	// ID of the ent.
-	ID           int `json:"id,omitempty"`
+	ID int `json:"id,omitempty"`
+	// Name holds the value of the "name" field.
+	Name string `json:"name,omitempty"`
+	// Description holds the value of the "description" field.
+	Description string `json:"description,omitempty"`
+	// Type holds the value of the "type" field.
+	Type schema.NotificationChannelType `json:"type,omitempty"`
+	// Config holds the value of the "config" field.
+	Config schema.ChannelConfig `json:"config,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt time.Time `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
+	// Enabled holds the value of the "enabled" field.
+	Enabled bool `json:"enabled,omitempty"`
+	// RetryCount holds the value of the "retry_count" field.
+	RetryCount int `json:"retry_count,omitempty"`
+	// LastUsed holds the value of the "last_used" field.
+	LastUsed time.Time `json:"last_used,omitempty"`
+	// LastError holds the value of the "last_error" field.
+	LastError    string `json:"last_error,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -24,8 +47,16 @@ func (*NotificationChannel) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case notificationchannel.FieldID:
+		case notificationchannel.FieldConfig:
+			values[i] = new([]byte)
+		case notificationchannel.FieldEnabled:
+			values[i] = new(sql.NullBool)
+		case notificationchannel.FieldID, notificationchannel.FieldRetryCount:
 			values[i] = new(sql.NullInt64)
+		case notificationchannel.FieldName, notificationchannel.FieldDescription, notificationchannel.FieldType, notificationchannel.FieldLastError:
+			values[i] = new(sql.NullString)
+		case notificationchannel.FieldCreatedAt, notificationchannel.FieldUpdatedAt, notificationchannel.FieldLastUsed:
+			values[i] = new(sql.NullTime)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -47,6 +78,68 @@ func (nc *NotificationChannel) assignValues(columns []string, values []any) erro
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			nc.ID = int(value.Int64)
+		case notificationchannel.FieldName:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field name", values[i])
+			} else if value.Valid {
+				nc.Name = value.String
+			}
+		case notificationchannel.FieldDescription:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field description", values[i])
+			} else if value.Valid {
+				nc.Description = value.String
+			}
+		case notificationchannel.FieldType:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field type", values[i])
+			} else if value.Valid {
+				nc.Type = schema.NotificationChannelType(value.String)
+			}
+		case notificationchannel.FieldConfig:
+			if value, ok := values[i].(*[]byte); !ok {
+				return fmt.Errorf("unexpected type %T for field config", values[i])
+			} else if value != nil && len(*value) > 0 {
+				if err := json.Unmarshal(*value, &nc.Config); err != nil {
+					return fmt.Errorf("unmarshal field config: %w", err)
+				}
+			}
+		case notificationchannel.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				nc.CreatedAt = value.Time
+			}
+		case notificationchannel.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				nc.UpdatedAt = value.Time
+			}
+		case notificationchannel.FieldEnabled:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field enabled", values[i])
+			} else if value.Valid {
+				nc.Enabled = value.Bool
+			}
+		case notificationchannel.FieldRetryCount:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field retry_count", values[i])
+			} else if value.Valid {
+				nc.RetryCount = int(value.Int64)
+			}
+		case notificationchannel.FieldLastUsed:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field last_used", values[i])
+			} else if value.Valid {
+				nc.LastUsed = value.Time
+			}
+		case notificationchannel.FieldLastError:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field last_error", values[i])
+			} else if value.Valid {
+				nc.LastError = value.String
+			}
 		default:
 			nc.selectValues.Set(columns[i], values[i])
 		}
@@ -82,7 +175,36 @@ func (nc *NotificationChannel) Unwrap() *NotificationChannel {
 func (nc *NotificationChannel) String() string {
 	var builder strings.Builder
 	builder.WriteString("NotificationChannel(")
-	builder.WriteString(fmt.Sprintf("id=%v", nc.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", nc.ID))
+	builder.WriteString("name=")
+	builder.WriteString(nc.Name)
+	builder.WriteString(", ")
+	builder.WriteString("description=")
+	builder.WriteString(nc.Description)
+	builder.WriteString(", ")
+	builder.WriteString("type=")
+	builder.WriteString(fmt.Sprintf("%v", nc.Type))
+	builder.WriteString(", ")
+	builder.WriteString("config=")
+	builder.WriteString(fmt.Sprintf("%v", nc.Config))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(nc.CreatedAt.Format(time.ANSIC))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(nc.UpdatedAt.Format(time.ANSIC))
+	builder.WriteString(", ")
+	builder.WriteString("enabled=")
+	builder.WriteString(fmt.Sprintf("%v", nc.Enabled))
+	builder.WriteString(", ")
+	builder.WriteString("retry_count=")
+	builder.WriteString(fmt.Sprintf("%v", nc.RetryCount))
+	builder.WriteString(", ")
+	builder.WriteString("last_used=")
+	builder.WriteString(nc.LastUsed.Format(time.ANSIC))
+	builder.WriteString(", ")
+	builder.WriteString("last_error=")
+	builder.WriteString(nc.LastError)
 	builder.WriteByte(')')
 	return builder.String()
 }

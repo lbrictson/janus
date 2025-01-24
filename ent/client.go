@@ -17,11 +17,15 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/lbrictson/janus/ent/audit"
 	"github.com/lbrictson/janus/ent/authconfig"
+	"github.com/lbrictson/janus/ent/dataconfig"
 	"github.com/lbrictson/janus/ent/job"
+	"github.com/lbrictson/janus/ent/jobconfig"
 	"github.com/lbrictson/janus/ent/jobhistory"
 	"github.com/lbrictson/janus/ent/notificationchannel"
 	"github.com/lbrictson/janus/ent/project"
 	"github.com/lbrictson/janus/ent/projectuser"
+	"github.com/lbrictson/janus/ent/secret"
+	"github.com/lbrictson/janus/ent/smtpconfig"
 	"github.com/lbrictson/janus/ent/user"
 )
 
@@ -34,8 +38,12 @@ type Client struct {
 	Audit *AuditClient
 	// AuthConfig is the client for interacting with the AuthConfig builders.
 	AuthConfig *AuthConfigClient
+	// DataConfig is the client for interacting with the DataConfig builders.
+	DataConfig *DataConfigClient
 	// Job is the client for interacting with the Job builders.
 	Job *JobClient
+	// JobConfig is the client for interacting with the JobConfig builders.
+	JobConfig *JobConfigClient
 	// JobHistory is the client for interacting with the JobHistory builders.
 	JobHistory *JobHistoryClient
 	// NotificationChannel is the client for interacting with the NotificationChannel builders.
@@ -44,6 +52,10 @@ type Client struct {
 	Project *ProjectClient
 	// ProjectUser is the client for interacting with the ProjectUser builders.
 	ProjectUser *ProjectUserClient
+	// SMTPConfig is the client for interacting with the SMTPConfig builders.
+	SMTPConfig *SMTPConfigClient
+	// Secret is the client for interacting with the Secret builders.
+	Secret *SecretClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
 }
@@ -59,11 +71,15 @@ func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
 	c.Audit = NewAuditClient(c.config)
 	c.AuthConfig = NewAuthConfigClient(c.config)
+	c.DataConfig = NewDataConfigClient(c.config)
 	c.Job = NewJobClient(c.config)
+	c.JobConfig = NewJobConfigClient(c.config)
 	c.JobHistory = NewJobHistoryClient(c.config)
 	c.NotificationChannel = NewNotificationChannelClient(c.config)
 	c.Project = NewProjectClient(c.config)
 	c.ProjectUser = NewProjectUserClient(c.config)
+	c.SMTPConfig = NewSMTPConfigClient(c.config)
+	c.Secret = NewSecretClient(c.config)
 	c.User = NewUserClient(c.config)
 }
 
@@ -159,11 +175,15 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		config:              cfg,
 		Audit:               NewAuditClient(cfg),
 		AuthConfig:          NewAuthConfigClient(cfg),
+		DataConfig:          NewDataConfigClient(cfg),
 		Job:                 NewJobClient(cfg),
+		JobConfig:           NewJobConfigClient(cfg),
 		JobHistory:          NewJobHistoryClient(cfg),
 		NotificationChannel: NewNotificationChannelClient(cfg),
 		Project:             NewProjectClient(cfg),
 		ProjectUser:         NewProjectUserClient(cfg),
+		SMTPConfig:          NewSMTPConfigClient(cfg),
+		Secret:              NewSecretClient(cfg),
 		User:                NewUserClient(cfg),
 	}, nil
 }
@@ -186,11 +206,15 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		config:              cfg,
 		Audit:               NewAuditClient(cfg),
 		AuthConfig:          NewAuthConfigClient(cfg),
+		DataConfig:          NewDataConfigClient(cfg),
 		Job:                 NewJobClient(cfg),
+		JobConfig:           NewJobConfigClient(cfg),
 		JobHistory:          NewJobHistoryClient(cfg),
 		NotificationChannel: NewNotificationChannelClient(cfg),
 		Project:             NewProjectClient(cfg),
 		ProjectUser:         NewProjectUserClient(cfg),
+		SMTPConfig:          NewSMTPConfigClient(cfg),
+		Secret:              NewSecretClient(cfg),
 		User:                NewUserClient(cfg),
 	}, nil
 }
@@ -221,8 +245,9 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
-		c.Audit, c.AuthConfig, c.Job, c.JobHistory, c.NotificationChannel, c.Project,
-		c.ProjectUser, c.User,
+		c.Audit, c.AuthConfig, c.DataConfig, c.Job, c.JobConfig, c.JobHistory,
+		c.NotificationChannel, c.Project, c.ProjectUser, c.SMTPConfig, c.Secret,
+		c.User,
 	} {
 		n.Use(hooks...)
 	}
@@ -232,8 +257,9 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.Audit, c.AuthConfig, c.Job, c.JobHistory, c.NotificationChannel, c.Project,
-		c.ProjectUser, c.User,
+		c.Audit, c.AuthConfig, c.DataConfig, c.Job, c.JobConfig, c.JobHistory,
+		c.NotificationChannel, c.Project, c.ProjectUser, c.SMTPConfig, c.Secret,
+		c.User,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -246,8 +272,12 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.Audit.mutate(ctx, m)
 	case *AuthConfigMutation:
 		return c.AuthConfig.mutate(ctx, m)
+	case *DataConfigMutation:
+		return c.DataConfig.mutate(ctx, m)
 	case *JobMutation:
 		return c.Job.mutate(ctx, m)
+	case *JobConfigMutation:
+		return c.JobConfig.mutate(ctx, m)
 	case *JobHistoryMutation:
 		return c.JobHistory.mutate(ctx, m)
 	case *NotificationChannelMutation:
@@ -256,6 +286,10 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.Project.mutate(ctx, m)
 	case *ProjectUserMutation:
 		return c.ProjectUser.mutate(ctx, m)
+	case *SMTPConfigMutation:
+		return c.SMTPConfig.mutate(ctx, m)
+	case *SecretMutation:
+		return c.Secret.mutate(ctx, m)
 	case *UserMutation:
 		return c.User.mutate(ctx, m)
 	default:
@@ -529,6 +563,139 @@ func (c *AuthConfigClient) mutate(ctx context.Context, m *AuthConfigMutation) (V
 	}
 }
 
+// DataConfigClient is a client for the DataConfig schema.
+type DataConfigClient struct {
+	config
+}
+
+// NewDataConfigClient returns a client for the DataConfig from the given config.
+func NewDataConfigClient(c config) *DataConfigClient {
+	return &DataConfigClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `dataconfig.Hooks(f(g(h())))`.
+func (c *DataConfigClient) Use(hooks ...Hook) {
+	c.hooks.DataConfig = append(c.hooks.DataConfig, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `dataconfig.Intercept(f(g(h())))`.
+func (c *DataConfigClient) Intercept(interceptors ...Interceptor) {
+	c.inters.DataConfig = append(c.inters.DataConfig, interceptors...)
+}
+
+// Create returns a builder for creating a DataConfig entity.
+func (c *DataConfigClient) Create() *DataConfigCreate {
+	mutation := newDataConfigMutation(c.config, OpCreate)
+	return &DataConfigCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of DataConfig entities.
+func (c *DataConfigClient) CreateBulk(builders ...*DataConfigCreate) *DataConfigCreateBulk {
+	return &DataConfigCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *DataConfigClient) MapCreateBulk(slice any, setFunc func(*DataConfigCreate, int)) *DataConfigCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &DataConfigCreateBulk{err: fmt.Errorf("calling to DataConfigClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*DataConfigCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &DataConfigCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for DataConfig.
+func (c *DataConfigClient) Update() *DataConfigUpdate {
+	mutation := newDataConfigMutation(c.config, OpUpdate)
+	return &DataConfigUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *DataConfigClient) UpdateOne(dc *DataConfig) *DataConfigUpdateOne {
+	mutation := newDataConfigMutation(c.config, OpUpdateOne, withDataConfig(dc))
+	return &DataConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *DataConfigClient) UpdateOneID(id int) *DataConfigUpdateOne {
+	mutation := newDataConfigMutation(c.config, OpUpdateOne, withDataConfigID(id))
+	return &DataConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for DataConfig.
+func (c *DataConfigClient) Delete() *DataConfigDelete {
+	mutation := newDataConfigMutation(c.config, OpDelete)
+	return &DataConfigDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *DataConfigClient) DeleteOne(dc *DataConfig) *DataConfigDeleteOne {
+	return c.DeleteOneID(dc.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *DataConfigClient) DeleteOneID(id int) *DataConfigDeleteOne {
+	builder := c.Delete().Where(dataconfig.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &DataConfigDeleteOne{builder}
+}
+
+// Query returns a query builder for DataConfig.
+func (c *DataConfigClient) Query() *DataConfigQuery {
+	return &DataConfigQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeDataConfig},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a DataConfig entity by its id.
+func (c *DataConfigClient) Get(ctx context.Context, id int) (*DataConfig, error) {
+	return c.Query().Where(dataconfig.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *DataConfigClient) GetX(ctx context.Context, id int) *DataConfig {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *DataConfigClient) Hooks() []Hook {
+	return c.hooks.DataConfig
+}
+
+// Interceptors returns the client interceptors.
+func (c *DataConfigClient) Interceptors() []Interceptor {
+	return c.inters.DataConfig
+}
+
+func (c *DataConfigClient) mutate(ctx context.Context, m *DataConfigMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&DataConfigCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&DataConfigUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&DataConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&DataConfigDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown DataConfig mutation op: %q", m.Op())
+	}
+}
+
 // JobClient is a client for the Job schema.
 type JobClient struct {
 	config
@@ -691,6 +858,139 @@ func (c *JobClient) mutate(ctx context.Context, m *JobMutation) (Value, error) {
 		return (&JobDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
 		return nil, fmt.Errorf("ent: unknown Job mutation op: %q", m.Op())
+	}
+}
+
+// JobConfigClient is a client for the JobConfig schema.
+type JobConfigClient struct {
+	config
+}
+
+// NewJobConfigClient returns a client for the JobConfig from the given config.
+func NewJobConfigClient(c config) *JobConfigClient {
+	return &JobConfigClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `jobconfig.Hooks(f(g(h())))`.
+func (c *JobConfigClient) Use(hooks ...Hook) {
+	c.hooks.JobConfig = append(c.hooks.JobConfig, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `jobconfig.Intercept(f(g(h())))`.
+func (c *JobConfigClient) Intercept(interceptors ...Interceptor) {
+	c.inters.JobConfig = append(c.inters.JobConfig, interceptors...)
+}
+
+// Create returns a builder for creating a JobConfig entity.
+func (c *JobConfigClient) Create() *JobConfigCreate {
+	mutation := newJobConfigMutation(c.config, OpCreate)
+	return &JobConfigCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of JobConfig entities.
+func (c *JobConfigClient) CreateBulk(builders ...*JobConfigCreate) *JobConfigCreateBulk {
+	return &JobConfigCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *JobConfigClient) MapCreateBulk(slice any, setFunc func(*JobConfigCreate, int)) *JobConfigCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &JobConfigCreateBulk{err: fmt.Errorf("calling to JobConfigClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*JobConfigCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &JobConfigCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for JobConfig.
+func (c *JobConfigClient) Update() *JobConfigUpdate {
+	mutation := newJobConfigMutation(c.config, OpUpdate)
+	return &JobConfigUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *JobConfigClient) UpdateOne(jc *JobConfig) *JobConfigUpdateOne {
+	mutation := newJobConfigMutation(c.config, OpUpdateOne, withJobConfig(jc))
+	return &JobConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *JobConfigClient) UpdateOneID(id int) *JobConfigUpdateOne {
+	mutation := newJobConfigMutation(c.config, OpUpdateOne, withJobConfigID(id))
+	return &JobConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for JobConfig.
+func (c *JobConfigClient) Delete() *JobConfigDelete {
+	mutation := newJobConfigMutation(c.config, OpDelete)
+	return &JobConfigDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *JobConfigClient) DeleteOne(jc *JobConfig) *JobConfigDeleteOne {
+	return c.DeleteOneID(jc.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *JobConfigClient) DeleteOneID(id int) *JobConfigDeleteOne {
+	builder := c.Delete().Where(jobconfig.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &JobConfigDeleteOne{builder}
+}
+
+// Query returns a query builder for JobConfig.
+func (c *JobConfigClient) Query() *JobConfigQuery {
+	return &JobConfigQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeJobConfig},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a JobConfig entity by its id.
+func (c *JobConfigClient) Get(ctx context.Context, id int) (*JobConfig, error) {
+	return c.Query().Where(jobconfig.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *JobConfigClient) GetX(ctx context.Context, id int) *JobConfig {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *JobConfigClient) Hooks() []Hook {
+	return c.hooks.JobConfig
+}
+
+// Interceptors returns the client interceptors.
+func (c *JobConfigClient) Interceptors() []Interceptor {
+	return c.inters.JobConfig
+}
+
+func (c *JobConfigClient) mutate(ctx context.Context, m *JobConfigMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&JobConfigCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&JobConfigUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&JobConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&JobConfigDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown JobConfig mutation op: %q", m.Op())
 	}
 }
 
@@ -1338,6 +1638,288 @@ func (c *ProjectUserClient) mutate(ctx context.Context, m *ProjectUserMutation) 
 	}
 }
 
+// SMTPConfigClient is a client for the SMTPConfig schema.
+type SMTPConfigClient struct {
+	config
+}
+
+// NewSMTPConfigClient returns a client for the SMTPConfig from the given config.
+func NewSMTPConfigClient(c config) *SMTPConfigClient {
+	return &SMTPConfigClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `smtpconfig.Hooks(f(g(h())))`.
+func (c *SMTPConfigClient) Use(hooks ...Hook) {
+	c.hooks.SMTPConfig = append(c.hooks.SMTPConfig, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `smtpconfig.Intercept(f(g(h())))`.
+func (c *SMTPConfigClient) Intercept(interceptors ...Interceptor) {
+	c.inters.SMTPConfig = append(c.inters.SMTPConfig, interceptors...)
+}
+
+// Create returns a builder for creating a SMTPConfig entity.
+func (c *SMTPConfigClient) Create() *SMTPConfigCreate {
+	mutation := newSMTPConfigMutation(c.config, OpCreate)
+	return &SMTPConfigCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of SMTPConfig entities.
+func (c *SMTPConfigClient) CreateBulk(builders ...*SMTPConfigCreate) *SMTPConfigCreateBulk {
+	return &SMTPConfigCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *SMTPConfigClient) MapCreateBulk(slice any, setFunc func(*SMTPConfigCreate, int)) *SMTPConfigCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &SMTPConfigCreateBulk{err: fmt.Errorf("calling to SMTPConfigClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*SMTPConfigCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &SMTPConfigCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for SMTPConfig.
+func (c *SMTPConfigClient) Update() *SMTPConfigUpdate {
+	mutation := newSMTPConfigMutation(c.config, OpUpdate)
+	return &SMTPConfigUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *SMTPConfigClient) UpdateOne(sc *SMTPConfig) *SMTPConfigUpdateOne {
+	mutation := newSMTPConfigMutation(c.config, OpUpdateOne, withSMTPConfig(sc))
+	return &SMTPConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *SMTPConfigClient) UpdateOneID(id int) *SMTPConfigUpdateOne {
+	mutation := newSMTPConfigMutation(c.config, OpUpdateOne, withSMTPConfigID(id))
+	return &SMTPConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for SMTPConfig.
+func (c *SMTPConfigClient) Delete() *SMTPConfigDelete {
+	mutation := newSMTPConfigMutation(c.config, OpDelete)
+	return &SMTPConfigDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *SMTPConfigClient) DeleteOne(sc *SMTPConfig) *SMTPConfigDeleteOne {
+	return c.DeleteOneID(sc.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *SMTPConfigClient) DeleteOneID(id int) *SMTPConfigDeleteOne {
+	builder := c.Delete().Where(smtpconfig.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &SMTPConfigDeleteOne{builder}
+}
+
+// Query returns a query builder for SMTPConfig.
+func (c *SMTPConfigClient) Query() *SMTPConfigQuery {
+	return &SMTPConfigQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeSMTPConfig},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a SMTPConfig entity by its id.
+func (c *SMTPConfigClient) Get(ctx context.Context, id int) (*SMTPConfig, error) {
+	return c.Query().Where(smtpconfig.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *SMTPConfigClient) GetX(ctx context.Context, id int) *SMTPConfig {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *SMTPConfigClient) Hooks() []Hook {
+	return c.hooks.SMTPConfig
+}
+
+// Interceptors returns the client interceptors.
+func (c *SMTPConfigClient) Interceptors() []Interceptor {
+	return c.inters.SMTPConfig
+}
+
+func (c *SMTPConfigClient) mutate(ctx context.Context, m *SMTPConfigMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&SMTPConfigCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&SMTPConfigUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&SMTPConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&SMTPConfigDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown SMTPConfig mutation op: %q", m.Op())
+	}
+}
+
+// SecretClient is a client for the Secret schema.
+type SecretClient struct {
+	config
+}
+
+// NewSecretClient returns a client for the Secret from the given config.
+func NewSecretClient(c config) *SecretClient {
+	return &SecretClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `secret.Hooks(f(g(h())))`.
+func (c *SecretClient) Use(hooks ...Hook) {
+	c.hooks.Secret = append(c.hooks.Secret, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `secret.Intercept(f(g(h())))`.
+func (c *SecretClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Secret = append(c.inters.Secret, interceptors...)
+}
+
+// Create returns a builder for creating a Secret entity.
+func (c *SecretClient) Create() *SecretCreate {
+	mutation := newSecretMutation(c.config, OpCreate)
+	return &SecretCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Secret entities.
+func (c *SecretClient) CreateBulk(builders ...*SecretCreate) *SecretCreateBulk {
+	return &SecretCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *SecretClient) MapCreateBulk(slice any, setFunc func(*SecretCreate, int)) *SecretCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &SecretCreateBulk{err: fmt.Errorf("calling to SecretClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*SecretCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &SecretCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Secret.
+func (c *SecretClient) Update() *SecretUpdate {
+	mutation := newSecretMutation(c.config, OpUpdate)
+	return &SecretUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *SecretClient) UpdateOne(s *Secret) *SecretUpdateOne {
+	mutation := newSecretMutation(c.config, OpUpdateOne, withSecret(s))
+	return &SecretUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *SecretClient) UpdateOneID(id int) *SecretUpdateOne {
+	mutation := newSecretMutation(c.config, OpUpdateOne, withSecretID(id))
+	return &SecretUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Secret.
+func (c *SecretClient) Delete() *SecretDelete {
+	mutation := newSecretMutation(c.config, OpDelete)
+	return &SecretDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *SecretClient) DeleteOne(s *Secret) *SecretDeleteOne {
+	return c.DeleteOneID(s.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *SecretClient) DeleteOneID(id int) *SecretDeleteOne {
+	builder := c.Delete().Where(secret.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &SecretDeleteOne{builder}
+}
+
+// Query returns a query builder for Secret.
+func (c *SecretClient) Query() *SecretQuery {
+	return &SecretQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeSecret},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a Secret entity by its id.
+func (c *SecretClient) Get(ctx context.Context, id int) (*Secret, error) {
+	return c.Query().Where(secret.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *SecretClient) GetX(ctx context.Context, id int) *Secret {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// QueryProject queries the project edge of a Secret.
+func (c *SecretClient) QueryProject(s *Secret) *ProjectQuery {
+	query := (&ProjectClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := s.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(secret.Table, secret.FieldID, id),
+			sqlgraph.To(project.Table, project.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, secret.ProjectTable, secret.ProjectColumn),
+		)
+		fromV = sqlgraph.Neighbors(s.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// Hooks returns the client hooks.
+func (c *SecretClient) Hooks() []Hook {
+	return c.hooks.Secret
+}
+
+// Interceptors returns the client interceptors.
+func (c *SecretClient) Interceptors() []Interceptor {
+	return c.inters.Secret
+}
+
+func (c *SecretClient) mutate(ctx context.Context, m *SecretMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&SecretCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&SecretUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&SecretUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&SecretDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Secret mutation op: %q", m.Op())
+	}
+}
+
 // UserClient is a client for the User schema.
 type UserClient struct {
 	config
@@ -1490,11 +2072,11 @@ func (c *UserClient) mutate(ctx context.Context, m *UserMutation) (Value, error)
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		Audit, AuthConfig, Job, JobHistory, NotificationChannel, Project, ProjectUser,
-		User []ent.Hook
+		Audit, AuthConfig, DataConfig, Job, JobConfig, JobHistory, NotificationChannel,
+		Project, ProjectUser, SMTPConfig, Secret, User []ent.Hook
 	}
 	inters struct {
-		Audit, AuthConfig, Job, JobHistory, NotificationChannel, Project, ProjectUser,
-		User []ent.Interceptor
+		Audit, AuthConfig, DataConfig, Job, JobConfig, JobHistory, NotificationChannel,
+		Project, ProjectUser, SMTPConfig, Secret, User []ent.Interceptor
 	}
 )

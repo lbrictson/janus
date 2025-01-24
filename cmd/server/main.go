@@ -33,7 +33,12 @@ func main() {
 	if err := pkg.ExecuteSeeds(context.Background(), db, c); err != nil {
 		panic(fmt.Sprintf("failed to seed database with initial data: %v", err))
 	}
-	slog.Info("start webserver")
+	if !c.DisableMetrics {
+		go pkg.RunMetricsListener(c.MetricsPort)
+	}
+	slog.Info("starting webserver")
+	go pkg.RunStaleJobCleaner(db, *c)
+	go pkg.RunJobCleaner(db, *c)
 	pkg.RunServer(c, db)
 }
 

@@ -6,10 +6,15 @@ import (
 	"time"
 
 	"github.com/lbrictson/janus/ent/authconfig"
+	"github.com/lbrictson/janus/ent/dataconfig"
 	"github.com/lbrictson/janus/ent/job"
+	"github.com/lbrictson/janus/ent/jobconfig"
 	"github.com/lbrictson/janus/ent/jobhistory"
+	"github.com/lbrictson/janus/ent/notificationchannel"
 	"github.com/lbrictson/janus/ent/projectuser"
 	"github.com/lbrictson/janus/ent/schema"
+	"github.com/lbrictson/janus/ent/secret"
+	"github.com/lbrictson/janus/ent/smtpconfig"
 	"github.com/lbrictson/janus/ent/user"
 )
 
@@ -67,6 +72,12 @@ func init() {
 	authconfigDescSessionKey := authconfigFields[11].Descriptor()
 	// authconfig.DefaultSessionKey holds the default value on creation for the session_key field.
 	authconfig.DefaultSessionKey = authconfigDescSessionKey.Default.([]byte)
+	dataconfigFields := schema.DataConfig{}.Fields()
+	_ = dataconfigFields
+	// dataconfigDescDaysToKeep is the schema descriptor for days_to_keep field.
+	dataconfigDescDaysToKeep := dataconfigFields[0].Descriptor()
+	// dataconfig.DefaultDaysToKeep holds the default value on creation for the days_to_keep field.
+	dataconfig.DefaultDaysToKeep = dataconfigDescDaysToKeep.Default.(int)
 	jobFields := schema.Job{}.Fields()
 	_ = jobFields
 	// jobDescName is the schema descriptor for name field.
@@ -102,9 +113,23 @@ func init() {
 	// job.DefaultCreatedAt holds the default value on creation for the created_at field.
 	job.DefaultCreatedAt = jobDescCreatedAt.Default.(func() time.Time)
 	// jobDescLastRunSuccess is the schema descriptor for last_run_success field.
-	jobDescLastRunSuccess := jobFields[16].Descriptor()
+	jobDescLastRunSuccess := jobFields[17].Descriptor()
 	// job.DefaultLastRunSuccess holds the default value on creation for the last_run_success field.
 	job.DefaultLastRunSuccess = jobDescLastRunSuccess.Default.(bool)
+	// jobDescCreatedByAPI is the schema descriptor for created_by_api field.
+	jobDescCreatedByAPI := jobFields[18].Descriptor()
+	// job.DefaultCreatedByAPI holds the default value on creation for the created_by_api field.
+	job.DefaultCreatedByAPI = jobDescCreatedByAPI.Default.(bool)
+	jobconfigFields := schema.JobConfig{}.Fields()
+	_ = jobconfigFields
+	// jobconfigDescMaxConcurrentJobs is the schema descriptor for max_concurrent_jobs field.
+	jobconfigDescMaxConcurrentJobs := jobconfigFields[0].Descriptor()
+	// jobconfig.DefaultMaxConcurrentJobs holds the default value on creation for the max_concurrent_jobs field.
+	jobconfig.DefaultMaxConcurrentJobs = jobconfigDescMaxConcurrentJobs.Default.(int)
+	// jobconfigDescDefaultTimeoutSeconds is the schema descriptor for default_timeout_seconds field.
+	jobconfigDescDefaultTimeoutSeconds := jobconfigFields[1].Descriptor()
+	// jobconfig.DefaultDefaultTimeoutSeconds holds the default value on creation for the default_timeout_seconds field.
+	jobconfig.DefaultDefaultTimeoutSeconds = jobconfigDescDefaultTimeoutSeconds.Default.(int)
 	jobhistoryFields := schema.JobHistory{}.Fields()
 	_ = jobhistoryFields
 	// jobhistoryDescOutput is the schema descriptor for output field.
@@ -123,12 +148,74 @@ func init() {
 	jobhistoryDescTrigger := jobhistoryFields[9].Descriptor()
 	// jobhistory.DefaultTrigger holds the default value on creation for the trigger field.
 	jobhistory.DefaultTrigger = jobhistoryDescTrigger.Default.(string)
+	notificationchannelFields := schema.NotificationChannel{}.Fields()
+	_ = notificationchannelFields
+	// notificationchannelDescName is the schema descriptor for name field.
+	notificationchannelDescName := notificationchannelFields[0].Descriptor()
+	// notificationchannel.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	notificationchannel.NameValidator = notificationchannelDescName.Validators[0].(func(string) error)
+	// notificationchannelDescCreatedAt is the schema descriptor for created_at field.
+	notificationchannelDescCreatedAt := notificationchannelFields[4].Descriptor()
+	// notificationchannel.DefaultCreatedAt holds the default value on creation for the created_at field.
+	notificationchannel.DefaultCreatedAt = notificationchannelDescCreatedAt.Default.(func() time.Time)
+	// notificationchannelDescUpdatedAt is the schema descriptor for updated_at field.
+	notificationchannelDescUpdatedAt := notificationchannelFields[5].Descriptor()
+	// notificationchannel.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	notificationchannel.DefaultUpdatedAt = notificationchannelDescUpdatedAt.Default.(func() time.Time)
+	// notificationchannel.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	notificationchannel.UpdateDefaultUpdatedAt = notificationchannelDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// notificationchannelDescEnabled is the schema descriptor for enabled field.
+	notificationchannelDescEnabled := notificationchannelFields[6].Descriptor()
+	// notificationchannel.DefaultEnabled holds the default value on creation for the enabled field.
+	notificationchannel.DefaultEnabled = notificationchannelDescEnabled.Default.(bool)
+	// notificationchannelDescRetryCount is the schema descriptor for retry_count field.
+	notificationchannelDescRetryCount := notificationchannelFields[7].Descriptor()
+	// notificationchannel.DefaultRetryCount holds the default value on creation for the retry_count field.
+	notificationchannel.DefaultRetryCount = notificationchannelDescRetryCount.Default.(int)
 	projectuserFields := schema.ProjectUser{}.Fields()
 	_ = projectuserFields
 	// projectuserDescCanEdit is the schema descriptor for can_edit field.
 	projectuserDescCanEdit := projectuserFields[0].Descriptor()
 	// projectuser.DefaultCanEdit holds the default value on creation for the can_edit field.
 	projectuser.DefaultCanEdit = projectuserDescCanEdit.Default.(bool)
+	smtpconfigFields := schema.SMTPConfig{}.Fields()
+	_ = smtpconfigFields
+	// smtpconfigDescSMTPServer is the schema descriptor for smtp_server field.
+	smtpconfigDescSMTPServer := smtpconfigFields[0].Descriptor()
+	// smtpconfig.DefaultSMTPServer holds the default value on creation for the smtp_server field.
+	smtpconfig.DefaultSMTPServer = smtpconfigDescSMTPServer.Default.(string)
+	// smtpconfigDescSMTPPort is the schema descriptor for smtp_port field.
+	smtpconfigDescSMTPPort := smtpconfigFields[1].Descriptor()
+	// smtpconfig.DefaultSMTPPort holds the default value on creation for the smtp_port field.
+	smtpconfig.DefaultSMTPPort = smtpconfigDescSMTPPort.Default.(int)
+	// smtpconfigDescSMTPUsername is the schema descriptor for smtp_username field.
+	smtpconfigDescSMTPUsername := smtpconfigFields[2].Descriptor()
+	// smtpconfig.DefaultSMTPUsername holds the default value on creation for the smtp_username field.
+	smtpconfig.DefaultSMTPUsername = smtpconfigDescSMTPUsername.Default.(string)
+	// smtpconfigDescSMTPPassword is the schema descriptor for smtp_password field.
+	smtpconfigDescSMTPPassword := smtpconfigFields[3].Descriptor()
+	// smtpconfig.DefaultSMTPPassword holds the default value on creation for the smtp_password field.
+	smtpconfig.DefaultSMTPPassword = smtpconfigDescSMTPPassword.Default.(string)
+	// smtpconfigDescSMTPSender is the schema descriptor for smtp_sender field.
+	smtpconfigDescSMTPSender := smtpconfigFields[4].Descriptor()
+	// smtpconfig.DefaultSMTPSender holds the default value on creation for the smtp_sender field.
+	smtpconfig.DefaultSMTPSender = smtpconfigDescSMTPSender.Default.(string)
+	// smtpconfigDescSMTPTLS is the schema descriptor for smtp_tls field.
+	smtpconfigDescSMTPTLS := smtpconfigFields[5].Descriptor()
+	// smtpconfig.DefaultSMTPTLS holds the default value on creation for the smtp_tls field.
+	smtpconfig.DefaultSMTPTLS = smtpconfigDescSMTPTLS.Default.(bool)
+	secretFields := schema.Secret{}.Fields()
+	_ = secretFields
+	// secretDescCreatedAt is the schema descriptor for created_at field.
+	secretDescCreatedAt := secretFields[2].Descriptor()
+	// secret.DefaultCreatedAt holds the default value on creation for the created_at field.
+	secret.DefaultCreatedAt = secretDescCreatedAt.Default.(func() time.Time)
+	// secretDescUpdatedAt is the schema descriptor for updated_at field.
+	secretDescUpdatedAt := secretFields[3].Descriptor()
+	// secret.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	secret.DefaultUpdatedAt = secretDescUpdatedAt.Default.(func() time.Time)
+	// secret.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	secret.UpdateDefaultUpdatedAt = secretDescUpdatedAt.UpdateDefault.(func() time.Time)
 	userFields := schema.User{}.Fields()
 	_ = userFields
 	// userDescAdmin is the schema descriptor for admin field.

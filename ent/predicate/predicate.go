@@ -12,8 +12,14 @@ type Audit func(*sql.Selector)
 // AuthConfig is the predicate function for authconfig builders.
 type AuthConfig func(*sql.Selector)
 
+// DataConfig is the predicate function for dataconfig builders.
+type DataConfig func(*sql.Selector)
+
 // Job is the predicate function for job builders.
 type Job func(*sql.Selector)
+
+// JobConfig is the predicate function for jobconfig builders.
+type JobConfig func(*sql.Selector)
 
 // JobHistory is the predicate function for jobhistory builders.
 type JobHistory func(*sql.Selector)
@@ -26,6 +32,12 @@ type Project func(*sql.Selector)
 
 // ProjectUser is the predicate function for projectuser builders.
 type ProjectUser func(*sql.Selector)
+
+// SMTPConfig is the predicate function for smtpconfig builders.
+type SMTPConfig func(*sql.Selector)
+
+// Secret is the predicate function for secret builders.
+type Secret func(*sql.Selector)
 
 // User is the predicate function for user builders.
 type User func(*sql.Selector)

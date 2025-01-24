@@ -288,6 +288,20 @@ func (ju *JobUpdate) SetNillableNextCronRunTime(t *time.Time) *JobUpdate {
 	return ju
 }
 
+// SetScript sets the "script" field.
+func (ju *JobUpdate) SetScript(s string) *JobUpdate {
+	ju.mutation.SetScript(s)
+	return ju
+}
+
+// SetNillableScript sets the "script" field if the given value is not nil.
+func (ju *JobUpdate) SetNillableScript(s *string) *JobUpdate {
+	if s != nil {
+		ju.SetScript(*s)
+	}
+	return ju
+}
+
 // SetLastRunSuccess sets the "last_run_success" field.
 func (ju *JobUpdate) SetLastRunSuccess(b bool) *JobUpdate {
 	ju.mutation.SetLastRunSuccess(b)
@@ -298,6 +312,20 @@ func (ju *JobUpdate) SetLastRunSuccess(b bool) *JobUpdate {
 func (ju *JobUpdate) SetNillableLastRunSuccess(b *bool) *JobUpdate {
 	if b != nil {
 		ju.SetLastRunSuccess(*b)
+	}
+	return ju
+}
+
+// SetCreatedByAPI sets the "created_by_api" field.
+func (ju *JobUpdate) SetCreatedByAPI(b bool) *JobUpdate {
+	ju.mutation.SetCreatedByAPI(b)
+	return ju
+}
+
+// SetNillableCreatedByAPI sets the "created_by_api" field if the given value is not nil.
+func (ju *JobUpdate) SetNillableCreatedByAPI(b *bool) *JobUpdate {
+	if b != nil {
+		ju.SetCreatedByAPI(*b)
 	}
 	return ju
 }
@@ -516,8 +544,14 @@ func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := ju.mutation.NextCronRunTime(); ok {
 		_spec.SetField(job.FieldNextCronRunTime, field.TypeTime, value)
 	}
+	if value, ok := ju.mutation.Script(); ok {
+		_spec.SetField(job.FieldScript, field.TypeString, value)
+	}
 	if value, ok := ju.mutation.LastRunSuccess(); ok {
 		_spec.SetField(job.FieldLastRunSuccess, field.TypeBool, value)
+	}
+	if value, ok := ju.mutation.CreatedByAPI(); ok {
+		_spec.SetField(job.FieldCreatedByAPI, field.TypeBool, value)
 	}
 	if ju.mutation.ProjectCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -869,6 +903,20 @@ func (juo *JobUpdateOne) SetNillableNextCronRunTime(t *time.Time) *JobUpdateOne 
 	return juo
 }
 
+// SetScript sets the "script" field.
+func (juo *JobUpdateOne) SetScript(s string) *JobUpdateOne {
+	juo.mutation.SetScript(s)
+	return juo
+}
+
+// SetNillableScript sets the "script" field if the given value is not nil.
+func (juo *JobUpdateOne) SetNillableScript(s *string) *JobUpdateOne {
+	if s != nil {
+		juo.SetScript(*s)
+	}
+	return juo
+}
+
 // SetLastRunSuccess sets the "last_run_success" field.
 func (juo *JobUpdateOne) SetLastRunSuccess(b bool) *JobUpdateOne {
 	juo.mutation.SetLastRunSuccess(b)
@@ -879,6 +927,20 @@ func (juo *JobUpdateOne) SetLastRunSuccess(b bool) *JobUpdateOne {
 func (juo *JobUpdateOne) SetNillableLastRunSuccess(b *bool) *JobUpdateOne {
 	if b != nil {
 		juo.SetLastRunSuccess(*b)
+	}
+	return juo
+}
+
+// SetCreatedByAPI sets the "created_by_api" field.
+func (juo *JobUpdateOne) SetCreatedByAPI(b bool) *JobUpdateOne {
+	juo.mutation.SetCreatedByAPI(b)
+	return juo
+}
+
+// SetNillableCreatedByAPI sets the "created_by_api" field if the given value is not nil.
+func (juo *JobUpdateOne) SetNillableCreatedByAPI(b *bool) *JobUpdateOne {
+	if b != nil {
+		juo.SetCreatedByAPI(*b)
 	}
 	return juo
 }
@@ -1127,8 +1189,14 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 	if value, ok := juo.mutation.NextCronRunTime(); ok {
 		_spec.SetField(job.FieldNextCronRunTime, field.TypeTime, value)
 	}
+	if value, ok := juo.mutation.Script(); ok {
+		_spec.SetField(job.FieldScript, field.TypeString, value)
+	}
 	if value, ok := juo.mutation.LastRunSuccess(); ok {
 		_spec.SetField(job.FieldLastRunSuccess, field.TypeBool, value)
+	}
+	if value, ok := juo.mutation.CreatedByAPI(); ok {
+		_spec.SetField(job.FieldCreatedByAPI, field.TypeBool, value)
 	}
 	if juo.mutation.ProjectCleared() {
 		edge := &sqlgraph.EdgeSpec{
