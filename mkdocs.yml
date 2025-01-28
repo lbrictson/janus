@@ -2,6 +2,7 @@ site_name: Janus
 site_url: https://github.com/lbrictson/janus
 repo_url: https://github.com/lbrictson/janus
 edit_uri: edit/main/docs/
+docs_dir: ./docs/
 theme:
   name: material
   icon:
