@@ -1,9 +1,15 @@
 site_name: Janus
 site_url: https://github.com/lbrictson/janus
+repo_url: https://github.com/lbrictson/janus
+edit_uri: edit/main/docs/
 theme:
   name: material
+  icon:
+    repo: fontawesome/brands/github
   palette:
     scheme: slate
+  features:
+    - content.action.edit
 nav:
   - About: index.md
   - Getting Started:
@@ -31,8 +37,6 @@ nav:
     - SMS (Twilio): notifications/twilio.md
     - AWS SNS: notifications/aws-sns.md
     - AWS EventBridge: notifications/aws-eventbridge.md
-  - API:
-    - Authentication: api/authentication.md
-    - Project API: api/project-api.md
-    - Job API: api/job-api.md
-    - User API: api/user-api.md
+  - Configuration:
+    - Runtime Config: configuration/runtime-config.md
+    - Admin Config: configuration/admin-config.md

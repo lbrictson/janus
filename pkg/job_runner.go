@@ -345,6 +345,7 @@ func executeScript(ctx context.Context, script string, runID int, environmentVar
 	// Wait for command to complete
 	if err := cmd.Wait(); err != nil {
 		slog.Error("Command failed", "error", err)
+		os.RemoveAll(dir)
 		return 1, fmt.Errorf("command failed: %w", err)
 	}
 
@@ -352,8 +353,10 @@ func executeScript(ctx context.Context, script string, runID int, environmentVar
 	select {
 	case err := <-errorChan:
 		slog.Error("Streaming error", "error", err)
+		os.RemoveAll(dir)
 		return 1, fmt.Errorf("streaming error: %w", err)
 	default:
+		os.RemoveAll(dir)
 		return 0, nil
 	}
 }
