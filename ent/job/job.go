@@ -56,6 +56,8 @@ const (
 	EdgeProject = "project"
 	// EdgeHistory holds the string denoting the history edge name in mutations.
 	EdgeHistory = "history"
+	// EdgeVersions holds the string denoting the versions edge name in mutations.
+	EdgeVersions = "versions"
 	// Table holds the table name of the job in the database.
 	Table = "jobs"
 	// ProjectTable is the table that holds the project relation/edge.
@@ -72,6 +74,13 @@ const (
 	HistoryInverseTable = "job_histories"
 	// HistoryColumn is the table column denoting the history relation/edge.
 	HistoryColumn = "job_history"
+	// VersionsTable is the table that holds the versions relation/edge.
+	VersionsTable = "job_versions"
+	// VersionsInverseTable is the table name for the JobVersion entity.
+	// It exists in this package in order to avoid circular dependency with the "jobversion" package.
+	VersionsInverseTable = "job_versions"
+	// VersionsColumn is the table column denoting the versions relation/edge.
+	VersionsColumn = "job_versions"
 )
 
 // Columns holds all SQL columns for job fields.
@@ -245,6 +254,20 @@ func ByHistory(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
 		sqlgraph.OrderByNeighborTerms(s, newHistoryStep(), append([]sql.OrderTerm{term}, terms...)...)
 	}
 }
+
+// ByVersionsCount orders the results by versions count.
+func ByVersionsCount(opts ...sql.OrderTermOption) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborsCount(s, newVersionsStep(), opts...)
+	}
+}
+
+// ByVersions orders the results by versions terms.
+func ByVersions(term sql.OrderTerm, terms ...sql.OrderTerm) OrderOption {
+	return func(s *sql.Selector) {
+		sqlgraph.OrderByNeighborTerms(s, newVersionsStep(), append([]sql.OrderTerm{term}, terms...)...)
+	}
+}
 func newProjectStep() *sqlgraph.Step {
 	return sqlgraph.NewStep(
 		sqlgraph.From(Table, FieldID),
@@ -257,5 +280,12 @@ func newHistoryStep() *sqlgraph.Step {
 		sqlgraph.From(Table, FieldID),
 		sqlgraph.To(HistoryInverseTable, FieldID),
 		sqlgraph.Edge(sqlgraph.O2M, false, HistoryTable, HistoryColumn),
+	)
+}
+func newVersionsStep() *sqlgraph.Step {
+	return sqlgraph.NewStep(
+		sqlgraph.From(Table, FieldID),
+		sqlgraph.To(VersionsInverseTable, FieldID),
+		sqlgraph.Edge(sqlgraph.O2M, false, VersionsTable, VersionsColumn),
 	)
 }

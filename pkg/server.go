@@ -8,14 +8,20 @@ import (
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"github.com/lbrictson/janus/ent"
+	"github.com/lbrictson/janus/ent/job"
 	"github.com/lbrictson/janus/web"
+	"github.com/markbates/goth/gothic"
 	"html/template"
 	"io"
 	"io/fs"
 	"log/slog"
+	"os"
 )
 
+var sessionName = "janus"
+
 func RunServer(config *Config, db *ent.Client) {
+	sessionName = config.SessionName
 	ctx := context.Background()
 	e := echo.New()
 	e.HideBanner = true
@@ -25,18 +31,7 @@ func RunServer(config *Config, db *ent.Client) {
 	}
 	// Serve static files from the embedded filesystem
 	e.StaticFS("/static", staticFS)
-	renderer := Renderer{
-		templates: template.Must(template.New("").Funcs(template.FuncMap{
-			"json": func(v interface{}) template.JS {
-				b, err := json.Marshal(v)
-				if err != nil {
-					return template.JS("[]")
-				}
-				return template.JS(b)
-			},
-		}).ParseFS(web.Assets, "templates/*.tmpl")),
-	}
-	e.Renderer = &renderer
+	registerRenderer(e)
 	authC, err := getAuthConfig(ctx, db)
 	if err != nil {
 		panic(fmt.Sprintf("failed to get auth config: %v", err))
@@ -50,6 +45,8 @@ func RunServer(config *Config, db *ent.Client) {
 	// Login pages
 	unauthenticated.GET("/login", loginPage(db, config))
 	unauthenticated.POST("/login", loginForm(db, config))
+	unauthenticated.GET("/auth/:provider/callback", completeSSOAuth(db))
+	unauthenticated.GET("/auth/:provider", startSSOAuth())
 	unauthenticated.GET("/logout", destroySession)
 	// Dashboard pages
 	authenticatedRoutes.GET("/", renderDashboard(db))
@@ -75,6 +72,9 @@ func RunServer(config *Config, db *ent.Client) {
 	// Admin pages
 	adminRequired.GET("/admin", renderAdminPage(db, config))
 	adminRequired.POST("/admin/data-retention", formAdminDataRetention(db))
+	adminRequired.POST("/admin/smtp", formAdminSMTP(db))
+	adminRequired.POST("/admin/job-settings", formJobSettings(db))
+	adminRequired.POST("/admin/security", formAdminSecuritySettings(db, config))
 	// Profile pages
 	authenticatedRoutes.GET("/profile/password", renderChangePasswordPage(db))
 	authenticatedRoutes.GET("/profile/api-key", renderAPIKeyViewPage(db))
@@ -100,7 +100,79 @@ func RunServer(config *Config, db *ent.Client) {
 	authenticatedRoutes.GET("/projects/:project_id/jobs/:job_id/history", renderJobHistoryView(db))
 	adminRequired.GET("/projects/:project_id/edit", renderEditProjectPage(db))
 	adminRequired.POST("/projects/:project_id/edit", formEditProject(db))
+	// Schedule pages
+	authenticatedRoutes.GET("/schedule", renderSchedulePage(db))
+	// Webhook pages
+	adminRequired.GET("/webhooks", renderWebooksView(db, config))
+	adminRequired.GET("/webhooks/new", renderNewWebhookView(db))
+	adminRequired.POST("/webhooks/new", formNewWebhook(db))
+	adminRequired.GET("/webhooks/:id/delete", hookDeleteWebhook(db))
+	unauthenticated.GET("/inbound-webhook/:key", handleIncomingJobWebhookTrigger(db, config))
+	unauthenticated.POST("/inbound-webhook/:key", handleIncomingJobWebhookTrigger(db, config))
+	// Version pages
+	authenticatedRoutes.GET("/projects/:project_id/jobs/:job_id/versions", renderJobVersionsPage(db))
+	authenticatedRoutes.GET("/projects/:project_id/jobs/:job_id/versions/:version_id", renderSingleVersionView(db))
+
+	// /projects/1/jobs/1/versions/6/restore
+	authenticatedRoutes.POST("/projects/:project_id/jobs/:job_id/versions/:version_id/restore", formRestoreVersionOfJob(db))
+	// Load API Keys
+	err = reloadAPIKeys(db)
+	if err != nil {
+		slog.Error("failed to load API keys", "error", err)
+	}
+	// API Router
+	apiV1 := e.Group("/api/v1")
+	apiV1.Use(middlewareAPIAuthRequired)
+	// Project API
+	apiV1.GET("/project", apiGetProjects(db))
+	apiV1.GET("/project/:id", apiGetProject(db))
+	apiV1.POST("/project", apiCreateProject(db))
+	apiV1.DELETE("/project/:id", apiDeleteProject(db))
+	apiV1.PUT("/project/:id", apiUpdateProject(db))
+	// Configure SSO
+	key := authC.SessionKey
+	maxAge := 8640 * 3 // 3 days
+	os.MkdirAll("tmp/sessions", 0755)
+	store := sessions.NewFilesystemStore("tmp/sessions", key)
+	store.MaxLength(8192) // 8Kb is now maximum size of the session
+	store.MaxAge(maxAge)
+	store.Options.Path = "/"
+	store.Options.HttpOnly = true
+	store.Options.Secure = true
+	gothic.Store = store
+	if authC.EnableSSO {
+		err = wireSSOConnection(db, config)
+		if err != nil {
+			slog.Error("error wiring SSO connection", "error", err)
+		}
+	}
+	// Load all cron jobs
+	slog.Info("loading cron jobs")
+	cronJobs, err := db.Job.Query().Where(job.CronScheduleNEQ("")).All(ctx)
+	if err != nil {
+		slog.Error("failed to get cron jobs", "error", err)
+	}
+	for _, j := range cronJobs {
+		if j.ScheduleEnabled {
+			addCronJob(db, j)
+		}
+	}
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%v", config.Port)))
+}
+
+func registerRenderer(e *echo.Echo) {
+	renderer := Renderer{
+		templates: template.Must(template.New("").Funcs(template.FuncMap{
+			"json": func(v interface{}) template.JS {
+				b, err := json.Marshal(v)
+				if err != nil {
+					return template.JS("[]")
+				}
+				return template.JS(b)
+			},
+		}).ParseFS(web.Assets, "templates/*.tmpl")),
+	}
+	e.Renderer = &renderer
 }
 
 type Renderer struct {

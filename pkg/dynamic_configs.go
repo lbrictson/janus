@@ -26,7 +26,7 @@ func getAuthConfig(ctx context.Context, db *ent.Client) (*ent.AuthConfig, error)
 }
 
 func updateAuthConfig(ctx context.Context, db *ent.Client, newConfig *ent.AuthConfig) error {
-	_, err := db.AuthConfig.UpdateOne(newConfig).
+	n, err := db.AuthConfig.UpdateOne(newConfig).
 		SetEnableSSO(newConfig.EnableSSO).
 		SetDisablePasswordLogin(newConfig.DisablePasswordLogin).
 		SetSSOProvider(newConfig.SSOProvider).
@@ -43,7 +43,7 @@ func updateAuthConfig(ctx context.Context, db *ent.Client, newConfig *ent.AuthCo
 	if err != nil {
 		return fmt.Errorf("failed to update auth config: %v", err)
 	}
-	lastAuthConfig = newConfig
+	lastAuthConfig = n
 	return nil
 }
 

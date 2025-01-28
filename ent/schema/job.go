@@ -2,6 +2,7 @@ package schema
 
 import (
 	"entgo.io/ent"
+	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
@@ -71,7 +72,10 @@ func (Job) Edges() []ent.Edge {
 			Ref("jobs").
 			Unique().
 			Required(),
-		edge.To("history", JobHistory.Type),
+		edge.To("history", JobHistory.Type).Annotations(entsql.Annotation{
+			OnDelete: entsql.Cascade}),
+		edge.To("versions", JobVersion.Type).Annotations(entsql.Annotation{
+			OnDelete: entsql.Cascade}),
 	}
 }
 

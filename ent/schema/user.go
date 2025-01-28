@@ -23,6 +23,7 @@ func (User) Fields() []ent.Field {
 		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 		field.String("api_key").Unique(),
 		field.Bool("must_change_password").Default(true),
+		field.Bool("is_sso").Default(false),
 	}
 }
 

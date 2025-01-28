@@ -19,6 +19,7 @@ func renderUsersPage(db *ent.Client) echo.HandlerFunc {
 			Email        string
 			Role         string
 			ProjectCount int
+			IsSSO        bool
 		}
 		users, err := db.User.Query().Order(ent.Desc(user.FieldEmail)).All(c.Request().Context())
 		if err != nil {
@@ -36,6 +37,7 @@ func renderUsersPage(db *ent.Client) echo.HandlerFunc {
 				Email:        u.Email,
 				Role:         role,
 				ProjectCount: 0,
+				IsSSO:        u.IsSSO,
 			}
 		}
 		wg := sync.WaitGroup{}
@@ -186,6 +188,7 @@ func formAdminSetUserRole(db *ent.Client) echo.HandlerFunc {
 			return renderErrorPage(c, "failed to update user role", http.StatusInternalServerError)
 		}
 		slog.Info("admin updated user role", "user_id", id, "admin_id", c.Get("userID"))
+		reloadAPIKeys(db)
 		return c.Render(http.StatusOK, "edit-user", map[string]any{
 			"User":    u,
 			"Success": "Role updated",
@@ -234,6 +237,7 @@ func formCreateNewUser(db *ent.Client) echo.HandlerFunc {
 			return renderErrorPage(c, "failed to create user", http.StatusInternalServerError)
 		}
 		slog.Info("admin created new user", "email", form.Email, "admin_id", c.Get("userID"))
+		reloadAPIKeys(db)
 		return c.Redirect(http.StatusSeeOther, "/users")
 	}
 }
@@ -251,6 +255,7 @@ func formDeleteUser(db *ent.Client) echo.HandlerFunc {
 			return renderErrorPage(c, "failed to delete user", http.StatusInternalServerError)
 		}
 		slog.Info("admin deleted user", "user_id", id, "admin_id", c.Get("userID"))
+		reloadAPIKeys(db)
 		return c.Redirect(http.StatusSeeOther, "/users")
 	}
 }
@@ -296,6 +301,7 @@ func formUpdateUserPermissions(db *ent.Client) echo.HandlerFunc {
 				return renderErrorPage(c, "failed to create project user", http.StatusInternalServerError)
 			}
 		}
+		reloadAPIKeys(db)
 		slog.Info("admin updated user permissions", "user_id", id, "admin_id", c.Get("userID"))
 		return c.Redirect(http.StatusSeeOther, "/users")
 	}

@@ -12,6 +12,7 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/lbrictson/janus/ent/job"
 	"github.com/lbrictson/janus/ent/jobhistory"
+	"github.com/lbrictson/janus/ent/jobversion"
 	"github.com/lbrictson/janus/ent/project"
 	"github.com/lbrictson/janus/ent/schema"
 )
@@ -241,6 +242,21 @@ func (jc *JobCreate) AddHistory(j ...*JobHistory) *JobCreate {
 		ids[i] = j[i].ID
 	}
 	return jc.AddHistoryIDs(ids...)
+}
+
+// AddVersionIDs adds the "versions" edge to the JobVersion entity by IDs.
+func (jc *JobCreate) AddVersionIDs(ids ...int) *JobCreate {
+	jc.mutation.AddVersionIDs(ids...)
+	return jc
+}
+
+// AddVersions adds the "versions" edges to the JobVersion entity.
+func (jc *JobCreate) AddVersions(j ...*JobVersion) *JobCreate {
+	ids := make([]int, len(j))
+	for i := range j {
+		ids[i] = j[i].ID
+	}
+	return jc.AddVersionIDs(ids...)
 }
 
 // Mutation returns the JobMutation object of the builder.
@@ -483,6 +499,22 @@ func (jc *JobCreate) createSpec() (*Job, *sqlgraph.CreateSpec) {
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(jobhistory.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := jc.mutation.VersionsIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   job.VersionsTable,
+			Columns: []string{job.VersionsColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(jobversion.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

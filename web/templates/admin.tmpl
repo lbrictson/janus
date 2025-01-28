@@ -2,6 +2,7 @@
     <!DOCTYPE html>
     <html lang="en" data-bs-theme="dark">
     <head>
+        {{ template "favicon" . }}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Janus - Admin Settings</title>
@@ -64,9 +65,9 @@
                             <div class="mb-3">
                                 <label for="ssoProvider" class="form-label">SSO Provider</label>
                                 <select class="form-select" id="ssoProvider" name="sso_provider">
-                                    <option value="entra" {{if eq .Security.SSOProvider "entra"}}selected{{end}}>Entra</option>
+                                    <option value="azureadv2" {{if eq .Security.SSOProvider "azureadv2"}}selected{{end}}>Entra</option>
                                     <option value="google" {{if eq .Security.SSOProvider "google"}}selected{{end}}>Google</option>
-                                    <option value="saml" {{if eq .Security.SSOProvider "saml"}}selected{{end}}>SAML</option>
+                                    <option value="oidc" {{if eq .Security.SSOProvider "oidc"}}selected{{end}}>Open ID Connect</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -79,25 +80,10 @@
                                 <input type="password" class="form-control" id="ssoClientSecret" name="sso_client_secret"
                                        value="{{.Security.SSOClientSecret}}">
                             </div>
-                            <div class="mb-3">
-                                <label for="ssoRedirectURL" class="form-label">SSO Redirect URL</label>
-                                <input type="text" class="form-control" id="ssoRedirectURL" name="sso_redirect_url"
-                                       value="{{.Security.SSORedirectURI}}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="ssoAuthURL" class="form-label">SSO Authorization URL</label>
+                            <div class="mb-3 oidc-only">
+                                <label for="ssoAuthURL" class="form-label">Discovery URL</label>
                                 <input type="text" class="form-control" id="ssoAuthURL" name="sso_auth_url"
                                        value="{{.Security.SSOAuthorizationURL}}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="ssoTokenURL" class="form-label">SSO Token URL</label>
-                                <input type="text" class="form-control" id="ssoTokenURL" name="sso_token_url"
-                                       value="{{.Security.SSOTokenURL}}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="ssoUserInfoURL" class="form-label">SSO User Info URL</label>
-                                <input type="text" class="form-control" id="ssoUserInfoURL" name="sso_userinfo_url"
-                                       value="{{.Security.SSOUserInfoURL}}">
                             </div>
                             <div class="mb-3 entra-only" style="display: none;">
                                 <label for="entraTenantID" class="form-label">Entra Tenant ID</label>
@@ -178,10 +164,16 @@
         // Show/hide Entra Tenant ID field based on SSO provider selection
         document.getElementById('ssoProvider').addEventListener('change', function() {
             const entraTenantField = document.querySelector('.entra-only');
-            if (this.value === 'entra') {
+            const oidcTenantField = document.querySelector('.oidc-only');
+            if (this.value === 'azureadv2') {
                 entraTenantField.style.display = 'block';
             } else {
                 entraTenantField.style.display = 'none';
+            }
+            if (this.value === 'oidc') {
+                oidcTenantField.style.display = 'block';
+            } else {
+                oidcTenantField.style.display = 'none';
             }
         });
 

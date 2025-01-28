@@ -14,6 +14,7 @@ import (
 	"log/slog"
 	"net/http"
 	"strings"
+	"sync"
 )
 
 func hashAndSaltPassword(password string) ([]byte, error) {
@@ -37,6 +38,48 @@ func validatePassword(password string) error {
 
 func generateLongString() string {
 	return strings.Replace(fmt.Sprintf("%v%v%v%v", uuid.NewString(), uuid.NewString(), uuid.NewString(), uuid.NewString()), "-", "", -1)
+}
+
+var apiKeys = make(map[string]*ent.User)
+var apiKeysLock = &sync.RWMutex{}
+
+func reloadAPIKeys(db *ent.Client) error {
+	apiKeysLock.Lock()
+	apiKeys = make(map[string]*ent.User)
+	allUsers, err := db.User.Query().WithProjectUsers().Where(user.APIKeyNEQ("")).All(context.Background())
+	if err != nil {
+		apiKeysLock.Unlock()
+		return fmt.Errorf("failed to get users: %v", err)
+	}
+	for _, u := range allUsers {
+		apiKeys[u.APIKey] = u
+	}
+	apiKeysLock.Unlock()
+	return nil
+}
+
+func middlewareAPIAuthRequired(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		apiKey := c.Request().Header.Get("X-API-Key")
+		if apiKey == "" {
+			return c.JSON(http.StatusUnauthorized, APIError{ErrorMessage: "API key required"})
+		}
+		// Get the API key from the cache
+		apiKeysLock.RLock()
+		u, ok := apiKeys[apiKey]
+		apiKeysLock.RUnlock()
+		if !ok {
+			return c.JSON(http.StatusUnauthorized, APIError{ErrorMessage: "Invalid API key"})
+		}
+		c.Set("userID", u.ID)
+		c.Set("email", u.Email)
+		if u.Admin {
+			c.Set("globalRole", "admin")
+		} else {
+			c.Set("globalRole", "user")
+		}
+		return next(c)
+	}
 }
 
 func middlewareMustBeLoggedIn(next echo.HandlerFunc) echo.HandlerFunc {

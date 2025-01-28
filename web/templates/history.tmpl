@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
+    {{ template "favicon" . }}
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Janus - Job History</title>
@@ -30,7 +31,9 @@
        <div class="card">
            <div class="card-body">
                <div class="mb-4">
-                   <h5 class="card-title">Job Run Details <a href="/projects/{{ .Project.ID }}" class="btn btn-sm btn-outline-light">Back to Project</a></h5>
+                   <h5 class="card-title">Job Run Details <a href="/projects/{{ .Project.ID }}" class="btn btn-sm btn-primary">Back to Project</a>
+                       <a href="/projects/{{ .Project.ID}}/jobs/{{ .History.Edges.Job.ID }}/history" class="btn btn-sm btn-outline-light">View All History</a>
+                   </h5>
                    <p class="text-muted">{{.History.Edges.Job.Name}} - Run at {{.History.CreatedAt}}</p>
                </div>
 
@@ -131,6 +134,7 @@
         <title>Janus - Job History</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="/static/css/dark-theme.css" rel="stylesheet">
+        {{ template "favicon" . }}
     </head>
     <body>
     {{ template "navbar" . }}
@@ -139,9 +143,12 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="d-flex gap-3 align-items-center">
                     <h5 class="card-title">Job History - {{.Job.Name}}</h5>
                     <input type="text" class="form-control w-auto" id="historySearch"
                            placeholder="Search history..." onkeyup="filterHistory()">
+                        <a href="/projects/{{ .Project.ID}}" class="btn-primary btn-sm btn">Back to Project</a>
+                </div>
                 </div>
 
                 <div class="table-responsive">
@@ -164,7 +171,11 @@
                                     {{if .WasSuccessful}}
                                         <span class="badge bg-success">Success</span>
                                     {{else}}
-                                        <span class="badge bg-danger">Failed</span>
+                                        {{ if eq .Status "running" }}
+                                            <span class="badge bg-primary">Running</span>
+                                        {{ else }}
+                                            <span class="badge bg-danger">Failed</span>
+                                        {{ end }}
                                     {{end}}
                                 </td>
                                 <td>{{.DurationMs}}ms</td>

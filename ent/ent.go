@@ -15,9 +15,11 @@ import (
 	"github.com/lbrictson/janus/ent/audit"
 	"github.com/lbrictson/janus/ent/authconfig"
 	"github.com/lbrictson/janus/ent/dataconfig"
+	"github.com/lbrictson/janus/ent/inboundwebhook"
 	"github.com/lbrictson/janus/ent/job"
 	"github.com/lbrictson/janus/ent/jobconfig"
 	"github.com/lbrictson/janus/ent/jobhistory"
+	"github.com/lbrictson/janus/ent/jobversion"
 	"github.com/lbrictson/janus/ent/notificationchannel"
 	"github.com/lbrictson/janus/ent/project"
 	"github.com/lbrictson/janus/ent/projectuser"
@@ -87,9 +89,11 @@ func checkColumn(table, column string) error {
 			audit.Table:               audit.ValidColumn,
 			authconfig.Table:          authconfig.ValidColumn,
 			dataconfig.Table:          dataconfig.ValidColumn,
+			inboundwebhook.Table:      inboundwebhook.ValidColumn,
 			job.Table:                 job.ValidColumn,
 			jobconfig.Table:           jobconfig.ValidColumn,
 			jobhistory.Table:          jobhistory.ValidColumn,
+			jobversion.Table:          jobversion.ValidColumn,
 			notificationchannel.Table: notificationchannel.ValidColumn,
 			project.Table:             project.ValidColumn,
 			projectuser.Table:         projectuser.ValidColumn,

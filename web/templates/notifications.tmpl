@@ -7,6 +7,7 @@
         <title>Janus - Notification Channels</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="/static/css/dark-theme.css" rel="stylesheet">
+        {{ template "favicon" . }}
     </head>
     <body>
     <!-- Navigation Header -->
@@ -111,6 +112,8 @@
                 .catch(error => {
                     alert('Error sending test notification');
                 });
+            // refresh the page
+            location.reload();
         }
     </script>
     </body>
@@ -126,6 +129,7 @@
         <title>Janus - Create Notification Channel</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="/static/css/dark-theme.css" rel="stylesheet">
+        {{ template "favicon" . }}
     </head>
     <body>
     <!-- Navigation Header -->
@@ -163,7 +167,7 @@
                                         <option value="discord">Discord</option>
                                         <option value="slack">Slack</option>
                                         <option value="email">Email</option>
-                                        <option value="teams">Microsoft Teams</option>
+{{/*                                        <option value="teams">Microsoft Teams</option>*/}}
                                         <option value="webhook">Webhook</option>
                                         <option value="pagerduty">PagerDuty</option>
                                         <option value="twilio-sms">Twilio SMS</option>
@@ -207,13 +211,13 @@
                                 </div>
 
                                 <!-- Teams Config -->
-                                <div id="teams-config" class="channel-config" style="display: none;">
-                                    <h6 class="mb-3">Microsoft Teams Configuration</h6>
-                                    <div class="mb-3">
-                                        <label class="form-label">Teams Webhook URL</label>
-                                        <input type="url" class="form-control" name="config.teams_webhook_url">
-                                    </div>
-                                </div>
+{{/*                                <div id="teams-config" class="channel-config" style="display: none;">*/}}
+{{/*                                    <h6 class="mb-3">Microsoft Teams Configuration</h6>*/}}
+{{/*                                    <div class="mb-3">*/}}
+{{/*                                        <label class="form-label">Teams Webhook URL</label>*/}}
+{{/*                                        <input type="url" class="form-control" name="config.teams_webhook_url">*/}}
+{{/*                                    </div>*/}}
+{{/*                                </div>*/}}
 
                                 <!-- Webhook Config -->
                                 <div id="webhook-config" class="channel-config" style="display: none;">
@@ -233,12 +237,8 @@
                                 <div id="pagerduty-config" class="channel-config" style="display: none;">
                                     <h6 class="mb-3">PagerDuty Configuration</h6>
                                     <div class="mb-3">
-                                        <label class="form-label">API Token</label>
+                                        <label class="form-label">Integration Key</label>
                                         <input type="text" class="form-control" name="config.pagerduty_token">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Service ID</label>
-                                        <input type="text" class="form-control" name="config.pagerduty_service">
                                     </div>
                                 </div>
 
@@ -282,10 +282,6 @@
                                         <label class="form-label">Secret Access Key</label>
                                         <input type="password" class="form-control" name="config.aws_credentials.secret_access_key">
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Role ARN (optional)</label>
-                                        <input type="text" class="form-control" name="config.aws_credentials.role_arn">
-                                    </div>
                                 </div>
 
                                 <!-- AWS EventBridge Config -->
@@ -305,19 +301,15 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">AWS Region</label>
-                                        <input type="text" class="form-control" name="config.aws_region">
+                                        <input type="text" class="form-control" name="config.eventbridge_aws_region">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Access Key ID</label>
-                                        <input type="text" class="form-control" name="config.aws_credentials.access_key_id">
+                                        <input type="text" class="form-control" name="config.eventbridge_aws_credentials.access_key_id">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Secret Access Key</label>
-                                        <input type="password" class="form-control" name="config.aws_credentials.secret_access_key">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Role ARN (optional)</label>
-                                        <input type="text" class="form-control" name="config.aws_credentials.role_arn">
+                                        <input type="password" class="form-control" name="config.eventbridge_aws_credentials.secret_access_key">
                                     </div>
                                 </div>
                             </div>
@@ -366,6 +358,7 @@
         <title>Janus - Edit Channel</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="/static/css/dark-theme.css" rel="stylesheet">
+        {{ template "favicon" . }}
     </head>
     <body>
     <!-- Navigation Header -->

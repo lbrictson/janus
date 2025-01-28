@@ -71,9 +71,11 @@ type JobEdges struct {
 	Project *Project `json:"project,omitempty"`
 	// History holds the value of the history edge.
 	History []*JobHistory `json:"history,omitempty"`
+	// Versions holds the value of the versions edge.
+	Versions []*JobVersion `json:"versions,omitempty"`
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [2]bool
+	loadedTypes [3]bool
 }
 
 // ProjectOrErr returns the Project value or an error if the edge
@@ -94,6 +96,15 @@ func (e JobEdges) HistoryOrErr() ([]*JobHistory, error) {
 		return e.History, nil
 	}
 	return nil, &NotLoadedError{edge: "history"}
+}
+
+// VersionsOrErr returns the Versions value or an error if the edge
+// was not loaded in eager-loading.
+func (e JobEdges) VersionsOrErr() ([]*JobVersion, error) {
+	if e.loadedTypes[2] {
+		return e.Versions, nil
+	}
+	return nil, &NotLoadedError{edge: "versions"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -284,6 +295,11 @@ func (j *Job) QueryProject() *ProjectQuery {
 // QueryHistory queries the "history" edge of the Job entity.
 func (j *Job) QueryHistory() *JobHistoryQuery {
 	return NewJobClient(j.config).QueryHistory(j)
+}
+
+// QueryVersions queries the "versions" edge of the Job entity.
+func (j *Job) QueryVersions() *JobVersionQuery {
+	return NewJobClient(j.config).QueryVersions(j)
 }
 
 // Update returns a builder for updating this Job.

@@ -97,6 +97,20 @@ func (uu *UserUpdate) SetNillableMustChangePassword(b *bool) *UserUpdate {
 	return uu
 }
 
+// SetIsSSO sets the "is_sso" field.
+func (uu *UserUpdate) SetIsSSO(b bool) *UserUpdate {
+	uu.mutation.SetIsSSO(b)
+	return uu
+}
+
+// SetNillableIsSSO sets the "is_sso" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableIsSSO(b *bool) *UserUpdate {
+	if b != nil {
+		uu.SetIsSSO(*b)
+	}
+	return uu
+}
+
 // AddProjectUserIDs adds the "projectUsers" edge to the ProjectUser entity by IDs.
 func (uu *UserUpdate) AddProjectUserIDs(ids ...int) *UserUpdate {
 	uu.mutation.AddProjectUserIDs(ids...)
@@ -200,6 +214,9 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := uu.mutation.MustChangePassword(); ok {
 		_spec.SetField(user.FieldMustChangePassword, field.TypeBool, value)
+	}
+	if value, ok := uu.mutation.IsSSO(); ok {
+		_spec.SetField(user.FieldIsSSO, field.TypeBool, value)
 	}
 	if uu.mutation.ProjectUsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -330,6 +347,20 @@ func (uuo *UserUpdateOne) SetMustChangePassword(b bool) *UserUpdateOne {
 func (uuo *UserUpdateOne) SetNillableMustChangePassword(b *bool) *UserUpdateOne {
 	if b != nil {
 		uuo.SetMustChangePassword(*b)
+	}
+	return uuo
+}
+
+// SetIsSSO sets the "is_sso" field.
+func (uuo *UserUpdateOne) SetIsSSO(b bool) *UserUpdateOne {
+	uuo.mutation.SetIsSSO(b)
+	return uuo
+}
+
+// SetNillableIsSSO sets the "is_sso" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableIsSSO(b *bool) *UserUpdateOne {
+	if b != nil {
+		uuo.SetIsSSO(*b)
 	}
 	return uuo
 }
@@ -467,6 +498,9 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	}
 	if value, ok := uuo.mutation.MustChangePassword(); ok {
 		_spec.SetField(user.FieldMustChangePassword, field.TypeBool, value)
+	}
+	if value, ok := uuo.mutation.IsSSO(); ok {
+		_spec.SetField(user.FieldIsSSO, field.TypeBool, value)
 	}
 	if uuo.mutation.ProjectUsersCleared() {
 		edge := &sqlgraph.EdgeSpec{

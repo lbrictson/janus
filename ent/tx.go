@@ -18,12 +18,16 @@ type Tx struct {
 	AuthConfig *AuthConfigClient
 	// DataConfig is the client for interacting with the DataConfig builders.
 	DataConfig *DataConfigClient
+	// InboundWebhook is the client for interacting with the InboundWebhook builders.
+	InboundWebhook *InboundWebhookClient
 	// Job is the client for interacting with the Job builders.
 	Job *JobClient
 	// JobConfig is the client for interacting with the JobConfig builders.
 	JobConfig *JobConfigClient
 	// JobHistory is the client for interacting with the JobHistory builders.
 	JobHistory *JobHistoryClient
+	// JobVersion is the client for interacting with the JobVersion builders.
+	JobVersion *JobVersionClient
 	// NotificationChannel is the client for interacting with the NotificationChannel builders.
 	NotificationChannel *NotificationChannelClient
 	// Project is the client for interacting with the Project builders.
@@ -170,9 +174,11 @@ func (tx *Tx) init() {
 	tx.Audit = NewAuditClient(tx.config)
 	tx.AuthConfig = NewAuthConfigClient(tx.config)
 	tx.DataConfig = NewDataConfigClient(tx.config)
+	tx.InboundWebhook = NewInboundWebhookClient(tx.config)
 	tx.Job = NewJobClient(tx.config)
 	tx.JobConfig = NewJobConfigClient(tx.config)
 	tx.JobHistory = NewJobHistoryClient(tx.config)
+	tx.JobVersion = NewJobVersionClient(tx.config)
 	tx.NotificationChannel = NewNotificationChannelClient(tx.config)
 	tx.Project = NewProjectClient(tx.config)
 	tx.ProjectUser = NewProjectUserClient(tx.config)

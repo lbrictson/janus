@@ -28,6 +28,8 @@ const (
 	FieldAPIKey = "api_key"
 	// FieldMustChangePassword holds the string denoting the must_change_password field in the database.
 	FieldMustChangePassword = "must_change_password"
+	// FieldIsSSO holds the string denoting the is_sso field in the database.
+	FieldIsSSO = "is_sso"
 	// EdgeProjectUsers holds the string denoting the projectusers edge name in mutations.
 	EdgeProjectUsers = "projectUsers"
 	// Table holds the table name of the user in the database.
@@ -51,6 +53,7 @@ var Columns = []string{
 	FieldUpdatedAt,
 	FieldAPIKey,
 	FieldMustChangePassword,
+	FieldIsSSO,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -74,6 +77,8 @@ var (
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultMustChangePassword holds the default value on creation for the "must_change_password" field.
 	DefaultMustChangePassword bool
+	// DefaultIsSSO holds the default value on creation for the "is_sso" field.
+	DefaultIsSSO bool
 )
 
 // OrderOption defines the ordering options for the User queries.
@@ -112,6 +117,11 @@ func ByAPIKey(opts ...sql.OrderTermOption) OrderOption {
 // ByMustChangePassword orders the results by the must_change_password field.
 func ByMustChangePassword(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldMustChangePassword, opts...).ToFunc()
+}
+
+// ByIsSSO orders the results by the is_sso field.
+func ByIsSSO(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldIsSSO, opts...).ToFunc()
 }
 
 // ByProjectUsersCount orders the results by projectUsers count.

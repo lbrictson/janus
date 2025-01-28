@@ -15,6 +15,9 @@ type AuthConfig func(*sql.Selector)
 // DataConfig is the predicate function for dataconfig builders.
 type DataConfig func(*sql.Selector)
 
+// InboundWebhook is the predicate function for inboundwebhook builders.
+type InboundWebhook func(*sql.Selector)
+
 // Job is the predicate function for job builders.
 type Job func(*sql.Selector)
 
@@ -23,6 +26,9 @@ type JobConfig func(*sql.Selector)
 
 // JobHistory is the predicate function for jobhistory builders.
 type JobHistory func(*sql.Selector)
+
+// JobVersion is the predicate function for jobversion builders.
+type JobVersion func(*sql.Selector)
 
 // NotificationChannel is the predicate function for notificationchannel builders.
 type NotificationChannel func(*sql.Selector)

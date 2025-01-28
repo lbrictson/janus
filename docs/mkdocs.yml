@@ -1,0 +1,38 @@
+site_name: Janus
+site_url: https://github.com/lbrictson/janus
+theme:
+  name: material
+  palette:
+    scheme: slate
+nav:
+  - About: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Configuration: getting-started/configuration.md
+  - Understanding Jobs:
+    - Creating Your First Job: understanding-jobs/creating-your-first-job.md
+    - Versioning: understanding-jobs/versioning.md
+    - Arguments: understanding-jobs/arguments.md
+    - Environment Variables: understanding-jobs/environment-variables.md
+    - Secrets: understanding-jobs/secrets.md
+    - Scheduling: understanding-jobs/scheduling.md
+    - Notifications: understanding-jobs/notifications.md
+    - Advanced Settings: understanding-jobs/advanced-settings.md
+  - User Management:
+    - Global Roles: user-management/user-roles.md
+    - User Permissions: user-management/user-permissions.md
+  - Notifications:
+    - Email: notifications/email.md
+    - Slack: notifications/slack.md
+    - Webhooks: notifications/webhooks.md
+    - PagerDuty: notifications/pagerduty.md
+    - Discord: notifications/discord.md
+    - Microsoft Teams: notifications/microsoft-teams.md
+    - SMS (Twilio): notifications/twilio.md
+    - AWS SNS: notifications/aws-sns.md
+    - AWS EventBridge: notifications/aws-eventbridge.md
+  - API:
+    - Authentication: api/authentication.md
+    - Project API: api/project-api.md
+    - Job API: api/job-api.md
+    - User API: api/user-api.md

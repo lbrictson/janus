@@ -10,9 +10,9 @@ const (
 )
 
 type NewNotificationInput struct {
-	JobName     string
-	ProjectName string
-	JobStatus   NotificationStatus
-	JobDuration string
-	CallbackURL string
+	JobName     string             `json:"job_name"`
+	ProjectName string             `json:"project_name"`
+	JobStatus   NotificationStatus `json:"job_status"`
+	JobDuration string             `json:"job_duration"`
+	CallbackURL string             `json:"callback_url"`
 }

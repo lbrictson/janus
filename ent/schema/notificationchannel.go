@@ -16,9 +16,9 @@ const (
 	ChannelTeams          NotificationChannelType = "teams"
 	ChannelWebhook        NotificationChannelType = "webhook"
 	ChannelPagerDuty      NotificationChannelType = "pagerduty"
-	ChannelTwilioSMS      NotificationChannelType = "twilio_sms"
-	ChannelAWSSNS         NotificationChannelType = "aws_sns"
-	ChannelAWSEventBridge NotificationChannelType = "aws_eventbridge"
+	ChannelTwilioSMS      NotificationChannelType = "twilio-sms"
+	ChannelAWSSNS         NotificationChannelType = "aws-sns"
+	ChannelAWSEventBridge NotificationChannelType = "aws-eventbridge"
 )
 
 // ChannelConfig holds the type-specific configuration

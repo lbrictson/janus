@@ -7,9 +7,11 @@ import (
 
 	"github.com/lbrictson/janus/ent/authconfig"
 	"github.com/lbrictson/janus/ent/dataconfig"
+	"github.com/lbrictson/janus/ent/inboundwebhook"
 	"github.com/lbrictson/janus/ent/job"
 	"github.com/lbrictson/janus/ent/jobconfig"
 	"github.com/lbrictson/janus/ent/jobhistory"
+	"github.com/lbrictson/janus/ent/jobversion"
 	"github.com/lbrictson/janus/ent/notificationchannel"
 	"github.com/lbrictson/janus/ent/projectuser"
 	"github.com/lbrictson/janus/ent/schema"
@@ -78,6 +80,12 @@ func init() {
 	dataconfigDescDaysToKeep := dataconfigFields[0].Descriptor()
 	// dataconfig.DefaultDaysToKeep holds the default value on creation for the days_to_keep field.
 	dataconfig.DefaultDaysToKeep = dataconfigDescDaysToKeep.Default.(int)
+	inboundwebhookFields := schema.InboundWebhook{}.Fields()
+	_ = inboundwebhookFields
+	// inboundwebhookDescCreatedAt is the schema descriptor for created_at field.
+	inboundwebhookDescCreatedAt := inboundwebhookFields[2].Descriptor()
+	// inboundwebhook.DefaultCreatedAt holds the default value on creation for the created_at field.
+	inboundwebhook.DefaultCreatedAt = inboundwebhookDescCreatedAt.Default.(func() time.Time)
 	jobFields := schema.Job{}.Fields()
 	_ = jobFields
 	// jobDescName is the schema descriptor for name field.
@@ -148,6 +156,12 @@ func init() {
 	jobhistoryDescTrigger := jobhistoryFields[9].Descriptor()
 	// jobhistory.DefaultTrigger holds the default value on creation for the trigger field.
 	jobhistory.DefaultTrigger = jobhistoryDescTrigger.Default.(string)
+	jobversionFields := schema.JobVersion{}.Fields()
+	_ = jobversionFields
+	// jobversionDescCreatedAt is the schema descriptor for created_at field.
+	jobversionDescCreatedAt := jobversionFields[0].Descriptor()
+	// jobversion.DefaultCreatedAt holds the default value on creation for the created_at field.
+	jobversion.DefaultCreatedAt = jobversionDescCreatedAt.Default.(func() time.Time)
 	notificationchannelFields := schema.NotificationChannel{}.Fields()
 	_ = notificationchannelFields
 	// notificationchannelDescName is the schema descriptor for name field.
@@ -236,4 +250,8 @@ func init() {
 	userDescMustChangePassword := userFields[6].Descriptor()
 	// user.DefaultMustChangePassword holds the default value on creation for the must_change_password field.
 	user.DefaultMustChangePassword = userDescMustChangePassword.Default.(bool)
+	// userDescIsSSO is the schema descriptor for is_sso field.
+	userDescIsSSO := userFields[7].Descriptor()
+	// user.DefaultIsSSO holds the default value on creation for the is_sso field.
+	user.DefaultIsSSO = userDescIsSSO.Default.(bool)
 }

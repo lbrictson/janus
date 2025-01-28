@@ -14,6 +14,7 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/lbrictson/janus/ent/job"
 	"github.com/lbrictson/janus/ent/jobhistory"
+	"github.com/lbrictson/janus/ent/jobversion"
 	"github.com/lbrictson/janus/ent/predicate"
 	"github.com/lbrictson/janus/ent/project"
 	"github.com/lbrictson/janus/ent/schema"
@@ -356,6 +357,21 @@ func (ju *JobUpdate) AddHistory(j ...*JobHistory) *JobUpdate {
 	return ju.AddHistoryIDs(ids...)
 }
 
+// AddVersionIDs adds the "versions" edge to the JobVersion entity by IDs.
+func (ju *JobUpdate) AddVersionIDs(ids ...int) *JobUpdate {
+	ju.mutation.AddVersionIDs(ids...)
+	return ju
+}
+
+// AddVersions adds the "versions" edges to the JobVersion entity.
+func (ju *JobUpdate) AddVersions(j ...*JobVersion) *JobUpdate {
+	ids := make([]int, len(j))
+	for i := range j {
+		ids[i] = j[i].ID
+	}
+	return ju.AddVersionIDs(ids...)
+}
+
 // Mutation returns the JobMutation object of the builder.
 func (ju *JobUpdate) Mutation() *JobMutation {
 	return ju.mutation
@@ -386,6 +402,27 @@ func (ju *JobUpdate) RemoveHistory(j ...*JobHistory) *JobUpdate {
 		ids[i] = j[i].ID
 	}
 	return ju.RemoveHistoryIDs(ids...)
+}
+
+// ClearVersions clears all "versions" edges to the JobVersion entity.
+func (ju *JobUpdate) ClearVersions() *JobUpdate {
+	ju.mutation.ClearVersions()
+	return ju
+}
+
+// RemoveVersionIDs removes the "versions" edge to JobVersion entities by IDs.
+func (ju *JobUpdate) RemoveVersionIDs(ids ...int) *JobUpdate {
+	ju.mutation.RemoveVersionIDs(ids...)
+	return ju
+}
+
+// RemoveVersions removes "versions" edges to JobVersion entities.
+func (ju *JobUpdate) RemoveVersions(j ...*JobVersion) *JobUpdate {
+	ids := make([]int, len(j))
+	for i := range j {
+		ids[i] = j[i].ID
+	}
+	return ju.RemoveVersionIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
@@ -620,6 +657,51 @@ func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(jobhistory.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if ju.mutation.VersionsCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   job.VersionsTable,
+			Columns: []string{job.VersionsColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(jobversion.FieldID, field.TypeInt),
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := ju.mutation.RemovedVersionsIDs(); len(nodes) > 0 && !ju.mutation.VersionsCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   job.VersionsTable,
+			Columns: []string{job.VersionsColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(jobversion.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := ju.mutation.VersionsIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   job.VersionsTable,
+			Columns: []string{job.VersionsColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(jobversion.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {
@@ -971,6 +1053,21 @@ func (juo *JobUpdateOne) AddHistory(j ...*JobHistory) *JobUpdateOne {
 	return juo.AddHistoryIDs(ids...)
 }
 
+// AddVersionIDs adds the "versions" edge to the JobVersion entity by IDs.
+func (juo *JobUpdateOne) AddVersionIDs(ids ...int) *JobUpdateOne {
+	juo.mutation.AddVersionIDs(ids...)
+	return juo
+}
+
+// AddVersions adds the "versions" edges to the JobVersion entity.
+func (juo *JobUpdateOne) AddVersions(j ...*JobVersion) *JobUpdateOne {
+	ids := make([]int, len(j))
+	for i := range j {
+		ids[i] = j[i].ID
+	}
+	return juo.AddVersionIDs(ids...)
+}
+
 // Mutation returns the JobMutation object of the builder.
 func (juo *JobUpdateOne) Mutation() *JobMutation {
 	return juo.mutation
@@ -1001,6 +1098,27 @@ func (juo *JobUpdateOne) RemoveHistory(j ...*JobHistory) *JobUpdateOne {
 		ids[i] = j[i].ID
 	}
 	return juo.RemoveHistoryIDs(ids...)
+}
+
+// ClearVersions clears all "versions" edges to the JobVersion entity.
+func (juo *JobUpdateOne) ClearVersions() *JobUpdateOne {
+	juo.mutation.ClearVersions()
+	return juo
+}
+
+// RemoveVersionIDs removes the "versions" edge to JobVersion entities by IDs.
+func (juo *JobUpdateOne) RemoveVersionIDs(ids ...int) *JobUpdateOne {
+	juo.mutation.RemoveVersionIDs(ids...)
+	return juo
+}
+
+// RemoveVersions removes "versions" edges to JobVersion entities.
+func (juo *JobUpdateOne) RemoveVersions(j ...*JobVersion) *JobUpdateOne {
+	ids := make([]int, len(j))
+	for i := range j {
+		ids[i] = j[i].ID
+	}
+	return juo.RemoveVersionIDs(ids...)
 }
 
 // Where appends a list predicates to the JobUpdate builder.
@@ -1265,6 +1383,51 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: sqlgraph.NewFieldSpec(jobhistory.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if juo.mutation.VersionsCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   job.VersionsTable,
+			Columns: []string{job.VersionsColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(jobversion.FieldID, field.TypeInt),
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := juo.mutation.RemovedVersionsIDs(); len(nodes) > 0 && !juo.mutation.VersionsCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   job.VersionsTable,
+			Columns: []string{job.VersionsColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(jobversion.FieldID, field.TypeInt),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := juo.mutation.VersionsIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   job.VersionsTable,
+			Columns: []string{job.VersionsColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(jobversion.FieldID, field.TypeInt),
 			},
 		}
 		for _, k := range nodes {

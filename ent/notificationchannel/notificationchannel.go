@@ -82,7 +82,7 @@ var (
 // TypeValidator is a validator for the "type" field enum values. It is called by the builders before save.
 func TypeValidator(_type schema.NotificationChannelType) error {
 	switch _type {
-	case "discord", "slack", "email", "teams", "webhook", "pagerduty", "twilio_sms", "aws_sns", "aws_eventbridge":
+	case "discord", "slack", "email", "teams", "webhook", "pagerduty", "twilio-sms", "aws-sns", "aws-eventbridge":
 		return nil
 	default:
 		return fmt.Errorf("notificationchannel: invalid enum value for type field: %q", _type)

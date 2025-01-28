@@ -26,7 +26,102 @@ type JobRuntimeArg struct {
 	Sensitive bool
 }
 
-func runJob(db *ent.Client, job *ent.Job, history *ent.JobHistory, argValues []JobRuntimeArg, trigger string, fileBytes []byte, config Config) (int, error) {
+func runJob(db *ent.Client, job *ent.Job, history *ent.JobHistory, argValues []JobRuntimeArg, fileBytes []byte, config Config) (int, error) {
+	// Before we run any job we need to check for max concurrency
+	runningJobs, _ := db.JobHistory.Query().WithJob().Where(jobhistory.StatusEQ("running")).All(context.Background())
+	runningJobsCount := len(runningJobs)
+	jConfig, _ := getJobConfig(context.Background(), db)
+	if runningJobsCount > jConfig.MaxConcurrentJobs {
+		totalJobFailures.Inc()
+		// Save the history
+		_, err := db.JobHistory.UpdateOne(history).
+			SetStatus("failed").
+			SetOutput("Max concurrent jobs reached.  Aborting.").
+			SetWasSuccessful(false).
+			SetDurationMs(1).
+			SetExitCode(1).
+			Save(context.Background())
+		if err != nil {
+			slog.Error("failed to update job history", "error", err)
+		}
+		failChannels := []*ent.NotificationChannel{}
+		for _, i := range job.NotifyOnFailureChannelIds {
+			nc, err := db.NotificationChannel.Get(context.Background(), i)
+			if err != nil {
+				totalJobFailures.Inc()
+				return 0, err
+			}
+			failChannels = append(failChannels, nc)
+		}
+		for _, n := range failChannels {
+			err = sendNotification(db, n, notification_sender.NewNotificationInput{
+				JobName:     job.Name,
+				ProjectName: job.Edges.Project.Name,
+				JobStatus:   notification_sender.FAILURE,
+				JobDuration: "0ms",
+				CallbackURL: fmt.Sprintf("%s/projects/%d/jobs/%d/run/%d", config.ServerURL, job.Edges.Project.ID, job.ID, history.ID),
+			})
+			if err != nil {
+				notificationsFailure.Inc()
+			} else {
+				notificationsSent.Inc()
+			}
+		}
+		return 0, fmt.Errorf("max concurrent jobs reached (%v/%v).  Aborting.", runningJobsCount, jConfig.MaxConcurrentJobs)
+	}
+
+	// Before we run any job we need to check if it allows concurrent runs, if it doesn't we abort if it is already running
+	if !job.AllowConcurrentRuns {
+		// This job doesn't allow concurrent runs, we need to check if it is already running
+		runningJobs, err := db.JobHistory.Query().WithJob().Where(jobhistory.StatusEQ("running")).All(context.Background())
+		if err != nil {
+			totalJobFailures.Inc()
+			return 0, err
+		}
+		for _, j := range runningJobs {
+			if j.Edges.Job.ID == job.ID {
+				if j.ID == history.ID {
+					continue
+				}
+				totalJobFailures.Inc()
+				// Save the history
+				_, err = db.JobHistory.UpdateOne(history).
+					SetStatus("failed").
+					SetOutput("Job is already running and does not allow concurrent runs.  Aborting.").
+					SetWasSuccessful(false).
+					SetDurationMs(1).
+					SetExitCode(1).
+					Save(context.Background())
+				if err != nil {
+					slog.Error("failed to update job history", "error", err)
+				}
+				failChannels := []*ent.NotificationChannel{}
+				for _, i := range job.NotifyOnFailureChannelIds {
+					nc, err := db.NotificationChannel.Get(context.Background(), i)
+					if err != nil {
+						totalJobFailures.Inc()
+						return 0, err
+					}
+					failChannels = append(failChannels, nc)
+				}
+				for _, n := range failChannels {
+					err = sendNotification(db, n, notification_sender.NewNotificationInput{
+						JobName:     job.Name,
+						ProjectName: job.Edges.Project.Name,
+						JobStatus:   notification_sender.FAILURE,
+						JobDuration: "0ms",
+						CallbackURL: fmt.Sprintf("%s/projects/%d/jobs/%d/run/%d", config.ServerURL, job.Edges.Project.ID, job.ID, history.ID),
+					})
+					if err != nil {
+						notificationsFailure.Inc()
+					} else {
+						notificationsSent.Inc()
+					}
+				}
+				return 0, fmt.Errorf("job is already running and does not allow concurrent runs.  Aborting.")
+			}
+		}
+	}
 	totalJobRuns.Inc()
 	if runningJobOutputs == nil {
 		runningJobOutputs = make(map[int][]string)
@@ -118,6 +213,13 @@ func runJob(db *ent.Client, job *ent.Job, history *ent.JobHistory, argValues []J
 	if err != nil {
 		o := strings.Join(runningJobOutputs[historyID], "\n")
 		// Set the history as failed
+		if err == context.DeadlineExceeded {
+			err = fmt.Errorf("timeout after %d seconds", job.TimeoutSeconds)
+		}
+		if err.Error() == "command failed: signal: killed" {
+			err = fmt.Errorf("timeout after %d seconds", job.TimeoutSeconds)
+		}
+		o = fmt.Sprintf("%s\n\nError: %s", o, err.Error())
 		db.JobHistory.Update().Where(jobhistory.IDEQ(historyID)).
 			SetStatus("failed").
 			SetDurationMs(duration.Milliseconds()).
@@ -193,7 +295,7 @@ func formatArgNameForJob(name string) string {
 
 func executeScript(ctx context.Context, script string, runID int, environmentVariables []string, hiddenValues []string, fileBytes []byte) (int, error) {
 	// Create directory to execute script in
-	dir := fmt.Sprintf("/tmp/janus/%d", runID)
+	dir := fmt.Sprintf("tmp/janus/%d", runID)
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		return 1, fmt.Errorf("failed to create directory: %w", err)
 	}

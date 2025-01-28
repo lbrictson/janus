@@ -1,0 +1,78 @@
+{{define "scheduled-jobs"}}
+    <!DOCTYPE html>
+    <html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Janus - Scheduled Jobs</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/dark-theme.css" rel="stylesheet">
+        {{ template "favicon" . }}
+    </head>
+    <body>
+    {{ template "navbar" . }}
+
+    <div class="container py-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="card-title">Upcoming Scheduled Jobs</h5>
+                    <input type="text" class="form-control w-auto" id="scheduleSearch"
+                           placeholder="Search schedules..." onkeyup="filterSchedules()">
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="scheduleTable">
+                        <thead>
+                        <tr>
+                            <th>Job Name</th>
+                            <th>Project</th>
+                            <th>Schedule</th>
+                            <th>Next Run</th>
+                            <th>History</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{range .ScheduledJobs}}
+                            <tr>
+                                <td>{{.JobName}}</td>
+                                <td>
+                                    <a href="/projects/{{.ProjectID}}">{{.ProjectName}}</a>
+                                </td>
+                                <td><code>{{.CronSchedule}}</code></td>
+                                <td>{{.NextRun}}</td>
+                                <td><a href="/projects/{{ .ProjectID }}/jobs/{{ .JobID }}/history" class="btn-outline-light btn btn-sm">View History</a></td>
+                            </tr>
+                        {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function filterSchedules() {
+            const input = document.getElementById('scheduleSearch');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('scheduleTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let text = '';
+                for (let j = 0; j < cells.length; j++) {
+                    text += cells[j].textContent || cells[j].innerText;
+                }
+                if (text.toLowerCase().indexOf(filter) > -1) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+    </body>
+    </html>
+{{end}}

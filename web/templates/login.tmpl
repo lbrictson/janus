@@ -7,6 +7,7 @@
         <title>Janus - Login</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="/static/css/dark-theme.css" rel="stylesheet">
+        {{ template "favicon" . }}
         <style>
             .login-card {
                 backdrop-filter: blur(15px);
@@ -31,7 +32,7 @@
                                 {{.Error}}
                             </div>
                         {{end}}
-
+                        {{ if ne .DisablePasswordLogin true }}
                         <form method="POST" action="/login">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email address</label>
@@ -47,12 +48,12 @@
                                 <button type="submit" class="btn btn-primary">Login</button>
                             </div>
                         </form>
-
+                        {{end}}
                         {{if .EnableSSO}}
                             <div class="text-center mt-4">
                                 <hr class="my-4 border-secondary">
                                 <div class="d-grid">
-                                    <a href="/auth/sso" class="btn btn-outline-light">
+                                    <a href="/auth/{{ .SSOPath }}?provider={{.SSOPath}}" class="btn btn-outline-light">
                                         Login with {{ .SSOName }}
                                     </a>
                                 </div>

@@ -90,6 +90,11 @@ func MustChangePassword(v bool) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldMustChangePassword, v))
 }
 
+// IsSSO applies equality check predicate on the "is_sso" field. It's identical to IsSSOEQ.
+func IsSSO(v bool) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldIsSSO, v))
+}
+
 // EmailEQ applies the EQ predicate on the "email" field.
 func EmailEQ(v string) predicate.User {
 	return predicate.User(sql.FieldEQ(FieldEmail, v))
@@ -358,6 +363,16 @@ func MustChangePasswordEQ(v bool) predicate.User {
 // MustChangePasswordNEQ applies the NEQ predicate on the "must_change_password" field.
 func MustChangePasswordNEQ(v bool) predicate.User {
 	return predicate.User(sql.FieldNEQ(FieldMustChangePassword, v))
+}
+
+// IsSSOEQ applies the EQ predicate on the "is_sso" field.
+func IsSSOEQ(v bool) predicate.User {
+	return predicate.User(sql.FieldEQ(FieldIsSSO, v))
+}
+
+// IsSSONEQ applies the NEQ predicate on the "is_sso" field.
+func IsSSONEQ(v bool) predicate.User {
+	return predicate.User(sql.FieldNEQ(FieldIsSSO, v))
 }
 
 // HasProjectUsers applies the HasEdge predicate on the "projectUsers" edge.

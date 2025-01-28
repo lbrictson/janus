@@ -65,7 +65,6 @@ func formCreateNotificationChannel(db *ent.Client) echo.HandlerFunc {
 				"Error": "Invalid form data",
 			})
 		}
-
 		// Begin building channel config based on type
 		var channelConfig schema.ChannelConfig
 
@@ -125,8 +124,8 @@ func formCreateNotificationChannel(db *ent.Client) echo.HandlerFunc {
 
 		case "pagerduty":
 			channelConfig.PagerDutyToken = c.FormValue("config.pagerduty_token")
-			channelConfig.PagerDutyService = c.FormValue("config.pagerduty_service")
-			if channelConfig.PagerDutyToken == "" || channelConfig.PagerDutyService == "" {
+			channelConfig.PagerDutyService = ""
+			if channelConfig.PagerDutyToken == "" {
 				return c.Render(http.StatusBadRequest, "notification-channel-create", map[string]interface{}{
 					"Error": "PagerDuty token and service are required",
 				})
@@ -146,38 +145,44 @@ func formCreateNotificationChannel(db *ent.Client) echo.HandlerFunc {
 			// Split to numbers by newline
 			channelConfig.TwilioToNumbers = strings.Split(strings.ReplaceAll(toNumbers, "\r\n", "\n"), "\n")
 
-		case "aws-sns", "aws-eventbridge":
-			// Common AWS fields
+		case "aws-sns":
 			channelConfig.AWSRegion = c.FormValue("config.aws_region")
 			channelConfig.AWSCredentials = schema.AWSCredentials{
 				AccessKeyID:     c.FormValue("config.aws_credentials.access_key_id"),
 				SecretAccessKey: c.FormValue("config.aws_credentials.secret_access_key"),
-				RoleARN:         c.FormValue("config.aws_credentials.role_arn"),
 			}
-
 			if channelConfig.AWSRegion == "" || channelConfig.AWSCredentials.AccessKeyID == "" ||
 				channelConfig.AWSCredentials.SecretAccessKey == "" {
 				return c.Render(http.StatusBadRequest, "notification-channel-create", map[string]interface{}{
 					"Error": "AWS region and credentials are required",
 				})
 			}
+			channelConfig.SNSTopicARN = c.FormValue("config.sns_topic_arn")
+			if channelConfig.SNSTopicARN == "" {
+				return c.Render(http.StatusBadRequest, "notification-channel-create", map[string]interface{}{
+					"Error": "SNS topic ARN is required",
+				})
+			}
 
-			if form.Type == "aws-sns" {
-				channelConfig.SNSTopicARN = c.FormValue("config.sns_topic_arn")
-				if channelConfig.SNSTopicARN == "" {
-					return c.Render(http.StatusBadRequest, "notification-channel-create", map[string]interface{}{
-						"Error": "SNS topic ARN is required",
-					})
-				}
-			} else {
-				channelConfig.EventBusName = c.FormValue("config.event_bus_name")
-				channelConfig.EventSource = c.FormValue("config.event_source")
-				channelConfig.DetailType = c.FormValue("config.detail_type")
-				if channelConfig.EventBusName == "" || channelConfig.EventSource == "" || channelConfig.DetailType == "" {
-					return c.Render(http.StatusBadRequest, "notification-channel-create", map[string]interface{}{
-						"Error": "All EventBridge fields are required",
-					})
-				}
+		case "aws-eventbridge":
+			channelConfig.AWSRegion = c.FormValue("config.eventbridge_aws_region")
+			channelConfig.AWSCredentials = schema.AWSCredentials{
+				AccessKeyID:     c.FormValue("config.eventbridge_aws_credentials.access_key_id"),
+				SecretAccessKey: c.FormValue("config.eventbridge_aws_credentials.secret_access_key"),
+			}
+			if channelConfig.AWSRegion == "" || channelConfig.AWSCredentials.AccessKeyID == "" ||
+				channelConfig.AWSCredentials.SecretAccessKey == "" {
+				return c.Render(http.StatusBadRequest, "notification-channel-create", map[string]interface{}{
+					"Error": "AWS region and credentials are required",
+				})
+			}
+			channelConfig.EventBusName = c.FormValue("config.event_bus_name")
+			channelConfig.EventSource = c.FormValue("config.event_source")
+			channelConfig.DetailType = c.FormValue("config.detail_type")
+			if channelConfig.EventBusName == "" || channelConfig.EventSource == "" || channelConfig.DetailType == "" {
+				return c.Render(http.StatusBadRequest, "notification-channel-create", map[string]interface{}{
+					"Error": "All EventBridge fields are required",
+				})
 			}
 
 		default:
@@ -345,7 +350,6 @@ func formEditNotificationChannel(db *ent.Client) echo.HandlerFunc {
 				"Error":   "Invalid form data",
 			})
 		}
-
 		// Begin building updated channel config
 		var channelConfig schema.ChannelConfig
 
@@ -522,13 +526,13 @@ func hookSendTestNotification(db *ent.Client, config Config) echo.HandlerFunc {
 		channelID, err := strconv.Atoi(c.Param("id"))
 		if err != nil {
 			slog.Error("error parsing channel ID", "error", err)
-			return c.String(http.StatusBadRequest, "Invalid channel ID")
+			return c.String(http.StatusBadRequest, "invalid channel ID")
 		}
 
 		channel, err := db.NotificationChannel.Get(c.Request().Context(), channelID)
 		if err != nil {
 			slog.Error("error getting notification channel", "error", err)
-			return c.String(http.StatusInternalServerError, "Error getting notification channel")
+			return c.String(http.StatusInternalServerError, "error getting notification channel")
 		}
 
 		// Send a test notification
@@ -541,9 +545,9 @@ func hookSendTestNotification(db *ent.Client, config Config) echo.HandlerFunc {
 		})
 		if err != nil {
 			slog.Error("error sending test notification", "error", err)
-			return c.String(http.StatusInternalServerError, "Error sending test notification")
+			return c.String(http.StatusInternalServerError, "error sending test notification")
 		}
 
-		return c.String(http.StatusOK, "Test notification sent")
+		return c.JSON(http.StatusOK, map[string]any{"status": "ok"})
 	}
 }

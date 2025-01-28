@@ -20,6 +20,7 @@ type Config struct {
 	DevelopmentMode bool   `envconfig:"JANUS_DEVELOPMENT_MODE" default:"false"`
 	DisableMetrics  bool   `envconfig:"JANUS_DISABLE_METRICS" default:"false"`
 	MetricsPort     int    `envconfig:"JANUS_METRICS_PORT" default:"8081"`
+	SessionName     string `envconfig:"JANUS_SESSION_NAME" default:"janus"`
 }
 
 func LoadConfig() (*Config, error) {

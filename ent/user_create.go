@@ -95,6 +95,20 @@ func (uc *UserCreate) SetNillableMustChangePassword(b *bool) *UserCreate {
 	return uc
 }
 
+// SetIsSSO sets the "is_sso" field.
+func (uc *UserCreate) SetIsSSO(b bool) *UserCreate {
+	uc.mutation.SetIsSSO(b)
+	return uc
+}
+
+// SetNillableIsSSO sets the "is_sso" field if the given value is not nil.
+func (uc *UserCreate) SetNillableIsSSO(b *bool) *UserCreate {
+	if b != nil {
+		uc.SetIsSSO(*b)
+	}
+	return uc
+}
+
 // AddProjectUserIDs adds the "projectUsers" edge to the ProjectUser entity by IDs.
 func (uc *UserCreate) AddProjectUserIDs(ids ...int) *UserCreate {
 	uc.mutation.AddProjectUserIDs(ids...)
@@ -161,6 +175,10 @@ func (uc *UserCreate) defaults() {
 		v := user.DefaultMustChangePassword
 		uc.mutation.SetMustChangePassword(v)
 	}
+	if _, ok := uc.mutation.IsSSO(); !ok {
+		v := user.DefaultIsSSO
+		uc.mutation.SetIsSSO(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -185,6 +203,9 @@ func (uc *UserCreate) check() error {
 	}
 	if _, ok := uc.mutation.MustChangePassword(); !ok {
 		return &ValidationError{Name: "must_change_password", err: errors.New(`ent: missing required field "User.must_change_password"`)}
+	}
+	if _, ok := uc.mutation.IsSSO(); !ok {
+		return &ValidationError{Name: "is_sso", err: errors.New(`ent: missing required field "User.is_sso"`)}
 	}
 	return nil
 }
@@ -239,6 +260,10 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := uc.mutation.MustChangePassword(); ok {
 		_spec.SetField(user.FieldMustChangePassword, field.TypeBool, value)
 		_node.MustChangePassword = value
+	}
+	if value, ok := uc.mutation.IsSSO(); ok {
+		_spec.SetField(user.FieldIsSSO, field.TypeBool, value)
+		_node.IsSSO = value
 	}
 	if nodes := uc.mutation.ProjectUsersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

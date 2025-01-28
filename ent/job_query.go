@@ -14,6 +14,7 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/lbrictson/janus/ent/job"
 	"github.com/lbrictson/janus/ent/jobhistory"
+	"github.com/lbrictson/janus/ent/jobversion"
 	"github.com/lbrictson/janus/ent/predicate"
 	"github.com/lbrictson/janus/ent/project"
 )
@@ -21,13 +22,14 @@ import (
 // JobQuery is the builder for querying Job entities.
 type JobQuery struct {
 	config
-	ctx         *QueryContext
-	order       []job.OrderOption
-	inters      []Interceptor
-	predicates  []predicate.Job
-	withProject *ProjectQuery
-	withHistory *JobHistoryQuery
-	withFKs     bool
+	ctx          *QueryContext
+	order        []job.OrderOption
+	inters       []Interceptor
+	predicates   []predicate.Job
+	withProject  *ProjectQuery
+	withHistory  *JobHistoryQuery
+	withVersions *JobVersionQuery
+	withFKs      bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -101,6 +103,28 @@ func (jq *JobQuery) QueryHistory() *JobHistoryQuery {
 			sqlgraph.From(job.Table, job.FieldID, selector),
 			sqlgraph.To(jobhistory.Table, jobhistory.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, false, job.HistoryTable, job.HistoryColumn),
+		)
+		fromU = sqlgraph.SetNeighbors(jq.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
+// QueryVersions chains the current query on the "versions" edge.
+func (jq *JobQuery) QueryVersions() *JobVersionQuery {
+	query := (&JobVersionClient{config: jq.config}).Query()
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := jq.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		selector := jq.sqlQuery(ctx)
+		if err := selector.Err(); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(job.Table, job.FieldID, selector),
+			sqlgraph.To(jobversion.Table, jobversion.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, job.VersionsTable, job.VersionsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(jq.driver.Dialect(), step)
 		return fromU, nil
@@ -295,13 +319,14 @@ func (jq *JobQuery) Clone() *JobQuery {
 		return nil
 	}
 	return &JobQuery{
-		config:      jq.config,
-		ctx:         jq.ctx.Clone(),
-		order:       append([]job.OrderOption{}, jq.order...),
-		inters:      append([]Interceptor{}, jq.inters...),
-		predicates:  append([]predicate.Job{}, jq.predicates...),
-		withProject: jq.withProject.Clone(),
-		withHistory: jq.withHistory.Clone(),
+		config:       jq.config,
+		ctx:          jq.ctx.Clone(),
+		order:        append([]job.OrderOption{}, jq.order...),
+		inters:       append([]Interceptor{}, jq.inters...),
+		predicates:   append([]predicate.Job{}, jq.predicates...),
+		withProject:  jq.withProject.Clone(),
+		withHistory:  jq.withHistory.Clone(),
+		withVersions: jq.withVersions.Clone(),
 		// clone intermediate query.
 		sql:  jq.sql.Clone(),
 		path: jq.path,
@@ -327,6 +352,17 @@ func (jq *JobQuery) WithHistory(opts ...func(*JobHistoryQuery)) *JobQuery {
 		opt(query)
 	}
 	jq.withHistory = query
+	return jq
+}
+
+// WithVersions tells the query-builder to eager-load the nodes that are connected to
+// the "versions" edge. The optional arguments are used to configure the query builder of the edge.
+func (jq *JobQuery) WithVersions(opts ...func(*JobVersionQuery)) *JobQuery {
+	query := (&JobVersionClient{config: jq.config}).Query()
+	for _, opt := range opts {
+		opt(query)
+	}
+	jq.withVersions = query
 	return jq
 }
 
@@ -409,9 +445,10 @@ func (jq *JobQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Job, err
 		nodes       = []*Job{}
 		withFKs     = jq.withFKs
 		_spec       = jq.querySpec()
-		loadedTypes = [2]bool{
+		loadedTypes = [3]bool{
 			jq.withProject != nil,
 			jq.withHistory != nil,
+			jq.withVersions != nil,
 		}
 	)
 	if jq.withProject != nil {
@@ -448,6 +485,13 @@ func (jq *JobQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Job, err
 		if err := jq.loadHistory(ctx, query, nodes,
 			func(n *Job) { n.Edges.History = []*JobHistory{} },
 			func(n *Job, e *JobHistory) { n.Edges.History = append(n.Edges.History, e) }); err != nil {
+			return nil, err
+		}
+	}
+	if query := jq.withVersions; query != nil {
+		if err := jq.loadVersions(ctx, query, nodes,
+			func(n *Job) { n.Edges.Versions = []*JobVersion{} },
+			func(n *Job, e *JobVersion) { n.Edges.Versions = append(n.Edges.Versions, e) }); err != nil {
 			return nil, err
 		}
 	}
@@ -512,6 +556,37 @@ func (jq *JobQuery) loadHistory(ctx context.Context, query *JobHistoryQuery, nod
 		node, ok := nodeids[*fk]
 		if !ok {
 			return fmt.Errorf(`unexpected referenced foreign-key "job_history" returned %v for node %v`, *fk, n.ID)
+		}
+		assign(node, n)
+	}
+	return nil
+}
+func (jq *JobQuery) loadVersions(ctx context.Context, query *JobVersionQuery, nodes []*Job, init func(*Job), assign func(*Job, *JobVersion)) error {
+	fks := make([]driver.Value, 0, len(nodes))
+	nodeids := make(map[int]*Job)
+	for i := range nodes {
+		fks = append(fks, nodes[i].ID)
+		nodeids[nodes[i].ID] = nodes[i]
+		if init != nil {
+			init(nodes[i])
+		}
+	}
+	query.withFKs = true
+	query.Where(predicate.JobVersion(func(s *sql.Selector) {
+		s.Where(sql.InValues(s.C(job.VersionsColumn), fks...))
+	}))
+	neighbors, err := query.All(ctx)
+	if err != nil {
+		return err
+	}
+	for _, n := range neighbors {
+		fk := n.job_versions
+		if fk == nil {
+			return fmt.Errorf(`foreign-key "job_versions" is nil for node %v`, n.ID)
+		}
+		node, ok := nodeids[*fk]
+		if !ok {
+			return fmt.Errorf(`unexpected referenced foreign-key "job_versions" returned %v for node %v`, *fk, n.ID)
 		}
 		assign(node, n)
 	}

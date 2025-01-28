@@ -59,10 +59,11 @@ func renderDashboard(db *ent.Client) echo.HandlerFunc {
 		}
 		// Create a wait group to run the calculations concurrently
 		wg := sync.WaitGroup{}
-		wg.Add(4)
+		wg.Add(5)
 		var successfulJobsLast24Hours int
 		var failedJobsLast24Hours int
 		var runningJobs int
+		var scheduledJobs int
 		var userSpecificPermissions map[int]string
 		go func() {
 			successfulJobsLast24Hours = calculateSuccessfulRunsLast24Hours(db)
@@ -81,6 +82,10 @@ func renderDashboard(db *ent.Client) echo.HandlerFunc {
 			userSpecificPermissions, _, _ = getUserProjectPermissions(db, self.ID)
 			wg.Done()
 		}()
+		go func() {
+			scheduledJobs = calculateScheduledJobs(db)
+			wg.Done()
+		}()
 		wg.Wait()
 		projectWG.Wait()
 		for i := range projects {
@@ -93,6 +98,7 @@ func renderDashboard(db *ent.Client) echo.HandlerFunc {
 			"SuccessfulJobs": successfulJobsLast24Hours,
 			"FailedJobs":     failedJobsLast24Hours,
 			"RunningJobs":    runningJobs,
+			"ScheduledJobs":  scheduledJobs,
 		})
 	}
 }
@@ -119,4 +125,12 @@ func calculateRunningJobs(db *ent.Client) int {
 		return 0
 	}
 	return runningJobs
+}
+
+func calculateScheduledJobs(db *ent.Client) int {
+	scheduledJobs, err := db.Job.Query().Where(job.ScheduleEnabledEQ(true)).Count(context.Background())
+	if err != nil {
+		return 0
+	}
+	return scheduledJobs
 }

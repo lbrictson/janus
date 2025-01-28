@@ -1,0 +1,208 @@
+{{define "job-versions"}}
+    <!DOCTYPE html>
+    <html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Janus - Job Versions</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/dark-theme.css" rel="stylesheet">
+        {{ template "favicon" . }}
+    </head>
+    <body>
+    {{ template "navbar" . }}
+
+    <div class="container py-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="d-flex gap-3 align-items-center">
+                        <h5 class="card-title mb-0">Job Versions - {{.Job.Name}}</h5>
+                        <a href="/projects/{{.Project.ID}}/jobs/{{.Job.ID}}/edit" class="btn btn-primary">Back to Job</a>
+                    </div>
+                    <input type="text" class="form-control w-auto" id="versionSearch"
+                           placeholder="Search versions..." onkeyup="filterVersions()">
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="versionsTable">
+                        <thead>
+                        <tr>
+                            <th>Created At</th>
+                            <th>Created by</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{range $index, $version := .Versions}}
+                            <tr>
+                                <td>
+                                    {{.FriendlyCreatedTime}}
+                                    {{if eq $index 0}}
+                                        <span class="badge bg-primary ms-2">CURRENT</span>
+                                    {{end}}
+                                </td>
+                                <td>{{.ChangedByEmail}}</td>
+                                <td>
+                                    <a href="/projects/{{$.Project.ID}}/jobs/{{$.Job.ID}}/versions/{{.ID}}"
+                                       class="btn btn-primary btn-sm">View</a>
+                                </td>
+                            </tr>
+                        {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function filterVersions() {
+            const input = document.getElementById('versionSearch');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('versionsTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let text = '';
+                for (let j = 0; j < cells.length - 1; j++) {
+                    text += cells[j].textContent || cells[j].innerText;
+                }
+                if (text.toLowerCase().indexOf(filter) > -1) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+    </body>
+    </html>
+{{end}}
+
+{{define "job-version-view"}}
+    <!DOCTYPE html>
+    <html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Janus - Job Version</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+        <link href="/static/css/dark-theme.css" rel="stylesheet">
+        {{ template "favicon" . }}
+    </head>
+    <body>
+    {{ template "navbar" . }}
+
+    <div class="container py-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="d-flex gap-3 align-items-center">
+                        <h5 class="card-title mb-0">Job - {{.Job.Name}} - {{ .Version.FriendlyCreatedTime }}</h5>
+                        <a href="/projects/{{.Project.ID}}/jobs/{{.Job.ID}}/versions"
+                           class="btn btn-primary">Back to Versions</a>
+                    </div>
+                </div>
+
+                <form method="POST" action="/projects/{{.Project.ID}}/jobs/{{.Job.ID}}/versions/{{.Version.ID}}/restore">
+                    <div class="mb-4">
+                        <h6 class="mb-3">Basic Information</h6>
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" value="{{.Version.Name}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" rows="3" readonly>{{.Version.Description}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="mb-3">Schedule Settings</h6>
+                        <div class="mb-3">
+                            <label class="form-label">Cron Schedule</label>
+                            <input type="text" class="form-control" value="{{.Version.CronSchedule}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" disabled
+                                       {{if .Version.ScheduleEnabled}}checked{{end}}>
+                                <label class="form-check-label">Schedule Enabled</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" disabled
+                                       {{if .Version.AllowConcurrentRuns}}checked{{end}}>
+                                <label class="form-check-label">Allow Concurrent Runs</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="mb-3">Arguments</h6>
+                        {{range .Version.Arguments}}
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2">{{.Name}}</h6>
+                                    <div class="mb-2">
+                                        <strong>Default Value:</strong> {{.DefaultValue}}
+                                    </div>
+                                    {{if .AllowedValues}}
+                                        <div class="mb-2">
+                                            <strong>Allowed Values:</strong> {{range .AllowedValues}}{{.}}, {{end}}
+                                        </div>
+                                    {{end}}
+                                    <div>
+                                        <strong>Sensitive:</strong> {{if .Sensitive}}Yes{{else}}No{{end}}
+                                    </div>
+                                </div>
+                            </div>
+                        {{end}}
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Script</label>
+                            <textarea class="form-control" id="script" name="script" readonly rows="{{ .ScriptLines }}">{{ .Version.Script }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="mb-3">File Upload</h6>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled
+                                   {{if .Version.RequiresFileUpload}}checked{{end}}>
+                            <label class="form-check-label">Require File Upload</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Version Created By</label>
+                        <input type="text" class="form-control" value="{{.Version.ChangedByEmail}}" readonly>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Restore Version</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                theme: 'bootstrap-5',
+                width: '100%'
+            });
+        });
+    </script>
+    </body>
+    </html>
+{{end}}

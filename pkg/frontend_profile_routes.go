@@ -35,6 +35,7 @@ func formRegenerateAPIKey(db *ent.Client) echo.HandlerFunc {
 		newKey := generateLongString()
 		slog.Info("self service API key regeneration completed", "user", self.Email)
 		self.Update().SetAPIKey(newKey).SaveX(c.Request().Context())
+		reloadAPIKeys(db)
 		return c.Render(200, "api-key", map[string]any{
 			"APIKey":  newKey,
 			"Success": "Successfully regenerated API key",

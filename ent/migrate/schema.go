@@ -51,6 +51,28 @@ var (
 		Columns:    DataConfigsColumns,
 		PrimaryKey: []*schema.Column{DataConfigsColumns[0]},
 	}
+	// InboundWebhooksColumns holds the columns for the "inbound_webhooks" table.
+	InboundWebhooksColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "key", Type: field.TypeString, Unique: true},
+		{Name: "created_by", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "inbound_webhook_job", Type: field.TypeInt, Nullable: true},
+	}
+	// InboundWebhooksTable holds the schema information for the "inbound_webhooks" table.
+	InboundWebhooksTable = &schema.Table{
+		Name:       "inbound_webhooks",
+		Columns:    InboundWebhooksColumns,
+		PrimaryKey: []*schema.Column{InboundWebhooksColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "inbound_webhooks_jobs_job",
+				Columns:    []*schema.Column{InboundWebhooksColumns[4]},
+				RefColumns: []*schema.Column{JobsColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
 	// JobsColumns holds the columns for the "jobs" table.
 	JobsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -134,7 +156,7 @@ var (
 				Symbol:     "job_histories_jobs_history",
 				Columns:    []*schema.Column{JobHistoriesColumns[11]},
 				RefColumns: []*schema.Column{JobsColumns[0]},
-				OnDelete:   schema.NoAction,
+				OnDelete:   schema.Cascade,
 			},
 			{
 				Symbol:     "job_histories_projects_history",
@@ -156,12 +178,41 @@ var (
 			},
 		},
 	}
+	// JobVersionsColumns holds the columns for the "job_versions" table.
+	JobVersionsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "name", Type: field.TypeString},
+		{Name: "description", Type: field.TypeString},
+		{Name: "script", Type: field.TypeString},
+		{Name: "cron_schedule", Type: field.TypeString, Nullable: true},
+		{Name: "schedule_enabled", Type: field.TypeBool},
+		{Name: "allow_concurrent_runs", Type: field.TypeBool},
+		{Name: "arguments", Type: field.TypeJSON},
+		{Name: "requires_file_upload", Type: field.TypeBool},
+		{Name: "changed_by_email", Type: field.TypeString},
+		{Name: "job_versions", Type: field.TypeInt},
+	}
+	// JobVersionsTable holds the schema information for the "job_versions" table.
+	JobVersionsTable = &schema.Table{
+		Name:       "job_versions",
+		Columns:    JobVersionsColumns,
+		PrimaryKey: []*schema.Column{JobVersionsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "job_versions_jobs_versions",
+				Columns:    []*schema.Column{JobVersionsColumns[11]},
+				RefColumns: []*schema.Column{JobsColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+		},
+	}
 	// NotificationChannelsColumns holds the columns for the "notification_channels" table.
 	NotificationChannelsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "description", Type: field.TypeString, Nullable: true},
-		{Name: "type", Type: field.TypeEnum, Enums: []string{"discord", "slack", "email", "teams", "webhook", "pagerduty", "twilio_sms", "aws_sns", "aws_eventbridge"}},
+		{Name: "type", Type: field.TypeEnum, Enums: []string{"discord", "slack", "email", "teams", "webhook", "pagerduty", "twilio-sms", "aws-sns", "aws-eventbridge"}},
 		{Name: "config", Type: field.TypeJSON, Nullable: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
@@ -264,6 +315,7 @@ var (
 		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "api_key", Type: field.TypeString, Unique: true},
 		{Name: "must_change_password", Type: field.TypeBool, Default: true},
+		{Name: "is_sso", Type: field.TypeBool, Default: false},
 	}
 	// UsersTable holds the schema information for the "users" table.
 	UsersTable = &schema.Table{
@@ -276,9 +328,11 @@ var (
 		AuditsTable,
 		AuthConfigsTable,
 		DataConfigsTable,
+		InboundWebhooksTable,
 		JobsTable,
 		JobConfigsTable,
 		JobHistoriesTable,
+		JobVersionsTable,
 		NotificationChannelsTable,
 		ProjectsTable,
 		ProjectUsersTable,
@@ -289,9 +343,11 @@ var (
 )
 
 func init() {
+	InboundWebhooksTable.ForeignKeys[0].RefTable = JobsTable
 	JobsTable.ForeignKeys[0].RefTable = ProjectsTable
 	JobHistoriesTable.ForeignKeys[0].RefTable = JobsTable
 	JobHistoriesTable.ForeignKeys[1].RefTable = ProjectsTable
+	JobVersionsTable.ForeignKeys[0].RefTable = JobsTable
 	ProjectUsersTable.ForeignKeys[0].RefTable = ProjectsTable
 	ProjectUsersTable.ForeignKeys[1].RefTable = UsersTable
 	SecretsTable.ForeignKeys[0].RefTable = ProjectsTable

@@ -31,6 +31,8 @@ type User struct {
 	APIKey string `json:"api_key,omitempty"`
 	// MustChangePassword holds the value of the "must_change_password" field.
 	MustChangePassword bool `json:"must_change_password,omitempty"`
+	// IsSSO holds the value of the "is_sso" field.
+	IsSSO bool `json:"is_sso,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the UserQuery when eager-loading is set.
 	Edges        UserEdges `json:"edges"`
@@ -62,7 +64,7 @@ func (*User) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case user.FieldEncryptedPassword:
 			values[i] = new([]byte)
-		case user.FieldAdmin, user.FieldMustChangePassword:
+		case user.FieldAdmin, user.FieldMustChangePassword, user.FieldIsSSO:
 			values[i] = new(sql.NullBool)
 		case user.FieldID:
 			values[i] = new(sql.NullInt64)
@@ -133,6 +135,12 @@ func (u *User) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				u.MustChangePassword = value.Bool
 			}
+		case user.FieldIsSSO:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field is_sso", values[i])
+			} else if value.Valid {
+				u.IsSSO = value.Bool
+			}
 		default:
 			u.selectValues.Set(columns[i], values[i])
 		}
@@ -194,6 +202,9 @@ func (u *User) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("must_change_password=")
 	builder.WriteString(fmt.Sprintf("%v", u.MustChangePassword))
+	builder.WriteString(", ")
+	builder.WriteString("is_sso=")
+	builder.WriteString(fmt.Sprintf("%v", u.IsSSO))
 	builder.WriteByte(')')
 	return builder.String()
 }

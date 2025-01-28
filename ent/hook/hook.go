@@ -45,6 +45,18 @@ func (f DataConfigFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DataConfigMutation", m)
 }
 
+// The InboundWebhookFunc type is an adapter to allow the use of ordinary
+// function as InboundWebhook mutator.
+type InboundWebhookFunc func(context.Context, *ent.InboundWebhookMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f InboundWebhookFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.InboundWebhookMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.InboundWebhookMutation", m)
+}
+
 // The JobFunc type is an adapter to allow the use of ordinary
 // function as Job mutator.
 type JobFunc func(context.Context, *ent.JobMutation) (ent.Value, error)
@@ -79,6 +91,18 @@ func (f JobHistoryFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 		return f(ctx, mv)
 	}
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.JobHistoryMutation", m)
+}
+
+// The JobVersionFunc type is an adapter to allow the use of ordinary
+// function as JobVersion mutator.
+type JobVersionFunc func(context.Context, *ent.JobVersionMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f JobVersionFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.JobVersionMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.JobVersionMutation", m)
 }
 
 // The NotificationChannelFunc type is an adapter to allow the use of ordinary

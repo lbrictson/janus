@@ -84,10 +84,6 @@ func formCreateJob(db *ent.Client, config *Config) echo.HandlerFunc {
 			slog.Error("error binding form data", "error", err)
 			return renderErrorPage(c, "Invalid form data", http.StatusBadRequest)
 		}
-		jobNameError := isJobOrSecretNameValid(form.Name)
-		if jobNameError != nil {
-			return renderErrorPage(c, jobNameError.Error(), http.StatusBadRequest)
-		}
 		// Default timeout if not set
 		if form.TimeoutSeconds == 0 {
 			form.TimeoutSeconds = 3600 // Default 1 hour
@@ -120,6 +116,8 @@ func formCreateJob(db *ent.Client, config *Config) echo.HandlerFunc {
 				sensitiveMap[idx] = true
 			}
 		}
+		doesJobHaveArgumentWithoutDefaultValue := false
+		needToScheduleCron := false
 		arguments := make([]schema.JobArgument, 0)
 		for i := 0; i < len(argNames); i++ {
 			if argNames[i] == "" {
@@ -150,7 +148,9 @@ func formCreateJob(db *ent.Client, config *Config) echo.HandlerFunc {
 					return renderErrorPage(c, "Default value is required for argument "+argNames[i], http.StatusBadRequest)
 				}
 			}
-
+			if argDefaults[i] == "" {
+				doesJobHaveArgumentWithoutDefaultValue = true
+			}
 			arguments = append(arguments, schema.JobArgument{
 				Name:          argNames[i],
 				DefaultValue:  argDefaults[i],
@@ -160,6 +160,9 @@ func formCreateJob(db *ent.Client, config *Config) echo.HandlerFunc {
 		}
 		cronNextRunTime := time.Now()
 		if scheduleEnabled {
+			if doesJobHaveArgumentWithoutDefaultValue {
+				return renderErrorPage(c, "All arguments must have a default value when scheduling is enabled", http.StatusBadRequest)
+			}
 			if form.CronSchedule != "" {
 				n, cronParseError := cron.ParseStandard(form.CronSchedule)
 				if cronParseError != nil {
@@ -170,6 +173,7 @@ func formCreateJob(db *ent.Client, config *Config) echo.HandlerFunc {
 			} else {
 				return renderErrorPage(c, "Cron schedule is required when schedule is enabled", http.StatusBadRequest)
 			}
+			needToScheduleCron = true
 		}
 		var startChannels []int
 		var successChannels []int
@@ -235,7 +239,27 @@ func formCreateJob(db *ent.Client, config *Config) echo.HandlerFunc {
 			"project_id", projectID,
 			"job_name", form.Name,
 		)
-
+		if needToScheduleCron {
+			addCronJob(db, job)
+		}
+		// Create the version
+		_, err = db.JobVersion.Create().
+			SetJob(job).
+			SetName(job.Name).
+			SetDescription(job.Description).
+			SetCronSchedule(job.CronSchedule).
+			SetScheduleEnabled(job.ScheduleEnabled).
+			SetScript(job.Script).
+			SetAllowConcurrentRuns(job.AllowConcurrentRuns).
+			SetArguments(arguments).
+			SetRequiresFileUpload(job.RequiresFileUpload).
+			SetChangedByEmail(self.Email).
+			SetCreatedAt(time.Now()).
+			Save(c.Request().Context())
+		if err != nil {
+			slog.Error("error creating job version", "error", err)
+			return renderErrorPage(c, "Error creating job version", http.StatusInternalServerError)
+		}
 		// Redirect to the project view page
 		return c.Redirect(http.StatusSeeOther, fmt.Sprintf("/projects/%s", projectID))
 	}
@@ -367,12 +391,6 @@ func formEditJob(db *ent.Client) echo.HandlerFunc {
 			slog.Error("error binding form data", "error", err)
 			return renderErrorPage(c, "Invalid form data", http.StatusBadRequest)
 		}
-
-		jobNameError := isJobOrSecretNameValid(form.Name)
-		if jobNameError != nil {
-			return renderErrorPage(c, jobNameError.Error(), http.StatusBadRequest)
-		}
-
 		// Default timeout if not set
 		if form.TimeoutSeconds == 0 {
 			form.TimeoutSeconds = 3600 // Default 1 hour
@@ -391,6 +409,8 @@ func formEditJob(db *ent.Client) echo.HandlerFunc {
 				sensitiveMap[idx] = true
 			}
 		}
+		needToScheduleCron := false
+		doesJobHaveArgumentWithoutDefaultValue := false
 		arguments := make([]schema.JobArgument, 0)
 		for i := 0; i < len(argNames); i++ {
 			if argNames[i] == "" {
@@ -421,7 +441,9 @@ func formEditJob(db *ent.Client) echo.HandlerFunc {
 					return renderErrorPage(c, "Default value is required for argument "+argNames[i], http.StatusBadRequest)
 				}
 			}
-
+			if argDefaults[i] == "" {
+				doesJobHaveArgumentWithoutDefaultValue = true
+			}
 			arguments = append(arguments, schema.JobArgument{
 				Name:          argNames[i],
 				DefaultValue:  argDefaults[i],
@@ -431,6 +453,9 @@ func formEditJob(db *ent.Client) echo.HandlerFunc {
 		}
 		cronNextRunTime := time.Now()
 		if scheduleEnabled {
+			if doesJobHaveArgumentWithoutDefaultValue {
+				return renderErrorPage(c, "All arguments must have a default value when scheduling is enabled", http.StatusBadRequest)
+			}
 			if form.CronSchedule != "" {
 				n, cronParseError := cron.ParseStandard(form.CronSchedule)
 				if cronParseError != nil {
@@ -441,6 +466,7 @@ func formEditJob(db *ent.Client) echo.HandlerFunc {
 			} else {
 				return renderErrorPage(c, "Cron schedule is required when schedule is enabled", http.StatusBadRequest)
 			}
+			needToScheduleCron = true
 		}
 		var startChannels []int
 		var successChannels []int
@@ -491,6 +517,27 @@ func formEditJob(db *ent.Client) echo.HandlerFunc {
 			slog.Error("error updating job", "error", err)
 			return renderErrorPage(c, "Error updating job", http.StatusInternalServerError)
 		}
+		if needToScheduleCron {
+			addCronJob(db, j)
+		}
+		// Create the version
+		_, err = db.JobVersion.Create().
+			SetJob(j).
+			SetName(form.Name).
+			SetDescription(form.Description).
+			SetCronSchedule(form.CronSchedule).
+			SetScheduleEnabled(scheduleEnabled).
+			SetAllowConcurrentRuns(allowConcurrentRuns).
+			SetArguments(arguments).
+			SetRequiresFileUpload(requiresFileUpload).
+			SetScript(form.Script).
+			SetChangedByEmail(self.Email).
+			SetCreatedAt(time.Now()).
+			Save(c.Request().Context())
+		if err != nil {
+			slog.Error("error creating job version", "error", err)
+			return renderErrorPage(c, "Error creating job version", http.StatusInternalServerError)
+		}
 		return c.Redirect(http.StatusSeeOther, fmt.Sprintf("/projects/%d", j.Edges.Project.ID))
 	}
 }
@@ -509,6 +556,10 @@ func hookDeleteJob(db *ent.Client) echo.HandlerFunc {
 		}
 		if !canUserEditProject(db, self.ID, j.Edges.Project.ID) {
 			return renderErrorPage(c, "You do not have permission to delete this job", http.StatusForbidden)
+		}
+		// Remove it from cron if it has a schedule enabled
+		if j.ScheduleEnabled {
+			removeCronJob(j)
 		}
 		err = db.Job.DeleteOneID(jobIDInt).Exec(c.Request().Context())
 		if err != nil {
@@ -535,7 +586,8 @@ func renderRunJobView(db *ent.Client) echo.HandlerFunc {
 			return renderErrorPage(c, "You do not have permission to run this job", http.StatusForbidden)
 		}
 		return c.Render(http.StatusOK, "run-job", map[string]any{
-			"Job": j,
+			"Job":     j,
+			"Project": j.Edges.Project,
 		})
 	}
 }
@@ -599,7 +651,7 @@ func formRunJob(db *ent.Client, config Config) echo.HandlerFunc {
 			slog.Error("error creating job history", "error", err)
 			return renderErrorPage(c, "Error creating job history", http.StatusInternalServerError)
 		}
-		go runJob(db, j, history, argValues, "Web UI", fileBytes, config)
+		go runJob(db, j, history, argValues, fileBytes, config)
 		return c.Redirect(http.StatusSeeOther, fmt.Sprintf("/projects/%d/jobs/%d/run/%d", j.Edges.Project.ID, j.ID, history.ID))
 	}
 }

@@ -18,9 +18,11 @@ import (
 	"github.com/lbrictson/janus/ent/audit"
 	"github.com/lbrictson/janus/ent/authconfig"
 	"github.com/lbrictson/janus/ent/dataconfig"
+	"github.com/lbrictson/janus/ent/inboundwebhook"
 	"github.com/lbrictson/janus/ent/job"
 	"github.com/lbrictson/janus/ent/jobconfig"
 	"github.com/lbrictson/janus/ent/jobhistory"
+	"github.com/lbrictson/janus/ent/jobversion"
 	"github.com/lbrictson/janus/ent/notificationchannel"
 	"github.com/lbrictson/janus/ent/project"
 	"github.com/lbrictson/janus/ent/projectuser"
@@ -40,12 +42,16 @@ type Client struct {
 	AuthConfig *AuthConfigClient
 	// DataConfig is the client for interacting with the DataConfig builders.
 	DataConfig *DataConfigClient
+	// InboundWebhook is the client for interacting with the InboundWebhook builders.
+	InboundWebhook *InboundWebhookClient
 	// Job is the client for interacting with the Job builders.
 	Job *JobClient
 	// JobConfig is the client for interacting with the JobConfig builders.
 	JobConfig *JobConfigClient
 	// JobHistory is the client for interacting with the JobHistory builders.
 	JobHistory *JobHistoryClient
+	// JobVersion is the client for interacting with the JobVersion builders.
+	JobVersion *JobVersionClient
 	// NotificationChannel is the client for interacting with the NotificationChannel builders.
 	NotificationChannel *NotificationChannelClient
 	// Project is the client for interacting with the Project builders.
@@ -72,9 +78,11 @@ func (c *Client) init() {
 	c.Audit = NewAuditClient(c.config)
 	c.AuthConfig = NewAuthConfigClient(c.config)
 	c.DataConfig = NewDataConfigClient(c.config)
+	c.InboundWebhook = NewInboundWebhookClient(c.config)
 	c.Job = NewJobClient(c.config)
 	c.JobConfig = NewJobConfigClient(c.config)
 	c.JobHistory = NewJobHistoryClient(c.config)
+	c.JobVersion = NewJobVersionClient(c.config)
 	c.NotificationChannel = NewNotificationChannelClient(c.config)
 	c.Project = NewProjectClient(c.config)
 	c.ProjectUser = NewProjectUserClient(c.config)
@@ -176,9 +184,11 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Audit:               NewAuditClient(cfg),
 		AuthConfig:          NewAuthConfigClient(cfg),
 		DataConfig:          NewDataConfigClient(cfg),
+		InboundWebhook:      NewInboundWebhookClient(cfg),
 		Job:                 NewJobClient(cfg),
 		JobConfig:           NewJobConfigClient(cfg),
 		JobHistory:          NewJobHistoryClient(cfg),
+		JobVersion:          NewJobVersionClient(cfg),
 		NotificationChannel: NewNotificationChannelClient(cfg),
 		Project:             NewProjectClient(cfg),
 		ProjectUser:         NewProjectUserClient(cfg),
@@ -207,9 +217,11 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Audit:               NewAuditClient(cfg),
 		AuthConfig:          NewAuthConfigClient(cfg),
 		DataConfig:          NewDataConfigClient(cfg),
+		InboundWebhook:      NewInboundWebhookClient(cfg),
 		Job:                 NewJobClient(cfg),
 		JobConfig:           NewJobConfigClient(cfg),
 		JobHistory:          NewJobHistoryClient(cfg),
+		JobVersion:          NewJobVersionClient(cfg),
 		NotificationChannel: NewNotificationChannelClient(cfg),
 		Project:             NewProjectClient(cfg),
 		ProjectUser:         NewProjectUserClient(cfg),
@@ -245,9 +257,9 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
-		c.Audit, c.AuthConfig, c.DataConfig, c.Job, c.JobConfig, c.JobHistory,
-		c.NotificationChannel, c.Project, c.ProjectUser, c.SMTPConfig, c.Secret,
-		c.User,
+		c.Audit, c.AuthConfig, c.DataConfig, c.InboundWebhook, c.Job, c.JobConfig,
+		c.JobHistory, c.JobVersion, c.NotificationChannel, c.Project, c.ProjectUser,
+		c.SMTPConfig, c.Secret, c.User,
 	} {
 		n.Use(hooks...)
 	}
@@ -257,9 +269,9 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.Audit, c.AuthConfig, c.DataConfig, c.Job, c.JobConfig, c.JobHistory,
-		c.NotificationChannel, c.Project, c.ProjectUser, c.SMTPConfig, c.Secret,
-		c.User,
+		c.Audit, c.AuthConfig, c.DataConfig, c.InboundWebhook, c.Job, c.JobConfig,
+		c.JobHistory, c.JobVersion, c.NotificationChannel, c.Project, c.ProjectUser,
+		c.SMTPConfig, c.Secret, c.User,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -274,12 +286,16 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.AuthConfig.mutate(ctx, m)
 	case *DataConfigMutation:
 		return c.DataConfig.mutate(ctx, m)
+	case *InboundWebhookMutation:
+		return c.InboundWebhook.mutate(ctx, m)
 	case *JobMutation:
 		return c.Job.mutate(ctx, m)
 	case *JobConfigMutation:
 		return c.JobConfig.mutate(ctx, m)
 	case *JobHistoryMutation:
 		return c.JobHistory.mutate(ctx, m)
+	case *JobVersionMutation:
+		return c.JobVersion.mutate(ctx, m)
 	case *NotificationChannelMutation:
 		return c.NotificationChannel.mutate(ctx, m)
 	case *ProjectMutation:
@@ -696,6 +712,155 @@ func (c *DataConfigClient) mutate(ctx context.Context, m *DataConfigMutation) (V
 	}
 }
 
+// InboundWebhookClient is a client for the InboundWebhook schema.
+type InboundWebhookClient struct {
+	config
+}
+
+// NewInboundWebhookClient returns a client for the InboundWebhook from the given config.
+func NewInboundWebhookClient(c config) *InboundWebhookClient {
+	return &InboundWebhookClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `inboundwebhook.Hooks(f(g(h())))`.
+func (c *InboundWebhookClient) Use(hooks ...Hook) {
+	c.hooks.InboundWebhook = append(c.hooks.InboundWebhook, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `inboundwebhook.Intercept(f(g(h())))`.
+func (c *InboundWebhookClient) Intercept(interceptors ...Interceptor) {
+	c.inters.InboundWebhook = append(c.inters.InboundWebhook, interceptors...)
+}
+
+// Create returns a builder for creating a InboundWebhook entity.
+func (c *InboundWebhookClient) Create() *InboundWebhookCreate {
+	mutation := newInboundWebhookMutation(c.config, OpCreate)
+	return &InboundWebhookCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of InboundWebhook entities.
+func (c *InboundWebhookClient) CreateBulk(builders ...*InboundWebhookCreate) *InboundWebhookCreateBulk {
+	return &InboundWebhookCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *InboundWebhookClient) MapCreateBulk(slice any, setFunc func(*InboundWebhookCreate, int)) *InboundWebhookCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &InboundWebhookCreateBulk{err: fmt.Errorf("calling to InboundWebhookClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*InboundWebhookCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &InboundWebhookCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for InboundWebhook.
+func (c *InboundWebhookClient) Update() *InboundWebhookUpdate {
+	mutation := newInboundWebhookMutation(c.config, OpUpdate)
+	return &InboundWebhookUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *InboundWebhookClient) UpdateOne(iw *InboundWebhook) *InboundWebhookUpdateOne {
+	mutation := newInboundWebhookMutation(c.config, OpUpdateOne, withInboundWebhook(iw))
+	return &InboundWebhookUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *InboundWebhookClient) UpdateOneID(id int) *InboundWebhookUpdateOne {
+	mutation := newInboundWebhookMutation(c.config, OpUpdateOne, withInboundWebhookID(id))
+	return &InboundWebhookUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for InboundWebhook.
+func (c *InboundWebhookClient) Delete() *InboundWebhookDelete {
+	mutation := newInboundWebhookMutation(c.config, OpDelete)
+	return &InboundWebhookDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *InboundWebhookClient) DeleteOne(iw *InboundWebhook) *InboundWebhookDeleteOne {
+	return c.DeleteOneID(iw.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *InboundWebhookClient) DeleteOneID(id int) *InboundWebhookDeleteOne {
+	builder := c.Delete().Where(inboundwebhook.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &InboundWebhookDeleteOne{builder}
+}
+
+// Query returns a query builder for InboundWebhook.
+func (c *InboundWebhookClient) Query() *InboundWebhookQuery {
+	return &InboundWebhookQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeInboundWebhook},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a InboundWebhook entity by its id.
+func (c *InboundWebhookClient) Get(ctx context.Context, id int) (*InboundWebhook, error) {
+	return c.Query().Where(inboundwebhook.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *InboundWebhookClient) GetX(ctx context.Context, id int) *InboundWebhook {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// QueryJob queries the job edge of a InboundWebhook.
+func (c *InboundWebhookClient) QueryJob(iw *InboundWebhook) *JobQuery {
+	query := (&JobClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := iw.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(inboundwebhook.Table, inboundwebhook.FieldID, id),
+			sqlgraph.To(job.Table, job.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, false, inboundwebhook.JobTable, inboundwebhook.JobColumn),
+		)
+		fromV = sqlgraph.Neighbors(iw.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// Hooks returns the client hooks.
+func (c *InboundWebhookClient) Hooks() []Hook {
+	return c.hooks.InboundWebhook
+}
+
+// Interceptors returns the client interceptors.
+func (c *InboundWebhookClient) Interceptors() []Interceptor {
+	return c.inters.InboundWebhook
+}
+
+func (c *InboundWebhookClient) mutate(ctx context.Context, m *InboundWebhookMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&InboundWebhookCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&InboundWebhookUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&InboundWebhookUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&InboundWebhookDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown InboundWebhook mutation op: %q", m.Op())
+	}
+}
+
 // JobClient is a client for the Job schema.
 type JobClient struct {
 	config
@@ -829,6 +994,22 @@ func (c *JobClient) QueryHistory(j *Job) *JobHistoryQuery {
 			sqlgraph.From(job.Table, job.FieldID, id),
 			sqlgraph.To(jobhistory.Table, jobhistory.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, false, job.HistoryTable, job.HistoryColumn),
+		)
+		fromV = sqlgraph.Neighbors(j.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// QueryVersions queries the versions edge of a Job.
+func (c *JobClient) QueryVersions(j *Job) *JobVersionQuery {
+	query := (&JobVersionClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := j.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(job.Table, job.FieldID, id),
+			sqlgraph.To(jobversion.Table, jobversion.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, job.VersionsTable, job.VersionsColumn),
 		)
 		fromV = sqlgraph.Neighbors(j.driver.Dialect(), step)
 		return fromV, nil
@@ -1156,6 +1337,155 @@ func (c *JobHistoryClient) mutate(ctx context.Context, m *JobHistoryMutation) (V
 		return (&JobHistoryDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
 		return nil, fmt.Errorf("ent: unknown JobHistory mutation op: %q", m.Op())
+	}
+}
+
+// JobVersionClient is a client for the JobVersion schema.
+type JobVersionClient struct {
+	config
+}
+
+// NewJobVersionClient returns a client for the JobVersion from the given config.
+func NewJobVersionClient(c config) *JobVersionClient {
+	return &JobVersionClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `jobversion.Hooks(f(g(h())))`.
+func (c *JobVersionClient) Use(hooks ...Hook) {
+	c.hooks.JobVersion = append(c.hooks.JobVersion, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `jobversion.Intercept(f(g(h())))`.
+func (c *JobVersionClient) Intercept(interceptors ...Interceptor) {
+	c.inters.JobVersion = append(c.inters.JobVersion, interceptors...)
+}
+
+// Create returns a builder for creating a JobVersion entity.
+func (c *JobVersionClient) Create() *JobVersionCreate {
+	mutation := newJobVersionMutation(c.config, OpCreate)
+	return &JobVersionCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of JobVersion entities.
+func (c *JobVersionClient) CreateBulk(builders ...*JobVersionCreate) *JobVersionCreateBulk {
+	return &JobVersionCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *JobVersionClient) MapCreateBulk(slice any, setFunc func(*JobVersionCreate, int)) *JobVersionCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &JobVersionCreateBulk{err: fmt.Errorf("calling to JobVersionClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*JobVersionCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &JobVersionCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for JobVersion.
+func (c *JobVersionClient) Update() *JobVersionUpdate {
+	mutation := newJobVersionMutation(c.config, OpUpdate)
+	return &JobVersionUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *JobVersionClient) UpdateOne(jv *JobVersion) *JobVersionUpdateOne {
+	mutation := newJobVersionMutation(c.config, OpUpdateOne, withJobVersion(jv))
+	return &JobVersionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *JobVersionClient) UpdateOneID(id int) *JobVersionUpdateOne {
+	mutation := newJobVersionMutation(c.config, OpUpdateOne, withJobVersionID(id))
+	return &JobVersionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for JobVersion.
+func (c *JobVersionClient) Delete() *JobVersionDelete {
+	mutation := newJobVersionMutation(c.config, OpDelete)
+	return &JobVersionDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *JobVersionClient) DeleteOne(jv *JobVersion) *JobVersionDeleteOne {
+	return c.DeleteOneID(jv.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *JobVersionClient) DeleteOneID(id int) *JobVersionDeleteOne {
+	builder := c.Delete().Where(jobversion.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &JobVersionDeleteOne{builder}
+}
+
+// Query returns a query builder for JobVersion.
+func (c *JobVersionClient) Query() *JobVersionQuery {
+	return &JobVersionQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeJobVersion},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a JobVersion entity by its id.
+func (c *JobVersionClient) Get(ctx context.Context, id int) (*JobVersion, error) {
+	return c.Query().Where(jobversion.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *JobVersionClient) GetX(ctx context.Context, id int) *JobVersion {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// QueryJob queries the job edge of a JobVersion.
+func (c *JobVersionClient) QueryJob(jv *JobVersion) *JobQuery {
+	query := (&JobClient{config: c.config}).Query()
+	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
+		id := jv.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(jobversion.Table, jobversion.FieldID, id),
+			sqlgraph.To(job.Table, job.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, jobversion.JobTable, jobversion.JobColumn),
+		)
+		fromV = sqlgraph.Neighbors(jv.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// Hooks returns the client hooks.
+func (c *JobVersionClient) Hooks() []Hook {
+	return c.hooks.JobVersion
+}
+
+// Interceptors returns the client interceptors.
+func (c *JobVersionClient) Interceptors() []Interceptor {
+	return c.inters.JobVersion
+}
+
+func (c *JobVersionClient) mutate(ctx context.Context, m *JobVersionMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&JobVersionCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&JobVersionUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&JobVersionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&JobVersionDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown JobVersion mutation op: %q", m.Op())
 	}
 }
 
@@ -2072,11 +2402,13 @@ func (c *UserClient) mutate(ctx context.Context, m *UserMutation) (Value, error)
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		Audit, AuthConfig, DataConfig, Job, JobConfig, JobHistory, NotificationChannel,
-		Project, ProjectUser, SMTPConfig, Secret, User []ent.Hook
+		Audit, AuthConfig, DataConfig, InboundWebhook, Job, JobConfig, JobHistory,
+		JobVersion, NotificationChannel, Project, ProjectUser, SMTPConfig, Secret,
+		User []ent.Hook
 	}
 	inters struct {
-		Audit, AuthConfig, DataConfig, Job, JobConfig, JobHistory, NotificationChannel,
-		Project, ProjectUser, SMTPConfig, Secret, User []ent.Interceptor
+		Audit, AuthConfig, DataConfig, InboundWebhook, Job, JobConfig, JobHistory,
+		JobVersion, NotificationChannel, Project, ProjectUser, SMTPConfig, Secret,
+		User []ent.Interceptor
 	}
 )
