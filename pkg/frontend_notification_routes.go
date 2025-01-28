@@ -415,8 +415,7 @@ func formEditNotificationChannel(db *ent.Client) echo.HandlerFunc {
 
 		case "pagerduty":
 			channelConfig.PagerDutyToken = c.FormValue("config.pagerduty_token")
-			channelConfig.PagerDutyService = c.FormValue("config.pagerduty_service")
-			if channelConfig.PagerDutyToken == "" || channelConfig.PagerDutyService == "" {
+			if channelConfig.PagerDutyToken == "" {
 				return c.Render(http.StatusBadRequest, "edit-notification-channel", map[string]interface{}{
 					"Channel": channel,
 					"Error":   "PagerDuty token and service are required",
@@ -442,46 +441,44 @@ func formEditNotificationChannel(db *ent.Client) echo.HandlerFunc {
 			// Split to numbers by newline
 			channelConfig.TwilioToNumbers = strings.Split(strings.ReplaceAll(toNumbers, "\r\n", "\n"), "\n")
 
-		case "aws-sns", "aws-eventbridge":
-			// Common AWS fields
+		case "aws-sns":
 			channelConfig.AWSRegion = c.FormValue("config.aws_region")
-			channelConfig.AWSCredentials.AccessKeyID = c.FormValue("config.aws_credentials.access_key_id")
-			channelConfig.AWSCredentials.RoleARN = c.FormValue("config.aws_credentials.role_arn")
-
-			// Handle secret key - if empty, keep existing
-			secretKey := c.FormValue("config.aws_credentials.secret_access_key")
-			if secretKey == "" {
-				channelConfig.AWSCredentials.SecretAccessKey = channel.Config.AWSCredentials.SecretAccessKey
-			} else {
-				channelConfig.AWSCredentials.SecretAccessKey = secretKey
+			channelConfig.AWSCredentials = schema.AWSCredentials{
+				AccessKeyID:     c.FormValue("config.aws_credentials.access_key_id"),
+				SecretAccessKey: c.FormValue("config.aws_credentials.secret_access_key"),
 			}
-
-			if channelConfig.AWSRegion == "" || channelConfig.AWSCredentials.AccessKeyID == "" {
-				return c.Render(http.StatusBadRequest, "edit-notification-channel", map[string]interface{}{
-					"Channel": channel,
-					"Error":   "AWS region and access key ID are required",
+			if channelConfig.AWSRegion == "" || channelConfig.AWSCredentials.AccessKeyID == "" ||
+				channelConfig.AWSCredentials.SecretAccessKey == "" {
+				return c.Render(http.StatusBadRequest, "notification-channel-create", map[string]interface{}{
+					"Error": "AWS region and credentials are required",
+				})
+			}
+			channelConfig.SNSTopicARN = c.FormValue("config.sns_topic_arn")
+			if channelConfig.SNSTopicARN == "" {
+				return c.Render(http.StatusBadRequest, "notification-channel-create", map[string]interface{}{
+					"Error": "SNS topic ARN is required",
 				})
 			}
 
-			if form.Type == "aws-sns" {
-				channelConfig.SNSTopicARN = c.FormValue("config.sns_topic_arn")
-				if channelConfig.SNSTopicARN == "" {
-					return c.Render(http.StatusBadRequest, "edit-notification-channel", map[string]interface{}{
-						"Channel": channel,
-						"Error":   "SNS topic ARN is required",
-					})
-				}
-			} else {
-				channelConfig.EventBusName = c.FormValue("config.event_bus_name")
-				channelConfig.EventSource = c.FormValue("config.event_source")
-				channelConfig.DetailType = c.FormValue("config.detail_type")
-				if channelConfig.EventBusName == "" || channelConfig.EventSource == "" ||
-					channelConfig.DetailType == "" {
-					return c.Render(http.StatusBadRequest, "edit-notification-channel", map[string]interface{}{
-						"Channel": channel,
-						"Error":   "All EventBridge fields are required",
-					})
-				}
+		case "aws-eventbridge":
+			channelConfig.AWSRegion = c.FormValue("config.eventbridge_aws_region")
+			channelConfig.AWSCredentials = schema.AWSCredentials{
+				AccessKeyID:     c.FormValue("config.eventbridge_aws_credentials.access_key_id"),
+				SecretAccessKey: c.FormValue("config.eventbridge_aws_credentials.secret_access_key"),
+			}
+			if channelConfig.AWSRegion == "" || channelConfig.AWSCredentials.AccessKeyID == "" ||
+				channelConfig.AWSCredentials.SecretAccessKey == "" {
+				return c.Render(http.StatusBadRequest, "notification-channel-create", map[string]interface{}{
+					"Error": "AWS region and credentials are required",
+				})
+			}
+			channelConfig.EventBusName = c.FormValue("config.event_bus_name")
+			channelConfig.EventSource = c.FormValue("config.event_source")
+			channelConfig.DetailType = c.FormValue("config.detail_type")
+			if channelConfig.EventBusName == "" || channelConfig.EventSource == "" || channelConfig.DetailType == "" {
+				return c.Render(http.StatusBadRequest, "notification-channel-create", map[string]interface{}{
+					"Error": "All EventBridge fields are required",
+				})
 			}
 
 		default:

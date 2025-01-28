@@ -482,11 +482,6 @@
                                         <input type="text" class="form-control" name="config.pagerduty_token"
                                                value="{{$config.PagerDutyToken}}">
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Service ID</label>
-                                        <input type="text" class="form-control" name="config.pagerduty_service"
-                                               value="{{$config.PagerDutyService}}">
-                                    </div>
                                 </div>
 
                             {{else if eq .Channel.Type "twilio-sms"}}
@@ -537,11 +532,6 @@
                                         <input type="password" class="form-control" name="config.aws_credentials.secret_access_key"
                                                value="{{$config.AWSCredentials.SecretAccessKey}}">
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Role ARN (optional)</label>
-                                        <input type="text" class="form-control" name="config.aws_credentials.role_arn"
-                                               value="{{$config.AWSCredentials.RoleARN}}">
-                                    </div>
                                 </div>
 
                             {{else if eq .Channel.Type "aws-eventbridge"}}
@@ -564,23 +554,18 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">AWS Region</label>
-                                        <input type="text" class="form-control" name="config.aws_region"
+                                        <input type="text" class="form-control" name="config.eventbridge_aws_region"
                                                value="{{$config.AWSRegion}}">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Access Key ID</label>
-                                        <input type="text" class="form-control" name="config.aws_credentials.access_key_id"
+                                        <input type="text" class="form-control" name="config.eventbridge_aws_credentials.access_key_id"
                                                value="{{$config.AWSCredentials.AccessKeyID}}">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Secret Access Key</label>
-                                        <input type="password" class="form-control" name="config.aws_credentials.secret_access_key"
+                                        <input type="password" class="form-control" name="config.eventbridge_aws_credentials.secret_access_key"
                                                value="{{$config.AWSCredentials.SecretAccessKey}}">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Role ARN (optional)</label>
-                                        <input type="text" class="form-control" name="config.aws_credentials.role_arn"
-                                               value="{{$config.AWSCredentials.RoleARN}}">
                                     </div>
                                 </div>
                             {{end}}
