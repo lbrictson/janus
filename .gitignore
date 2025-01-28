@@ -36,3 +36,5 @@ tmp/
 *.db-wal
 vendor/
 bruno/
+# Added by goreleaser init:
+dist/
