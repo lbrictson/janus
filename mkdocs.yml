@@ -1,5 +1,5 @@
 site_name: Janus
-site_url: https://github.com/lbrictson/janus
+site_url: https://janus.brictson.dev
 repo_url: https://github.com/lbrictson/janus
 edit_uri: edit/main/docs/
 docs_dir: ./docs/
@@ -15,7 +15,6 @@ nav:
   - About: index.md
   - Getting Started:
     - Installation: getting-started/installation.md
-    - Configuration: getting-started/configuration.md
   - Understanding Jobs:
     - Creating Your First Job: understanding-jobs/creating-your-first-job.md
     - Versioning: understanding-jobs/versioning.md
@@ -34,10 +33,10 @@ nav:
     - Webhooks: notifications/webhooks.md
     - PagerDuty: notifications/pagerduty.md
     - Discord: notifications/discord.md
-    - Microsoft Teams: notifications/microsoft-teams.md
     - SMS (Twilio): notifications/twilio.md
     - AWS SNS: notifications/aws-sns.md
     - AWS EventBridge: notifications/aws-eventbridge.md
   - Configuration:
     - Runtime Config: configuration/runtime-config.md
     - Admin Config: configuration/admin-config.md
+  - FAQ: faq.md

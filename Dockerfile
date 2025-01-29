@@ -17,7 +17,7 @@ WORKDIR /
 
 COPY --from=build-stage /janus /janus
 RUN mkdir /data
-RUN apt update && apt install -y ca-certificates python3 python3-pip curl wget pipx awscli ssh sshpass
+RUN apt update && apt install -y ca-certificates python3 python3-pip curl wget pipx awscli ssh sshpass git
 RUN pipx install --include-deps ansible && pipx install --include-deps pipenv && pipx ensurepath
 EXPOSE 8080
 EXPOSE 8081
