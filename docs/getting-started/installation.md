@@ -6,7 +6,7 @@ Running Janus with Docker is the easiest way to get up and running.
 
 ```bash
 cd ~/some-directory-where-you-want-to-store-data/
-docker run -it -v $PWD:/data/ -e JANUS_URL=https://yourdomain.com -p 8080:8080 -p 8081:8081 lbrictson/janus:0.0.4-slim
+docker run -it -v $PWD:/data/ -e JANUS_URL=https://yourdomain.com -p 8080:8080 -p 8081:8081 lbrictson/janus:latest-slim
 # Access at http://localhost:8080/
 # Username: admin@localhost
 # Password: ChangeMeBeforeUse1234!
@@ -27,7 +27,7 @@ services:
     ports:
       - "8080:8080"
       - "8081:8081"
-    image: lbrictson/janus:0.0.4-slim
+    image: lbrictson/janus:latest-slim
     environment:
       # JANUS_URL should be the URL where you plan to host Janus
       - JANUS_URL=https://yourdomain.com
