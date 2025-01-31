@@ -44,7 +44,9 @@ func TestRenderAdminPage(t *testing.T) {
 	defer client.Close()
 
 	e := echo.New()
-	registerRenderer(e)
+	registerRenderer(e, Config{
+		BrandName: "Janus",
+	})
 
 	req := httptest.NewRequest(http.MethodGet, "/admin", nil)
 	rec := httptest.NewRecorder()

@@ -31,7 +31,7 @@ func RunServer(config *Config, db *ent.Client) {
 	}
 	// Serve static files from the embedded filesystem
 	e.StaticFS("/static", staticFS)
-	registerRenderer(e)
+	registerRenderer(e, *config)
 	authC, err := getAuthConfig(ctx, db)
 	if err != nil {
 		panic(fmt.Sprintf("failed to get auth config: %v", err))
@@ -160,8 +160,9 @@ func RunServer(config *Config, db *ent.Client) {
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%v", config.Port)))
 }
 
-func registerRenderer(e *echo.Echo) {
+func registerRenderer(e *echo.Echo, config Config) {
 	renderer := Renderer{
+		config: config,
 		templates: template.Must(template.New("").Funcs(template.FuncMap{
 			"json": func(v interface{}) template.JS {
 				b, err := json.Marshal(v)
@@ -177,6 +178,7 @@ func registerRenderer(e *echo.Echo) {
 
 type Renderer struct {
 	templates *template.Template
+	config    Config
 }
 
 func (r *Renderer) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
@@ -186,6 +188,7 @@ func (r *Renderer) Render(w io.Writer, name string, data interface{}, c echo.Con
 	templateData := data.(map[string]any)
 	templateData["userID"] = c.Get("userID")
 	templateData["email"] = c.Get("email")
+	templateData["BrandName"] = r.config.BrandName
 	role := c.Get("globalRole")
 	isAdmin := false
 	if role != nil {

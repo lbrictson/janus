@@ -106,6 +106,7 @@ func sendNotification(db *ent.Client, notificationChannelItem *ent.NotificationC
 			*s,
 			notificationChannelItem.Config.ToAddresses,
 			c.ServerURL,
+			c.BrandName,
 		)
 		if sendErr != nil {
 			metricTrackFailedNotification()

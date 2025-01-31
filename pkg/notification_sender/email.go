@@ -8,7 +8,7 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
-func SendEmailNotification(input NewNotificationInput, config ent.SMTPConfig, toAddresses []string, serverURL string) error {
+func SendEmailNotification(input NewNotificationInput, config ent.SMTPConfig, toAddresses []string, serverURL string, brand string) error {
 	// Configure hermes by setting a theme and your product info
 	status := fmt.Sprintf("%v", input.JobStatus)
 	h := hermes.Hermes{
@@ -16,7 +16,7 @@ func SendEmailNotification(input NewNotificationInput, config ent.SMTPConfig, to
 		// Theme: new(Default)
 		Product: hermes.Product{
 			// Appears in header & footer of e-mails
-			Name: "Janus",
+			Name: brand,
 			Link: serverURL,
 		},
 	}
