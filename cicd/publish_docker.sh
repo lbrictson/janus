@@ -7,7 +7,11 @@ fi
 docker build -t janus:$tag .
 docker build -t janus:$tag-slim -f slim.Dockerfile .
 docker tag janus:$tag lbrictson/janus:$tag
+docker tag janus:$tag lbrictson/janus:latest
 docker tag janus:$tag-slim lbrictson/janus:$tag-slim
+docker tag janus:$tag-slim lbrictson/janus:latest-slim
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 docker push lbrictson/janus:$tag
 docker push lbrictson/janus:$tag-slim
+docker push lbrictson/janus:latest
+docker push lbrictson/janus:latest-slim
