@@ -6,6 +6,15 @@ or get direct access to various systems.
 
 ![image](https://github.com/user-attachments/assets/bc81f684-cf76-43c4-8499-a56fd9853551)
 
+![image](https://github.com/user-attachments/assets/f109e591-9747-4db9-8051-432da3d61f1c)
+
+![image](https://github.com/user-attachments/assets/4c72977c-0794-44e6-b0d6-a60732812368)
+
+![image](https://github.com/user-attachments/assets/b59c73c0-9417-420f-9c11-7dac169af5ea)
+
+![image](https://github.com/user-attachments/assets/9f8cd912-b7a2-44f1-958a-91c69a51dcf9)
+
+
 ## Features
 
 - Single binary deployment
