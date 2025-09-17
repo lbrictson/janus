@@ -146,10 +146,27 @@
                     <div class="d-flex gap-3 align-items-center">
                     <h5 class="card-title">Job History - {{.Job.Name}}</h5>
                     <input type="text" class="form-control w-auto" id="historySearch"
-                           placeholder="Search history..." onkeyup="filterHistory()">
+                           placeholder="Search current page..." onkeyup="filterHistory()">
                         <a href="/projects/{{ .Project.ID}}" class="btn-primary btn-sm btn">Back to Project</a>
                 </div>
                 </div>
+
+                {{if .Pagination}}
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="text-muted">
+                        Showing {{.Pagination.StartItem}}-{{.Pagination.EndItem}} of {{.Pagination.TotalItems}} entries
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <label class="text-muted">Items per page:</label>
+                        <select class="form-select form-select-sm w-auto" onchange="changePageSize(this.value)">
+                            <option value="10" {{if eq .Pagination.ItemsPerPage 10}}selected{{end}}>10</option>
+                            <option value="25" {{if eq .Pagination.ItemsPerPage 25}}selected{{end}}>25</option>
+                            <option value="50" {{if eq .Pagination.ItemsPerPage 50}}selected{{end}}>50</option>
+                            <option value="100" {{if eq .Pagination.ItemsPerPage 100}}selected{{end}}>100</option>
+                        </select>
+                    </div>
+                </div>
+                {{end}}
 
                 <div class="table-responsive">
                     <table class="table table-striped table-hover" id="historyTable">
@@ -192,10 +209,56 @@
                                        class="btn btn-primary btn-sm">View Details</a>
                                 </td>
                             </tr>
+                        {{else}}
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">No job history found</td>
+                            </tr>
                         {{end}}
                         </tbody>
                     </table>
                 </div>
+
+                {{if and .Pagination (gt .Pagination.TotalPages 1)}}
+                <nav aria-label="History pagination">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item {{if not .Pagination.HasPrev}}disabled{{end}}">
+                            <a class="page-link" href="?page=1&limit={{.Pagination.ItemsPerPage}}" aria-label="First">
+                                <span aria-hidden="true">&laquo;&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item {{if not .Pagination.HasPrev}}disabled{{end}}">
+                            <a class="page-link" href="?page={{minus .Pagination.CurrentPage 1}}&limit={{.Pagination.ItemsPerPage}}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        
+                        {{if gt (index .Pagination.Pages 0) 1}}
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        {{end}}
+                        
+                        {{range .Pagination.Pages}}
+                            <li class="page-item {{if eq . $.Pagination.CurrentPage}}active{{end}}">
+                                <a class="page-link" href="?page={{.}}&limit={{$.Pagination.ItemsPerPage}}">{{.}}</a>
+                            </li>
+                        {{end}}
+                        
+                        {{if and (gt (len .Pagination.Pages) 0) (lt (index .Pagination.Pages (minus (len .Pagination.Pages) 1)) .Pagination.TotalPages)}}
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        {{end}}
+                        
+                        <li class="page-item {{if not .Pagination.HasNext}}disabled{{end}}">
+                            <a class="page-link" href="?page={{plus .Pagination.CurrentPage 1}}&limit={{.Pagination.ItemsPerPage}}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item {{if not .Pagination.HasNext}}disabled{{end}}">
+                            <a class="page-link" href="?page={{.Pagination.TotalPages}}&limit={{.Pagination.ItemsPerPage}}" aria-label="Last">
+                                <span aria-hidden="true">&raquo;&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                {{end}}
             </div>
         </div>
     </div>
@@ -220,6 +283,13 @@
                     rows[i].style.display = 'none';
                 }
             }
+        }
+        
+        function changePageSize(size) {
+            const url = new URL(window.location);
+            url.searchParams.set('limit', size);
+            url.searchParams.set('page', '1');
+            window.location.href = url.toString();
         }
     </script>
     </body>

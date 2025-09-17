@@ -172,6 +172,12 @@ func registerRenderer(e *echo.Echo, config Config) {
 				}
 				return template.JS(b)
 			},
+			"plus": func(a, b int) int {
+				return a + b
+			},
+			"minus": func(a, b int) int {
+				return a - b
+			},
 		}).ParseFS(web.Assets, "templates/*.tmpl")),
 	}
 	e.Renderer = &renderer

@@ -95,6 +95,14 @@ go vet ./...
 go mod tidy
 ```
 
+## Known Issues
+
+### Dependency Compatibility
+- **tablewriter v0.0.5 pinned**: The project uses a replace directive to pin `github.com/olekukonko/tablewriter` to v0.0.5 due to compatibility issues with `github.com/jaytaylor/html2text` (used by the Hermes email template library). Newer versions of tablewriter removed constants that html2text depends on.
+  - **Impact**: Cannot update tablewriter beyond v0.0.5
+  - **Workaround**: Using `replace` directive in go.mod
+  - **Long-term solution**: Consider replacing Hermes email library with Go's built-in `html/template` or alternative email templating solution
+
 ## Environment Variables
 
 Key configuration is done through environment variables (all prefixed with `JANUS_`):

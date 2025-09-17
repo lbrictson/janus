@@ -27,6 +27,8 @@ require (
 	modernc.org/sqlite v1.39.0
 )
 
+replace github.com/olekukonko/tablewriter => github.com/olekukonko/tablewriter v0.0.5
+
 require (
 	ariga.io/atlas v0.37.0 // indirect
 	cloud.google.com/go/compute/metadata v0.8.2 // indirect
@@ -52,7 +54,6 @@ require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bmatcuk/doublestar v1.3.4 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
-	github.com/fatih/color v1.18.0 // indirect
 	github.com/go-chi/chi/v5 v5.2.3 // indirect
 	github.com/go-openapi/inflect v0.21.3 // indirect
 	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
@@ -75,10 +76,7 @@ require (
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
-	github.com/olekukonko/cat v0.0.0-20250911104152-50322a0618f6 // indirect
-	github.com/olekukonko/errors v1.1.0 // indirect
-	github.com/olekukonko/ll v0.1.1 // indirect
-	github.com/olekukonko/tablewriter v0.0.5 // indirect
+	github.com/olekukonko/tablewriter v1.0.9 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_model v0.6.2 // indirect
 	github.com/prometheus/common v0.66.1 // indirect
