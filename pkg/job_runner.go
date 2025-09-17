@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/lbrictson/janus/ent"
@@ -315,7 +316,6 @@ func executeScript(ctx context.Context, script string, runID int, environmentVar
 	}
 	// Create command with interpreter
 	cmd := exec.CommandContext(ctx, scriptPath)
-	cmd.Stdin = strings.NewReader(script)
 	// Set env variables
 	cmd.Env = append(cmd.Env, environmentVariables...)
 	// Create pipes for stdout and stderr
@@ -336,32 +336,90 @@ func executeScript(ctx context.Context, script string, runID int, environmentVar
 	}
 
 	// Create output channels
-	stdoutChan := make(chan ScriptOutput)
-	stderrChan := make(chan ScriptOutput)
+	stdoutChan := make(chan ScriptOutput, 100)
+	stderrChan := make(chan ScriptOutput, 100)
 	errorChan := make(chan error, 2)
+	doneChan := make(chan struct{})
+	readCompleteChan := make(chan struct{}, 2) // Signal when readers are done
+
+	// Use WaitGroup to track all goroutines
+	var wg sync.WaitGroup
+	wg.Add(3) // 2 for stream readers, 1 for saveOutputToDB
 
 	// Start goroutines to handle output streams
-	go streamOutput(stdout, runID, "stdout", stdoutChan, errorChan)
-	go streamOutput(stderr, runID, "stderr", stderrChan, errorChan)
-	go saveOutputToDB(ctx, stdoutChan, stderrChan, hiddenValues)
+	go func() {
+		defer wg.Done()
+		streamOutput(stdout, runID, "stdout", stdoutChan, errorChan)
+		close(stdoutChan)
+		readCompleteChan <- struct{}{} // Signal reading complete
+	}()
+	go func() {
+		defer wg.Done()
+		streamOutput(stderr, runID, "stderr", stderrChan, errorChan)
+		close(stderrChan)
+		readCompleteChan <- struct{}{} // Signal reading complete
+	}()
+	go func() {
+		defer wg.Done()
+		saveOutputToDB(ctx, stdoutChan, stderrChan, hiddenValues, doneChan)
+	}()
 
-	// Wait for command to complete
-	if err := cmd.Wait(); err != nil {
-		slog.Error("Command failed", "error", err)
-		os.RemoveAll(dir)
-		return 1, fmt.Errorf("command failed: %w", err)
+	// Wait for both readers to complete or timeout
+	readersDone := make(chan struct{})
+	go func() {
+		<-readCompleteChan // Wait for stdout reader
+		<-readCompleteChan // Wait for stderr reader
+		close(readersDone)
+	}()
+
+	// Wait for readers to complete or context deadline
+	select {
+	case <-readersDone:
+		// Readers completed successfully
+	case <-ctx.Done():
+		// Context deadline exceeded
+		slog.Warn("Context deadline exceeded while waiting for readers")
+	}
+
+	// Now it's safe to call Wait
+	cmdErr := cmd.Wait()
+
+	// Signal saveOutputToDB to stop after command completes
+	close(doneChan)
+	
+	// Wait for all goroutines to finish
+	wg.Wait()
+	
+	// Close error channel after all producers are done
+	close(errorChan)
+
+	// Collect any streaming errors (channel is now closed, so this will not block)
+	var streamingErrors []error
+	for err := range errorChan {
+		if err != nil {
+			// Filter out "file already closed" errors as they're expected
+			if !strings.Contains(err.Error(), "file already closed") {
+				streamingErrors = append(streamingErrors, err)
+			}
+		}
+	}
+
+	// Clean up directory
+	os.RemoveAll(dir)
+
+	// Check if command failed
+	if cmdErr != nil {
+		slog.Error("Command failed", "error", cmdErr)
+		return 1, fmt.Errorf("command failed: %w", cmdErr)
 	}
 
 	// Check for streaming errors
-	select {
-	case err := <-errorChan:
-		slog.Error("Streaming error", "error", err)
-		os.RemoveAll(dir)
-		return 1, fmt.Errorf("streaming error: %w", err)
-	default:
-		os.RemoveAll(dir)
-		return 0, nil
+	if len(streamingErrors) > 0 {
+		slog.Error("Streaming errors occurred", "errors", streamingErrors)
+		return 1, fmt.Errorf("streaming error: %w", streamingErrors[0])
 	}
+
+	return 0, nil
 }
 
 type ScriptOutput struct {
@@ -398,18 +456,36 @@ func saveOutputToDB(
 	ctx context.Context,
 	stdoutChan, stderrChan <-chan ScriptOutput,
 	hiddenValues []string,
+	done <-chan struct{},
 ) {
 
 	for {
 		select {
-		case output := <-stdoutChan:
-			if err := insertOutput(ctx, output, hiddenValues); err != nil {
-				slog.Error("Failed to save stdout", "error", err)
+		case output, ok := <-stdoutChan:
+			if ok {
+				if err := insertOutput(ctx, output, hiddenValues); err != nil {
+					slog.Error("Failed to save stdout", "error", err)
+				}
 			}
-		case output := <-stderrChan:
-			if err := insertOutput(ctx, output, hiddenValues); err != nil {
-				slog.Error("Failed to save stderr", "error", err)
+		case output, ok := <-stderrChan:
+			if ok {
+				if err := insertOutput(ctx, output, hiddenValues); err != nil {
+					slog.Error("Failed to save stderr", "error", err)
+				}
 			}
+		case <-done:
+			// Drain any remaining outputs
+			for output := range stdoutChan {
+				if err := insertOutput(ctx, output, hiddenValues); err != nil {
+					slog.Error("Failed to save stdout", "error", err)
+				}
+			}
+			for output := range stderrChan {
+				if err := insertOutput(ctx, output, hiddenValues); err != nil {
+					slog.Error("Failed to save stderr", "error", err)
+				}
+			}
+			return
 		case <-ctx.Done():
 			return
 		}

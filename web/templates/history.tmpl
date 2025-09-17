@@ -178,7 +178,11 @@
                                         {{ end }}
                                     {{end}}
                                 </td>
-                                <td>{{.DurationMs}}ms</td>
+                                {{ if eq .Status "running" }}
+                                <td>-</td>
+                                {{ else }}
+                                    <td>{{.DurationMs}}ms</td>
+                                {{ end }}
                                 <td>{{.TriggeredByEmail}}</td>
                                 <td>
                                     <span class="badge bg-secondary">{{.Trigger}}</span>
