@@ -71,6 +71,40 @@ func (_u *InboundWebhookUpdate) SetNillableCreatedAt(v *time.Time) *InboundWebho
 	return _u
 }
 
+// SetRequireAPIKey sets the "require_api_key" field.
+func (_u *InboundWebhookUpdate) SetRequireAPIKey(v bool) *InboundWebhookUpdate {
+	_u.mutation.SetRequireAPIKey(v)
+	return _u
+}
+
+// SetNillableRequireAPIKey sets the "require_api_key" field if the given value is not nil.
+func (_u *InboundWebhookUpdate) SetNillableRequireAPIKey(v *bool) *InboundWebhookUpdate {
+	if v != nil {
+		_u.SetRequireAPIKey(*v)
+	}
+	return _u
+}
+
+// SetAPIKey sets the "api_key" field.
+func (_u *InboundWebhookUpdate) SetAPIKey(v string) *InboundWebhookUpdate {
+	_u.mutation.SetAPIKey(v)
+	return _u
+}
+
+// SetNillableAPIKey sets the "api_key" field if the given value is not nil.
+func (_u *InboundWebhookUpdate) SetNillableAPIKey(v *string) *InboundWebhookUpdate {
+	if v != nil {
+		_u.SetAPIKey(*v)
+	}
+	return _u
+}
+
+// ClearAPIKey clears the value of the "api_key" field.
+func (_u *InboundWebhookUpdate) ClearAPIKey() *InboundWebhookUpdate {
+	_u.mutation.ClearAPIKey()
+	return _u
+}
+
 // SetJobID sets the "job" edge to the Job entity by ID.
 func (_u *InboundWebhookUpdate) SetJobID(id int) *InboundWebhookUpdate {
 	_u.mutation.SetJobID(id)
@@ -145,6 +179,15 @@ func (_u *InboundWebhookUpdate) sqlSave(ctx context.Context) (_node int, err err
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(inboundwebhook.FieldCreatedAt, field.TypeTime, value)
+	}
+	if value, ok := _u.mutation.RequireAPIKey(); ok {
+		_spec.SetField(inboundwebhook.FieldRequireAPIKey, field.TypeBool, value)
+	}
+	if value, ok := _u.mutation.APIKey(); ok {
+		_spec.SetField(inboundwebhook.FieldAPIKey, field.TypeString, value)
+	}
+	if _u.mutation.APIKeyCleared() {
+		_spec.ClearField(inboundwebhook.FieldAPIKey, field.TypeString)
 	}
 	if _u.mutation.JobCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -234,6 +277,40 @@ func (_u *InboundWebhookUpdateOne) SetNillableCreatedAt(v *time.Time) *InboundWe
 	if v != nil {
 		_u.SetCreatedAt(*v)
 	}
+	return _u
+}
+
+// SetRequireAPIKey sets the "require_api_key" field.
+func (_u *InboundWebhookUpdateOne) SetRequireAPIKey(v bool) *InboundWebhookUpdateOne {
+	_u.mutation.SetRequireAPIKey(v)
+	return _u
+}
+
+// SetNillableRequireAPIKey sets the "require_api_key" field if the given value is not nil.
+func (_u *InboundWebhookUpdateOne) SetNillableRequireAPIKey(v *bool) *InboundWebhookUpdateOne {
+	if v != nil {
+		_u.SetRequireAPIKey(*v)
+	}
+	return _u
+}
+
+// SetAPIKey sets the "api_key" field.
+func (_u *InboundWebhookUpdateOne) SetAPIKey(v string) *InboundWebhookUpdateOne {
+	_u.mutation.SetAPIKey(v)
+	return _u
+}
+
+// SetNillableAPIKey sets the "api_key" field if the given value is not nil.
+func (_u *InboundWebhookUpdateOne) SetNillableAPIKey(v *string) *InboundWebhookUpdateOne {
+	if v != nil {
+		_u.SetAPIKey(*v)
+	}
+	return _u
+}
+
+// ClearAPIKey clears the value of the "api_key" field.
+func (_u *InboundWebhookUpdateOne) ClearAPIKey() *InboundWebhookUpdateOne {
+	_u.mutation.ClearAPIKey()
 	return _u
 }
 
@@ -341,6 +418,15 @@ func (_u *InboundWebhookUpdateOne) sqlSave(ctx context.Context) (_node *InboundW
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(inboundwebhook.FieldCreatedAt, field.TypeTime, value)
+	}
+	if value, ok := _u.mutation.RequireAPIKey(); ok {
+		_spec.SetField(inboundwebhook.FieldRequireAPIKey, field.TypeBool, value)
+	}
+	if value, ok := _u.mutation.APIKey(); ok {
+		_spec.SetField(inboundwebhook.FieldAPIKey, field.TypeString, value)
+	}
+	if _u.mutation.APIKeyCleared() {
+		_spec.ClearField(inboundwebhook.FieldAPIKey, field.TypeString)
 	}
 	if _u.mutation.JobCleared() {
 		edge := &sqlgraph.EdgeSpec{

@@ -740,15 +740,15 @@ func renderJobHistoryView(db *ent.Client) echo.HandlerFunc {
 		FriendlyDuration string
 	}
 	type PaginationInfo struct {
-		CurrentPage int
-		TotalPages  int
-		TotalItems  int
+		CurrentPage  int
+		TotalPages   int
+		TotalItems   int
 		ItemsPerPage int
-		HasPrev     bool
-		HasNext     bool
-		StartItem   int
-		EndItem     int
-		Pages       []int
+		HasPrev      bool
+		HasNext      bool
+		StartItem    int
+		EndItem      int
+		Pages        []int
 	}
 	return func(c echo.Context) error {
 		self, _ := getSelf(c, db)
@@ -764,7 +764,7 @@ func renderJobHistoryView(db *ent.Client) echo.HandlerFunc {
 		if !canUserViewProject(db, self.ID, j.Edges.Project.ID) {
 			return renderErrorPage(c, "You do not have permission to view this job history", http.StatusForbidden)
 		}
-		
+
 		// Parse pagination parameters
 		page := 1
 		pageStr := c.QueryParam("page")
@@ -773,7 +773,7 @@ func renderJobHistoryView(db *ent.Client) echo.HandlerFunc {
 				page = p
 			}
 		}
-		
+
 		limit := 50
 		limitStr := c.QueryParam("limit")
 		if limitStr != "" {
@@ -781,20 +781,20 @@ func renderJobHistoryView(db *ent.Client) echo.HandlerFunc {
 				limit = l
 			}
 		}
-		
+
 		// Get total count
 		totalCount, err := db.JobHistory.Query().Where(jobhistory.HasJobWith(job.IDEQ(jobIDInt))).Count(c.Request().Context())
 		if err != nil {
 			return renderErrorPage(c, "Error counting job histories", http.StatusInternalServerError)
 		}
-		
+
 		// Calculate pagination values
 		totalPages := (totalCount + limit - 1) / limit
 		if page > totalPages && totalPages > 0 {
 			page = totalPages
 		}
 		offset := (page - 1) * limit
-		
+
 		// Get paginated histories
 		histories, err := db.JobHistory.Query().
 			Where(jobhistory.HasJobWith(job.IDEQ(jobIDInt))).
@@ -807,7 +807,7 @@ func renderJobHistoryView(db *ent.Client) echo.HandlerFunc {
 		if err != nil {
 			return renderErrorPage(c, "Error getting job histories from database", http.StatusInternalServerError)
 		}
-		
+
 		niceHistories := make([]NiceHistory, 0)
 		for _, h := range histories {
 			niceHistories = append(niceHistories, NiceHistory{
@@ -815,7 +815,7 @@ func renderJobHistoryView(db *ent.Client) echo.HandlerFunc {
 				FriendlyTime: humanize.Time(h.CreatedAt),
 			})
 		}
-		
+
 		// Calculate page numbers to display
 		pages := []int{}
 		startPage := page - 2
@@ -826,7 +826,7 @@ func renderJobHistoryView(db *ent.Client) echo.HandlerFunc {
 		if endPage > totalPages {
 			endPage = totalPages
 		}
-		if endPage - startPage < 4 && startPage > 1 {
+		if endPage-startPage < 4 && startPage > 1 {
 			startPage = endPage - 4
 			if startPage < 1 {
 				startPage = 1
@@ -835,14 +835,14 @@ func renderJobHistoryView(db *ent.Client) echo.HandlerFunc {
 		for i := startPage; i <= endPage; i++ {
 			pages = append(pages, i)
 		}
-		
+
 		// Calculate item range
 		startItem := offset + 1
 		endItem := offset + len(histories)
 		if totalCount == 0 {
 			startItem = 0
 		}
-		
+
 		pagination := PaginationInfo{
 			CurrentPage:  page,
 			TotalPages:   totalPages,
@@ -854,7 +854,7 @@ func renderJobHistoryView(db *ent.Client) echo.HandlerFunc {
 			EndItem:      endItem,
 			Pages:        pages,
 		}
-		
+
 		return c.Render(http.StatusOK, "job-histories", map[string]any{
 			"Job":        j,
 			"History":    niceHistories,

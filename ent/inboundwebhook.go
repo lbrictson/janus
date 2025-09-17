@@ -24,6 +24,10 @@ type InboundWebhook struct {
 	CreatedBy string `json:"created_by,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt time.Time `json:"created_at,omitempty"`
+	// RequireAPIKey holds the value of the "require_api_key" field.
+	RequireAPIKey bool `json:"require_api_key,omitempty"`
+	// APIKey holds the value of the "api_key" field.
+	APIKey *string `json:"api_key,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the InboundWebhookQuery when eager-loading is set.
 	Edges               InboundWebhookEdges `json:"edges"`
@@ -56,9 +60,11 @@ func (*InboundWebhook) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case inboundwebhook.FieldRequireAPIKey:
+			values[i] = new(sql.NullBool)
 		case inboundwebhook.FieldID:
 			values[i] = new(sql.NullInt64)
-		case inboundwebhook.FieldKey, inboundwebhook.FieldCreatedBy:
+		case inboundwebhook.FieldKey, inboundwebhook.FieldCreatedBy, inboundwebhook.FieldAPIKey:
 			values[i] = new(sql.NullString)
 		case inboundwebhook.FieldCreatedAt:
 			values[i] = new(sql.NullTime)
@@ -102,6 +108,19 @@ func (_m *InboundWebhook) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
 				_m.CreatedAt = value.Time
+			}
+		case inboundwebhook.FieldRequireAPIKey:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field require_api_key", values[i])
+			} else if value.Valid {
+				_m.RequireAPIKey = value.Bool
+			}
+		case inboundwebhook.FieldAPIKey:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field api_key", values[i])
+			} else if value.Valid {
+				_m.APIKey = new(string)
+				*_m.APIKey = value.String
 			}
 		case inboundwebhook.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -159,6 +178,14 @@ func (_m *InboundWebhook) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
 	builder.WriteString(_m.CreatedAt.Format(time.ANSIC))
+	builder.WriteString(", ")
+	builder.WriteString("require_api_key=")
+	builder.WriteString(fmt.Sprintf("%v", _m.RequireAPIKey))
+	builder.WriteString(", ")
+	if v := _m.APIKey; v != nil {
+		builder.WriteString("api_key=")
+		builder.WriteString(*v)
+	}
 	builder.WriteByte(')')
 	return builder.String()
 }

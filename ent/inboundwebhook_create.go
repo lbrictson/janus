@@ -47,6 +47,34 @@ func (_c *InboundWebhookCreate) SetNillableCreatedAt(v *time.Time) *InboundWebho
 	return _c
 }
 
+// SetRequireAPIKey sets the "require_api_key" field.
+func (_c *InboundWebhookCreate) SetRequireAPIKey(v bool) *InboundWebhookCreate {
+	_c.mutation.SetRequireAPIKey(v)
+	return _c
+}
+
+// SetNillableRequireAPIKey sets the "require_api_key" field if the given value is not nil.
+func (_c *InboundWebhookCreate) SetNillableRequireAPIKey(v *bool) *InboundWebhookCreate {
+	if v != nil {
+		_c.SetRequireAPIKey(*v)
+	}
+	return _c
+}
+
+// SetAPIKey sets the "api_key" field.
+func (_c *InboundWebhookCreate) SetAPIKey(v string) *InboundWebhookCreate {
+	_c.mutation.SetAPIKey(v)
+	return _c
+}
+
+// SetNillableAPIKey sets the "api_key" field if the given value is not nil.
+func (_c *InboundWebhookCreate) SetNillableAPIKey(v *string) *InboundWebhookCreate {
+	if v != nil {
+		_c.SetAPIKey(*v)
+	}
+	return _c
+}
+
 // SetJobID sets the "job" edge to the Job entity by ID.
 func (_c *InboundWebhookCreate) SetJobID(id int) *InboundWebhookCreate {
 	_c.mutation.SetJobID(id)
@@ -105,6 +133,10 @@ func (_c *InboundWebhookCreate) defaults() {
 		v := inboundwebhook.DefaultCreatedAt()
 		_c.mutation.SetCreatedAt(v)
 	}
+	if _, ok := _c.mutation.RequireAPIKey(); !ok {
+		v := inboundwebhook.DefaultRequireAPIKey
+		_c.mutation.SetRequireAPIKey(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -117,6 +149,9 @@ func (_c *InboundWebhookCreate) check() error {
 	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "InboundWebhook.created_at"`)}
+	}
+	if _, ok := _c.mutation.RequireAPIKey(); !ok {
+		return &ValidationError{Name: "require_api_key", err: errors.New(`ent: missing required field "InboundWebhook.require_api_key"`)}
 	}
 	return nil
 }
@@ -155,6 +190,14 @@ func (_c *InboundWebhookCreate) createSpec() (*InboundWebhook, *sqlgraph.CreateS
 	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(inboundwebhook.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
+	}
+	if value, ok := _c.mutation.RequireAPIKey(); ok {
+		_spec.SetField(inboundwebhook.FieldRequireAPIKey, field.TypeBool, value)
+		_node.RequireAPIKey = value
+	}
+	if value, ok := _c.mutation.APIKey(); ok {
+		_spec.SetField(inboundwebhook.FieldAPIKey, field.TypeString, value)
+		_node.APIKey = &value
 	}
 	if nodes := _c.mutation.JobIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
