@@ -12,6 +12,7 @@ import (
 // JobArgument represents a single argument configuration for a job
 type JobArgument struct {
 	Name          string   `json:"name"`
+	Type          string   `json:"type"` // "string", "number", "date", "datetime"
 	AllowedValues []string `json:"allowed_values,omitempty"`
 	DefaultValue  string   `json:"default_value"`
 	Sensitive     bool     `json:"sensitive"`

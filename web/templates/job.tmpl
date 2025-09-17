@@ -174,8 +174,17 @@
                     <input type="text" class="form-control" name="arg_names[]" required>
                 </div>
                 <div class="mb-3">
+                    <label class="form-label">Type</label>
+                    <select class="form-select" name="arg_types[]" onchange="updateDefaultInput(this)">
+                        <option value="string" selected>String</option>
+                        <option value="number">Number</option>
+                        <option value="date">Date</option>
+                        <option value="datetime">Date & Time</option>
+                    </select>
+                </div>
+                <div class="mb-3">
                     <label class="form-label">Default Value</label>
-                    <input type="text" class="form-control" name="arg_defaults[]">
+                    <input type="text" class="form-control default-value-input" name="arg_defaults[]">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Allowed Values (comma-separated, leave empty for any)</label>
@@ -191,6 +200,27 @@
         `;
             container.appendChild(argumentDiv);
             argumentCount++;
+        }
+
+        function updateDefaultInput(selectElement) {
+            const card = selectElement.closest('.card-body');
+            const defaultInput = card.querySelector('.default-value-input');
+            const type = selectElement.value;
+            
+            switch(type) {
+                case 'number':
+                    defaultInput.type = 'number';
+                    defaultInput.step = 'any';
+                    break;
+                case 'date':
+                    defaultInput.type = 'date';
+                    break;
+                case 'datetime':
+                    defaultInput.type = 'datetime-local';
+                    break;
+                default:
+                    defaultInput.type = 'text';
+            }
         }
     </script>
     </body>
@@ -385,6 +415,8 @@
             const container = document.getElementById('arguments-container');
             const argumentDiv = document.createElement('div');
             argumentDiv.className = 'card mb-3';
+            const argType = existingArg ? (existingArg.Type || existingArg.type || 'string') : 'string';
+            const inputType = getInputType(argType);
             argumentDiv.innerHTML = `
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -398,9 +430,19 @@
                        value="${existingArg ? (existingArg.Name || existingArg.name) : ''}">
             </div>
             <div class="mb-3">
+                <label class="form-label">Type</label>
+                <select class="form-select" name="arg_types[]" onchange="updateDefaultInput(this)">
+                    <option value="string" ${argType === 'string' ? 'selected' : ''}>String</option>
+                    <option value="number" ${argType === 'number' ? 'selected' : ''}>Number</option>
+                    <option value="date" ${argType === 'date' ? 'selected' : ''}>Date</option>
+                    <option value="datetime" ${argType === 'datetime' ? 'selected' : ''}>Date & Time</option>
+                </select>
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Default Value</label>
-                <input type="text" class="form-control" name="arg_defaults[]"
-                       value="${existingArg ? (existingArg.DefaultValue || existingArg.default_value) : ''}">
+                <input type="${inputType}" class="form-control default-value-input" name="arg_defaults[]"
+                       value="${existingArg ? (existingArg.DefaultValue || existingArg.default_value) : ''}"
+                       ${argType === 'number' ? 'step="any"' : ''}>
             </div>
             <div class="mb-3">
                 <label class="form-label">Allowed Values (comma-separated, leave empty for any)</label>
@@ -417,6 +459,36 @@
     `;
             container.appendChild(argumentDiv);
             argumentCount++;
+        }
+
+        function getInputType(argType) {
+            switch(argType) {
+                case 'number': return 'number';
+                case 'date': return 'date';
+                case 'datetime': return 'datetime-local';
+                default: return 'text';
+            }
+        }
+
+        function updateDefaultInput(selectElement) {
+            const card = selectElement.closest('.card-body');
+            const defaultInput = card.querySelector('.default-value-input');
+            const type = selectElement.value;
+            
+            switch(type) {
+                case 'number':
+                    defaultInput.type = 'number';
+                    defaultInput.step = 'any';
+                    break;
+                case 'date':
+                    defaultInput.type = 'date';
+                    break;
+                case 'datetime':
+                    defaultInput.type = 'datetime-local';
+                    break;
+                default:
+                    defaultInput.type = 'text';
+            }
         }
 
         // Populate existing arguments

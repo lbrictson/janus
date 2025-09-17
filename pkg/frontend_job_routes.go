@@ -106,6 +106,7 @@ func formCreateJob(db *ent.Client) echo.HandlerFunc {
 
 		// Process arguments from form data
 		argNames := c.Request().Form["arg_names[]"]
+		argTypes := c.Request().Form["arg_types[]"]
 		argDefaults := c.Request().Form["arg_defaults[]"]
 		argAllowedValues := c.Request().Form["arg_allowed_values[]"]
 		argSensitive := c.Request().Form["arg_sensitive[]"]
@@ -152,8 +153,13 @@ func formCreateJob(db *ent.Client) echo.HandlerFunc {
 			if argDefaults[i] == "" {
 				doesJobHaveArgumentWithoutDefaultValue = true
 			}
+			argType := "string" // Default type
+			if i < len(argTypes) && argTypes[i] != "" {
+				argType = argTypes[i]
+			}
 			arguments = append(arguments, schema.JobArgument{
 				Name:          argNames[i],
+				Type:          argType,
 				DefaultValue:  argDefaults[i],
 				AllowedValues: allowedValues,
 				Sensitive:     sensitiveMap[i],
@@ -400,6 +406,7 @@ func formEditJob(db *ent.Client) echo.HandlerFunc {
 		allowConcurrentRuns := c.FormValue("allow_concurrent_runs") == "on"
 		requiresFileUpload := c.FormValue("requires_file_upload") == "on"
 		argNames := c.Request().Form["arg_names[]"]
+		argTypes := c.Request().Form["arg_types[]"]
 		argDefaults := c.Request().Form["arg_defaults[]"]
 		argAllowedValues := c.Request().Form["arg_allowed_values[]"]
 		argSensitive := c.Request().Form["arg_sensitive[]"]
@@ -445,8 +452,13 @@ func formEditJob(db *ent.Client) echo.HandlerFunc {
 			if argDefaults[i] == "" {
 				doesJobHaveArgumentWithoutDefaultValue = true
 			}
+			argType := "string" // Default type
+			if i < len(argTypes) && argTypes[i] != "" {
+				argType = argTypes[i]
+			}
 			arguments = append(arguments, schema.JobArgument{
 				Name:          argNames[i],
+				Type:          argType,
 				DefaultValue:  argDefaults[i],
 				AllowedValues: allowedValues,
 				Sensitive:     sensitiveMap[i],
