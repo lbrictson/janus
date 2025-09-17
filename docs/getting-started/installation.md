@@ -14,7 +14,7 @@ docker run -it -v $PWD:/data/ -e JANUS_URL=https://yourdomain.com -p 8080:8080 -
 ```
 
 Note that when using docker the sqlite database is stored in `/data/janus.db`.  To persist this data between
-restart you need to either save it to a mappe folder like the example above or to a volume.
+restarts, you need to either save it to a mapped folder like the example above or to a volume.
 
 ## Docker Compose Install
 
