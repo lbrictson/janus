@@ -1,6 +1,30 @@
 # Arguments
 
-Arguments are how you can accept user input, provide default values and restrict the values that can be passed to a job.
+Arguments are how you can accept user input, provide default values and restrict the values that can be passed to a job. Janus supports multiple input types to make data entry easier and more accurate.
+
+## Input Types
+
+Janus supports different input types for arguments to provide better user experience and data validation:
+
+| Type | Description | UI Element | Example Use Case |
+|------|-------------|------------|------------------|
+| `string` | Text input (default) | Text field | Names, descriptions, paths |
+| `number` | Numeric values only | Number input | Port numbers, counts, thresholds |
+| `date` | Date selection | Date picker | Report dates, cutoff dates |
+| `datetime` | Date and time selection | DateTime picker | Scheduled events, timestamps |
+
+The input type affects how the argument is presented in the UI but all values are passed to your script as strings.
+
+### Example: Using Different Input Types
+
+```bash
+#!/bin/bash
+# Arguments with different types
+echo "Name: $JANUS_ARG_NAME"           # string type
+echo "Port: $JANUS_ARG_PORT"           # number type  
+echo "Report Date: $JANUS_ARG_DATE"    # date type (format: YYYY-MM-DD)
+echo "Start Time: $JANUS_ARG_START"    # datetime type (format: YYYY-MM-DDTHH:MM:SS)
+```
 
 ## General Behavior
 
@@ -34,6 +58,13 @@ This is a great use case for passwords and API keys.
 
 ## Special Cases
 
-Scheduled jobs cannot have arguments without default values as there is no human to provide the value at runtime
+### Scheduled Jobs
+Scheduled jobs cannot have arguments without default values as there is no human to provide the value at runtime.
 
-Webhooks act in the same manner.
+### Webhooks
+Webhooks act in the same manner - all arguments must have default values. However, webhooks can pass data via POST request body which becomes available as `$JANUS_ARG_WEBHOOK_PAYLOAD`. See the [Webhooks documentation](webhooks.md) for more details.
+
+### Input Type Considerations
+- **Date/DateTime arguments**: Always passed to scripts in ISO 8601 format
+- **Number arguments**: Validated in the UI but passed as strings to maintain compatibility
+- **Dropdown with allowed values**: Works with any input type

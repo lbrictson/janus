@@ -1,6 +1,6 @@
-# Webhooks (Outbound)
+# Webhooks (Outbound Notifications)
 
-Janus supports sending notifications as webhooks to external targets.  The webhook is JSON formatted and sent as a POST request.
+Janus supports sending notifications as webhooks to external targets when jobs start, succeed, or fail. The webhook is JSON formatted and sent as a POST request.
 
 ## Configuration
 
