@@ -4,18 +4,19 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	"github.com/lbrictson/janus/ent"
-	"github.com/lbrictson/janus/ent/jobhistory"
-	"github.com/lbrictson/janus/ent/project"
-	"github.com/lbrictson/janus/ent/schema"
-	"github.com/lbrictson/janus/ent/secret"
-	"github.com/lbrictson/janus/pkg/notification_sender"
 	"io"
 	"log/slog"
 	"os"
 	"os/exec"
 	"strings"
 	"time"
+
+	"github.com/lbrictson/janus/ent"
+	"github.com/lbrictson/janus/ent/jobhistory"
+	"github.com/lbrictson/janus/ent/project"
+	"github.com/lbrictson/janus/ent/schema"
+	"github.com/lbrictson/janus/ent/secret"
+	"github.com/lbrictson/janus/pkg/notification_sender"
 )
 
 var runningJobOutputs = make(map[int][]string)
@@ -187,6 +188,8 @@ func runJob(db *ent.Client, job *ent.Job, history *ent.JobHistory, argValues []J
 	scriptCtx, cancelFunc := context.WithDeadline(ctx, time.Now().Add(time.Duration(job.TimeoutSeconds)*time.Second))
 	defer cancelFunc()
 	envVars := []string{}
+	// Add PATH to env vars
+	envVars = append(envVars, "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin")
 	hiddenValues := []string{}
 	for _, s := range availableSecrets {
 		hiddenValues = append(hiddenValues, s.Value)
