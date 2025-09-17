@@ -4,13 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/dustin/go-humanize"
-	"github.com/labstack/echo/v4"
-	"github.com/lbrictson/janus/ent"
-	"github.com/lbrictson/janus/ent/job"
-	"github.com/lbrictson/janus/ent/jobhistory"
-	"github.com/lbrictson/janus/ent/schema"
-	"github.com/robfig/cron/v3"
 	"html/template"
 	"io"
 	"log/slog"
@@ -18,6 +11,14 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/dustin/go-humanize"
+	"github.com/labstack/echo/v4"
+	"github.com/lbrictson/janus/ent"
+	"github.com/lbrictson/janus/ent/job"
+	"github.com/lbrictson/janus/ent/jobhistory"
+	"github.com/lbrictson/janus/ent/schema"
+	"github.com/robfig/cron/v3"
 )
 
 func renderCreateJobView(db *ent.Client) echo.HandlerFunc {
@@ -48,7 +49,7 @@ func renderCreateJobView(db *ent.Client) echo.HandlerFunc {
 	}
 }
 
-func formCreateJob(db *ent.Client, config *Config) echo.HandlerFunc {
+func formCreateJob(db *ent.Client) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		self, _ := getSelf(c, db)
 		// Define our form structure to use Echo's binding

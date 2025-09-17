@@ -1,13 +1,14 @@
 package pkg
 
 import (
-	"github.com/labstack/echo/v4"
-	"github.com/lbrictson/janus/ent"
 	"log/slog"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
+	"github.com/lbrictson/janus/ent"
 )
 
-func renderChangePasswordPage(db *ent.Client) echo.HandlerFunc {
+func renderChangePasswordPage() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		return c.Render(200, "change-password", nil)
 	}

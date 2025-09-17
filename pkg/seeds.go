@@ -3,15 +3,16 @@ package pkg
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/lbrictson/janus/ent"
 	"github.com/lbrictson/janus/ent/job"
 	"github.com/lbrictson/janus/ent/project"
 	"github.com/lbrictson/janus/ent/user"
-	"time"
 )
 
 // ExecuteSeeds runs the seed data for the application, it is required prior to a first start of the web server
-func ExecuteSeeds(ctx context.Context, db *ent.Client, config *Config) error {
+func ExecuteSeeds(ctx context.Context, db *ent.Client) error {
 	// Add a user if there is none
 	existingUsers, _ := db.User.Query().Count(ctx)
 	if existingUsers == 0 {

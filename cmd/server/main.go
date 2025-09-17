@@ -2,17 +2,18 @@ package main
 
 import (
 	"context"
+	"fmt"
+	"log/slog"
+	"os"
+	"strings"
+
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	entsql "entgo.io/ent/dialect/sql"
-	"fmt"
 	"github.com/lbrictson/janus/ent"
 	"github.com/lbrictson/janus/pkg"
 	_ "github.com/lib/pq"
-	"log/slog"
 	_ "modernc.org/sqlite"
-	"os"
-	"strings"
 )
 
 func main() {
@@ -30,7 +31,7 @@ func main() {
 		panic(fmt.Sprintf("failed to connect to database: %v", err))
 	}
 	slog.Info("connected to database and ran migrations successfully")
-	if err := pkg.ExecuteSeeds(context.Background(), db, c); err != nil {
+	if err := pkg.ExecuteSeeds(context.Background(), db); err != nil {
 		panic(fmt.Sprintf("failed to seed database with initial data: %v", err))
 	}
 	if !c.DisableMetrics {

@@ -2,15 +2,16 @@ package pkg
 
 import (
 	"encoding/json"
+	"log/slog"
+	"net/http"
+	"strconv"
+	"strings"
+
 	"github.com/dustin/go-humanize"
 	"github.com/labstack/echo/v4"
 	"github.com/lbrictson/janus/ent"
 	"github.com/lbrictson/janus/ent/schema"
 	"github.com/lbrictson/janus/pkg/notification_sender"
-	"log/slog"
-	"net/http"
-	"strconv"
-	"strings"
 )
 
 func renderNotificationPage(db *ent.Client) echo.HandlerFunc {
@@ -43,7 +44,7 @@ func renderNotificationPage(db *ent.Client) echo.HandlerFunc {
 	}
 }
 
-func renderNewNotificationPage(db *ent.Client) echo.HandlerFunc {
+func renderNewNotificationPage() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		return c.Render(http.StatusOK, "notification-channel-create", nil)
 	}

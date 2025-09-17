@@ -4,6 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"html/template"
+	"io"
+	"io/fs"
+	"log/slog"
+	"os"
+
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
@@ -11,11 +17,6 @@ import (
 	"github.com/lbrictson/janus/ent/job"
 	"github.com/lbrictson/janus/web"
 	"github.com/markbates/goth/gothic"
-	"html/template"
-	"io"
-	"io/fs"
-	"log/slog"
-	"os"
 )
 
 var sessionName = "janus"
@@ -62,7 +63,7 @@ func RunServer(config *Config, db *ent.Client) {
 	adminRequired.POST("/users/:id/permissions", formUpdateUserPermissions(db))
 	// Notification pages
 	adminRequired.GET("/notifications", renderNotificationPage(db))
-	adminRequired.GET("/notifications/new", renderNewNotificationPage(db))
+	adminRequired.GET("/notifications/new", renderNewNotificationPage())
 	adminRequired.POST("/notifications/new", formCreateNotificationChannel(db))
 	adminRequired.GET("/notifications/:id/edit", renderNotificationChannelEditPage(db))
 	adminRequired.POST("/hook/notifications/:id/status", hookNotificationToggleStatus(db))
@@ -76,7 +77,7 @@ func RunServer(config *Config, db *ent.Client) {
 	adminRequired.POST("/admin/job-settings", formJobSettings(db))
 	adminRequired.POST("/admin/security", formAdminSecuritySettings(db, config))
 	// Profile pages
-	authenticatedRoutes.GET("/profile/password", renderChangePasswordPage(db))
+	authenticatedRoutes.GET("/profile/password", renderChangePasswordPage())
 	authenticatedRoutes.GET("/profile/api-key", renderAPIKeyViewPage(db))
 	authenticatedRoutes.POST("/profile/api-key/regenerate", formRegenerateAPIKey(db))
 	authenticatedRoutes.POST("/profile/password", formSelfSetNewPassword(db))
@@ -85,7 +86,7 @@ func RunServer(config *Config, db *ent.Client) {
 	adminRequired.POST("/project/new", formNewProject(db))
 	authenticatedRoutes.GET("/projects/:id", renderProjectViewPage(db))
 	authenticatedRoutes.GET("/projects/:project_id/jobs/new", renderCreateJobView(db))
-	authenticatedRoutes.POST("/projects/:project_id/jobs/new", formCreateJob(db, config))
+	authenticatedRoutes.POST("/projects/:project_id/jobs/new", formCreateJob(db))
 	authenticatedRoutes.GET("/projects/:project_id/jobs/:job_id/edit", renderEditJobPage(db))
 	authenticatedRoutes.POST("/projects/:project_id/jobs/:job_id/edit", formEditJob(db))
 	authenticatedRoutes.GET("/projects/:project_id/jobs/:job_id/delete", hookDeleteJob(db))

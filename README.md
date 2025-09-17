@@ -1,7 +1,7 @@
 # janus
 
 Janus is a simple Job (script) runner that is designed to be easy to use and easy to deploy.  The general purpose is to 
-allow non-technical users to execute scripts authored by more technical users without needing to update their local or enviroment
+allow non-technical users to execute scripts authored by more technical users without needing to update their local or environment
 or get direct access to various systems.
 
 ![image](https://github.com/user-attachments/assets/bc81f684-cf76-43c4-8499-a56fd9853551)
