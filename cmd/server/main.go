@@ -38,8 +38,8 @@ func main() {
 		go pkg.RunMetricsListener(c.MetricsPort)
 	}
 	slog.Info("starting webserver")
-	go pkg.RunStaleJobCleaner(db, *c)
-	go pkg.RunJobCleaner(db, *c)
+	go pkg.RunStaleJobCleaner(db)
+	go pkg.RunJobCleaner(db)
 	pkg.RunServer(c, db)
 }
 

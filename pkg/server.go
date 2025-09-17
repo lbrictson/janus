@@ -135,7 +135,7 @@ func RunServer(config *Config, db *ent.Client) {
 	maxAge := 8640 * 3 // 3 days
 	os.MkdirAll("tmp/sessions", 0755)
 	store := sessions.NewFilesystemStore("tmp/sessions", key)
-	store.MaxLength(8192) // 8Kb is now maximum size of the session
+	store.MaxLength(8192) // 8Kb is now the maximum size of the session
 	store.MaxAge(maxAge)
 	store.Options.Path = "/"
 	store.Options.HttpOnly = true
