@@ -37,20 +37,22 @@ or jump right to the quick start which only takes a few seconds to get running: 
 
 ### Prerequisites
 
-- Go
-- Docker (optional)
-- Air (optional for hot reloading)
+- [Go](https://go.dev/doc/install)
+- [Docker](https://www.docker.com/get-started/)
+- [Air](https://github.com/air-verse/air)
+- [Mage](https://github.com/magefile/mage)
 
 ### Running tests
 
 ```bash
-go test ./...
+mage test
 ```
 
 ### Running the server
 ```bash
-go run cmd/server/main.go
-# Or if you have air installed simply `air`
+mage run
+# OR if you want hot reloading
+mage dev
 # Access at http://localhost:8080
 # Username: admin@localhost
 # Password: ChangeMeBeforeUse1234!
@@ -59,7 +61,9 @@ go run cmd/server/main.go
 ### Adding Database models
 
 ```bash
-go run -mod=mod entgo.io/ent/cmd/ent new $SCHEMA-NAME
+mage addModel <ModelName>
+# Example: mage addModel User
+# This will generate the ent code and add the model to the schema
 ```
 
 ### Docker Development
@@ -67,7 +71,7 @@ go run -mod=mod entgo.io/ent/cmd/ent new $SCHEMA-NAME
 You can use the provided docker-compose file to run a simple mail server to test email notifications.
 
 ```bash
-docker-compose up -d
+mage dockerUp
 # Access at http://localhost:8025
 # SMTP is at localhost:1025, username and password can be anything
 ```
