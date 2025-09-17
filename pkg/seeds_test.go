@@ -205,7 +205,7 @@ func TestExecuteSeeds_PartialSeeding(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to hash password: %v", err)
 	}
-	
+
 	existingUser, err := client.User.Create().
 		SetEmail("existing@example.com").
 		SetEncryptedPassword(pw).
@@ -467,10 +467,10 @@ func TestExecuteSeeds_SessionKeyUniqueness(t *testing.T) {
 	// Test that session keys are unique across different runs
 	client1 := enttest.Open(t, "sqlite3", "file:ent?mode=memory&_fk=1")
 	defer client1.Close()
-	
+
 	client2 := enttest.Open(t, "sqlite3", "file:ent?mode=memory&_fk=1")
 	defer client2.Close()
-	
+
 	ctx := context.Background()
 
 	// Execute seeds on both databases
@@ -478,7 +478,7 @@ func TestExecuteSeeds_SessionKeyUniqueness(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ExecuteSeeds on client1 failed: %v", err)
 	}
-	
+
 	err = ExecuteSeeds(ctx, client2)
 	if err != nil {
 		t.Fatalf("ExecuteSeeds on client2 failed: %v", err)

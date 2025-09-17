@@ -28,40 +28,40 @@ type SMTPConfigQuery struct {
 }
 
 // Where adds a new predicate for the SMTPConfigQuery builder.
-func (scq *SMTPConfigQuery) Where(ps ...predicate.SMTPConfig) *SMTPConfigQuery {
-	scq.predicates = append(scq.predicates, ps...)
-	return scq
+func (_q *SMTPConfigQuery) Where(ps ...predicate.SMTPConfig) *SMTPConfigQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (scq *SMTPConfigQuery) Limit(limit int) *SMTPConfigQuery {
-	scq.ctx.Limit = &limit
-	return scq
+func (_q *SMTPConfigQuery) Limit(limit int) *SMTPConfigQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (scq *SMTPConfigQuery) Offset(offset int) *SMTPConfigQuery {
-	scq.ctx.Offset = &offset
-	return scq
+func (_q *SMTPConfigQuery) Offset(offset int) *SMTPConfigQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (scq *SMTPConfigQuery) Unique(unique bool) *SMTPConfigQuery {
-	scq.ctx.Unique = &unique
-	return scq
+func (_q *SMTPConfigQuery) Unique(unique bool) *SMTPConfigQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (scq *SMTPConfigQuery) Order(o ...smtpconfig.OrderOption) *SMTPConfigQuery {
-	scq.order = append(scq.order, o...)
-	return scq
+func (_q *SMTPConfigQuery) Order(o ...smtpconfig.OrderOption) *SMTPConfigQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // First returns the first SMTPConfig entity from the query.
 // Returns a *NotFoundError when no SMTPConfig was found.
-func (scq *SMTPConfigQuery) First(ctx context.Context) (*SMTPConfig, error) {
-	nodes, err := scq.Limit(1).All(setContextOp(ctx, scq.ctx, ent.OpQueryFirst))
+func (_q *SMTPConfigQuery) First(ctx context.Context) (*SMTPConfig, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -72,8 +72,8 @@ func (scq *SMTPConfigQuery) First(ctx context.Context) (*SMTPConfig, error) {
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (scq *SMTPConfigQuery) FirstX(ctx context.Context) *SMTPConfig {
-	node, err := scq.First(ctx)
+func (_q *SMTPConfigQuery) FirstX(ctx context.Context) *SMTPConfig {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -82,9 +82,9 @@ func (scq *SMTPConfigQuery) FirstX(ctx context.Context) *SMTPConfig {
 
 // FirstID returns the first SMTPConfig ID from the query.
 // Returns a *NotFoundError when no SMTPConfig ID was found.
-func (scq *SMTPConfigQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *SMTPConfigQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = scq.Limit(1).IDs(setContextOp(ctx, scq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -95,8 +95,8 @@ func (scq *SMTPConfigQuery) FirstID(ctx context.Context) (id int, err error) {
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (scq *SMTPConfigQuery) FirstIDX(ctx context.Context) int {
-	id, err := scq.FirstID(ctx)
+func (_q *SMTPConfigQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -106,8 +106,8 @@ func (scq *SMTPConfigQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single SMTPConfig entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one SMTPConfig entity is found.
 // Returns a *NotFoundError when no SMTPConfig entities are found.
-func (scq *SMTPConfigQuery) Only(ctx context.Context) (*SMTPConfig, error) {
-	nodes, err := scq.Limit(2).All(setContextOp(ctx, scq.ctx, ent.OpQueryOnly))
+func (_q *SMTPConfigQuery) Only(ctx context.Context) (*SMTPConfig, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -122,8 +122,8 @@ func (scq *SMTPConfigQuery) Only(ctx context.Context) (*SMTPConfig, error) {
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (scq *SMTPConfigQuery) OnlyX(ctx context.Context) *SMTPConfig {
-	node, err := scq.Only(ctx)
+func (_q *SMTPConfigQuery) OnlyX(ctx context.Context) *SMTPConfig {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -133,9 +133,9 @@ func (scq *SMTPConfigQuery) OnlyX(ctx context.Context) *SMTPConfig {
 // OnlyID is like Only, but returns the only SMTPConfig ID in the query.
 // Returns a *NotSingularError when more than one SMTPConfig ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (scq *SMTPConfigQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *SMTPConfigQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = scq.Limit(2).IDs(setContextOp(ctx, scq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -150,8 +150,8 @@ func (scq *SMTPConfigQuery) OnlyID(ctx context.Context) (id int, err error) {
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (scq *SMTPConfigQuery) OnlyIDX(ctx context.Context) int {
-	id, err := scq.OnlyID(ctx)
+func (_q *SMTPConfigQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -159,18 +159,18 @@ func (scq *SMTPConfigQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of SMTPConfigs.
-func (scq *SMTPConfigQuery) All(ctx context.Context) ([]*SMTPConfig, error) {
-	ctx = setContextOp(ctx, scq.ctx, ent.OpQueryAll)
-	if err := scq.prepareQuery(ctx); err != nil {
+func (_q *SMTPConfigQuery) All(ctx context.Context) ([]*SMTPConfig, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*SMTPConfig, *SMTPConfigQuery]()
-	return withInterceptors[[]*SMTPConfig](ctx, scq, qr, scq.inters)
+	return withInterceptors[[]*SMTPConfig](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (scq *SMTPConfigQuery) AllX(ctx context.Context) []*SMTPConfig {
-	nodes, err := scq.All(ctx)
+func (_q *SMTPConfigQuery) AllX(ctx context.Context) []*SMTPConfig {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -178,20 +178,20 @@ func (scq *SMTPConfigQuery) AllX(ctx context.Context) []*SMTPConfig {
 }
 
 // IDs executes the query and returns a list of SMTPConfig IDs.
-func (scq *SMTPConfigQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if scq.ctx.Unique == nil && scq.path != nil {
-		scq.Unique(true)
+func (_q *SMTPConfigQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, scq.ctx, ent.OpQueryIDs)
-	if err = scq.Select(smtpconfig.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(smtpconfig.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (scq *SMTPConfigQuery) IDsX(ctx context.Context) []int {
-	ids, err := scq.IDs(ctx)
+func (_q *SMTPConfigQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -199,17 +199,17 @@ func (scq *SMTPConfigQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (scq *SMTPConfigQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, scq.ctx, ent.OpQueryCount)
-	if err := scq.prepareQuery(ctx); err != nil {
+func (_q *SMTPConfigQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, scq, querierCount[*SMTPConfigQuery](), scq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*SMTPConfigQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (scq *SMTPConfigQuery) CountX(ctx context.Context) int {
-	count, err := scq.Count(ctx)
+func (_q *SMTPConfigQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -217,9 +217,9 @@ func (scq *SMTPConfigQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (scq *SMTPConfigQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, scq.ctx, ent.OpQueryExist)
-	switch _, err := scq.FirstID(ctx); {
+func (_q *SMTPConfigQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -230,8 +230,8 @@ func (scq *SMTPConfigQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (scq *SMTPConfigQuery) ExistX(ctx context.Context) bool {
-	exist, err := scq.Exist(ctx)
+func (_q *SMTPConfigQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -240,19 +240,19 @@ func (scq *SMTPConfigQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the SMTPConfigQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (scq *SMTPConfigQuery) Clone() *SMTPConfigQuery {
-	if scq == nil {
+func (_q *SMTPConfigQuery) Clone() *SMTPConfigQuery {
+	if _q == nil {
 		return nil
 	}
 	return &SMTPConfigQuery{
-		config:     scq.config,
-		ctx:        scq.ctx.Clone(),
-		order:      append([]smtpconfig.OrderOption{}, scq.order...),
-		inters:     append([]Interceptor{}, scq.inters...),
-		predicates: append([]predicate.SMTPConfig{}, scq.predicates...),
+		config:     _q.config,
+		ctx:        _q.ctx.Clone(),
+		order:      append([]smtpconfig.OrderOption{}, _q.order...),
+		inters:     append([]Interceptor{}, _q.inters...),
+		predicates: append([]predicate.SMTPConfig{}, _q.predicates...),
 		// clone intermediate query.
-		sql:  scq.sql.Clone(),
-		path: scq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
@@ -270,10 +270,10 @@ func (scq *SMTPConfigQuery) Clone() *SMTPConfigQuery {
 //		GroupBy(smtpconfig.FieldSMTPServer).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (scq *SMTPConfigQuery) GroupBy(field string, fields ...string) *SMTPConfigGroupBy {
-	scq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &SMTPConfigGroupBy{build: scq}
-	grbuild.flds = &scq.ctx.Fields
+func (_q *SMTPConfigQuery) GroupBy(field string, fields ...string) *SMTPConfigGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &SMTPConfigGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = smtpconfig.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -291,62 +291,62 @@ func (scq *SMTPConfigQuery) GroupBy(field string, fields ...string) *SMTPConfigG
 //	client.SMTPConfig.Query().
 //		Select(smtpconfig.FieldSMTPServer).
 //		Scan(ctx, &v)
-func (scq *SMTPConfigQuery) Select(fields ...string) *SMTPConfigSelect {
-	scq.ctx.Fields = append(scq.ctx.Fields, fields...)
-	sbuild := &SMTPConfigSelect{SMTPConfigQuery: scq}
+func (_q *SMTPConfigQuery) Select(fields ...string) *SMTPConfigSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &SMTPConfigSelect{SMTPConfigQuery: _q}
 	sbuild.label = smtpconfig.Label
-	sbuild.flds, sbuild.scan = &scq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a SMTPConfigSelect configured with the given aggregations.
-func (scq *SMTPConfigQuery) Aggregate(fns ...AggregateFunc) *SMTPConfigSelect {
-	return scq.Select().Aggregate(fns...)
+func (_q *SMTPConfigQuery) Aggregate(fns ...AggregateFunc) *SMTPConfigSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (scq *SMTPConfigQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range scq.inters {
+func (_q *SMTPConfigQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, scq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range scq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !smtpconfig.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if scq.path != nil {
-		prev, err := scq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		scq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (scq *SMTPConfigQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*SMTPConfig, error) {
+func (_q *SMTPConfigQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*SMTPConfig, error) {
 	var (
 		nodes = []*SMTPConfig{}
-		_spec = scq.querySpec()
+		_spec = _q.querySpec()
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*SMTPConfig).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &SMTPConfig{config: scq.config}
+		node := &SMTPConfig{config: _q.config}
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, scq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
@@ -355,24 +355,24 @@ func (scq *SMTPConfigQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 	return nodes, nil
 }
 
-func (scq *SMTPConfigQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := scq.querySpec()
-	_spec.Node.Columns = scq.ctx.Fields
-	if len(scq.ctx.Fields) > 0 {
-		_spec.Unique = scq.ctx.Unique != nil && *scq.ctx.Unique
+func (_q *SMTPConfigQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, scq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (scq *SMTPConfigQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *SMTPConfigQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(smtpconfig.Table, smtpconfig.Columns, sqlgraph.NewFieldSpec(smtpconfig.FieldID, field.TypeInt))
-	_spec.From = scq.sql
-	if unique := scq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if scq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := scq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, smtpconfig.FieldID)
 		for i := range fields {
@@ -381,20 +381,20 @@ func (scq *SMTPConfigQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := scq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := scq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := scq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := scq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -404,33 +404,33 @@ func (scq *SMTPConfigQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (scq *SMTPConfigQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(scq.driver.Dialect())
+func (_q *SMTPConfigQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(smtpconfig.Table)
-	columns := scq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = smtpconfig.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if scq.sql != nil {
-		selector = scq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if scq.ctx.Unique != nil && *scq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range scq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range scq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := scq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := scq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -443,41 +443,41 @@ type SMTPConfigGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (scgb *SMTPConfigGroupBy) Aggregate(fns ...AggregateFunc) *SMTPConfigGroupBy {
-	scgb.fns = append(scgb.fns, fns...)
-	return scgb
+func (_g *SMTPConfigGroupBy) Aggregate(fns ...AggregateFunc) *SMTPConfigGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (scgb *SMTPConfigGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, scgb.build.ctx, ent.OpQueryGroupBy)
-	if err := scgb.build.prepareQuery(ctx); err != nil {
+func (_g *SMTPConfigGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*SMTPConfigQuery, *SMTPConfigGroupBy](ctx, scgb.build, scgb, scgb.build.inters, v)
+	return scanWithInterceptors[*SMTPConfigQuery, *SMTPConfigGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (scgb *SMTPConfigGroupBy) sqlScan(ctx context.Context, root *SMTPConfigQuery, v any) error {
+func (_g *SMTPConfigGroupBy) sqlScan(ctx context.Context, root *SMTPConfigQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(scgb.fns))
-	for _, fn := range scgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*scgb.flds)+len(scgb.fns))
-		for _, f := range *scgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*scgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := scgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -491,27 +491,27 @@ type SMTPConfigSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (scs *SMTPConfigSelect) Aggregate(fns ...AggregateFunc) *SMTPConfigSelect {
-	scs.fns = append(scs.fns, fns...)
-	return scs
+func (_s *SMTPConfigSelect) Aggregate(fns ...AggregateFunc) *SMTPConfigSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (scs *SMTPConfigSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, scs.ctx, ent.OpQuerySelect)
-	if err := scs.prepareQuery(ctx); err != nil {
+func (_s *SMTPConfigSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*SMTPConfigQuery, *SMTPConfigSelect](ctx, scs.SMTPConfigQuery, scs, scs.inters, v)
+	return scanWithInterceptors[*SMTPConfigQuery, *SMTPConfigSelect](ctx, _s.SMTPConfigQuery, _s, _s.inters, v)
 }
 
-func (scs *SMTPConfigSelect) sqlScan(ctx context.Context, root *SMTPConfigQuery, v any) error {
+func (_s *SMTPConfigSelect) sqlScan(ctx context.Context, root *SMTPConfigQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(scs.fns))
-	for _, fn := range scs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*scs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -519,7 +519,7 @@ func (scs *SMTPConfigSelect) sqlScan(ctx context.Context, root *SMTPConfigQuery,
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := scs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

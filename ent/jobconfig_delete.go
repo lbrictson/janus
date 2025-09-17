@@ -20,56 +20,56 @@ type JobConfigDelete struct {
 }
 
 // Where appends a list predicates to the JobConfigDelete builder.
-func (jcd *JobConfigDelete) Where(ps ...predicate.JobConfig) *JobConfigDelete {
-	jcd.mutation.Where(ps...)
-	return jcd
+func (_d *JobConfigDelete) Where(ps ...predicate.JobConfig) *JobConfigDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (jcd *JobConfigDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, jcd.sqlExec, jcd.mutation, jcd.hooks)
+func (_d *JobConfigDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jcd *JobConfigDelete) ExecX(ctx context.Context) int {
-	n, err := jcd.Exec(ctx)
+func (_d *JobConfigDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (jcd *JobConfigDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *JobConfigDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(jobconfig.Table, sqlgraph.NewFieldSpec(jobconfig.FieldID, field.TypeInt))
-	if ps := jcd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, jcd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	jcd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // JobConfigDeleteOne is the builder for deleting a single JobConfig entity.
 type JobConfigDeleteOne struct {
-	jcd *JobConfigDelete
+	_d *JobConfigDelete
 }
 
 // Where appends a list predicates to the JobConfigDelete builder.
-func (jcdo *JobConfigDeleteOne) Where(ps ...predicate.JobConfig) *JobConfigDeleteOne {
-	jcdo.jcd.mutation.Where(ps...)
-	return jcdo
+func (_d *JobConfigDeleteOne) Where(ps ...predicate.JobConfig) *JobConfigDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (jcdo *JobConfigDeleteOne) Exec(ctx context.Context) error {
-	n, err := jcdo.jcd.Exec(ctx)
+func (_d *JobConfigDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (jcdo *JobConfigDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jcdo *JobConfigDeleteOne) ExecX(ctx context.Context) {
-	if err := jcdo.Exec(ctx); err != nil {
+func (_d *JobConfigDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

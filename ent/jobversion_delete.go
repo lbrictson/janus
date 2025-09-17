@@ -20,56 +20,56 @@ type JobVersionDelete struct {
 }
 
 // Where appends a list predicates to the JobVersionDelete builder.
-func (jvd *JobVersionDelete) Where(ps ...predicate.JobVersion) *JobVersionDelete {
-	jvd.mutation.Where(ps...)
-	return jvd
+func (_d *JobVersionDelete) Where(ps ...predicate.JobVersion) *JobVersionDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (jvd *JobVersionDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, jvd.sqlExec, jvd.mutation, jvd.hooks)
+func (_d *JobVersionDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jvd *JobVersionDelete) ExecX(ctx context.Context) int {
-	n, err := jvd.Exec(ctx)
+func (_d *JobVersionDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (jvd *JobVersionDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *JobVersionDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(jobversion.Table, sqlgraph.NewFieldSpec(jobversion.FieldID, field.TypeInt))
-	if ps := jvd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, jvd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	jvd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // JobVersionDeleteOne is the builder for deleting a single JobVersion entity.
 type JobVersionDeleteOne struct {
-	jvd *JobVersionDelete
+	_d *JobVersionDelete
 }
 
 // Where appends a list predicates to the JobVersionDelete builder.
-func (jvdo *JobVersionDeleteOne) Where(ps ...predicate.JobVersion) *JobVersionDeleteOne {
-	jvdo.jvd.mutation.Where(ps...)
-	return jvdo
+func (_d *JobVersionDeleteOne) Where(ps ...predicate.JobVersion) *JobVersionDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (jvdo *JobVersionDeleteOne) Exec(ctx context.Context) error {
-	n, err := jvdo.jvd.Exec(ctx)
+func (_d *JobVersionDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (jvdo *JobVersionDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jvdo *JobVersionDeleteOne) ExecX(ctx context.Context) {
-	if err := jvdo.Exec(ctx); err != nil {
+func (_d *JobVersionDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

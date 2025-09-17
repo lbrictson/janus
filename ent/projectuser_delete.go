@@ -20,56 +20,56 @@ type ProjectUserDelete struct {
 }
 
 // Where appends a list predicates to the ProjectUserDelete builder.
-func (pud *ProjectUserDelete) Where(ps ...predicate.ProjectUser) *ProjectUserDelete {
-	pud.mutation.Where(ps...)
-	return pud
+func (_d *ProjectUserDelete) Where(ps ...predicate.ProjectUser) *ProjectUserDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (pud *ProjectUserDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, pud.sqlExec, pud.mutation, pud.hooks)
+func (_d *ProjectUserDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (pud *ProjectUserDelete) ExecX(ctx context.Context) int {
-	n, err := pud.Exec(ctx)
+func (_d *ProjectUserDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (pud *ProjectUserDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *ProjectUserDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(projectuser.Table, sqlgraph.NewFieldSpec(projectuser.FieldID, field.TypeInt))
-	if ps := pud.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, pud.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	pud.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // ProjectUserDeleteOne is the builder for deleting a single ProjectUser entity.
 type ProjectUserDeleteOne struct {
-	pud *ProjectUserDelete
+	_d *ProjectUserDelete
 }
 
 // Where appends a list predicates to the ProjectUserDelete builder.
-func (pudo *ProjectUserDeleteOne) Where(ps ...predicate.ProjectUser) *ProjectUserDeleteOne {
-	pudo.pud.mutation.Where(ps...)
-	return pudo
+func (_d *ProjectUserDeleteOne) Where(ps ...predicate.ProjectUser) *ProjectUserDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (pudo *ProjectUserDeleteOne) Exec(ctx context.Context) error {
-	n, err := pudo.pud.Exec(ctx)
+func (_d *ProjectUserDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (pudo *ProjectUserDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (pudo *ProjectUserDeleteOne) ExecX(ctx context.Context) {
-	if err := pudo.Exec(ctx); err != nil {
+func (_d *ProjectUserDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

@@ -39,7 +39,7 @@ func (*JobConfig) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the JobConfig fields.
-func (jc *JobConfig) assignValues(columns []string, values []any) error {
+func (_m *JobConfig) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -50,21 +50,21 @@ func (jc *JobConfig) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			jc.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case jobconfig.FieldMaxConcurrentJobs:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field max_concurrent_jobs", values[i])
 			} else if value.Valid {
-				jc.MaxConcurrentJobs = int(value.Int64)
+				_m.MaxConcurrentJobs = int(value.Int64)
 			}
 		case jobconfig.FieldDefaultTimeoutSeconds:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field default_timeout_seconds", values[i])
 			} else if value.Valid {
-				jc.DefaultTimeoutSeconds = int(value.Int64)
+				_m.DefaultTimeoutSeconds = int(value.Int64)
 			}
 		default:
-			jc.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -72,38 +72,38 @@ func (jc *JobConfig) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the JobConfig.
 // This includes values selected through modifiers, order, etc.
-func (jc *JobConfig) Value(name string) (ent.Value, error) {
-	return jc.selectValues.Get(name)
+func (_m *JobConfig) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // Update returns a builder for updating this JobConfig.
 // Note that you need to call JobConfig.Unwrap() before calling this method if this JobConfig
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (jc *JobConfig) Update() *JobConfigUpdateOne {
-	return NewJobConfigClient(jc.config).UpdateOne(jc)
+func (_m *JobConfig) Update() *JobConfigUpdateOne {
+	return NewJobConfigClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the JobConfig entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (jc *JobConfig) Unwrap() *JobConfig {
-	_tx, ok := jc.config.driver.(*txDriver)
+func (_m *JobConfig) Unwrap() *JobConfig {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: JobConfig is not a transactional entity")
 	}
-	jc.config.driver = _tx.drv
-	return jc
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (jc *JobConfig) String() string {
+func (_m *JobConfig) String() string {
 	var builder strings.Builder
 	builder.WriteString("JobConfig(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", jc.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("max_concurrent_jobs=")
-	builder.WriteString(fmt.Sprintf("%v", jc.MaxConcurrentJobs))
+	builder.WriteString(fmt.Sprintf("%v", _m.MaxConcurrentJobs))
 	builder.WriteString(", ")
 	builder.WriteString("default_timeout_seconds=")
-	builder.WriteString(fmt.Sprintf("%v", jc.DefaultTimeoutSeconds))
+	builder.WriteString(fmt.Sprintf("%v", _m.DefaultTimeoutSeconds))
 	builder.WriteByte(')')
 	return builder.String()
 }

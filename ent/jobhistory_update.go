@@ -26,209 +26,209 @@ type JobHistoryUpdate struct {
 }
 
 // Where appends a list predicates to the JobHistoryUpdate builder.
-func (jhu *JobHistoryUpdate) Where(ps ...predicate.JobHistory) *JobHistoryUpdate {
-	jhu.mutation.Where(ps...)
-	return jhu
+func (_u *JobHistoryUpdate) Where(ps ...predicate.JobHistory) *JobHistoryUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetWasSuccessful sets the "was_successful" field.
-func (jhu *JobHistoryUpdate) SetWasSuccessful(b bool) *JobHistoryUpdate {
-	jhu.mutation.SetWasSuccessful(b)
-	return jhu
+func (_u *JobHistoryUpdate) SetWasSuccessful(v bool) *JobHistoryUpdate {
+	_u.mutation.SetWasSuccessful(v)
+	return _u
 }
 
 // SetNillableWasSuccessful sets the "was_successful" field if the given value is not nil.
-func (jhu *JobHistoryUpdate) SetNillableWasSuccessful(b *bool) *JobHistoryUpdate {
-	if b != nil {
-		jhu.SetWasSuccessful(*b)
+func (_u *JobHistoryUpdate) SetNillableWasSuccessful(v *bool) *JobHistoryUpdate {
+	if v != nil {
+		_u.SetWasSuccessful(*v)
 	}
-	return jhu
+	return _u
 }
 
 // SetDurationMs sets the "duration_ms" field.
-func (jhu *JobHistoryUpdate) SetDurationMs(i int64) *JobHistoryUpdate {
-	jhu.mutation.ResetDurationMs()
-	jhu.mutation.SetDurationMs(i)
-	return jhu
+func (_u *JobHistoryUpdate) SetDurationMs(v int64) *JobHistoryUpdate {
+	_u.mutation.ResetDurationMs()
+	_u.mutation.SetDurationMs(v)
+	return _u
 }
 
 // SetNillableDurationMs sets the "duration_ms" field if the given value is not nil.
-func (jhu *JobHistoryUpdate) SetNillableDurationMs(i *int64) *JobHistoryUpdate {
-	if i != nil {
-		jhu.SetDurationMs(*i)
+func (_u *JobHistoryUpdate) SetNillableDurationMs(v *int64) *JobHistoryUpdate {
+	if v != nil {
+		_u.SetDurationMs(*v)
 	}
-	return jhu
+	return _u
 }
 
-// AddDurationMs adds i to the "duration_ms" field.
-func (jhu *JobHistoryUpdate) AddDurationMs(i int64) *JobHistoryUpdate {
-	jhu.mutation.AddDurationMs(i)
-	return jhu
+// AddDurationMs adds value to the "duration_ms" field.
+func (_u *JobHistoryUpdate) AddDurationMs(v int64) *JobHistoryUpdate {
+	_u.mutation.AddDurationMs(v)
+	return _u
 }
 
 // SetParameters sets the "parameters" field.
-func (jhu *JobHistoryUpdate) SetParameters(s []schema.Parameter) *JobHistoryUpdate {
-	jhu.mutation.SetParameters(s)
-	return jhu
+func (_u *JobHistoryUpdate) SetParameters(v []schema.Parameter) *JobHistoryUpdate {
+	_u.mutation.SetParameters(v)
+	return _u
 }
 
-// AppendParameters appends s to the "parameters" field.
-func (jhu *JobHistoryUpdate) AppendParameters(s []schema.Parameter) *JobHistoryUpdate {
-	jhu.mutation.AppendParameters(s)
-	return jhu
+// AppendParameters appends value to the "parameters" field.
+func (_u *JobHistoryUpdate) AppendParameters(v []schema.Parameter) *JobHistoryUpdate {
+	_u.mutation.AppendParameters(v)
+	return _u
 }
 
 // ClearParameters clears the value of the "parameters" field.
-func (jhu *JobHistoryUpdate) ClearParameters() *JobHistoryUpdate {
-	jhu.mutation.ClearParameters()
-	return jhu
+func (_u *JobHistoryUpdate) ClearParameters() *JobHistoryUpdate {
+	_u.mutation.ClearParameters()
+	return _u
 }
 
 // SetOutput sets the "output" field.
-func (jhu *JobHistoryUpdate) SetOutput(s string) *JobHistoryUpdate {
-	jhu.mutation.SetOutput(s)
-	return jhu
+func (_u *JobHistoryUpdate) SetOutput(v string) *JobHistoryUpdate {
+	_u.mutation.SetOutput(v)
+	return _u
 }
 
 // SetNillableOutput sets the "output" field if the given value is not nil.
-func (jhu *JobHistoryUpdate) SetNillableOutput(s *string) *JobHistoryUpdate {
-	if s != nil {
-		jhu.SetOutput(*s)
+func (_u *JobHistoryUpdate) SetNillableOutput(v *string) *JobHistoryUpdate {
+	if v != nil {
+		_u.SetOutput(*v)
 	}
-	return jhu
+	return _u
 }
 
 // SetExitCode sets the "exit_code" field.
-func (jhu *JobHistoryUpdate) SetExitCode(i int) *JobHistoryUpdate {
-	jhu.mutation.ResetExitCode()
-	jhu.mutation.SetExitCode(i)
-	return jhu
+func (_u *JobHistoryUpdate) SetExitCode(v int) *JobHistoryUpdate {
+	_u.mutation.ResetExitCode()
+	_u.mutation.SetExitCode(v)
+	return _u
 }
 
 // SetNillableExitCode sets the "exit_code" field if the given value is not nil.
-func (jhu *JobHistoryUpdate) SetNillableExitCode(i *int) *JobHistoryUpdate {
-	if i != nil {
-		jhu.SetExitCode(*i)
+func (_u *JobHistoryUpdate) SetNillableExitCode(v *int) *JobHistoryUpdate {
+	if v != nil {
+		_u.SetExitCode(*v)
 	}
-	return jhu
+	return _u
 }
 
-// AddExitCode adds i to the "exit_code" field.
-func (jhu *JobHistoryUpdate) AddExitCode(i int) *JobHistoryUpdate {
-	jhu.mutation.AddExitCode(i)
-	return jhu
+// AddExitCode adds value to the "exit_code" field.
+func (_u *JobHistoryUpdate) AddExitCode(v int) *JobHistoryUpdate {
+	_u.mutation.AddExitCode(v)
+	return _u
 }
 
 // SetTriggeredByEmail sets the "triggered_by_email" field.
-func (jhu *JobHistoryUpdate) SetTriggeredByEmail(s string) *JobHistoryUpdate {
-	jhu.mutation.SetTriggeredByEmail(s)
-	return jhu
+func (_u *JobHistoryUpdate) SetTriggeredByEmail(v string) *JobHistoryUpdate {
+	_u.mutation.SetTriggeredByEmail(v)
+	return _u
 }
 
 // SetNillableTriggeredByEmail sets the "triggered_by_email" field if the given value is not nil.
-func (jhu *JobHistoryUpdate) SetNillableTriggeredByEmail(s *string) *JobHistoryUpdate {
-	if s != nil {
-		jhu.SetTriggeredByEmail(*s)
+func (_u *JobHistoryUpdate) SetNillableTriggeredByEmail(v *string) *JobHistoryUpdate {
+	if v != nil {
+		_u.SetTriggeredByEmail(*v)
 	}
-	return jhu
+	return _u
 }
 
 // SetTriggeredByID sets the "triggered_by_id" field.
-func (jhu *JobHistoryUpdate) SetTriggeredByID(i int) *JobHistoryUpdate {
-	jhu.mutation.ResetTriggeredByID()
-	jhu.mutation.SetTriggeredByID(i)
-	return jhu
+func (_u *JobHistoryUpdate) SetTriggeredByID(v int) *JobHistoryUpdate {
+	_u.mutation.ResetTriggeredByID()
+	_u.mutation.SetTriggeredByID(v)
+	return _u
 }
 
 // SetNillableTriggeredByID sets the "triggered_by_id" field if the given value is not nil.
-func (jhu *JobHistoryUpdate) SetNillableTriggeredByID(i *int) *JobHistoryUpdate {
-	if i != nil {
-		jhu.SetTriggeredByID(*i)
+func (_u *JobHistoryUpdate) SetNillableTriggeredByID(v *int) *JobHistoryUpdate {
+	if v != nil {
+		_u.SetTriggeredByID(*v)
 	}
-	return jhu
+	return _u
 }
 
-// AddTriggeredByID adds i to the "triggered_by_id" field.
-func (jhu *JobHistoryUpdate) AddTriggeredByID(i int) *JobHistoryUpdate {
-	jhu.mutation.AddTriggeredByID(i)
-	return jhu
+// AddTriggeredByID adds value to the "triggered_by_id" field.
+func (_u *JobHistoryUpdate) AddTriggeredByID(v int) *JobHistoryUpdate {
+	_u.mutation.AddTriggeredByID(v)
+	return _u
 }
 
 // SetStatus sets the "status" field.
-func (jhu *JobHistoryUpdate) SetStatus(s string) *JobHistoryUpdate {
-	jhu.mutation.SetStatus(s)
-	return jhu
+func (_u *JobHistoryUpdate) SetStatus(v string) *JobHistoryUpdate {
+	_u.mutation.SetStatus(v)
+	return _u
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (jhu *JobHistoryUpdate) SetNillableStatus(s *string) *JobHistoryUpdate {
-	if s != nil {
-		jhu.SetStatus(*s)
+func (_u *JobHistoryUpdate) SetNillableStatus(v *string) *JobHistoryUpdate {
+	if v != nil {
+		_u.SetStatus(*v)
 	}
-	return jhu
+	return _u
 }
 
 // SetTrigger sets the "trigger" field.
-func (jhu *JobHistoryUpdate) SetTrigger(s string) *JobHistoryUpdate {
-	jhu.mutation.SetTrigger(s)
-	return jhu
+func (_u *JobHistoryUpdate) SetTrigger(v string) *JobHistoryUpdate {
+	_u.mutation.SetTrigger(v)
+	return _u
 }
 
 // SetNillableTrigger sets the "trigger" field if the given value is not nil.
-func (jhu *JobHistoryUpdate) SetNillableTrigger(s *string) *JobHistoryUpdate {
-	if s != nil {
-		jhu.SetTrigger(*s)
+func (_u *JobHistoryUpdate) SetNillableTrigger(v *string) *JobHistoryUpdate {
+	if v != nil {
+		_u.SetTrigger(*v)
 	}
-	return jhu
+	return _u
 }
 
 // SetProjectID sets the "project" edge to the Project entity by ID.
-func (jhu *JobHistoryUpdate) SetProjectID(id int) *JobHistoryUpdate {
-	jhu.mutation.SetProjectID(id)
-	return jhu
+func (_u *JobHistoryUpdate) SetProjectID(id int) *JobHistoryUpdate {
+	_u.mutation.SetProjectID(id)
+	return _u
 }
 
 // SetProject sets the "project" edge to the Project entity.
-func (jhu *JobHistoryUpdate) SetProject(p *Project) *JobHistoryUpdate {
-	return jhu.SetProjectID(p.ID)
+func (_u *JobHistoryUpdate) SetProject(v *Project) *JobHistoryUpdate {
+	return _u.SetProjectID(v.ID)
 }
 
 // SetJobID sets the "job" edge to the Job entity by ID.
-func (jhu *JobHistoryUpdate) SetJobID(id int) *JobHistoryUpdate {
-	jhu.mutation.SetJobID(id)
-	return jhu
+func (_u *JobHistoryUpdate) SetJobID(id int) *JobHistoryUpdate {
+	_u.mutation.SetJobID(id)
+	return _u
 }
 
 // SetJob sets the "job" edge to the Job entity.
-func (jhu *JobHistoryUpdate) SetJob(j *Job) *JobHistoryUpdate {
-	return jhu.SetJobID(j.ID)
+func (_u *JobHistoryUpdate) SetJob(v *Job) *JobHistoryUpdate {
+	return _u.SetJobID(v.ID)
 }
 
 // Mutation returns the JobHistoryMutation object of the builder.
-func (jhu *JobHistoryUpdate) Mutation() *JobHistoryMutation {
-	return jhu.mutation
+func (_u *JobHistoryUpdate) Mutation() *JobHistoryMutation {
+	return _u.mutation
 }
 
 // ClearProject clears the "project" edge to the Project entity.
-func (jhu *JobHistoryUpdate) ClearProject() *JobHistoryUpdate {
-	jhu.mutation.ClearProject()
-	return jhu
+func (_u *JobHistoryUpdate) ClearProject() *JobHistoryUpdate {
+	_u.mutation.ClearProject()
+	return _u
 }
 
 // ClearJob clears the "job" edge to the Job entity.
-func (jhu *JobHistoryUpdate) ClearJob() *JobHistoryUpdate {
-	jhu.mutation.ClearJob()
-	return jhu
+func (_u *JobHistoryUpdate) ClearJob() *JobHistoryUpdate {
+	_u.mutation.ClearJob()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (jhu *JobHistoryUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, jhu.sqlSave, jhu.mutation, jhu.hooks)
+func (_u *JobHistoryUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (jhu *JobHistoryUpdate) SaveX(ctx context.Context) int {
-	affected, err := jhu.Save(ctx)
+func (_u *JobHistoryUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -236,86 +236,86 @@ func (jhu *JobHistoryUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (jhu *JobHistoryUpdate) Exec(ctx context.Context) error {
-	_, err := jhu.Save(ctx)
+func (_u *JobHistoryUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jhu *JobHistoryUpdate) ExecX(ctx context.Context) {
-	if err := jhu.Exec(ctx); err != nil {
+func (_u *JobHistoryUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (jhu *JobHistoryUpdate) check() error {
-	if jhu.mutation.ProjectCleared() && len(jhu.mutation.ProjectIDs()) > 0 {
+func (_u *JobHistoryUpdate) check() error {
+	if _u.mutation.ProjectCleared() && len(_u.mutation.ProjectIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "JobHistory.project"`)
 	}
-	if jhu.mutation.JobCleared() && len(jhu.mutation.JobIDs()) > 0 {
+	if _u.mutation.JobCleared() && len(_u.mutation.JobIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "JobHistory.job"`)
 	}
 	return nil
 }
 
-func (jhu *JobHistoryUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := jhu.check(); err != nil {
-		return n, err
+func (_u *JobHistoryUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(jobhistory.Table, jobhistory.Columns, sqlgraph.NewFieldSpec(jobhistory.FieldID, field.TypeInt))
-	if ps := jhu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := jhu.mutation.WasSuccessful(); ok {
+	if value, ok := _u.mutation.WasSuccessful(); ok {
 		_spec.SetField(jobhistory.FieldWasSuccessful, field.TypeBool, value)
 	}
-	if value, ok := jhu.mutation.DurationMs(); ok {
+	if value, ok := _u.mutation.DurationMs(); ok {
 		_spec.SetField(jobhistory.FieldDurationMs, field.TypeInt64, value)
 	}
-	if value, ok := jhu.mutation.AddedDurationMs(); ok {
+	if value, ok := _u.mutation.AddedDurationMs(); ok {
 		_spec.AddField(jobhistory.FieldDurationMs, field.TypeInt64, value)
 	}
-	if value, ok := jhu.mutation.Parameters(); ok {
+	if value, ok := _u.mutation.Parameters(); ok {
 		_spec.SetField(jobhistory.FieldParameters, field.TypeJSON, value)
 	}
-	if value, ok := jhu.mutation.AppendedParameters(); ok {
+	if value, ok := _u.mutation.AppendedParameters(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, jobhistory.FieldParameters, value)
 		})
 	}
-	if jhu.mutation.ParametersCleared() {
+	if _u.mutation.ParametersCleared() {
 		_spec.ClearField(jobhistory.FieldParameters, field.TypeJSON)
 	}
-	if value, ok := jhu.mutation.Output(); ok {
+	if value, ok := _u.mutation.Output(); ok {
 		_spec.SetField(jobhistory.FieldOutput, field.TypeString, value)
 	}
-	if value, ok := jhu.mutation.ExitCode(); ok {
+	if value, ok := _u.mutation.ExitCode(); ok {
 		_spec.SetField(jobhistory.FieldExitCode, field.TypeInt, value)
 	}
-	if value, ok := jhu.mutation.AddedExitCode(); ok {
+	if value, ok := _u.mutation.AddedExitCode(); ok {
 		_spec.AddField(jobhistory.FieldExitCode, field.TypeInt, value)
 	}
-	if value, ok := jhu.mutation.TriggeredByEmail(); ok {
+	if value, ok := _u.mutation.TriggeredByEmail(); ok {
 		_spec.SetField(jobhistory.FieldTriggeredByEmail, field.TypeString, value)
 	}
-	if value, ok := jhu.mutation.TriggeredByID(); ok {
+	if value, ok := _u.mutation.TriggeredByID(); ok {
 		_spec.SetField(jobhistory.FieldTriggeredByID, field.TypeInt, value)
 	}
-	if value, ok := jhu.mutation.AddedTriggeredByID(); ok {
+	if value, ok := _u.mutation.AddedTriggeredByID(); ok {
 		_spec.AddField(jobhistory.FieldTriggeredByID, field.TypeInt, value)
 	}
-	if value, ok := jhu.mutation.Status(); ok {
+	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(jobhistory.FieldStatus, field.TypeString, value)
 	}
-	if value, ok := jhu.mutation.Trigger(); ok {
+	if value, ok := _u.mutation.Trigger(); ok {
 		_spec.SetField(jobhistory.FieldTrigger, field.TypeString, value)
 	}
-	if jhu.mutation.ProjectCleared() {
+	if _u.mutation.ProjectCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -328,7 +328,7 @@ func (jhu *JobHistoryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := jhu.mutation.ProjectIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProjectIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -344,7 +344,7 @@ func (jhu *JobHistoryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if jhu.mutation.JobCleared() {
+	if _u.mutation.JobCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -357,7 +357,7 @@ func (jhu *JobHistoryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := jhu.mutation.JobIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.JobIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -373,7 +373,7 @@ func (jhu *JobHistoryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, jhu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{jobhistory.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -381,8 +381,8 @@ func (jhu *JobHistoryUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	jhu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // JobHistoryUpdateOne is the builder for updating a single JobHistory entity.
@@ -394,216 +394,216 @@ type JobHistoryUpdateOne struct {
 }
 
 // SetWasSuccessful sets the "was_successful" field.
-func (jhuo *JobHistoryUpdateOne) SetWasSuccessful(b bool) *JobHistoryUpdateOne {
-	jhuo.mutation.SetWasSuccessful(b)
-	return jhuo
+func (_u *JobHistoryUpdateOne) SetWasSuccessful(v bool) *JobHistoryUpdateOne {
+	_u.mutation.SetWasSuccessful(v)
+	return _u
 }
 
 // SetNillableWasSuccessful sets the "was_successful" field if the given value is not nil.
-func (jhuo *JobHistoryUpdateOne) SetNillableWasSuccessful(b *bool) *JobHistoryUpdateOne {
-	if b != nil {
-		jhuo.SetWasSuccessful(*b)
+func (_u *JobHistoryUpdateOne) SetNillableWasSuccessful(v *bool) *JobHistoryUpdateOne {
+	if v != nil {
+		_u.SetWasSuccessful(*v)
 	}
-	return jhuo
+	return _u
 }
 
 // SetDurationMs sets the "duration_ms" field.
-func (jhuo *JobHistoryUpdateOne) SetDurationMs(i int64) *JobHistoryUpdateOne {
-	jhuo.mutation.ResetDurationMs()
-	jhuo.mutation.SetDurationMs(i)
-	return jhuo
+func (_u *JobHistoryUpdateOne) SetDurationMs(v int64) *JobHistoryUpdateOne {
+	_u.mutation.ResetDurationMs()
+	_u.mutation.SetDurationMs(v)
+	return _u
 }
 
 // SetNillableDurationMs sets the "duration_ms" field if the given value is not nil.
-func (jhuo *JobHistoryUpdateOne) SetNillableDurationMs(i *int64) *JobHistoryUpdateOne {
-	if i != nil {
-		jhuo.SetDurationMs(*i)
+func (_u *JobHistoryUpdateOne) SetNillableDurationMs(v *int64) *JobHistoryUpdateOne {
+	if v != nil {
+		_u.SetDurationMs(*v)
 	}
-	return jhuo
+	return _u
 }
 
-// AddDurationMs adds i to the "duration_ms" field.
-func (jhuo *JobHistoryUpdateOne) AddDurationMs(i int64) *JobHistoryUpdateOne {
-	jhuo.mutation.AddDurationMs(i)
-	return jhuo
+// AddDurationMs adds value to the "duration_ms" field.
+func (_u *JobHistoryUpdateOne) AddDurationMs(v int64) *JobHistoryUpdateOne {
+	_u.mutation.AddDurationMs(v)
+	return _u
 }
 
 // SetParameters sets the "parameters" field.
-func (jhuo *JobHistoryUpdateOne) SetParameters(s []schema.Parameter) *JobHistoryUpdateOne {
-	jhuo.mutation.SetParameters(s)
-	return jhuo
+func (_u *JobHistoryUpdateOne) SetParameters(v []schema.Parameter) *JobHistoryUpdateOne {
+	_u.mutation.SetParameters(v)
+	return _u
 }
 
-// AppendParameters appends s to the "parameters" field.
-func (jhuo *JobHistoryUpdateOne) AppendParameters(s []schema.Parameter) *JobHistoryUpdateOne {
-	jhuo.mutation.AppendParameters(s)
-	return jhuo
+// AppendParameters appends value to the "parameters" field.
+func (_u *JobHistoryUpdateOne) AppendParameters(v []schema.Parameter) *JobHistoryUpdateOne {
+	_u.mutation.AppendParameters(v)
+	return _u
 }
 
 // ClearParameters clears the value of the "parameters" field.
-func (jhuo *JobHistoryUpdateOne) ClearParameters() *JobHistoryUpdateOne {
-	jhuo.mutation.ClearParameters()
-	return jhuo
+func (_u *JobHistoryUpdateOne) ClearParameters() *JobHistoryUpdateOne {
+	_u.mutation.ClearParameters()
+	return _u
 }
 
 // SetOutput sets the "output" field.
-func (jhuo *JobHistoryUpdateOne) SetOutput(s string) *JobHistoryUpdateOne {
-	jhuo.mutation.SetOutput(s)
-	return jhuo
+func (_u *JobHistoryUpdateOne) SetOutput(v string) *JobHistoryUpdateOne {
+	_u.mutation.SetOutput(v)
+	return _u
 }
 
 // SetNillableOutput sets the "output" field if the given value is not nil.
-func (jhuo *JobHistoryUpdateOne) SetNillableOutput(s *string) *JobHistoryUpdateOne {
-	if s != nil {
-		jhuo.SetOutput(*s)
+func (_u *JobHistoryUpdateOne) SetNillableOutput(v *string) *JobHistoryUpdateOne {
+	if v != nil {
+		_u.SetOutput(*v)
 	}
-	return jhuo
+	return _u
 }
 
 // SetExitCode sets the "exit_code" field.
-func (jhuo *JobHistoryUpdateOne) SetExitCode(i int) *JobHistoryUpdateOne {
-	jhuo.mutation.ResetExitCode()
-	jhuo.mutation.SetExitCode(i)
-	return jhuo
+func (_u *JobHistoryUpdateOne) SetExitCode(v int) *JobHistoryUpdateOne {
+	_u.mutation.ResetExitCode()
+	_u.mutation.SetExitCode(v)
+	return _u
 }
 
 // SetNillableExitCode sets the "exit_code" field if the given value is not nil.
-func (jhuo *JobHistoryUpdateOne) SetNillableExitCode(i *int) *JobHistoryUpdateOne {
-	if i != nil {
-		jhuo.SetExitCode(*i)
+func (_u *JobHistoryUpdateOne) SetNillableExitCode(v *int) *JobHistoryUpdateOne {
+	if v != nil {
+		_u.SetExitCode(*v)
 	}
-	return jhuo
+	return _u
 }
 
-// AddExitCode adds i to the "exit_code" field.
-func (jhuo *JobHistoryUpdateOne) AddExitCode(i int) *JobHistoryUpdateOne {
-	jhuo.mutation.AddExitCode(i)
-	return jhuo
+// AddExitCode adds value to the "exit_code" field.
+func (_u *JobHistoryUpdateOne) AddExitCode(v int) *JobHistoryUpdateOne {
+	_u.mutation.AddExitCode(v)
+	return _u
 }
 
 // SetTriggeredByEmail sets the "triggered_by_email" field.
-func (jhuo *JobHistoryUpdateOne) SetTriggeredByEmail(s string) *JobHistoryUpdateOne {
-	jhuo.mutation.SetTriggeredByEmail(s)
-	return jhuo
+func (_u *JobHistoryUpdateOne) SetTriggeredByEmail(v string) *JobHistoryUpdateOne {
+	_u.mutation.SetTriggeredByEmail(v)
+	return _u
 }
 
 // SetNillableTriggeredByEmail sets the "triggered_by_email" field if the given value is not nil.
-func (jhuo *JobHistoryUpdateOne) SetNillableTriggeredByEmail(s *string) *JobHistoryUpdateOne {
-	if s != nil {
-		jhuo.SetTriggeredByEmail(*s)
+func (_u *JobHistoryUpdateOne) SetNillableTriggeredByEmail(v *string) *JobHistoryUpdateOne {
+	if v != nil {
+		_u.SetTriggeredByEmail(*v)
 	}
-	return jhuo
+	return _u
 }
 
 // SetTriggeredByID sets the "triggered_by_id" field.
-func (jhuo *JobHistoryUpdateOne) SetTriggeredByID(i int) *JobHistoryUpdateOne {
-	jhuo.mutation.ResetTriggeredByID()
-	jhuo.mutation.SetTriggeredByID(i)
-	return jhuo
+func (_u *JobHistoryUpdateOne) SetTriggeredByID(v int) *JobHistoryUpdateOne {
+	_u.mutation.ResetTriggeredByID()
+	_u.mutation.SetTriggeredByID(v)
+	return _u
 }
 
 // SetNillableTriggeredByID sets the "triggered_by_id" field if the given value is not nil.
-func (jhuo *JobHistoryUpdateOne) SetNillableTriggeredByID(i *int) *JobHistoryUpdateOne {
-	if i != nil {
-		jhuo.SetTriggeredByID(*i)
+func (_u *JobHistoryUpdateOne) SetNillableTriggeredByID(v *int) *JobHistoryUpdateOne {
+	if v != nil {
+		_u.SetTriggeredByID(*v)
 	}
-	return jhuo
+	return _u
 }
 
-// AddTriggeredByID adds i to the "triggered_by_id" field.
-func (jhuo *JobHistoryUpdateOne) AddTriggeredByID(i int) *JobHistoryUpdateOne {
-	jhuo.mutation.AddTriggeredByID(i)
-	return jhuo
+// AddTriggeredByID adds value to the "triggered_by_id" field.
+func (_u *JobHistoryUpdateOne) AddTriggeredByID(v int) *JobHistoryUpdateOne {
+	_u.mutation.AddTriggeredByID(v)
+	return _u
 }
 
 // SetStatus sets the "status" field.
-func (jhuo *JobHistoryUpdateOne) SetStatus(s string) *JobHistoryUpdateOne {
-	jhuo.mutation.SetStatus(s)
-	return jhuo
+func (_u *JobHistoryUpdateOne) SetStatus(v string) *JobHistoryUpdateOne {
+	_u.mutation.SetStatus(v)
+	return _u
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (jhuo *JobHistoryUpdateOne) SetNillableStatus(s *string) *JobHistoryUpdateOne {
-	if s != nil {
-		jhuo.SetStatus(*s)
+func (_u *JobHistoryUpdateOne) SetNillableStatus(v *string) *JobHistoryUpdateOne {
+	if v != nil {
+		_u.SetStatus(*v)
 	}
-	return jhuo
+	return _u
 }
 
 // SetTrigger sets the "trigger" field.
-func (jhuo *JobHistoryUpdateOne) SetTrigger(s string) *JobHistoryUpdateOne {
-	jhuo.mutation.SetTrigger(s)
-	return jhuo
+func (_u *JobHistoryUpdateOne) SetTrigger(v string) *JobHistoryUpdateOne {
+	_u.mutation.SetTrigger(v)
+	return _u
 }
 
 // SetNillableTrigger sets the "trigger" field if the given value is not nil.
-func (jhuo *JobHistoryUpdateOne) SetNillableTrigger(s *string) *JobHistoryUpdateOne {
-	if s != nil {
-		jhuo.SetTrigger(*s)
+func (_u *JobHistoryUpdateOne) SetNillableTrigger(v *string) *JobHistoryUpdateOne {
+	if v != nil {
+		_u.SetTrigger(*v)
 	}
-	return jhuo
+	return _u
 }
 
 // SetProjectID sets the "project" edge to the Project entity by ID.
-func (jhuo *JobHistoryUpdateOne) SetProjectID(id int) *JobHistoryUpdateOne {
-	jhuo.mutation.SetProjectID(id)
-	return jhuo
+func (_u *JobHistoryUpdateOne) SetProjectID(id int) *JobHistoryUpdateOne {
+	_u.mutation.SetProjectID(id)
+	return _u
 }
 
 // SetProject sets the "project" edge to the Project entity.
-func (jhuo *JobHistoryUpdateOne) SetProject(p *Project) *JobHistoryUpdateOne {
-	return jhuo.SetProjectID(p.ID)
+func (_u *JobHistoryUpdateOne) SetProject(v *Project) *JobHistoryUpdateOne {
+	return _u.SetProjectID(v.ID)
 }
 
 // SetJobID sets the "job" edge to the Job entity by ID.
-func (jhuo *JobHistoryUpdateOne) SetJobID(id int) *JobHistoryUpdateOne {
-	jhuo.mutation.SetJobID(id)
-	return jhuo
+func (_u *JobHistoryUpdateOne) SetJobID(id int) *JobHistoryUpdateOne {
+	_u.mutation.SetJobID(id)
+	return _u
 }
 
 // SetJob sets the "job" edge to the Job entity.
-func (jhuo *JobHistoryUpdateOne) SetJob(j *Job) *JobHistoryUpdateOne {
-	return jhuo.SetJobID(j.ID)
+func (_u *JobHistoryUpdateOne) SetJob(v *Job) *JobHistoryUpdateOne {
+	return _u.SetJobID(v.ID)
 }
 
 // Mutation returns the JobHistoryMutation object of the builder.
-func (jhuo *JobHistoryUpdateOne) Mutation() *JobHistoryMutation {
-	return jhuo.mutation
+func (_u *JobHistoryUpdateOne) Mutation() *JobHistoryMutation {
+	return _u.mutation
 }
 
 // ClearProject clears the "project" edge to the Project entity.
-func (jhuo *JobHistoryUpdateOne) ClearProject() *JobHistoryUpdateOne {
-	jhuo.mutation.ClearProject()
-	return jhuo
+func (_u *JobHistoryUpdateOne) ClearProject() *JobHistoryUpdateOne {
+	_u.mutation.ClearProject()
+	return _u
 }
 
 // ClearJob clears the "job" edge to the Job entity.
-func (jhuo *JobHistoryUpdateOne) ClearJob() *JobHistoryUpdateOne {
-	jhuo.mutation.ClearJob()
-	return jhuo
+func (_u *JobHistoryUpdateOne) ClearJob() *JobHistoryUpdateOne {
+	_u.mutation.ClearJob()
+	return _u
 }
 
 // Where appends a list predicates to the JobHistoryUpdate builder.
-func (jhuo *JobHistoryUpdateOne) Where(ps ...predicate.JobHistory) *JobHistoryUpdateOne {
-	jhuo.mutation.Where(ps...)
-	return jhuo
+func (_u *JobHistoryUpdateOne) Where(ps ...predicate.JobHistory) *JobHistoryUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (jhuo *JobHistoryUpdateOne) Select(field string, fields ...string) *JobHistoryUpdateOne {
-	jhuo.fields = append([]string{field}, fields...)
-	return jhuo
+func (_u *JobHistoryUpdateOne) Select(field string, fields ...string) *JobHistoryUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated JobHistory entity.
-func (jhuo *JobHistoryUpdateOne) Save(ctx context.Context) (*JobHistory, error) {
-	return withHooks(ctx, jhuo.sqlSave, jhuo.mutation, jhuo.hooks)
+func (_u *JobHistoryUpdateOne) Save(ctx context.Context) (*JobHistory, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (jhuo *JobHistoryUpdateOne) SaveX(ctx context.Context) *JobHistory {
-	node, err := jhuo.Save(ctx)
+func (_u *JobHistoryUpdateOne) SaveX(ctx context.Context) *JobHistory {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -611,40 +611,40 @@ func (jhuo *JobHistoryUpdateOne) SaveX(ctx context.Context) *JobHistory {
 }
 
 // Exec executes the query on the entity.
-func (jhuo *JobHistoryUpdateOne) Exec(ctx context.Context) error {
-	_, err := jhuo.Save(ctx)
+func (_u *JobHistoryUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jhuo *JobHistoryUpdateOne) ExecX(ctx context.Context) {
-	if err := jhuo.Exec(ctx); err != nil {
+func (_u *JobHistoryUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (jhuo *JobHistoryUpdateOne) check() error {
-	if jhuo.mutation.ProjectCleared() && len(jhuo.mutation.ProjectIDs()) > 0 {
+func (_u *JobHistoryUpdateOne) check() error {
+	if _u.mutation.ProjectCleared() && len(_u.mutation.ProjectIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "JobHistory.project"`)
 	}
-	if jhuo.mutation.JobCleared() && len(jhuo.mutation.JobIDs()) > 0 {
+	if _u.mutation.JobCleared() && len(_u.mutation.JobIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "JobHistory.job"`)
 	}
 	return nil
 }
 
-func (jhuo *JobHistoryUpdateOne) sqlSave(ctx context.Context) (_node *JobHistory, err error) {
-	if err := jhuo.check(); err != nil {
+func (_u *JobHistoryUpdateOne) sqlSave(ctx context.Context) (_node *JobHistory, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(jobhistory.Table, jobhistory.Columns, sqlgraph.NewFieldSpec(jobhistory.FieldID, field.TypeInt))
-	id, ok := jhuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "JobHistory.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := jhuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, jobhistory.FieldID)
 		for _, f := range fields {
@@ -656,58 +656,58 @@ func (jhuo *JobHistoryUpdateOne) sqlSave(ctx context.Context) (_node *JobHistory
 			}
 		}
 	}
-	if ps := jhuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := jhuo.mutation.WasSuccessful(); ok {
+	if value, ok := _u.mutation.WasSuccessful(); ok {
 		_spec.SetField(jobhistory.FieldWasSuccessful, field.TypeBool, value)
 	}
-	if value, ok := jhuo.mutation.DurationMs(); ok {
+	if value, ok := _u.mutation.DurationMs(); ok {
 		_spec.SetField(jobhistory.FieldDurationMs, field.TypeInt64, value)
 	}
-	if value, ok := jhuo.mutation.AddedDurationMs(); ok {
+	if value, ok := _u.mutation.AddedDurationMs(); ok {
 		_spec.AddField(jobhistory.FieldDurationMs, field.TypeInt64, value)
 	}
-	if value, ok := jhuo.mutation.Parameters(); ok {
+	if value, ok := _u.mutation.Parameters(); ok {
 		_spec.SetField(jobhistory.FieldParameters, field.TypeJSON, value)
 	}
-	if value, ok := jhuo.mutation.AppendedParameters(); ok {
+	if value, ok := _u.mutation.AppendedParameters(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, jobhistory.FieldParameters, value)
 		})
 	}
-	if jhuo.mutation.ParametersCleared() {
+	if _u.mutation.ParametersCleared() {
 		_spec.ClearField(jobhistory.FieldParameters, field.TypeJSON)
 	}
-	if value, ok := jhuo.mutation.Output(); ok {
+	if value, ok := _u.mutation.Output(); ok {
 		_spec.SetField(jobhistory.FieldOutput, field.TypeString, value)
 	}
-	if value, ok := jhuo.mutation.ExitCode(); ok {
+	if value, ok := _u.mutation.ExitCode(); ok {
 		_spec.SetField(jobhistory.FieldExitCode, field.TypeInt, value)
 	}
-	if value, ok := jhuo.mutation.AddedExitCode(); ok {
+	if value, ok := _u.mutation.AddedExitCode(); ok {
 		_spec.AddField(jobhistory.FieldExitCode, field.TypeInt, value)
 	}
-	if value, ok := jhuo.mutation.TriggeredByEmail(); ok {
+	if value, ok := _u.mutation.TriggeredByEmail(); ok {
 		_spec.SetField(jobhistory.FieldTriggeredByEmail, field.TypeString, value)
 	}
-	if value, ok := jhuo.mutation.TriggeredByID(); ok {
+	if value, ok := _u.mutation.TriggeredByID(); ok {
 		_spec.SetField(jobhistory.FieldTriggeredByID, field.TypeInt, value)
 	}
-	if value, ok := jhuo.mutation.AddedTriggeredByID(); ok {
+	if value, ok := _u.mutation.AddedTriggeredByID(); ok {
 		_spec.AddField(jobhistory.FieldTriggeredByID, field.TypeInt, value)
 	}
-	if value, ok := jhuo.mutation.Status(); ok {
+	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(jobhistory.FieldStatus, field.TypeString, value)
 	}
-	if value, ok := jhuo.mutation.Trigger(); ok {
+	if value, ok := _u.mutation.Trigger(); ok {
 		_spec.SetField(jobhistory.FieldTrigger, field.TypeString, value)
 	}
-	if jhuo.mutation.ProjectCleared() {
+	if _u.mutation.ProjectCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -720,7 +720,7 @@ func (jhuo *JobHistoryUpdateOne) sqlSave(ctx context.Context) (_node *JobHistory
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := jhuo.mutation.ProjectIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProjectIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -736,7 +736,7 @@ func (jhuo *JobHistoryUpdateOne) sqlSave(ctx context.Context) (_node *JobHistory
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if jhuo.mutation.JobCleared() {
+	if _u.mutation.JobCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -749,7 +749,7 @@ func (jhuo *JobHistoryUpdateOne) sqlSave(ctx context.Context) (_node *JobHistory
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := jhuo.mutation.JobIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.JobIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -765,10 +765,10 @@ func (jhuo *JobHistoryUpdateOne) sqlSave(ctx context.Context) (_node *JobHistory
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &JobHistory{config: jhuo.config}
+	_node = &JobHistory{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, jhuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{jobhistory.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -776,6 +776,6 @@ func (jhuo *JobHistoryUpdateOne) sqlSave(ctx context.Context) (_node *JobHistory
 		}
 		return nil, err
 	}
-	jhuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

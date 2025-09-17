@@ -20,33 +20,33 @@ type DataConfigCreate struct {
 }
 
 // SetDaysToKeep sets the "days_to_keep" field.
-func (dcc *DataConfigCreate) SetDaysToKeep(i int) *DataConfigCreate {
-	dcc.mutation.SetDaysToKeep(i)
-	return dcc
+func (_c *DataConfigCreate) SetDaysToKeep(v int) *DataConfigCreate {
+	_c.mutation.SetDaysToKeep(v)
+	return _c
 }
 
 // SetNillableDaysToKeep sets the "days_to_keep" field if the given value is not nil.
-func (dcc *DataConfigCreate) SetNillableDaysToKeep(i *int) *DataConfigCreate {
-	if i != nil {
-		dcc.SetDaysToKeep(*i)
+func (_c *DataConfigCreate) SetNillableDaysToKeep(v *int) *DataConfigCreate {
+	if v != nil {
+		_c.SetDaysToKeep(*v)
 	}
-	return dcc
+	return _c
 }
 
 // Mutation returns the DataConfigMutation object of the builder.
-func (dcc *DataConfigCreate) Mutation() *DataConfigMutation {
-	return dcc.mutation
+func (_c *DataConfigCreate) Mutation() *DataConfigMutation {
+	return _c.mutation
 }
 
 // Save creates the DataConfig in the database.
-func (dcc *DataConfigCreate) Save(ctx context.Context) (*DataConfig, error) {
-	dcc.defaults()
-	return withHooks(ctx, dcc.sqlSave, dcc.mutation, dcc.hooks)
+func (_c *DataConfigCreate) Save(ctx context.Context) (*DataConfig, error) {
+	_c.defaults()
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (dcc *DataConfigCreate) SaveX(ctx context.Context) *DataConfig {
-	v, err := dcc.Save(ctx)
+func (_c *DataConfigCreate) SaveX(ctx context.Context) *DataConfig {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -54,40 +54,40 @@ func (dcc *DataConfigCreate) SaveX(ctx context.Context) *DataConfig {
 }
 
 // Exec executes the query.
-func (dcc *DataConfigCreate) Exec(ctx context.Context) error {
-	_, err := dcc.Save(ctx)
+func (_c *DataConfigCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (dcc *DataConfigCreate) ExecX(ctx context.Context) {
-	if err := dcc.Exec(ctx); err != nil {
+func (_c *DataConfigCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (dcc *DataConfigCreate) defaults() {
-	if _, ok := dcc.mutation.DaysToKeep(); !ok {
+func (_c *DataConfigCreate) defaults() {
+	if _, ok := _c.mutation.DaysToKeep(); !ok {
 		v := dataconfig.DefaultDaysToKeep
-		dcc.mutation.SetDaysToKeep(v)
+		_c.mutation.SetDaysToKeep(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (dcc *DataConfigCreate) check() error {
-	if _, ok := dcc.mutation.DaysToKeep(); !ok {
+func (_c *DataConfigCreate) check() error {
+	if _, ok := _c.mutation.DaysToKeep(); !ok {
 		return &ValidationError{Name: "days_to_keep", err: errors.New(`ent: missing required field "DataConfig.days_to_keep"`)}
 	}
 	return nil
 }
 
-func (dcc *DataConfigCreate) sqlSave(ctx context.Context) (*DataConfig, error) {
-	if err := dcc.check(); err != nil {
+func (_c *DataConfigCreate) sqlSave(ctx context.Context) (*DataConfig, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := dcc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, dcc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -95,17 +95,17 @@ func (dcc *DataConfigCreate) sqlSave(ctx context.Context) (*DataConfig, error) {
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	dcc.mutation.id = &_node.ID
-	dcc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (dcc *DataConfigCreate) createSpec() (*DataConfig, *sqlgraph.CreateSpec) {
+func (_c *DataConfigCreate) createSpec() (*DataConfig, *sqlgraph.CreateSpec) {
 	var (
-		_node = &DataConfig{config: dcc.config}
+		_node = &DataConfig{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(dataconfig.Table, sqlgraph.NewFieldSpec(dataconfig.FieldID, field.TypeInt))
 	)
-	if value, ok := dcc.mutation.DaysToKeep(); ok {
+	if value, ok := _c.mutation.DaysToKeep(); ok {
 		_spec.SetField(dataconfig.FieldDaysToKeep, field.TypeInt, value)
 		_node.DaysToKeep = value
 	}
@@ -120,16 +120,16 @@ type DataConfigCreateBulk struct {
 }
 
 // Save creates the DataConfig entities in the database.
-func (dccb *DataConfigCreateBulk) Save(ctx context.Context) ([]*DataConfig, error) {
-	if dccb.err != nil {
-		return nil, dccb.err
+func (_c *DataConfigCreateBulk) Save(ctx context.Context) ([]*DataConfig, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(dccb.builders))
-	nodes := make([]*DataConfig, len(dccb.builders))
-	mutators := make([]Mutator, len(dccb.builders))
-	for i := range dccb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*DataConfig, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := dccb.builders[i]
+			builder := _c.builders[i]
 			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*DataConfigMutation)
@@ -143,11 +143,11 @@ func (dccb *DataConfigCreateBulk) Save(ctx context.Context) ([]*DataConfig, erro
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, dccb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, dccb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -171,7 +171,7 @@ func (dccb *DataConfigCreateBulk) Save(ctx context.Context) ([]*DataConfig, erro
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, dccb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -179,8 +179,8 @@ func (dccb *DataConfigCreateBulk) Save(ctx context.Context) ([]*DataConfig, erro
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (dccb *DataConfigCreateBulk) SaveX(ctx context.Context) []*DataConfig {
-	v, err := dccb.Save(ctx)
+func (_c *DataConfigCreateBulk) SaveX(ctx context.Context) []*DataConfig {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -188,14 +188,14 @@ func (dccb *DataConfigCreateBulk) SaveX(ctx context.Context) []*DataConfig {
 }
 
 // Exec executes the query.
-func (dccb *DataConfigCreateBulk) Exec(ctx context.Context) error {
-	_, err := dccb.Save(ctx)
+func (_c *DataConfigCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (dccb *DataConfigCreateBulk) ExecX(ctx context.Context) {
-	if err := dccb.Exec(ctx); err != nil {
+func (_c *DataConfigCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

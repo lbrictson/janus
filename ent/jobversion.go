@@ -93,7 +93,7 @@ func (*JobVersion) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the JobVersion fields.
-func (jv *JobVersion) assignValues(columns []string, values []any) error {
+func (_m *JobVersion) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -104,54 +104,54 @@ func (jv *JobVersion) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			jv.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case jobversion.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				jv.CreatedAt = value.Time
+				_m.CreatedAt = value.Time
 			}
 		case jobversion.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				jv.Name = value.String
+				_m.Name = value.String
 			}
 		case jobversion.FieldDescription:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field description", values[i])
 			} else if value.Valid {
-				jv.Description = value.String
+				_m.Description = value.String
 			}
 		case jobversion.FieldScript:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field script", values[i])
 			} else if value.Valid {
-				jv.Script = value.String
+				_m.Script = value.String
 			}
 		case jobversion.FieldCronSchedule:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field cron_schedule", values[i])
 			} else if value.Valid {
-				jv.CronSchedule = value.String
+				_m.CronSchedule = value.String
 			}
 		case jobversion.FieldScheduleEnabled:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field schedule_enabled", values[i])
 			} else if value.Valid {
-				jv.ScheduleEnabled = value.Bool
+				_m.ScheduleEnabled = value.Bool
 			}
 		case jobversion.FieldAllowConcurrentRuns:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field allow_concurrent_runs", values[i])
 			} else if value.Valid {
-				jv.AllowConcurrentRuns = value.Bool
+				_m.AllowConcurrentRuns = value.Bool
 			}
 		case jobversion.FieldArguments:
 			if value, ok := values[i].(*[]byte); !ok {
 				return fmt.Errorf("unexpected type %T for field arguments", values[i])
 			} else if value != nil && len(*value) > 0 {
-				if err := json.Unmarshal(*value, &jv.Arguments); err != nil {
+				if err := json.Unmarshal(*value, &_m.Arguments); err != nil {
 					return fmt.Errorf("unmarshal field arguments: %w", err)
 				}
 			}
@@ -159,23 +159,23 @@ func (jv *JobVersion) assignValues(columns []string, values []any) error {
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field requires_file_upload", values[i])
 			} else if value.Valid {
-				jv.RequiresFileUpload = value.Bool
+				_m.RequiresFileUpload = value.Bool
 			}
 		case jobversion.FieldChangedByEmail:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field changed_by_email", values[i])
 			} else if value.Valid {
-				jv.ChangedByEmail = value.String
+				_m.ChangedByEmail = value.String
 			}
 		case jobversion.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field job_versions", value)
 			} else if value.Valid {
-				jv.job_versions = new(int)
-				*jv.job_versions = int(value.Int64)
+				_m.job_versions = new(int)
+				*_m.job_versions = int(value.Int64)
 			}
 		default:
-			jv.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -183,67 +183,67 @@ func (jv *JobVersion) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the JobVersion.
 // This includes values selected through modifiers, order, etc.
-func (jv *JobVersion) Value(name string) (ent.Value, error) {
-	return jv.selectValues.Get(name)
+func (_m *JobVersion) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryJob queries the "job" edge of the JobVersion entity.
-func (jv *JobVersion) QueryJob() *JobQuery {
-	return NewJobVersionClient(jv.config).QueryJob(jv)
+func (_m *JobVersion) QueryJob() *JobQuery {
+	return NewJobVersionClient(_m.config).QueryJob(_m)
 }
 
 // Update returns a builder for updating this JobVersion.
 // Note that you need to call JobVersion.Unwrap() before calling this method if this JobVersion
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (jv *JobVersion) Update() *JobVersionUpdateOne {
-	return NewJobVersionClient(jv.config).UpdateOne(jv)
+func (_m *JobVersion) Update() *JobVersionUpdateOne {
+	return NewJobVersionClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the JobVersion entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (jv *JobVersion) Unwrap() *JobVersion {
-	_tx, ok := jv.config.driver.(*txDriver)
+func (_m *JobVersion) Unwrap() *JobVersion {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: JobVersion is not a transactional entity")
 	}
-	jv.config.driver = _tx.drv
-	return jv
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (jv *JobVersion) String() string {
+func (_m *JobVersion) String() string {
 	var builder strings.Builder
 	builder.WriteString("JobVersion(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", jv.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("created_at=")
-	builder.WriteString(jv.CreatedAt.Format(time.ANSIC))
+	builder.WriteString(_m.CreatedAt.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("name=")
-	builder.WriteString(jv.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("description=")
-	builder.WriteString(jv.Description)
+	builder.WriteString(_m.Description)
 	builder.WriteString(", ")
 	builder.WriteString("script=")
-	builder.WriteString(jv.Script)
+	builder.WriteString(_m.Script)
 	builder.WriteString(", ")
 	builder.WriteString("cron_schedule=")
-	builder.WriteString(jv.CronSchedule)
+	builder.WriteString(_m.CronSchedule)
 	builder.WriteString(", ")
 	builder.WriteString("schedule_enabled=")
-	builder.WriteString(fmt.Sprintf("%v", jv.ScheduleEnabled))
+	builder.WriteString(fmt.Sprintf("%v", _m.ScheduleEnabled))
 	builder.WriteString(", ")
 	builder.WriteString("allow_concurrent_runs=")
-	builder.WriteString(fmt.Sprintf("%v", jv.AllowConcurrentRuns))
+	builder.WriteString(fmt.Sprintf("%v", _m.AllowConcurrentRuns))
 	builder.WriteString(", ")
 	builder.WriteString("arguments=")
-	builder.WriteString(fmt.Sprintf("%v", jv.Arguments))
+	builder.WriteString(fmt.Sprintf("%v", _m.Arguments))
 	builder.WriteString(", ")
 	builder.WriteString("requires_file_upload=")
-	builder.WriteString(fmt.Sprintf("%v", jv.RequiresFileUpload))
+	builder.WriteString(fmt.Sprintf("%v", _m.RequiresFileUpload))
 	builder.WriteString(", ")
 	builder.WriteString("changed_by_email=")
-	builder.WriteString(jv.ChangedByEmail)
+	builder.WriteString(_m.ChangedByEmail)
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -67,22 +67,22 @@ func TestHashAndSaltPassword(t *testing.T) {
 
 func TestHashAndSaltPassword_Uniqueness(t *testing.T) {
 	password := "TestPassword123!"
-	
+
 	hash1, err := hashAndSaltPassword(password)
 	if err != nil {
 		t.Fatalf("First hash failed: %v", err)
 	}
-	
+
 	hash2, err := hashAndSaltPassword(password)
 	if err != nil {
 		t.Fatalf("Second hash failed: %v", err)
 	}
-	
+
 	// Same password should produce different hashes (due to salt)
 	if string(hash1) == string(hash2) {
 		t.Error("Same password produced identical hashes - salt may not be working")
 	}
-	
+
 	// Both hashes should verify with the same password
 	if err := compareHashAndPassword(hash1, password); err != nil {
 		t.Errorf("First hash verification failed: %v", err)
@@ -209,20 +209,20 @@ func TestGenerateLongString(t *testing.T) {
 	// Test that generateLongString produces unique strings
 	generated := make(map[string]bool)
 	iterations := 100
-	
+
 	for i := 0; i < iterations; i++ {
 		str := generateLongString()
-		
+
 		// Check minimum length (4 UUIDs without dashes = 32*4 = 128 chars)
 		if len(str) < 128 {
 			t.Errorf("Generated string too short: %d chars", len(str))
 		}
-		
+
 		// Check no dashes remain
 		if strings.Contains(str, "-") {
 			t.Error("Generated string contains dashes")
 		}
-		
+
 		// Check uniqueness
 		if generated[str] {
 			t.Errorf("Duplicate string generated: %s", str)
@@ -415,7 +415,7 @@ func TestMiddlewareMustBeLoggedIn(t *testing.T) {
 	// Skip this test as it requires proper session middleware setup
 	// which is complex to mock properly in unit tests
 	t.Skip("Skipping session middleware test - requires integration test setup")
-	
+
 	tests := []struct {
 		name           string
 		sessionValues  map[interface{}]interface{}
@@ -771,7 +771,7 @@ func TestReloadAPIKeys_Concurrent(t *testing.T) {
 	// Test concurrent reloads
 	var wg sync.WaitGroup
 	errors := make(chan error, 10)
-	
+
 	for i := 0; i < 10; i++ {
 		wg.Add(1)
 		go func() {
@@ -781,15 +781,15 @@ func TestReloadAPIKeys_Concurrent(t *testing.T) {
 			}
 		}()
 	}
-	
+
 	wg.Wait()
 	close(errors)
-	
+
 	// Check for errors
 	for err := range errors {
 		t.Errorf("Concurrent reload error: %v", err)
 	}
-	
+
 	// Verify final state is correct
 	apiKeysLock.RLock()
 	defer apiKeysLock.RUnlock()
@@ -819,7 +819,7 @@ func TestAPIKeyCache_ThreadSafety(t *testing.T) {
 
 	// Test concurrent reads and writes
 	var wg sync.WaitGroup
-	
+
 	// Multiple readers
 	for i := 0; i < 100; i++ {
 		wg.Add(1)
@@ -830,16 +830,16 @@ func TestAPIKeyCache_ThreadSafety(t *testing.T) {
 			apiKeysLock.RUnlock()
 		}()
 	}
-	
+
 	// Concurrent reload
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
 		reloadAPIKeys(client)
 	}()
-	
+
 	wg.Wait()
-	
+
 	// Verify key still exists
 	apiKeysLock.RLock()
 	defer apiKeysLock.RUnlock()

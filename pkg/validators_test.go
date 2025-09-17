@@ -368,7 +368,7 @@ func TestIsJobOrSecretNameValid_EmptyString(t *testing.T) {
 			t.Errorf("isJobOrSecretNameValid(\"\") did not panic as expected")
 		}
 	}()
-	
+
 	_ = isJobOrSecretNameValid("")
 }
 
@@ -381,7 +381,7 @@ func TestIsJobOrSecretNameValid_Benchmarks(t *testing.T) {
 		"invalid!name",
 		strings.Repeat("a", 300),
 	}
-	
+
 	for _, input := range inputs {
 		// Just run validation to ensure it completes without hanging
 		_ = isJobOrSecretNameValid(input)

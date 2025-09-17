@@ -73,7 +73,7 @@ func (*InboundWebhook) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the InboundWebhook fields.
-func (iw *InboundWebhook) assignValues(columns []string, values []any) error {
+func (_m *InboundWebhook) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -84,34 +84,34 @@ func (iw *InboundWebhook) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			iw.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case inboundwebhook.FieldKey:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field key", values[i])
 			} else if value.Valid {
-				iw.Key = value.String
+				_m.Key = value.String
 			}
 		case inboundwebhook.FieldCreatedBy:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field created_by", values[i])
 			} else if value.Valid {
-				iw.CreatedBy = value.String
+				_m.CreatedBy = value.String
 			}
 		case inboundwebhook.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				iw.CreatedAt = value.Time
+				_m.CreatedAt = value.Time
 			}
 		case inboundwebhook.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field inbound_webhook_job", value)
 			} else if value.Valid {
-				iw.inbound_webhook_job = new(int)
-				*iw.inbound_webhook_job = int(value.Int64)
+				_m.inbound_webhook_job = new(int)
+				*_m.inbound_webhook_job = int(value.Int64)
 			}
 		default:
-			iw.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -119,46 +119,46 @@ func (iw *InboundWebhook) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the InboundWebhook.
 // This includes values selected through modifiers, order, etc.
-func (iw *InboundWebhook) Value(name string) (ent.Value, error) {
-	return iw.selectValues.Get(name)
+func (_m *InboundWebhook) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryJob queries the "job" edge of the InboundWebhook entity.
-func (iw *InboundWebhook) QueryJob() *JobQuery {
-	return NewInboundWebhookClient(iw.config).QueryJob(iw)
+func (_m *InboundWebhook) QueryJob() *JobQuery {
+	return NewInboundWebhookClient(_m.config).QueryJob(_m)
 }
 
 // Update returns a builder for updating this InboundWebhook.
 // Note that you need to call InboundWebhook.Unwrap() before calling this method if this InboundWebhook
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (iw *InboundWebhook) Update() *InboundWebhookUpdateOne {
-	return NewInboundWebhookClient(iw.config).UpdateOne(iw)
+func (_m *InboundWebhook) Update() *InboundWebhookUpdateOne {
+	return NewInboundWebhookClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the InboundWebhook entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (iw *InboundWebhook) Unwrap() *InboundWebhook {
-	_tx, ok := iw.config.driver.(*txDriver)
+func (_m *InboundWebhook) Unwrap() *InboundWebhook {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: InboundWebhook is not a transactional entity")
 	}
-	iw.config.driver = _tx.drv
-	return iw
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (iw *InboundWebhook) String() string {
+func (_m *InboundWebhook) String() string {
 	var builder strings.Builder
 	builder.WriteString("InboundWebhook(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", iw.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("key=")
-	builder.WriteString(iw.Key)
+	builder.WriteString(_m.Key)
 	builder.WriteString(", ")
 	builder.WriteString("created_by=")
-	builder.WriteString(iw.CreatedBy)
+	builder.WriteString(_m.CreatedBy)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(iw.CreatedAt.Format(time.ANSIC))
+	builder.WriteString(_m.CreatedAt.Format(time.ANSIC))
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -51,7 +51,7 @@ func (*SMTPConfig) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the SMTPConfig fields.
-func (sc *SMTPConfig) assignValues(columns []string, values []any) error {
+func (_m *SMTPConfig) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -62,45 +62,45 @@ func (sc *SMTPConfig) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			sc.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case smtpconfig.FieldSMTPServer:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field smtp_server", values[i])
 			} else if value.Valid {
-				sc.SMTPServer = value.String
+				_m.SMTPServer = value.String
 			}
 		case smtpconfig.FieldSMTPPort:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field smtp_port", values[i])
 			} else if value.Valid {
-				sc.SMTPPort = int(value.Int64)
+				_m.SMTPPort = int(value.Int64)
 			}
 		case smtpconfig.FieldSMTPUsername:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field smtp_username", values[i])
 			} else if value.Valid {
-				sc.SMTPUsername = value.String
+				_m.SMTPUsername = value.String
 			}
 		case smtpconfig.FieldSMTPPassword:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field smtp_password", values[i])
 			} else if value.Valid {
-				sc.SMTPPassword = value.String
+				_m.SMTPPassword = value.String
 			}
 		case smtpconfig.FieldSMTPSender:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field smtp_sender", values[i])
 			} else if value.Valid {
-				sc.SMTPSender = value.String
+				_m.SMTPSender = value.String
 			}
 		case smtpconfig.FieldSMTPTLS:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field smtp_tls", values[i])
 			} else if value.Valid {
-				sc.SMTPTLS = value.Bool
+				_m.SMTPTLS = value.Bool
 			}
 		default:
-			sc.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -108,50 +108,50 @@ func (sc *SMTPConfig) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the SMTPConfig.
 // This includes values selected through modifiers, order, etc.
-func (sc *SMTPConfig) Value(name string) (ent.Value, error) {
-	return sc.selectValues.Get(name)
+func (_m *SMTPConfig) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // Update returns a builder for updating this SMTPConfig.
 // Note that you need to call SMTPConfig.Unwrap() before calling this method if this SMTPConfig
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (sc *SMTPConfig) Update() *SMTPConfigUpdateOne {
-	return NewSMTPConfigClient(sc.config).UpdateOne(sc)
+func (_m *SMTPConfig) Update() *SMTPConfigUpdateOne {
+	return NewSMTPConfigClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the SMTPConfig entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (sc *SMTPConfig) Unwrap() *SMTPConfig {
-	_tx, ok := sc.config.driver.(*txDriver)
+func (_m *SMTPConfig) Unwrap() *SMTPConfig {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: SMTPConfig is not a transactional entity")
 	}
-	sc.config.driver = _tx.drv
-	return sc
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (sc *SMTPConfig) String() string {
+func (_m *SMTPConfig) String() string {
 	var builder strings.Builder
 	builder.WriteString("SMTPConfig(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", sc.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("smtp_server=")
-	builder.WriteString(sc.SMTPServer)
+	builder.WriteString(_m.SMTPServer)
 	builder.WriteString(", ")
 	builder.WriteString("smtp_port=")
-	builder.WriteString(fmt.Sprintf("%v", sc.SMTPPort))
+	builder.WriteString(fmt.Sprintf("%v", _m.SMTPPort))
 	builder.WriteString(", ")
 	builder.WriteString("smtp_username=")
-	builder.WriteString(sc.SMTPUsername)
+	builder.WriteString(_m.SMTPUsername)
 	builder.WriteString(", ")
 	builder.WriteString("smtp_password=")
-	builder.WriteString(sc.SMTPPassword)
+	builder.WriteString(_m.SMTPPassword)
 	builder.WriteString(", ")
 	builder.WriteString("smtp_sender=")
-	builder.WriteString(sc.SMTPSender)
+	builder.WriteString(_m.SMTPSender)
 	builder.WriteString(", ")
 	builder.WriteString("smtp_tls=")
-	builder.WriteString(fmt.Sprintf("%v", sc.SMTPTLS))
+	builder.WriteString(fmt.Sprintf("%v", _m.SMTPTLS))
 	builder.WriteByte(')')
 	return builder.String()
 }

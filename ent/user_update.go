@@ -24,143 +24,143 @@ type UserUpdate struct {
 }
 
 // Where appends a list predicates to the UserUpdate builder.
-func (uu *UserUpdate) Where(ps ...predicate.User) *UserUpdate {
-	uu.mutation.Where(ps...)
-	return uu
+func (_u *UserUpdate) Where(ps ...predicate.User) *UserUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetEmail sets the "email" field.
-func (uu *UserUpdate) SetEmail(s string) *UserUpdate {
-	uu.mutation.SetEmail(s)
-	return uu
+func (_u *UserUpdate) SetEmail(v string) *UserUpdate {
+	_u.mutation.SetEmail(v)
+	return _u
 }
 
 // SetNillableEmail sets the "email" field if the given value is not nil.
-func (uu *UserUpdate) SetNillableEmail(s *string) *UserUpdate {
-	if s != nil {
-		uu.SetEmail(*s)
+func (_u *UserUpdate) SetNillableEmail(v *string) *UserUpdate {
+	if v != nil {
+		_u.SetEmail(*v)
 	}
-	return uu
+	return _u
 }
 
 // SetEncryptedPassword sets the "encrypted_password" field.
-func (uu *UserUpdate) SetEncryptedPassword(b []byte) *UserUpdate {
-	uu.mutation.SetEncryptedPassword(b)
-	return uu
+func (_u *UserUpdate) SetEncryptedPassword(v []byte) *UserUpdate {
+	_u.mutation.SetEncryptedPassword(v)
+	return _u
 }
 
 // SetAdmin sets the "admin" field.
-func (uu *UserUpdate) SetAdmin(b bool) *UserUpdate {
-	uu.mutation.SetAdmin(b)
-	return uu
+func (_u *UserUpdate) SetAdmin(v bool) *UserUpdate {
+	_u.mutation.SetAdmin(v)
+	return _u
 }
 
 // SetNillableAdmin sets the "admin" field if the given value is not nil.
-func (uu *UserUpdate) SetNillableAdmin(b *bool) *UserUpdate {
-	if b != nil {
-		uu.SetAdmin(*b)
+func (_u *UserUpdate) SetNillableAdmin(v *bool) *UserUpdate {
+	if v != nil {
+		_u.SetAdmin(*v)
 	}
-	return uu
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (uu *UserUpdate) SetUpdatedAt(t time.Time) *UserUpdate {
-	uu.mutation.SetUpdatedAt(t)
-	return uu
+func (_u *UserUpdate) SetUpdatedAt(v time.Time) *UserUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetAPIKey sets the "api_key" field.
-func (uu *UserUpdate) SetAPIKey(s string) *UserUpdate {
-	uu.mutation.SetAPIKey(s)
-	return uu
+func (_u *UserUpdate) SetAPIKey(v string) *UserUpdate {
+	_u.mutation.SetAPIKey(v)
+	return _u
 }
 
 // SetNillableAPIKey sets the "api_key" field if the given value is not nil.
-func (uu *UserUpdate) SetNillableAPIKey(s *string) *UserUpdate {
-	if s != nil {
-		uu.SetAPIKey(*s)
+func (_u *UserUpdate) SetNillableAPIKey(v *string) *UserUpdate {
+	if v != nil {
+		_u.SetAPIKey(*v)
 	}
-	return uu
+	return _u
 }
 
 // SetMustChangePassword sets the "must_change_password" field.
-func (uu *UserUpdate) SetMustChangePassword(b bool) *UserUpdate {
-	uu.mutation.SetMustChangePassword(b)
-	return uu
+func (_u *UserUpdate) SetMustChangePassword(v bool) *UserUpdate {
+	_u.mutation.SetMustChangePassword(v)
+	return _u
 }
 
 // SetNillableMustChangePassword sets the "must_change_password" field if the given value is not nil.
-func (uu *UserUpdate) SetNillableMustChangePassword(b *bool) *UserUpdate {
-	if b != nil {
-		uu.SetMustChangePassword(*b)
+func (_u *UserUpdate) SetNillableMustChangePassword(v *bool) *UserUpdate {
+	if v != nil {
+		_u.SetMustChangePassword(*v)
 	}
-	return uu
+	return _u
 }
 
 // SetIsSSO sets the "is_sso" field.
-func (uu *UserUpdate) SetIsSSO(b bool) *UserUpdate {
-	uu.mutation.SetIsSSO(b)
-	return uu
+func (_u *UserUpdate) SetIsSSO(v bool) *UserUpdate {
+	_u.mutation.SetIsSSO(v)
+	return _u
 }
 
 // SetNillableIsSSO sets the "is_sso" field if the given value is not nil.
-func (uu *UserUpdate) SetNillableIsSSO(b *bool) *UserUpdate {
-	if b != nil {
-		uu.SetIsSSO(*b)
+func (_u *UserUpdate) SetNillableIsSSO(v *bool) *UserUpdate {
+	if v != nil {
+		_u.SetIsSSO(*v)
 	}
-	return uu
+	return _u
 }
 
 // AddProjectUserIDs adds the "projectUsers" edge to the ProjectUser entity by IDs.
-func (uu *UserUpdate) AddProjectUserIDs(ids ...int) *UserUpdate {
-	uu.mutation.AddProjectUserIDs(ids...)
-	return uu
+func (_u *UserUpdate) AddProjectUserIDs(ids ...int) *UserUpdate {
+	_u.mutation.AddProjectUserIDs(ids...)
+	return _u
 }
 
 // AddProjectUsers adds the "projectUsers" edges to the ProjectUser entity.
-func (uu *UserUpdate) AddProjectUsers(p ...*ProjectUser) *UserUpdate {
-	ids := make([]int, len(p))
-	for i := range p {
-		ids[i] = p[i].ID
+func (_u *UserUpdate) AddProjectUsers(v ...*ProjectUser) *UserUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return uu.AddProjectUserIDs(ids...)
+	return _u.AddProjectUserIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
-func (uu *UserUpdate) Mutation() *UserMutation {
-	return uu.mutation
+func (_u *UserUpdate) Mutation() *UserMutation {
+	return _u.mutation
 }
 
 // ClearProjectUsers clears all "projectUsers" edges to the ProjectUser entity.
-func (uu *UserUpdate) ClearProjectUsers() *UserUpdate {
-	uu.mutation.ClearProjectUsers()
-	return uu
+func (_u *UserUpdate) ClearProjectUsers() *UserUpdate {
+	_u.mutation.ClearProjectUsers()
+	return _u
 }
 
 // RemoveProjectUserIDs removes the "projectUsers" edge to ProjectUser entities by IDs.
-func (uu *UserUpdate) RemoveProjectUserIDs(ids ...int) *UserUpdate {
-	uu.mutation.RemoveProjectUserIDs(ids...)
-	return uu
+func (_u *UserUpdate) RemoveProjectUserIDs(ids ...int) *UserUpdate {
+	_u.mutation.RemoveProjectUserIDs(ids...)
+	return _u
 }
 
 // RemoveProjectUsers removes "projectUsers" edges to ProjectUser entities.
-func (uu *UserUpdate) RemoveProjectUsers(p ...*ProjectUser) *UserUpdate {
-	ids := make([]int, len(p))
-	for i := range p {
-		ids[i] = p[i].ID
+func (_u *UserUpdate) RemoveProjectUsers(v ...*ProjectUser) *UserUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return uu.RemoveProjectUserIDs(ids...)
+	return _u.RemoveProjectUserIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (uu *UserUpdate) Save(ctx context.Context) (int, error) {
-	uu.defaults()
-	return withHooks(ctx, uu.sqlSave, uu.mutation, uu.hooks)
+func (_u *UserUpdate) Save(ctx context.Context) (int, error) {
+	_u.defaults()
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (uu *UserUpdate) SaveX(ctx context.Context) int {
-	affected, err := uu.Save(ctx)
+func (_u *UserUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -168,57 +168,57 @@ func (uu *UserUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (uu *UserUpdate) Exec(ctx context.Context) error {
-	_, err := uu.Save(ctx)
+func (_u *UserUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (uu *UserUpdate) ExecX(ctx context.Context) {
-	if err := uu.Exec(ctx); err != nil {
+func (_u *UserUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (uu *UserUpdate) defaults() {
-	if _, ok := uu.mutation.UpdatedAt(); !ok {
+func (_u *UserUpdate) defaults() {
+	if _, ok := _u.mutation.UpdatedAt(); !ok {
 		v := user.UpdateDefaultUpdatedAt()
-		uu.mutation.SetUpdatedAt(v)
+		_u.mutation.SetUpdatedAt(v)
 	}
 }
 
-func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *UserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
-	if ps := uu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := uu.mutation.Email(); ok {
+	if value, ok := _u.mutation.Email(); ok {
 		_spec.SetField(user.FieldEmail, field.TypeString, value)
 	}
-	if value, ok := uu.mutation.EncryptedPassword(); ok {
+	if value, ok := _u.mutation.EncryptedPassword(); ok {
 		_spec.SetField(user.FieldEncryptedPassword, field.TypeBytes, value)
 	}
-	if value, ok := uu.mutation.Admin(); ok {
+	if value, ok := _u.mutation.Admin(); ok {
 		_spec.SetField(user.FieldAdmin, field.TypeBool, value)
 	}
-	if value, ok := uu.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(user.FieldUpdatedAt, field.TypeTime, value)
 	}
-	if value, ok := uu.mutation.APIKey(); ok {
+	if value, ok := _u.mutation.APIKey(); ok {
 		_spec.SetField(user.FieldAPIKey, field.TypeString, value)
 	}
-	if value, ok := uu.mutation.MustChangePassword(); ok {
+	if value, ok := _u.mutation.MustChangePassword(); ok {
 		_spec.SetField(user.FieldMustChangePassword, field.TypeBool, value)
 	}
-	if value, ok := uu.mutation.IsSSO(); ok {
+	if value, ok := _u.mutation.IsSSO(); ok {
 		_spec.SetField(user.FieldIsSSO, field.TypeBool, value)
 	}
-	if uu.mutation.ProjectUsersCleared() {
+	if _u.mutation.ProjectUsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -231,7 +231,7 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uu.mutation.RemovedProjectUsersIDs(); len(nodes) > 0 && !uu.mutation.ProjectUsersCleared() {
+	if nodes := _u.mutation.RemovedProjectUsersIDs(); len(nodes) > 0 && !_u.mutation.ProjectUsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -247,7 +247,7 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uu.mutation.ProjectUsersIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProjectUsersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -263,7 +263,7 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, uu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{user.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -271,8 +271,8 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	uu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // UserUpdateOne is the builder for updating a single User entity.
@@ -284,150 +284,150 @@ type UserUpdateOne struct {
 }
 
 // SetEmail sets the "email" field.
-func (uuo *UserUpdateOne) SetEmail(s string) *UserUpdateOne {
-	uuo.mutation.SetEmail(s)
-	return uuo
+func (_u *UserUpdateOne) SetEmail(v string) *UserUpdateOne {
+	_u.mutation.SetEmail(v)
+	return _u
 }
 
 // SetNillableEmail sets the "email" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableEmail(s *string) *UserUpdateOne {
-	if s != nil {
-		uuo.SetEmail(*s)
+func (_u *UserUpdateOne) SetNillableEmail(v *string) *UserUpdateOne {
+	if v != nil {
+		_u.SetEmail(*v)
 	}
-	return uuo
+	return _u
 }
 
 // SetEncryptedPassword sets the "encrypted_password" field.
-func (uuo *UserUpdateOne) SetEncryptedPassword(b []byte) *UserUpdateOne {
-	uuo.mutation.SetEncryptedPassword(b)
-	return uuo
+func (_u *UserUpdateOne) SetEncryptedPassword(v []byte) *UserUpdateOne {
+	_u.mutation.SetEncryptedPassword(v)
+	return _u
 }
 
 // SetAdmin sets the "admin" field.
-func (uuo *UserUpdateOne) SetAdmin(b bool) *UserUpdateOne {
-	uuo.mutation.SetAdmin(b)
-	return uuo
+func (_u *UserUpdateOne) SetAdmin(v bool) *UserUpdateOne {
+	_u.mutation.SetAdmin(v)
+	return _u
 }
 
 // SetNillableAdmin sets the "admin" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableAdmin(b *bool) *UserUpdateOne {
-	if b != nil {
-		uuo.SetAdmin(*b)
+func (_u *UserUpdateOne) SetNillableAdmin(v *bool) *UserUpdateOne {
+	if v != nil {
+		_u.SetAdmin(*v)
 	}
-	return uuo
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (uuo *UserUpdateOne) SetUpdatedAt(t time.Time) *UserUpdateOne {
-	uuo.mutation.SetUpdatedAt(t)
-	return uuo
+func (_u *UserUpdateOne) SetUpdatedAt(v time.Time) *UserUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetAPIKey sets the "api_key" field.
-func (uuo *UserUpdateOne) SetAPIKey(s string) *UserUpdateOne {
-	uuo.mutation.SetAPIKey(s)
-	return uuo
+func (_u *UserUpdateOne) SetAPIKey(v string) *UserUpdateOne {
+	_u.mutation.SetAPIKey(v)
+	return _u
 }
 
 // SetNillableAPIKey sets the "api_key" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableAPIKey(s *string) *UserUpdateOne {
-	if s != nil {
-		uuo.SetAPIKey(*s)
+func (_u *UserUpdateOne) SetNillableAPIKey(v *string) *UserUpdateOne {
+	if v != nil {
+		_u.SetAPIKey(*v)
 	}
-	return uuo
+	return _u
 }
 
 // SetMustChangePassword sets the "must_change_password" field.
-func (uuo *UserUpdateOne) SetMustChangePassword(b bool) *UserUpdateOne {
-	uuo.mutation.SetMustChangePassword(b)
-	return uuo
+func (_u *UserUpdateOne) SetMustChangePassword(v bool) *UserUpdateOne {
+	_u.mutation.SetMustChangePassword(v)
+	return _u
 }
 
 // SetNillableMustChangePassword sets the "must_change_password" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableMustChangePassword(b *bool) *UserUpdateOne {
-	if b != nil {
-		uuo.SetMustChangePassword(*b)
+func (_u *UserUpdateOne) SetNillableMustChangePassword(v *bool) *UserUpdateOne {
+	if v != nil {
+		_u.SetMustChangePassword(*v)
 	}
-	return uuo
+	return _u
 }
 
 // SetIsSSO sets the "is_sso" field.
-func (uuo *UserUpdateOne) SetIsSSO(b bool) *UserUpdateOne {
-	uuo.mutation.SetIsSSO(b)
-	return uuo
+func (_u *UserUpdateOne) SetIsSSO(v bool) *UserUpdateOne {
+	_u.mutation.SetIsSSO(v)
+	return _u
 }
 
 // SetNillableIsSSO sets the "is_sso" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableIsSSO(b *bool) *UserUpdateOne {
-	if b != nil {
-		uuo.SetIsSSO(*b)
+func (_u *UserUpdateOne) SetNillableIsSSO(v *bool) *UserUpdateOne {
+	if v != nil {
+		_u.SetIsSSO(*v)
 	}
-	return uuo
+	return _u
 }
 
 // AddProjectUserIDs adds the "projectUsers" edge to the ProjectUser entity by IDs.
-func (uuo *UserUpdateOne) AddProjectUserIDs(ids ...int) *UserUpdateOne {
-	uuo.mutation.AddProjectUserIDs(ids...)
-	return uuo
+func (_u *UserUpdateOne) AddProjectUserIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.AddProjectUserIDs(ids...)
+	return _u
 }
 
 // AddProjectUsers adds the "projectUsers" edges to the ProjectUser entity.
-func (uuo *UserUpdateOne) AddProjectUsers(p ...*ProjectUser) *UserUpdateOne {
-	ids := make([]int, len(p))
-	for i := range p {
-		ids[i] = p[i].ID
+func (_u *UserUpdateOne) AddProjectUsers(v ...*ProjectUser) *UserUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return uuo.AddProjectUserIDs(ids...)
+	return _u.AddProjectUserIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
-func (uuo *UserUpdateOne) Mutation() *UserMutation {
-	return uuo.mutation
+func (_u *UserUpdateOne) Mutation() *UserMutation {
+	return _u.mutation
 }
 
 // ClearProjectUsers clears all "projectUsers" edges to the ProjectUser entity.
-func (uuo *UserUpdateOne) ClearProjectUsers() *UserUpdateOne {
-	uuo.mutation.ClearProjectUsers()
-	return uuo
+func (_u *UserUpdateOne) ClearProjectUsers() *UserUpdateOne {
+	_u.mutation.ClearProjectUsers()
+	return _u
 }
 
 // RemoveProjectUserIDs removes the "projectUsers" edge to ProjectUser entities by IDs.
-func (uuo *UserUpdateOne) RemoveProjectUserIDs(ids ...int) *UserUpdateOne {
-	uuo.mutation.RemoveProjectUserIDs(ids...)
-	return uuo
+func (_u *UserUpdateOne) RemoveProjectUserIDs(ids ...int) *UserUpdateOne {
+	_u.mutation.RemoveProjectUserIDs(ids...)
+	return _u
 }
 
 // RemoveProjectUsers removes "projectUsers" edges to ProjectUser entities.
-func (uuo *UserUpdateOne) RemoveProjectUsers(p ...*ProjectUser) *UserUpdateOne {
-	ids := make([]int, len(p))
-	for i := range p {
-		ids[i] = p[i].ID
+func (_u *UserUpdateOne) RemoveProjectUsers(v ...*ProjectUser) *UserUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return uuo.RemoveProjectUserIDs(ids...)
+	return _u.RemoveProjectUserIDs(ids...)
 }
 
 // Where appends a list predicates to the UserUpdate builder.
-func (uuo *UserUpdateOne) Where(ps ...predicate.User) *UserUpdateOne {
-	uuo.mutation.Where(ps...)
-	return uuo
+func (_u *UserUpdateOne) Where(ps ...predicate.User) *UserUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (uuo *UserUpdateOne) Select(field string, fields ...string) *UserUpdateOne {
-	uuo.fields = append([]string{field}, fields...)
-	return uuo
+func (_u *UserUpdateOne) Select(field string, fields ...string) *UserUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated User entity.
-func (uuo *UserUpdateOne) Save(ctx context.Context) (*User, error) {
-	uuo.defaults()
-	return withHooks(ctx, uuo.sqlSave, uuo.mutation, uuo.hooks)
+func (_u *UserUpdateOne) Save(ctx context.Context) (*User, error) {
+	_u.defaults()
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (uuo *UserUpdateOne) SaveX(ctx context.Context) *User {
-	node, err := uuo.Save(ctx)
+func (_u *UserUpdateOne) SaveX(ctx context.Context) *User {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -435,34 +435,34 @@ func (uuo *UserUpdateOne) SaveX(ctx context.Context) *User {
 }
 
 // Exec executes the query on the entity.
-func (uuo *UserUpdateOne) Exec(ctx context.Context) error {
-	_, err := uuo.Save(ctx)
+func (_u *UserUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (uuo *UserUpdateOne) ExecX(ctx context.Context) {
-	if err := uuo.Exec(ctx); err != nil {
+func (_u *UserUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (uuo *UserUpdateOne) defaults() {
-	if _, ok := uuo.mutation.UpdatedAt(); !ok {
+func (_u *UserUpdateOne) defaults() {
+	if _, ok := _u.mutation.UpdatedAt(); !ok {
 		v := user.UpdateDefaultUpdatedAt()
-		uuo.mutation.SetUpdatedAt(v)
+		_u.mutation.SetUpdatedAt(v)
 	}
 }
 
-func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
+func (_u *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
-	id, ok := uuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "User.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := uuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldID)
 		for _, f := range fields {
@@ -474,35 +474,35 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			}
 		}
 	}
-	if ps := uuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := uuo.mutation.Email(); ok {
+	if value, ok := _u.mutation.Email(); ok {
 		_spec.SetField(user.FieldEmail, field.TypeString, value)
 	}
-	if value, ok := uuo.mutation.EncryptedPassword(); ok {
+	if value, ok := _u.mutation.EncryptedPassword(); ok {
 		_spec.SetField(user.FieldEncryptedPassword, field.TypeBytes, value)
 	}
-	if value, ok := uuo.mutation.Admin(); ok {
+	if value, ok := _u.mutation.Admin(); ok {
 		_spec.SetField(user.FieldAdmin, field.TypeBool, value)
 	}
-	if value, ok := uuo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(user.FieldUpdatedAt, field.TypeTime, value)
 	}
-	if value, ok := uuo.mutation.APIKey(); ok {
+	if value, ok := _u.mutation.APIKey(); ok {
 		_spec.SetField(user.FieldAPIKey, field.TypeString, value)
 	}
-	if value, ok := uuo.mutation.MustChangePassword(); ok {
+	if value, ok := _u.mutation.MustChangePassword(); ok {
 		_spec.SetField(user.FieldMustChangePassword, field.TypeBool, value)
 	}
-	if value, ok := uuo.mutation.IsSSO(); ok {
+	if value, ok := _u.mutation.IsSSO(); ok {
 		_spec.SetField(user.FieldIsSSO, field.TypeBool, value)
 	}
-	if uuo.mutation.ProjectUsersCleared() {
+	if _u.mutation.ProjectUsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -515,7 +515,7 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uuo.mutation.RemovedProjectUsersIDs(); len(nodes) > 0 && !uuo.mutation.ProjectUsersCleared() {
+	if nodes := _u.mutation.RemovedProjectUsersIDs(); len(nodes) > 0 && !_u.mutation.ProjectUsersCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -531,7 +531,7 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uuo.mutation.ProjectUsersIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProjectUsersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -547,10 +547,10 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &User{config: uuo.config}
+	_node = &User{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, uuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{user.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -558,6 +558,6 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 		}
 		return nil, err
 	}
-	uuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

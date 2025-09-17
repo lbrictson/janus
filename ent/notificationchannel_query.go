@@ -28,40 +28,40 @@ type NotificationChannelQuery struct {
 }
 
 // Where adds a new predicate for the NotificationChannelQuery builder.
-func (ncq *NotificationChannelQuery) Where(ps ...predicate.NotificationChannel) *NotificationChannelQuery {
-	ncq.predicates = append(ncq.predicates, ps...)
-	return ncq
+func (_q *NotificationChannelQuery) Where(ps ...predicate.NotificationChannel) *NotificationChannelQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (ncq *NotificationChannelQuery) Limit(limit int) *NotificationChannelQuery {
-	ncq.ctx.Limit = &limit
-	return ncq
+func (_q *NotificationChannelQuery) Limit(limit int) *NotificationChannelQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (ncq *NotificationChannelQuery) Offset(offset int) *NotificationChannelQuery {
-	ncq.ctx.Offset = &offset
-	return ncq
+func (_q *NotificationChannelQuery) Offset(offset int) *NotificationChannelQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (ncq *NotificationChannelQuery) Unique(unique bool) *NotificationChannelQuery {
-	ncq.ctx.Unique = &unique
-	return ncq
+func (_q *NotificationChannelQuery) Unique(unique bool) *NotificationChannelQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (ncq *NotificationChannelQuery) Order(o ...notificationchannel.OrderOption) *NotificationChannelQuery {
-	ncq.order = append(ncq.order, o...)
-	return ncq
+func (_q *NotificationChannelQuery) Order(o ...notificationchannel.OrderOption) *NotificationChannelQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // First returns the first NotificationChannel entity from the query.
 // Returns a *NotFoundError when no NotificationChannel was found.
-func (ncq *NotificationChannelQuery) First(ctx context.Context) (*NotificationChannel, error) {
-	nodes, err := ncq.Limit(1).All(setContextOp(ctx, ncq.ctx, ent.OpQueryFirst))
+func (_q *NotificationChannelQuery) First(ctx context.Context) (*NotificationChannel, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -72,8 +72,8 @@ func (ncq *NotificationChannelQuery) First(ctx context.Context) (*NotificationCh
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (ncq *NotificationChannelQuery) FirstX(ctx context.Context) *NotificationChannel {
-	node, err := ncq.First(ctx)
+func (_q *NotificationChannelQuery) FirstX(ctx context.Context) *NotificationChannel {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -82,9 +82,9 @@ func (ncq *NotificationChannelQuery) FirstX(ctx context.Context) *NotificationCh
 
 // FirstID returns the first NotificationChannel ID from the query.
 // Returns a *NotFoundError when no NotificationChannel ID was found.
-func (ncq *NotificationChannelQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *NotificationChannelQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = ncq.Limit(1).IDs(setContextOp(ctx, ncq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -95,8 +95,8 @@ func (ncq *NotificationChannelQuery) FirstID(ctx context.Context) (id int, err e
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (ncq *NotificationChannelQuery) FirstIDX(ctx context.Context) int {
-	id, err := ncq.FirstID(ctx)
+func (_q *NotificationChannelQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -106,8 +106,8 @@ func (ncq *NotificationChannelQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single NotificationChannel entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one NotificationChannel entity is found.
 // Returns a *NotFoundError when no NotificationChannel entities are found.
-func (ncq *NotificationChannelQuery) Only(ctx context.Context) (*NotificationChannel, error) {
-	nodes, err := ncq.Limit(2).All(setContextOp(ctx, ncq.ctx, ent.OpQueryOnly))
+func (_q *NotificationChannelQuery) Only(ctx context.Context) (*NotificationChannel, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -122,8 +122,8 @@ func (ncq *NotificationChannelQuery) Only(ctx context.Context) (*NotificationCha
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (ncq *NotificationChannelQuery) OnlyX(ctx context.Context) *NotificationChannel {
-	node, err := ncq.Only(ctx)
+func (_q *NotificationChannelQuery) OnlyX(ctx context.Context) *NotificationChannel {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -133,9 +133,9 @@ func (ncq *NotificationChannelQuery) OnlyX(ctx context.Context) *NotificationCha
 // OnlyID is like Only, but returns the only NotificationChannel ID in the query.
 // Returns a *NotSingularError when more than one NotificationChannel ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (ncq *NotificationChannelQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *NotificationChannelQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = ncq.Limit(2).IDs(setContextOp(ctx, ncq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -150,8 +150,8 @@ func (ncq *NotificationChannelQuery) OnlyID(ctx context.Context) (id int, err er
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (ncq *NotificationChannelQuery) OnlyIDX(ctx context.Context) int {
-	id, err := ncq.OnlyID(ctx)
+func (_q *NotificationChannelQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -159,18 +159,18 @@ func (ncq *NotificationChannelQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of NotificationChannels.
-func (ncq *NotificationChannelQuery) All(ctx context.Context) ([]*NotificationChannel, error) {
-	ctx = setContextOp(ctx, ncq.ctx, ent.OpQueryAll)
-	if err := ncq.prepareQuery(ctx); err != nil {
+func (_q *NotificationChannelQuery) All(ctx context.Context) ([]*NotificationChannel, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*NotificationChannel, *NotificationChannelQuery]()
-	return withInterceptors[[]*NotificationChannel](ctx, ncq, qr, ncq.inters)
+	return withInterceptors[[]*NotificationChannel](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (ncq *NotificationChannelQuery) AllX(ctx context.Context) []*NotificationChannel {
-	nodes, err := ncq.All(ctx)
+func (_q *NotificationChannelQuery) AllX(ctx context.Context) []*NotificationChannel {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -178,20 +178,20 @@ func (ncq *NotificationChannelQuery) AllX(ctx context.Context) []*NotificationCh
 }
 
 // IDs executes the query and returns a list of NotificationChannel IDs.
-func (ncq *NotificationChannelQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if ncq.ctx.Unique == nil && ncq.path != nil {
-		ncq.Unique(true)
+func (_q *NotificationChannelQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, ncq.ctx, ent.OpQueryIDs)
-	if err = ncq.Select(notificationchannel.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(notificationchannel.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (ncq *NotificationChannelQuery) IDsX(ctx context.Context) []int {
-	ids, err := ncq.IDs(ctx)
+func (_q *NotificationChannelQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -199,17 +199,17 @@ func (ncq *NotificationChannelQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (ncq *NotificationChannelQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, ncq.ctx, ent.OpQueryCount)
-	if err := ncq.prepareQuery(ctx); err != nil {
+func (_q *NotificationChannelQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, ncq, querierCount[*NotificationChannelQuery](), ncq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*NotificationChannelQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (ncq *NotificationChannelQuery) CountX(ctx context.Context) int {
-	count, err := ncq.Count(ctx)
+func (_q *NotificationChannelQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -217,9 +217,9 @@ func (ncq *NotificationChannelQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (ncq *NotificationChannelQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, ncq.ctx, ent.OpQueryExist)
-	switch _, err := ncq.FirstID(ctx); {
+func (_q *NotificationChannelQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -230,8 +230,8 @@ func (ncq *NotificationChannelQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (ncq *NotificationChannelQuery) ExistX(ctx context.Context) bool {
-	exist, err := ncq.Exist(ctx)
+func (_q *NotificationChannelQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -240,19 +240,19 @@ func (ncq *NotificationChannelQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the NotificationChannelQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (ncq *NotificationChannelQuery) Clone() *NotificationChannelQuery {
-	if ncq == nil {
+func (_q *NotificationChannelQuery) Clone() *NotificationChannelQuery {
+	if _q == nil {
 		return nil
 	}
 	return &NotificationChannelQuery{
-		config:     ncq.config,
-		ctx:        ncq.ctx.Clone(),
-		order:      append([]notificationchannel.OrderOption{}, ncq.order...),
-		inters:     append([]Interceptor{}, ncq.inters...),
-		predicates: append([]predicate.NotificationChannel{}, ncq.predicates...),
+		config:     _q.config,
+		ctx:        _q.ctx.Clone(),
+		order:      append([]notificationchannel.OrderOption{}, _q.order...),
+		inters:     append([]Interceptor{}, _q.inters...),
+		predicates: append([]predicate.NotificationChannel{}, _q.predicates...),
 		// clone intermediate query.
-		sql:  ncq.sql.Clone(),
-		path: ncq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
@@ -270,10 +270,10 @@ func (ncq *NotificationChannelQuery) Clone() *NotificationChannelQuery {
 //		GroupBy(notificationchannel.FieldName).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (ncq *NotificationChannelQuery) GroupBy(field string, fields ...string) *NotificationChannelGroupBy {
-	ncq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &NotificationChannelGroupBy{build: ncq}
-	grbuild.flds = &ncq.ctx.Fields
+func (_q *NotificationChannelQuery) GroupBy(field string, fields ...string) *NotificationChannelGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &NotificationChannelGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = notificationchannel.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -291,62 +291,62 @@ func (ncq *NotificationChannelQuery) GroupBy(field string, fields ...string) *No
 //	client.NotificationChannel.Query().
 //		Select(notificationchannel.FieldName).
 //		Scan(ctx, &v)
-func (ncq *NotificationChannelQuery) Select(fields ...string) *NotificationChannelSelect {
-	ncq.ctx.Fields = append(ncq.ctx.Fields, fields...)
-	sbuild := &NotificationChannelSelect{NotificationChannelQuery: ncq}
+func (_q *NotificationChannelQuery) Select(fields ...string) *NotificationChannelSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &NotificationChannelSelect{NotificationChannelQuery: _q}
 	sbuild.label = notificationchannel.Label
-	sbuild.flds, sbuild.scan = &ncq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a NotificationChannelSelect configured with the given aggregations.
-func (ncq *NotificationChannelQuery) Aggregate(fns ...AggregateFunc) *NotificationChannelSelect {
-	return ncq.Select().Aggregate(fns...)
+func (_q *NotificationChannelQuery) Aggregate(fns ...AggregateFunc) *NotificationChannelSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (ncq *NotificationChannelQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range ncq.inters {
+func (_q *NotificationChannelQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, ncq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range ncq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !notificationchannel.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if ncq.path != nil {
-		prev, err := ncq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		ncq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (ncq *NotificationChannelQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*NotificationChannel, error) {
+func (_q *NotificationChannelQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*NotificationChannel, error) {
 	var (
 		nodes = []*NotificationChannel{}
-		_spec = ncq.querySpec()
+		_spec = _q.querySpec()
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*NotificationChannel).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &NotificationChannel{config: ncq.config}
+		node := &NotificationChannel{config: _q.config}
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, ncq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
@@ -355,24 +355,24 @@ func (ncq *NotificationChannelQuery) sqlAll(ctx context.Context, hooks ...queryH
 	return nodes, nil
 }
 
-func (ncq *NotificationChannelQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := ncq.querySpec()
-	_spec.Node.Columns = ncq.ctx.Fields
-	if len(ncq.ctx.Fields) > 0 {
-		_spec.Unique = ncq.ctx.Unique != nil && *ncq.ctx.Unique
+func (_q *NotificationChannelQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, ncq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (ncq *NotificationChannelQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *NotificationChannelQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(notificationchannel.Table, notificationchannel.Columns, sqlgraph.NewFieldSpec(notificationchannel.FieldID, field.TypeInt))
-	_spec.From = ncq.sql
-	if unique := ncq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if ncq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := ncq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, notificationchannel.FieldID)
 		for i := range fields {
@@ -381,20 +381,20 @@ func (ncq *NotificationChannelQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := ncq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := ncq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := ncq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := ncq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -404,33 +404,33 @@ func (ncq *NotificationChannelQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (ncq *NotificationChannelQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(ncq.driver.Dialect())
+func (_q *NotificationChannelQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(notificationchannel.Table)
-	columns := ncq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = notificationchannel.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if ncq.sql != nil {
-		selector = ncq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if ncq.ctx.Unique != nil && *ncq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range ncq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range ncq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := ncq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := ncq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -443,41 +443,41 @@ type NotificationChannelGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (ncgb *NotificationChannelGroupBy) Aggregate(fns ...AggregateFunc) *NotificationChannelGroupBy {
-	ncgb.fns = append(ncgb.fns, fns...)
-	return ncgb
+func (_g *NotificationChannelGroupBy) Aggregate(fns ...AggregateFunc) *NotificationChannelGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (ncgb *NotificationChannelGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ncgb.build.ctx, ent.OpQueryGroupBy)
-	if err := ncgb.build.prepareQuery(ctx); err != nil {
+func (_g *NotificationChannelGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*NotificationChannelQuery, *NotificationChannelGroupBy](ctx, ncgb.build, ncgb, ncgb.build.inters, v)
+	return scanWithInterceptors[*NotificationChannelQuery, *NotificationChannelGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (ncgb *NotificationChannelGroupBy) sqlScan(ctx context.Context, root *NotificationChannelQuery, v any) error {
+func (_g *NotificationChannelGroupBy) sqlScan(ctx context.Context, root *NotificationChannelQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(ncgb.fns))
-	for _, fn := range ncgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*ncgb.flds)+len(ncgb.fns))
-		for _, f := range *ncgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*ncgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := ncgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -491,27 +491,27 @@ type NotificationChannelSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (ncs *NotificationChannelSelect) Aggregate(fns ...AggregateFunc) *NotificationChannelSelect {
-	ncs.fns = append(ncs.fns, fns...)
-	return ncs
+func (_s *NotificationChannelSelect) Aggregate(fns ...AggregateFunc) *NotificationChannelSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (ncs *NotificationChannelSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, ncs.ctx, ent.OpQuerySelect)
-	if err := ncs.prepareQuery(ctx); err != nil {
+func (_s *NotificationChannelSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*NotificationChannelQuery, *NotificationChannelSelect](ctx, ncs.NotificationChannelQuery, ncs, ncs.inters, v)
+	return scanWithInterceptors[*NotificationChannelQuery, *NotificationChannelSelect](ctx, _s.NotificationChannelQuery, _s, _s.inters, v)
 }
 
-func (ncs *NotificationChannelSelect) sqlScan(ctx context.Context, root *NotificationChannelQuery, v any) error {
+func (_s *NotificationChannelSelect) sqlScan(ctx context.Context, root *NotificationChannelQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(ncs.fns))
-	for _, fn := range ncs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*ncs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -519,7 +519,7 @@ func (ncs *NotificationChannelSelect) sqlScan(ctx context.Context, root *Notific
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := ncs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

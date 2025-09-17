@@ -20,56 +20,56 @@ type AuthConfigDelete struct {
 }
 
 // Where appends a list predicates to the AuthConfigDelete builder.
-func (acd *AuthConfigDelete) Where(ps ...predicate.AuthConfig) *AuthConfigDelete {
-	acd.mutation.Where(ps...)
-	return acd
+func (_d *AuthConfigDelete) Where(ps ...predicate.AuthConfig) *AuthConfigDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (acd *AuthConfigDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, acd.sqlExec, acd.mutation, acd.hooks)
+func (_d *AuthConfigDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (acd *AuthConfigDelete) ExecX(ctx context.Context) int {
-	n, err := acd.Exec(ctx)
+func (_d *AuthConfigDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (acd *AuthConfigDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *AuthConfigDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(authconfig.Table, sqlgraph.NewFieldSpec(authconfig.FieldID, field.TypeInt))
-	if ps := acd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, acd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	acd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // AuthConfigDeleteOne is the builder for deleting a single AuthConfig entity.
 type AuthConfigDeleteOne struct {
-	acd *AuthConfigDelete
+	_d *AuthConfigDelete
 }
 
 // Where appends a list predicates to the AuthConfigDelete builder.
-func (acdo *AuthConfigDeleteOne) Where(ps ...predicate.AuthConfig) *AuthConfigDeleteOne {
-	acdo.acd.mutation.Where(ps...)
-	return acdo
+func (_d *AuthConfigDeleteOne) Where(ps ...predicate.AuthConfig) *AuthConfigDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (acdo *AuthConfigDeleteOne) Exec(ctx context.Context) error {
-	n, err := acdo.acd.Exec(ctx)
+func (_d *AuthConfigDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (acdo *AuthConfigDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (acdo *AuthConfigDeleteOne) ExecX(ctx context.Context) {
-	if err := acdo.Exec(ctx); err != nil {
+func (_d *AuthConfigDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

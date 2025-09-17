@@ -386,10 +386,10 @@ func executeScript(ctx context.Context, script string, runID int, environmentVar
 
 	// Signal saveOutputToDB to stop after command completes
 	close(doneChan)
-	
+
 	// Wait for all goroutines to finish
 	wg.Wait()
-	
+
 	// Close error channel after all producers are done
 	close(errorChan)
 

@@ -31,44 +31,44 @@ type InboundWebhookQuery struct {
 }
 
 // Where adds a new predicate for the InboundWebhookQuery builder.
-func (iwq *InboundWebhookQuery) Where(ps ...predicate.InboundWebhook) *InboundWebhookQuery {
-	iwq.predicates = append(iwq.predicates, ps...)
-	return iwq
+func (_q *InboundWebhookQuery) Where(ps ...predicate.InboundWebhook) *InboundWebhookQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (iwq *InboundWebhookQuery) Limit(limit int) *InboundWebhookQuery {
-	iwq.ctx.Limit = &limit
-	return iwq
+func (_q *InboundWebhookQuery) Limit(limit int) *InboundWebhookQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (iwq *InboundWebhookQuery) Offset(offset int) *InboundWebhookQuery {
-	iwq.ctx.Offset = &offset
-	return iwq
+func (_q *InboundWebhookQuery) Offset(offset int) *InboundWebhookQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (iwq *InboundWebhookQuery) Unique(unique bool) *InboundWebhookQuery {
-	iwq.ctx.Unique = &unique
-	return iwq
+func (_q *InboundWebhookQuery) Unique(unique bool) *InboundWebhookQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (iwq *InboundWebhookQuery) Order(o ...inboundwebhook.OrderOption) *InboundWebhookQuery {
-	iwq.order = append(iwq.order, o...)
-	return iwq
+func (_q *InboundWebhookQuery) Order(o ...inboundwebhook.OrderOption) *InboundWebhookQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryJob chains the current query on the "job" edge.
-func (iwq *InboundWebhookQuery) QueryJob() *JobQuery {
-	query := (&JobClient{config: iwq.config}).Query()
+func (_q *InboundWebhookQuery) QueryJob() *JobQuery {
+	query := (&JobClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := iwq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := iwq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -77,7 +77,7 @@ func (iwq *InboundWebhookQuery) QueryJob() *JobQuery {
 			sqlgraph.To(job.Table, job.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, inboundwebhook.JobTable, inboundwebhook.JobColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(iwq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -85,8 +85,8 @@ func (iwq *InboundWebhookQuery) QueryJob() *JobQuery {
 
 // First returns the first InboundWebhook entity from the query.
 // Returns a *NotFoundError when no InboundWebhook was found.
-func (iwq *InboundWebhookQuery) First(ctx context.Context) (*InboundWebhook, error) {
-	nodes, err := iwq.Limit(1).All(setContextOp(ctx, iwq.ctx, ent.OpQueryFirst))
+func (_q *InboundWebhookQuery) First(ctx context.Context) (*InboundWebhook, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +97,8 @@ func (iwq *InboundWebhookQuery) First(ctx context.Context) (*InboundWebhook, err
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (iwq *InboundWebhookQuery) FirstX(ctx context.Context) *InboundWebhook {
-	node, err := iwq.First(ctx)
+func (_q *InboundWebhookQuery) FirstX(ctx context.Context) *InboundWebhook {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -107,9 +107,9 @@ func (iwq *InboundWebhookQuery) FirstX(ctx context.Context) *InboundWebhook {
 
 // FirstID returns the first InboundWebhook ID from the query.
 // Returns a *NotFoundError when no InboundWebhook ID was found.
-func (iwq *InboundWebhookQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *InboundWebhookQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = iwq.Limit(1).IDs(setContextOp(ctx, iwq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -120,8 +120,8 @@ func (iwq *InboundWebhookQuery) FirstID(ctx context.Context) (id int, err error)
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (iwq *InboundWebhookQuery) FirstIDX(ctx context.Context) int {
-	id, err := iwq.FirstID(ctx)
+func (_q *InboundWebhookQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -131,8 +131,8 @@ func (iwq *InboundWebhookQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single InboundWebhook entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one InboundWebhook entity is found.
 // Returns a *NotFoundError when no InboundWebhook entities are found.
-func (iwq *InboundWebhookQuery) Only(ctx context.Context) (*InboundWebhook, error) {
-	nodes, err := iwq.Limit(2).All(setContextOp(ctx, iwq.ctx, ent.OpQueryOnly))
+func (_q *InboundWebhookQuery) Only(ctx context.Context) (*InboundWebhook, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -147,8 +147,8 @@ func (iwq *InboundWebhookQuery) Only(ctx context.Context) (*InboundWebhook, erro
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (iwq *InboundWebhookQuery) OnlyX(ctx context.Context) *InboundWebhook {
-	node, err := iwq.Only(ctx)
+func (_q *InboundWebhookQuery) OnlyX(ctx context.Context) *InboundWebhook {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -158,9 +158,9 @@ func (iwq *InboundWebhookQuery) OnlyX(ctx context.Context) *InboundWebhook {
 // OnlyID is like Only, but returns the only InboundWebhook ID in the query.
 // Returns a *NotSingularError when more than one InboundWebhook ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (iwq *InboundWebhookQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *InboundWebhookQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = iwq.Limit(2).IDs(setContextOp(ctx, iwq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -175,8 +175,8 @@ func (iwq *InboundWebhookQuery) OnlyID(ctx context.Context) (id int, err error) 
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (iwq *InboundWebhookQuery) OnlyIDX(ctx context.Context) int {
-	id, err := iwq.OnlyID(ctx)
+func (_q *InboundWebhookQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -184,18 +184,18 @@ func (iwq *InboundWebhookQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of InboundWebhooks.
-func (iwq *InboundWebhookQuery) All(ctx context.Context) ([]*InboundWebhook, error) {
-	ctx = setContextOp(ctx, iwq.ctx, ent.OpQueryAll)
-	if err := iwq.prepareQuery(ctx); err != nil {
+func (_q *InboundWebhookQuery) All(ctx context.Context) ([]*InboundWebhook, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*InboundWebhook, *InboundWebhookQuery]()
-	return withInterceptors[[]*InboundWebhook](ctx, iwq, qr, iwq.inters)
+	return withInterceptors[[]*InboundWebhook](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (iwq *InboundWebhookQuery) AllX(ctx context.Context) []*InboundWebhook {
-	nodes, err := iwq.All(ctx)
+func (_q *InboundWebhookQuery) AllX(ctx context.Context) []*InboundWebhook {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -203,20 +203,20 @@ func (iwq *InboundWebhookQuery) AllX(ctx context.Context) []*InboundWebhook {
 }
 
 // IDs executes the query and returns a list of InboundWebhook IDs.
-func (iwq *InboundWebhookQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if iwq.ctx.Unique == nil && iwq.path != nil {
-		iwq.Unique(true)
+func (_q *InboundWebhookQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, iwq.ctx, ent.OpQueryIDs)
-	if err = iwq.Select(inboundwebhook.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(inboundwebhook.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (iwq *InboundWebhookQuery) IDsX(ctx context.Context) []int {
-	ids, err := iwq.IDs(ctx)
+func (_q *InboundWebhookQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -224,17 +224,17 @@ func (iwq *InboundWebhookQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (iwq *InboundWebhookQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, iwq.ctx, ent.OpQueryCount)
-	if err := iwq.prepareQuery(ctx); err != nil {
+func (_q *InboundWebhookQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, iwq, querierCount[*InboundWebhookQuery](), iwq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*InboundWebhookQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (iwq *InboundWebhookQuery) CountX(ctx context.Context) int {
-	count, err := iwq.Count(ctx)
+func (_q *InboundWebhookQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -242,9 +242,9 @@ func (iwq *InboundWebhookQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (iwq *InboundWebhookQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, iwq.ctx, ent.OpQueryExist)
-	switch _, err := iwq.FirstID(ctx); {
+func (_q *InboundWebhookQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -255,8 +255,8 @@ func (iwq *InboundWebhookQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (iwq *InboundWebhookQuery) ExistX(ctx context.Context) bool {
-	exist, err := iwq.Exist(ctx)
+func (_q *InboundWebhookQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -265,32 +265,32 @@ func (iwq *InboundWebhookQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the InboundWebhookQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (iwq *InboundWebhookQuery) Clone() *InboundWebhookQuery {
-	if iwq == nil {
+func (_q *InboundWebhookQuery) Clone() *InboundWebhookQuery {
+	if _q == nil {
 		return nil
 	}
 	return &InboundWebhookQuery{
-		config:     iwq.config,
-		ctx:        iwq.ctx.Clone(),
-		order:      append([]inboundwebhook.OrderOption{}, iwq.order...),
-		inters:     append([]Interceptor{}, iwq.inters...),
-		predicates: append([]predicate.InboundWebhook{}, iwq.predicates...),
-		withJob:    iwq.withJob.Clone(),
+		config:     _q.config,
+		ctx:        _q.ctx.Clone(),
+		order:      append([]inboundwebhook.OrderOption{}, _q.order...),
+		inters:     append([]Interceptor{}, _q.inters...),
+		predicates: append([]predicate.InboundWebhook{}, _q.predicates...),
+		withJob:    _q.withJob.Clone(),
 		// clone intermediate query.
-		sql:  iwq.sql.Clone(),
-		path: iwq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithJob tells the query-builder to eager-load the nodes that are connected to
 // the "job" edge. The optional arguments are used to configure the query builder of the edge.
-func (iwq *InboundWebhookQuery) WithJob(opts ...func(*JobQuery)) *InboundWebhookQuery {
-	query := (&JobClient{config: iwq.config}).Query()
+func (_q *InboundWebhookQuery) WithJob(opts ...func(*JobQuery)) *InboundWebhookQuery {
+	query := (&JobClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	iwq.withJob = query
-	return iwq
+	_q.withJob = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -307,10 +307,10 @@ func (iwq *InboundWebhookQuery) WithJob(opts ...func(*JobQuery)) *InboundWebhook
 //		GroupBy(inboundwebhook.FieldKey).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (iwq *InboundWebhookQuery) GroupBy(field string, fields ...string) *InboundWebhookGroupBy {
-	iwq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &InboundWebhookGroupBy{build: iwq}
-	grbuild.flds = &iwq.ctx.Fields
+func (_q *InboundWebhookQuery) GroupBy(field string, fields ...string) *InboundWebhookGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &InboundWebhookGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = inboundwebhook.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -328,55 +328,55 @@ func (iwq *InboundWebhookQuery) GroupBy(field string, fields ...string) *Inbound
 //	client.InboundWebhook.Query().
 //		Select(inboundwebhook.FieldKey).
 //		Scan(ctx, &v)
-func (iwq *InboundWebhookQuery) Select(fields ...string) *InboundWebhookSelect {
-	iwq.ctx.Fields = append(iwq.ctx.Fields, fields...)
-	sbuild := &InboundWebhookSelect{InboundWebhookQuery: iwq}
+func (_q *InboundWebhookQuery) Select(fields ...string) *InboundWebhookSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &InboundWebhookSelect{InboundWebhookQuery: _q}
 	sbuild.label = inboundwebhook.Label
-	sbuild.flds, sbuild.scan = &iwq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a InboundWebhookSelect configured with the given aggregations.
-func (iwq *InboundWebhookQuery) Aggregate(fns ...AggregateFunc) *InboundWebhookSelect {
-	return iwq.Select().Aggregate(fns...)
+func (_q *InboundWebhookQuery) Aggregate(fns ...AggregateFunc) *InboundWebhookSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (iwq *InboundWebhookQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range iwq.inters {
+func (_q *InboundWebhookQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, iwq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range iwq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !inboundwebhook.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if iwq.path != nil {
-		prev, err := iwq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		iwq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (iwq *InboundWebhookQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*InboundWebhook, error) {
+func (_q *InboundWebhookQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*InboundWebhook, error) {
 	var (
 		nodes       = []*InboundWebhook{}
-		withFKs     = iwq.withFKs
-		_spec       = iwq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [1]bool{
-			iwq.withJob != nil,
+			_q.withJob != nil,
 		}
 	)
-	if iwq.withJob != nil {
+	if _q.withJob != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -386,7 +386,7 @@ func (iwq *InboundWebhookQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 		return (*InboundWebhook).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &InboundWebhook{config: iwq.config}
+		node := &InboundWebhook{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -394,14 +394,14 @@ func (iwq *InboundWebhookQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, iwq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := iwq.withJob; query != nil {
-		if err := iwq.loadJob(ctx, query, nodes, nil,
+	if query := _q.withJob; query != nil {
+		if err := _q.loadJob(ctx, query, nodes, nil,
 			func(n *InboundWebhook, e *Job) { n.Edges.Job = e }); err != nil {
 			return nil, err
 		}
@@ -409,7 +409,7 @@ func (iwq *InboundWebhookQuery) sqlAll(ctx context.Context, hooks ...queryHook) 
 	return nodes, nil
 }
 
-func (iwq *InboundWebhookQuery) loadJob(ctx context.Context, query *JobQuery, nodes []*InboundWebhook, init func(*InboundWebhook), assign func(*InboundWebhook, *Job)) error {
+func (_q *InboundWebhookQuery) loadJob(ctx context.Context, query *JobQuery, nodes []*InboundWebhook, init func(*InboundWebhook), assign func(*InboundWebhook, *Job)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*InboundWebhook)
 	for i := range nodes {
@@ -442,24 +442,24 @@ func (iwq *InboundWebhookQuery) loadJob(ctx context.Context, query *JobQuery, no
 	return nil
 }
 
-func (iwq *InboundWebhookQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := iwq.querySpec()
-	_spec.Node.Columns = iwq.ctx.Fields
-	if len(iwq.ctx.Fields) > 0 {
-		_spec.Unique = iwq.ctx.Unique != nil && *iwq.ctx.Unique
+func (_q *InboundWebhookQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, iwq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (iwq *InboundWebhookQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *InboundWebhookQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(inboundwebhook.Table, inboundwebhook.Columns, sqlgraph.NewFieldSpec(inboundwebhook.FieldID, field.TypeInt))
-	_spec.From = iwq.sql
-	if unique := iwq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if iwq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := iwq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, inboundwebhook.FieldID)
 		for i := range fields {
@@ -468,20 +468,20 @@ func (iwq *InboundWebhookQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := iwq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := iwq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := iwq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := iwq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -491,33 +491,33 @@ func (iwq *InboundWebhookQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (iwq *InboundWebhookQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(iwq.driver.Dialect())
+func (_q *InboundWebhookQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(inboundwebhook.Table)
-	columns := iwq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = inboundwebhook.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if iwq.sql != nil {
-		selector = iwq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if iwq.ctx.Unique != nil && *iwq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range iwq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range iwq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := iwq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := iwq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -530,41 +530,41 @@ type InboundWebhookGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (iwgb *InboundWebhookGroupBy) Aggregate(fns ...AggregateFunc) *InboundWebhookGroupBy {
-	iwgb.fns = append(iwgb.fns, fns...)
-	return iwgb
+func (_g *InboundWebhookGroupBy) Aggregate(fns ...AggregateFunc) *InboundWebhookGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (iwgb *InboundWebhookGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, iwgb.build.ctx, ent.OpQueryGroupBy)
-	if err := iwgb.build.prepareQuery(ctx); err != nil {
+func (_g *InboundWebhookGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*InboundWebhookQuery, *InboundWebhookGroupBy](ctx, iwgb.build, iwgb, iwgb.build.inters, v)
+	return scanWithInterceptors[*InboundWebhookQuery, *InboundWebhookGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (iwgb *InboundWebhookGroupBy) sqlScan(ctx context.Context, root *InboundWebhookQuery, v any) error {
+func (_g *InboundWebhookGroupBy) sqlScan(ctx context.Context, root *InboundWebhookQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(iwgb.fns))
-	for _, fn := range iwgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*iwgb.flds)+len(iwgb.fns))
-		for _, f := range *iwgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*iwgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := iwgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -578,27 +578,27 @@ type InboundWebhookSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (iws *InboundWebhookSelect) Aggregate(fns ...AggregateFunc) *InboundWebhookSelect {
-	iws.fns = append(iws.fns, fns...)
-	return iws
+func (_s *InboundWebhookSelect) Aggregate(fns ...AggregateFunc) *InboundWebhookSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (iws *InboundWebhookSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, iws.ctx, ent.OpQuerySelect)
-	if err := iws.prepareQuery(ctx); err != nil {
+func (_s *InboundWebhookSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*InboundWebhookQuery, *InboundWebhookSelect](ctx, iws.InboundWebhookQuery, iws, iws.inters, v)
+	return scanWithInterceptors[*InboundWebhookQuery, *InboundWebhookSelect](ctx, _s.InboundWebhookQuery, _s, _s.inters, v)
 }
 
-func (iws *InboundWebhookSelect) sqlScan(ctx context.Context, root *InboundWebhookQuery, v any) error {
+func (_s *InboundWebhookSelect) sqlScan(ctx context.Context, root *InboundWebhookQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(iws.fns))
-	for _, fn := range iws.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*iws.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -606,7 +606,7 @@ func (iws *InboundWebhookSelect) sqlScan(ctx context.Context, root *InboundWebho
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := iws.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

@@ -84,7 +84,7 @@ func (*Project) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the Project fields.
-func (pr *Project) assignValues(columns []string, values []any) error {
+func (_m *Project) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -95,21 +95,21 @@ func (pr *Project) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			pr.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case project.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				pr.Name = value.String
+				_m.Name = value.String
 			}
 		case project.FieldDescription:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field description", values[i])
 			} else if value.Valid {
-				pr.Description = value.String
+				_m.Description = value.String
 			}
 		default:
-			pr.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -117,53 +117,53 @@ func (pr *Project) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the Project.
 // This includes values selected through modifiers, order, etc.
-func (pr *Project) Value(name string) (ent.Value, error) {
-	return pr.selectValues.Get(name)
+func (_m *Project) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryProjectUsers queries the "projectUsers" edge of the Project entity.
-func (pr *Project) QueryProjectUsers() *ProjectUserQuery {
-	return NewProjectClient(pr.config).QueryProjectUsers(pr)
+func (_m *Project) QueryProjectUsers() *ProjectUserQuery {
+	return NewProjectClient(_m.config).QueryProjectUsers(_m)
 }
 
 // QueryJobs queries the "jobs" edge of the Project entity.
-func (pr *Project) QueryJobs() *JobQuery {
-	return NewProjectClient(pr.config).QueryJobs(pr)
+func (_m *Project) QueryJobs() *JobQuery {
+	return NewProjectClient(_m.config).QueryJobs(_m)
 }
 
 // QueryHistory queries the "history" edge of the Project entity.
-func (pr *Project) QueryHistory() *JobHistoryQuery {
-	return NewProjectClient(pr.config).QueryHistory(pr)
+func (_m *Project) QueryHistory() *JobHistoryQuery {
+	return NewProjectClient(_m.config).QueryHistory(_m)
 }
 
 // Update returns a builder for updating this Project.
 // Note that you need to call Project.Unwrap() before calling this method if this Project
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (pr *Project) Update() *ProjectUpdateOne {
-	return NewProjectClient(pr.config).UpdateOne(pr)
+func (_m *Project) Update() *ProjectUpdateOne {
+	return NewProjectClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the Project entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (pr *Project) Unwrap() *Project {
-	_tx, ok := pr.config.driver.(*txDriver)
+func (_m *Project) Unwrap() *Project {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: Project is not a transactional entity")
 	}
-	pr.config.driver = _tx.drv
-	return pr
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (pr *Project) String() string {
+func (_m *Project) String() string {
 	var builder strings.Builder
 	builder.WriteString("Project(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", pr.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("name=")
-	builder.WriteString(pr.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("description=")
-	builder.WriteString(pr.Description)
+	builder.WriteString(_m.Description)
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -83,7 +83,7 @@ func (*ProjectUser) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the ProjectUser fields.
-func (pu *ProjectUser) assignValues(columns []string, values []any) error {
+func (_m *ProjectUser) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -94,29 +94,29 @@ func (pu *ProjectUser) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			pu.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case projectuser.FieldCanEdit:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field can_edit", values[i])
 			} else if value.Valid {
-				pu.CanEdit = value.Bool
+				_m.CanEdit = value.Bool
 			}
 		case projectuser.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field project_project_users", value)
 			} else if value.Valid {
-				pu.project_project_users = new(int)
-				*pu.project_project_users = int(value.Int64)
+				_m.project_project_users = new(int)
+				*_m.project_project_users = int(value.Int64)
 			}
 		case projectuser.ForeignKeys[1]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field user_project_users", value)
 			} else if value.Valid {
-				pu.user_project_users = new(int)
-				*pu.user_project_users = int(value.Int64)
+				_m.user_project_users = new(int)
+				*_m.user_project_users = int(value.Int64)
 			}
 		default:
-			pu.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -124,45 +124,45 @@ func (pu *ProjectUser) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the ProjectUser.
 // This includes values selected through modifiers, order, etc.
-func (pu *ProjectUser) Value(name string) (ent.Value, error) {
-	return pu.selectValues.Get(name)
+func (_m *ProjectUser) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryProject queries the "project" edge of the ProjectUser entity.
-func (pu *ProjectUser) QueryProject() *ProjectQuery {
-	return NewProjectUserClient(pu.config).QueryProject(pu)
+func (_m *ProjectUser) QueryProject() *ProjectQuery {
+	return NewProjectUserClient(_m.config).QueryProject(_m)
 }
 
 // QueryUser queries the "user" edge of the ProjectUser entity.
-func (pu *ProjectUser) QueryUser() *UserQuery {
-	return NewProjectUserClient(pu.config).QueryUser(pu)
+func (_m *ProjectUser) QueryUser() *UserQuery {
+	return NewProjectUserClient(_m.config).QueryUser(_m)
 }
 
 // Update returns a builder for updating this ProjectUser.
 // Note that you need to call ProjectUser.Unwrap() before calling this method if this ProjectUser
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (pu *ProjectUser) Update() *ProjectUserUpdateOne {
-	return NewProjectUserClient(pu.config).UpdateOne(pu)
+func (_m *ProjectUser) Update() *ProjectUserUpdateOne {
+	return NewProjectUserClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the ProjectUser entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (pu *ProjectUser) Unwrap() *ProjectUser {
-	_tx, ok := pu.config.driver.(*txDriver)
+func (_m *ProjectUser) Unwrap() *ProjectUser {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: ProjectUser is not a transactional entity")
 	}
-	pu.config.driver = _tx.drv
-	return pu
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (pu *ProjectUser) String() string {
+func (_m *ProjectUser) String() string {
 	var builder strings.Builder
 	builder.WriteString("ProjectUser(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", pu.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("can_edit=")
-	builder.WriteString(fmt.Sprintf("%v", pu.CanEdit))
+	builder.WriteString(fmt.Sprintf("%v", _m.CanEdit))
 	builder.WriteByte(')')
 	return builder.String()
 }

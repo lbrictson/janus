@@ -110,7 +110,7 @@ func (*JobHistory) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the JobHistory fields.
-func (jh *JobHistory) assignValues(columns []string, values []any) error {
+func (_m *JobHistory) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -121,24 +121,24 @@ func (jh *JobHistory) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			jh.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case jobhistory.FieldWasSuccessful:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field was_successful", values[i])
 			} else if value.Valid {
-				jh.WasSuccessful = value.Bool
+				_m.WasSuccessful = value.Bool
 			}
 		case jobhistory.FieldDurationMs:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field duration_ms", values[i])
 			} else if value.Valid {
-				jh.DurationMs = value.Int64
+				_m.DurationMs = value.Int64
 			}
 		case jobhistory.FieldParameters:
 			if value, ok := values[i].(*[]byte); !ok {
 				return fmt.Errorf("unexpected type %T for field parameters", values[i])
 			} else if value != nil && len(*value) > 0 {
-				if err := json.Unmarshal(*value, &jh.Parameters); err != nil {
+				if err := json.Unmarshal(*value, &_m.Parameters); err != nil {
 					return fmt.Errorf("unmarshal field parameters: %w", err)
 				}
 			}
@@ -146,60 +146,60 @@ func (jh *JobHistory) assignValues(columns []string, values []any) error {
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field output", values[i])
 			} else if value.Valid {
-				jh.Output = value.String
+				_m.Output = value.String
 			}
 		case jobhistory.FieldExitCode:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field exit_code", values[i])
 			} else if value.Valid {
-				jh.ExitCode = int(value.Int64)
+				_m.ExitCode = int(value.Int64)
 			}
 		case jobhistory.FieldTriggeredByEmail:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field triggered_by_email", values[i])
 			} else if value.Valid {
-				jh.TriggeredByEmail = value.String
+				_m.TriggeredByEmail = value.String
 			}
 		case jobhistory.FieldTriggeredByID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field triggered_by_id", values[i])
 			} else if value.Valid {
-				jh.TriggeredByID = int(value.Int64)
+				_m.TriggeredByID = int(value.Int64)
 			}
 		case jobhistory.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				jh.CreatedAt = value.Time
+				_m.CreatedAt = value.Time
 			}
 		case jobhistory.FieldStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field status", values[i])
 			} else if value.Valid {
-				jh.Status = value.String
+				_m.Status = value.String
 			}
 		case jobhistory.FieldTrigger:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field trigger", values[i])
 			} else if value.Valid {
-				jh.Trigger = value.String
+				_m.Trigger = value.String
 			}
 		case jobhistory.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field job_history", value)
 			} else if value.Valid {
-				jh.job_history = new(int)
-				*jh.job_history = int(value.Int64)
+				_m.job_history = new(int)
+				*_m.job_history = int(value.Int64)
 			}
 		case jobhistory.ForeignKeys[1]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field project_history", value)
 			} else if value.Valid {
-				jh.project_history = new(int)
-				*jh.project_history = int(value.Int64)
+				_m.project_history = new(int)
+				*_m.project_history = int(value.Int64)
 			}
 		default:
-			jh.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -207,72 +207,72 @@ func (jh *JobHistory) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the JobHistory.
 // This includes values selected through modifiers, order, etc.
-func (jh *JobHistory) Value(name string) (ent.Value, error) {
-	return jh.selectValues.Get(name)
+func (_m *JobHistory) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryProject queries the "project" edge of the JobHistory entity.
-func (jh *JobHistory) QueryProject() *ProjectQuery {
-	return NewJobHistoryClient(jh.config).QueryProject(jh)
+func (_m *JobHistory) QueryProject() *ProjectQuery {
+	return NewJobHistoryClient(_m.config).QueryProject(_m)
 }
 
 // QueryJob queries the "job" edge of the JobHistory entity.
-func (jh *JobHistory) QueryJob() *JobQuery {
-	return NewJobHistoryClient(jh.config).QueryJob(jh)
+func (_m *JobHistory) QueryJob() *JobQuery {
+	return NewJobHistoryClient(_m.config).QueryJob(_m)
 }
 
 // Update returns a builder for updating this JobHistory.
 // Note that you need to call JobHistory.Unwrap() before calling this method if this JobHistory
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (jh *JobHistory) Update() *JobHistoryUpdateOne {
-	return NewJobHistoryClient(jh.config).UpdateOne(jh)
+func (_m *JobHistory) Update() *JobHistoryUpdateOne {
+	return NewJobHistoryClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the JobHistory entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (jh *JobHistory) Unwrap() *JobHistory {
-	_tx, ok := jh.config.driver.(*txDriver)
+func (_m *JobHistory) Unwrap() *JobHistory {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: JobHistory is not a transactional entity")
 	}
-	jh.config.driver = _tx.drv
-	return jh
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (jh *JobHistory) String() string {
+func (_m *JobHistory) String() string {
 	var builder strings.Builder
 	builder.WriteString("JobHistory(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", jh.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("was_successful=")
-	builder.WriteString(fmt.Sprintf("%v", jh.WasSuccessful))
+	builder.WriteString(fmt.Sprintf("%v", _m.WasSuccessful))
 	builder.WriteString(", ")
 	builder.WriteString("duration_ms=")
-	builder.WriteString(fmt.Sprintf("%v", jh.DurationMs))
+	builder.WriteString(fmt.Sprintf("%v", _m.DurationMs))
 	builder.WriteString(", ")
 	builder.WriteString("parameters=")
-	builder.WriteString(fmt.Sprintf("%v", jh.Parameters))
+	builder.WriteString(fmt.Sprintf("%v", _m.Parameters))
 	builder.WriteString(", ")
 	builder.WriteString("output=")
-	builder.WriteString(jh.Output)
+	builder.WriteString(_m.Output)
 	builder.WriteString(", ")
 	builder.WriteString("exit_code=")
-	builder.WriteString(fmt.Sprintf("%v", jh.ExitCode))
+	builder.WriteString(fmt.Sprintf("%v", _m.ExitCode))
 	builder.WriteString(", ")
 	builder.WriteString("triggered_by_email=")
-	builder.WriteString(jh.TriggeredByEmail)
+	builder.WriteString(_m.TriggeredByEmail)
 	builder.WriteString(", ")
 	builder.WriteString("triggered_by_id=")
-	builder.WriteString(fmt.Sprintf("%v", jh.TriggeredByID))
+	builder.WriteString(fmt.Sprintf("%v", _m.TriggeredByID))
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(jh.CreatedAt.Format(time.ANSIC))
+	builder.WriteString(_m.CreatedAt.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("status=")
-	builder.WriteString(jh.Status)
+	builder.WriteString(_m.Status)
 	builder.WriteString(", ")
 	builder.WriteString("trigger=")
-	builder.WriteString(jh.Trigger)
+	builder.WriteString(_m.Trigger)
 	builder.WriteByte(')')
 	return builder.String()
 }

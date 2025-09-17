@@ -22,143 +22,143 @@ type NotificationChannelCreate struct {
 }
 
 // SetName sets the "name" field.
-func (ncc *NotificationChannelCreate) SetName(s string) *NotificationChannelCreate {
-	ncc.mutation.SetName(s)
-	return ncc
+func (_c *NotificationChannelCreate) SetName(v string) *NotificationChannelCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetDescription sets the "description" field.
-func (ncc *NotificationChannelCreate) SetDescription(s string) *NotificationChannelCreate {
-	ncc.mutation.SetDescription(s)
-	return ncc
+func (_c *NotificationChannelCreate) SetDescription(v string) *NotificationChannelCreate {
+	_c.mutation.SetDescription(v)
+	return _c
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (ncc *NotificationChannelCreate) SetNillableDescription(s *string) *NotificationChannelCreate {
-	if s != nil {
-		ncc.SetDescription(*s)
+func (_c *NotificationChannelCreate) SetNillableDescription(v *string) *NotificationChannelCreate {
+	if v != nil {
+		_c.SetDescription(*v)
 	}
-	return ncc
+	return _c
 }
 
 // SetType sets the "type" field.
-func (ncc *NotificationChannelCreate) SetType(sct schema.NotificationChannelType) *NotificationChannelCreate {
-	ncc.mutation.SetType(sct)
-	return ncc
+func (_c *NotificationChannelCreate) SetType(v schema.NotificationChannelType) *NotificationChannelCreate {
+	_c.mutation.SetType(v)
+	return _c
 }
 
 // SetConfig sets the "config" field.
-func (ncc *NotificationChannelCreate) SetConfig(sc schema.ChannelConfig) *NotificationChannelCreate {
-	ncc.mutation.SetConfig(sc)
-	return ncc
+func (_c *NotificationChannelCreate) SetConfig(v schema.ChannelConfig) *NotificationChannelCreate {
+	_c.mutation.SetConfig(v)
+	return _c
 }
 
 // SetNillableConfig sets the "config" field if the given value is not nil.
-func (ncc *NotificationChannelCreate) SetNillableConfig(sc *schema.ChannelConfig) *NotificationChannelCreate {
-	if sc != nil {
-		ncc.SetConfig(*sc)
+func (_c *NotificationChannelCreate) SetNillableConfig(v *schema.ChannelConfig) *NotificationChannelCreate {
+	if v != nil {
+		_c.SetConfig(*v)
 	}
-	return ncc
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (ncc *NotificationChannelCreate) SetCreatedAt(t time.Time) *NotificationChannelCreate {
-	ncc.mutation.SetCreatedAt(t)
-	return ncc
+func (_c *NotificationChannelCreate) SetCreatedAt(v time.Time) *NotificationChannelCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (ncc *NotificationChannelCreate) SetNillableCreatedAt(t *time.Time) *NotificationChannelCreate {
-	if t != nil {
-		ncc.SetCreatedAt(*t)
+func (_c *NotificationChannelCreate) SetNillableCreatedAt(v *time.Time) *NotificationChannelCreate {
+	if v != nil {
+		_c.SetCreatedAt(*v)
 	}
-	return ncc
+	return _c
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (ncc *NotificationChannelCreate) SetUpdatedAt(t time.Time) *NotificationChannelCreate {
-	ncc.mutation.SetUpdatedAt(t)
-	return ncc
+func (_c *NotificationChannelCreate) SetUpdatedAt(v time.Time) *NotificationChannelCreate {
+	_c.mutation.SetUpdatedAt(v)
+	return _c
 }
 
 // SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (ncc *NotificationChannelCreate) SetNillableUpdatedAt(t *time.Time) *NotificationChannelCreate {
-	if t != nil {
-		ncc.SetUpdatedAt(*t)
+func (_c *NotificationChannelCreate) SetNillableUpdatedAt(v *time.Time) *NotificationChannelCreate {
+	if v != nil {
+		_c.SetUpdatedAt(*v)
 	}
-	return ncc
+	return _c
 }
 
 // SetEnabled sets the "enabled" field.
-func (ncc *NotificationChannelCreate) SetEnabled(b bool) *NotificationChannelCreate {
-	ncc.mutation.SetEnabled(b)
-	return ncc
+func (_c *NotificationChannelCreate) SetEnabled(v bool) *NotificationChannelCreate {
+	_c.mutation.SetEnabled(v)
+	return _c
 }
 
 // SetNillableEnabled sets the "enabled" field if the given value is not nil.
-func (ncc *NotificationChannelCreate) SetNillableEnabled(b *bool) *NotificationChannelCreate {
-	if b != nil {
-		ncc.SetEnabled(*b)
+func (_c *NotificationChannelCreate) SetNillableEnabled(v *bool) *NotificationChannelCreate {
+	if v != nil {
+		_c.SetEnabled(*v)
 	}
-	return ncc
+	return _c
 }
 
 // SetRetryCount sets the "retry_count" field.
-func (ncc *NotificationChannelCreate) SetRetryCount(i int) *NotificationChannelCreate {
-	ncc.mutation.SetRetryCount(i)
-	return ncc
+func (_c *NotificationChannelCreate) SetRetryCount(v int) *NotificationChannelCreate {
+	_c.mutation.SetRetryCount(v)
+	return _c
 }
 
 // SetNillableRetryCount sets the "retry_count" field if the given value is not nil.
-func (ncc *NotificationChannelCreate) SetNillableRetryCount(i *int) *NotificationChannelCreate {
-	if i != nil {
-		ncc.SetRetryCount(*i)
+func (_c *NotificationChannelCreate) SetNillableRetryCount(v *int) *NotificationChannelCreate {
+	if v != nil {
+		_c.SetRetryCount(*v)
 	}
-	return ncc
+	return _c
 }
 
 // SetLastUsed sets the "last_used" field.
-func (ncc *NotificationChannelCreate) SetLastUsed(t time.Time) *NotificationChannelCreate {
-	ncc.mutation.SetLastUsed(t)
-	return ncc
+func (_c *NotificationChannelCreate) SetLastUsed(v time.Time) *NotificationChannelCreate {
+	_c.mutation.SetLastUsed(v)
+	return _c
 }
 
 // SetNillableLastUsed sets the "last_used" field if the given value is not nil.
-func (ncc *NotificationChannelCreate) SetNillableLastUsed(t *time.Time) *NotificationChannelCreate {
-	if t != nil {
-		ncc.SetLastUsed(*t)
+func (_c *NotificationChannelCreate) SetNillableLastUsed(v *time.Time) *NotificationChannelCreate {
+	if v != nil {
+		_c.SetLastUsed(*v)
 	}
-	return ncc
+	return _c
 }
 
 // SetLastError sets the "last_error" field.
-func (ncc *NotificationChannelCreate) SetLastError(s string) *NotificationChannelCreate {
-	ncc.mutation.SetLastError(s)
-	return ncc
+func (_c *NotificationChannelCreate) SetLastError(v string) *NotificationChannelCreate {
+	_c.mutation.SetLastError(v)
+	return _c
 }
 
 // SetNillableLastError sets the "last_error" field if the given value is not nil.
-func (ncc *NotificationChannelCreate) SetNillableLastError(s *string) *NotificationChannelCreate {
-	if s != nil {
-		ncc.SetLastError(*s)
+func (_c *NotificationChannelCreate) SetNillableLastError(v *string) *NotificationChannelCreate {
+	if v != nil {
+		_c.SetLastError(*v)
 	}
-	return ncc
+	return _c
 }
 
 // Mutation returns the NotificationChannelMutation object of the builder.
-func (ncc *NotificationChannelCreate) Mutation() *NotificationChannelMutation {
-	return ncc.mutation
+func (_c *NotificationChannelCreate) Mutation() *NotificationChannelMutation {
+	return _c.mutation
 }
 
 // Save creates the NotificationChannel in the database.
-func (ncc *NotificationChannelCreate) Save(ctx context.Context) (*NotificationChannel, error) {
-	ncc.defaults()
-	return withHooks(ctx, ncc.sqlSave, ncc.mutation, ncc.hooks)
+func (_c *NotificationChannelCreate) Save(ctx context.Context) (*NotificationChannel, error) {
+	_c.defaults()
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (ncc *NotificationChannelCreate) SaveX(ctx context.Context) *NotificationChannel {
-	v, err := ncc.Save(ctx)
+func (_c *NotificationChannelCreate) SaveX(ctx context.Context) *NotificationChannel {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -166,74 +166,74 @@ func (ncc *NotificationChannelCreate) SaveX(ctx context.Context) *NotificationCh
 }
 
 // Exec executes the query.
-func (ncc *NotificationChannelCreate) Exec(ctx context.Context) error {
-	_, err := ncc.Save(ctx)
+func (_c *NotificationChannelCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ncc *NotificationChannelCreate) ExecX(ctx context.Context) {
-	if err := ncc.Exec(ctx); err != nil {
+func (_c *NotificationChannelCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (ncc *NotificationChannelCreate) defaults() {
-	if _, ok := ncc.mutation.CreatedAt(); !ok {
+func (_c *NotificationChannelCreate) defaults() {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		v := notificationchannel.DefaultCreatedAt()
-		ncc.mutation.SetCreatedAt(v)
+		_c.mutation.SetCreatedAt(v)
 	}
-	if _, ok := ncc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		v := notificationchannel.DefaultUpdatedAt()
-		ncc.mutation.SetUpdatedAt(v)
+		_c.mutation.SetUpdatedAt(v)
 	}
-	if _, ok := ncc.mutation.Enabled(); !ok {
+	if _, ok := _c.mutation.Enabled(); !ok {
 		v := notificationchannel.DefaultEnabled
-		ncc.mutation.SetEnabled(v)
+		_c.mutation.SetEnabled(v)
 	}
-	if _, ok := ncc.mutation.RetryCount(); !ok {
+	if _, ok := _c.mutation.RetryCount(); !ok {
 		v := notificationchannel.DefaultRetryCount
-		ncc.mutation.SetRetryCount(v)
+		_c.mutation.SetRetryCount(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (ncc *NotificationChannelCreate) check() error {
-	if _, ok := ncc.mutation.Name(); !ok {
+func (_c *NotificationChannelCreate) check() error {
+	if _, ok := _c.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "NotificationChannel.name"`)}
 	}
-	if v, ok := ncc.mutation.Name(); ok {
+	if v, ok := _c.mutation.Name(); ok {
 		if err := notificationchannel.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf(`ent: validator failed for field "NotificationChannel.name": %w`, err)}
 		}
 	}
-	if _, ok := ncc.mutation.GetType(); !ok {
+	if _, ok := _c.mutation.GetType(); !ok {
 		return &ValidationError{Name: "type", err: errors.New(`ent: missing required field "NotificationChannel.type"`)}
 	}
-	if v, ok := ncc.mutation.GetType(); ok {
+	if v, ok := _c.mutation.GetType(); ok {
 		if err := notificationchannel.TypeValidator(v); err != nil {
 			return &ValidationError{Name: "type", err: fmt.Errorf(`ent: validator failed for field "NotificationChannel.type": %w`, err)}
 		}
 	}
-	if _, ok := ncc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "NotificationChannel.created_at"`)}
 	}
-	if _, ok := ncc.mutation.UpdatedAt(); !ok {
+	if _, ok := _c.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "NotificationChannel.updated_at"`)}
 	}
-	if _, ok := ncc.mutation.Enabled(); !ok {
+	if _, ok := _c.mutation.Enabled(); !ok {
 		return &ValidationError{Name: "enabled", err: errors.New(`ent: missing required field "NotificationChannel.enabled"`)}
 	}
 	return nil
 }
 
-func (ncc *NotificationChannelCreate) sqlSave(ctx context.Context) (*NotificationChannel, error) {
-	if err := ncc.check(); err != nil {
+func (_c *NotificationChannelCreate) sqlSave(ctx context.Context) (*NotificationChannel, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := ncc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, ncc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -241,53 +241,53 @@ func (ncc *NotificationChannelCreate) sqlSave(ctx context.Context) (*Notificatio
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	ncc.mutation.id = &_node.ID
-	ncc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (ncc *NotificationChannelCreate) createSpec() (*NotificationChannel, *sqlgraph.CreateSpec) {
+func (_c *NotificationChannelCreate) createSpec() (*NotificationChannel, *sqlgraph.CreateSpec) {
 	var (
-		_node = &NotificationChannel{config: ncc.config}
+		_node = &NotificationChannel{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(notificationchannel.Table, sqlgraph.NewFieldSpec(notificationchannel.FieldID, field.TypeInt))
 	)
-	if value, ok := ncc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(notificationchannel.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := ncc.mutation.Description(); ok {
+	if value, ok := _c.mutation.Description(); ok {
 		_spec.SetField(notificationchannel.FieldDescription, field.TypeString, value)
 		_node.Description = value
 	}
-	if value, ok := ncc.mutation.GetType(); ok {
+	if value, ok := _c.mutation.GetType(); ok {
 		_spec.SetField(notificationchannel.FieldType, field.TypeEnum, value)
 		_node.Type = value
 	}
-	if value, ok := ncc.mutation.Config(); ok {
+	if value, ok := _c.mutation.Config(); ok {
 		_spec.SetField(notificationchannel.FieldConfig, field.TypeJSON, value)
 		_node.Config = value
 	}
-	if value, ok := ncc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(notificationchannel.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := ncc.mutation.UpdatedAt(); ok {
+	if value, ok := _c.mutation.UpdatedAt(); ok {
 		_spec.SetField(notificationchannel.FieldUpdatedAt, field.TypeTime, value)
 		_node.UpdatedAt = value
 	}
-	if value, ok := ncc.mutation.Enabled(); ok {
+	if value, ok := _c.mutation.Enabled(); ok {
 		_spec.SetField(notificationchannel.FieldEnabled, field.TypeBool, value)
 		_node.Enabled = value
 	}
-	if value, ok := ncc.mutation.RetryCount(); ok {
+	if value, ok := _c.mutation.RetryCount(); ok {
 		_spec.SetField(notificationchannel.FieldRetryCount, field.TypeInt, value)
 		_node.RetryCount = value
 	}
-	if value, ok := ncc.mutation.LastUsed(); ok {
+	if value, ok := _c.mutation.LastUsed(); ok {
 		_spec.SetField(notificationchannel.FieldLastUsed, field.TypeTime, value)
 		_node.LastUsed = value
 	}
-	if value, ok := ncc.mutation.LastError(); ok {
+	if value, ok := _c.mutation.LastError(); ok {
 		_spec.SetField(notificationchannel.FieldLastError, field.TypeString, value)
 		_node.LastError = value
 	}
@@ -302,16 +302,16 @@ type NotificationChannelCreateBulk struct {
 }
 
 // Save creates the NotificationChannel entities in the database.
-func (nccb *NotificationChannelCreateBulk) Save(ctx context.Context) ([]*NotificationChannel, error) {
-	if nccb.err != nil {
-		return nil, nccb.err
+func (_c *NotificationChannelCreateBulk) Save(ctx context.Context) ([]*NotificationChannel, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(nccb.builders))
-	nodes := make([]*NotificationChannel, len(nccb.builders))
-	mutators := make([]Mutator, len(nccb.builders))
-	for i := range nccb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*NotificationChannel, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := nccb.builders[i]
+			builder := _c.builders[i]
 			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*NotificationChannelMutation)
@@ -325,11 +325,11 @@ func (nccb *NotificationChannelCreateBulk) Save(ctx context.Context) ([]*Notific
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, nccb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, nccb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -353,7 +353,7 @@ func (nccb *NotificationChannelCreateBulk) Save(ctx context.Context) ([]*Notific
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, nccb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -361,8 +361,8 @@ func (nccb *NotificationChannelCreateBulk) Save(ctx context.Context) ([]*Notific
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (nccb *NotificationChannelCreateBulk) SaveX(ctx context.Context) []*NotificationChannel {
-	v, err := nccb.Save(ctx)
+func (_c *NotificationChannelCreateBulk) SaveX(ctx context.Context) []*NotificationChannel {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -370,14 +370,14 @@ func (nccb *NotificationChannelCreateBulk) SaveX(ctx context.Context) []*Notific
 }
 
 // Exec executes the query.
-func (nccb *NotificationChannelCreateBulk) Exec(ctx context.Context) error {
-	_, err := nccb.Save(ctx)
+func (_c *NotificationChannelCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (nccb *NotificationChannelCreateBulk) ExecX(ctx context.Context) {
-	if err := nccb.Exec(ctx); err != nil {
+func (_c *NotificationChannelCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

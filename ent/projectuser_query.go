@@ -33,44 +33,44 @@ type ProjectUserQuery struct {
 }
 
 // Where adds a new predicate for the ProjectUserQuery builder.
-func (puq *ProjectUserQuery) Where(ps ...predicate.ProjectUser) *ProjectUserQuery {
-	puq.predicates = append(puq.predicates, ps...)
-	return puq
+func (_q *ProjectUserQuery) Where(ps ...predicate.ProjectUser) *ProjectUserQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (puq *ProjectUserQuery) Limit(limit int) *ProjectUserQuery {
-	puq.ctx.Limit = &limit
-	return puq
+func (_q *ProjectUserQuery) Limit(limit int) *ProjectUserQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (puq *ProjectUserQuery) Offset(offset int) *ProjectUserQuery {
-	puq.ctx.Offset = &offset
-	return puq
+func (_q *ProjectUserQuery) Offset(offset int) *ProjectUserQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (puq *ProjectUserQuery) Unique(unique bool) *ProjectUserQuery {
-	puq.ctx.Unique = &unique
-	return puq
+func (_q *ProjectUserQuery) Unique(unique bool) *ProjectUserQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (puq *ProjectUserQuery) Order(o ...projectuser.OrderOption) *ProjectUserQuery {
-	puq.order = append(puq.order, o...)
-	return puq
+func (_q *ProjectUserQuery) Order(o ...projectuser.OrderOption) *ProjectUserQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryProject chains the current query on the "project" edge.
-func (puq *ProjectUserQuery) QueryProject() *ProjectQuery {
-	query := (&ProjectClient{config: puq.config}).Query()
+func (_q *ProjectUserQuery) QueryProject() *ProjectQuery {
+	query := (&ProjectClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := puq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := puq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -79,20 +79,20 @@ func (puq *ProjectUserQuery) QueryProject() *ProjectQuery {
 			sqlgraph.To(project.Table, project.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, projectuser.ProjectTable, projectuser.ProjectColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(puq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryUser chains the current query on the "user" edge.
-func (puq *ProjectUserQuery) QueryUser() *UserQuery {
-	query := (&UserClient{config: puq.config}).Query()
+func (_q *ProjectUserQuery) QueryUser() *UserQuery {
+	query := (&UserClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := puq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := puq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -101,7 +101,7 @@ func (puq *ProjectUserQuery) QueryUser() *UserQuery {
 			sqlgraph.To(user.Table, user.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, projectuser.UserTable, projectuser.UserColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(puq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -109,8 +109,8 @@ func (puq *ProjectUserQuery) QueryUser() *UserQuery {
 
 // First returns the first ProjectUser entity from the query.
 // Returns a *NotFoundError when no ProjectUser was found.
-func (puq *ProjectUserQuery) First(ctx context.Context) (*ProjectUser, error) {
-	nodes, err := puq.Limit(1).All(setContextOp(ctx, puq.ctx, ent.OpQueryFirst))
+func (_q *ProjectUserQuery) First(ctx context.Context) (*ProjectUser, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -121,8 +121,8 @@ func (puq *ProjectUserQuery) First(ctx context.Context) (*ProjectUser, error) {
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (puq *ProjectUserQuery) FirstX(ctx context.Context) *ProjectUser {
-	node, err := puq.First(ctx)
+func (_q *ProjectUserQuery) FirstX(ctx context.Context) *ProjectUser {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -131,9 +131,9 @@ func (puq *ProjectUserQuery) FirstX(ctx context.Context) *ProjectUser {
 
 // FirstID returns the first ProjectUser ID from the query.
 // Returns a *NotFoundError when no ProjectUser ID was found.
-func (puq *ProjectUserQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *ProjectUserQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = puq.Limit(1).IDs(setContextOp(ctx, puq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -144,8 +144,8 @@ func (puq *ProjectUserQuery) FirstID(ctx context.Context) (id int, err error) {
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (puq *ProjectUserQuery) FirstIDX(ctx context.Context) int {
-	id, err := puq.FirstID(ctx)
+func (_q *ProjectUserQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -155,8 +155,8 @@ func (puq *ProjectUserQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single ProjectUser entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one ProjectUser entity is found.
 // Returns a *NotFoundError when no ProjectUser entities are found.
-func (puq *ProjectUserQuery) Only(ctx context.Context) (*ProjectUser, error) {
-	nodes, err := puq.Limit(2).All(setContextOp(ctx, puq.ctx, ent.OpQueryOnly))
+func (_q *ProjectUserQuery) Only(ctx context.Context) (*ProjectUser, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -171,8 +171,8 @@ func (puq *ProjectUserQuery) Only(ctx context.Context) (*ProjectUser, error) {
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (puq *ProjectUserQuery) OnlyX(ctx context.Context) *ProjectUser {
-	node, err := puq.Only(ctx)
+func (_q *ProjectUserQuery) OnlyX(ctx context.Context) *ProjectUser {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -182,9 +182,9 @@ func (puq *ProjectUserQuery) OnlyX(ctx context.Context) *ProjectUser {
 // OnlyID is like Only, but returns the only ProjectUser ID in the query.
 // Returns a *NotSingularError when more than one ProjectUser ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (puq *ProjectUserQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *ProjectUserQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = puq.Limit(2).IDs(setContextOp(ctx, puq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -199,8 +199,8 @@ func (puq *ProjectUserQuery) OnlyID(ctx context.Context) (id int, err error) {
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (puq *ProjectUserQuery) OnlyIDX(ctx context.Context) int {
-	id, err := puq.OnlyID(ctx)
+func (_q *ProjectUserQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -208,18 +208,18 @@ func (puq *ProjectUserQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of ProjectUsers.
-func (puq *ProjectUserQuery) All(ctx context.Context) ([]*ProjectUser, error) {
-	ctx = setContextOp(ctx, puq.ctx, ent.OpQueryAll)
-	if err := puq.prepareQuery(ctx); err != nil {
+func (_q *ProjectUserQuery) All(ctx context.Context) ([]*ProjectUser, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*ProjectUser, *ProjectUserQuery]()
-	return withInterceptors[[]*ProjectUser](ctx, puq, qr, puq.inters)
+	return withInterceptors[[]*ProjectUser](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (puq *ProjectUserQuery) AllX(ctx context.Context) []*ProjectUser {
-	nodes, err := puq.All(ctx)
+func (_q *ProjectUserQuery) AllX(ctx context.Context) []*ProjectUser {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -227,20 +227,20 @@ func (puq *ProjectUserQuery) AllX(ctx context.Context) []*ProjectUser {
 }
 
 // IDs executes the query and returns a list of ProjectUser IDs.
-func (puq *ProjectUserQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if puq.ctx.Unique == nil && puq.path != nil {
-		puq.Unique(true)
+func (_q *ProjectUserQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, puq.ctx, ent.OpQueryIDs)
-	if err = puq.Select(projectuser.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(projectuser.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (puq *ProjectUserQuery) IDsX(ctx context.Context) []int {
-	ids, err := puq.IDs(ctx)
+func (_q *ProjectUserQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -248,17 +248,17 @@ func (puq *ProjectUserQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (puq *ProjectUserQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, puq.ctx, ent.OpQueryCount)
-	if err := puq.prepareQuery(ctx); err != nil {
+func (_q *ProjectUserQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, puq, querierCount[*ProjectUserQuery](), puq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*ProjectUserQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (puq *ProjectUserQuery) CountX(ctx context.Context) int {
-	count, err := puq.Count(ctx)
+func (_q *ProjectUserQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -266,9 +266,9 @@ func (puq *ProjectUserQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (puq *ProjectUserQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, puq.ctx, ent.OpQueryExist)
-	switch _, err := puq.FirstID(ctx); {
+func (_q *ProjectUserQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -279,8 +279,8 @@ func (puq *ProjectUserQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (puq *ProjectUserQuery) ExistX(ctx context.Context) bool {
-	exist, err := puq.Exist(ctx)
+func (_q *ProjectUserQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -289,44 +289,44 @@ func (puq *ProjectUserQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the ProjectUserQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (puq *ProjectUserQuery) Clone() *ProjectUserQuery {
-	if puq == nil {
+func (_q *ProjectUserQuery) Clone() *ProjectUserQuery {
+	if _q == nil {
 		return nil
 	}
 	return &ProjectUserQuery{
-		config:      puq.config,
-		ctx:         puq.ctx.Clone(),
-		order:       append([]projectuser.OrderOption{}, puq.order...),
-		inters:      append([]Interceptor{}, puq.inters...),
-		predicates:  append([]predicate.ProjectUser{}, puq.predicates...),
-		withProject: puq.withProject.Clone(),
-		withUser:    puq.withUser.Clone(),
+		config:      _q.config,
+		ctx:         _q.ctx.Clone(),
+		order:       append([]projectuser.OrderOption{}, _q.order...),
+		inters:      append([]Interceptor{}, _q.inters...),
+		predicates:  append([]predicate.ProjectUser{}, _q.predicates...),
+		withProject: _q.withProject.Clone(),
+		withUser:    _q.withUser.Clone(),
 		// clone intermediate query.
-		sql:  puq.sql.Clone(),
-		path: puq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithProject tells the query-builder to eager-load the nodes that are connected to
 // the "project" edge. The optional arguments are used to configure the query builder of the edge.
-func (puq *ProjectUserQuery) WithProject(opts ...func(*ProjectQuery)) *ProjectUserQuery {
-	query := (&ProjectClient{config: puq.config}).Query()
+func (_q *ProjectUserQuery) WithProject(opts ...func(*ProjectQuery)) *ProjectUserQuery {
+	query := (&ProjectClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	puq.withProject = query
-	return puq
+	_q.withProject = query
+	return _q
 }
 
 // WithUser tells the query-builder to eager-load the nodes that are connected to
 // the "user" edge. The optional arguments are used to configure the query builder of the edge.
-func (puq *ProjectUserQuery) WithUser(opts ...func(*UserQuery)) *ProjectUserQuery {
-	query := (&UserClient{config: puq.config}).Query()
+func (_q *ProjectUserQuery) WithUser(opts ...func(*UserQuery)) *ProjectUserQuery {
+	query := (&UserClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	puq.withUser = query
-	return puq
+	_q.withUser = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -343,10 +343,10 @@ func (puq *ProjectUserQuery) WithUser(opts ...func(*UserQuery)) *ProjectUserQuer
 //		GroupBy(projectuser.FieldCanEdit).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (puq *ProjectUserQuery) GroupBy(field string, fields ...string) *ProjectUserGroupBy {
-	puq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &ProjectUserGroupBy{build: puq}
-	grbuild.flds = &puq.ctx.Fields
+func (_q *ProjectUserQuery) GroupBy(field string, fields ...string) *ProjectUserGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &ProjectUserGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = projectuser.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -364,56 +364,56 @@ func (puq *ProjectUserQuery) GroupBy(field string, fields ...string) *ProjectUse
 //	client.ProjectUser.Query().
 //		Select(projectuser.FieldCanEdit).
 //		Scan(ctx, &v)
-func (puq *ProjectUserQuery) Select(fields ...string) *ProjectUserSelect {
-	puq.ctx.Fields = append(puq.ctx.Fields, fields...)
-	sbuild := &ProjectUserSelect{ProjectUserQuery: puq}
+func (_q *ProjectUserQuery) Select(fields ...string) *ProjectUserSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &ProjectUserSelect{ProjectUserQuery: _q}
 	sbuild.label = projectuser.Label
-	sbuild.flds, sbuild.scan = &puq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a ProjectUserSelect configured with the given aggregations.
-func (puq *ProjectUserQuery) Aggregate(fns ...AggregateFunc) *ProjectUserSelect {
-	return puq.Select().Aggregate(fns...)
+func (_q *ProjectUserQuery) Aggregate(fns ...AggregateFunc) *ProjectUserSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (puq *ProjectUserQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range puq.inters {
+func (_q *ProjectUserQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, puq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range puq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !projectuser.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if puq.path != nil {
-		prev, err := puq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		puq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (puq *ProjectUserQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*ProjectUser, error) {
+func (_q *ProjectUserQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*ProjectUser, error) {
 	var (
 		nodes       = []*ProjectUser{}
-		withFKs     = puq.withFKs
-		_spec       = puq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [2]bool{
-			puq.withProject != nil,
-			puq.withUser != nil,
+			_q.withProject != nil,
+			_q.withUser != nil,
 		}
 	)
-	if puq.withProject != nil || puq.withUser != nil {
+	if _q.withProject != nil || _q.withUser != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -423,7 +423,7 @@ func (puq *ProjectUserQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]
 		return (*ProjectUser).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &ProjectUser{config: puq.config}
+		node := &ProjectUser{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -431,20 +431,20 @@ func (puq *ProjectUserQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, puq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := puq.withProject; query != nil {
-		if err := puq.loadProject(ctx, query, nodes, nil,
+	if query := _q.withProject; query != nil {
+		if err := _q.loadProject(ctx, query, nodes, nil,
 			func(n *ProjectUser, e *Project) { n.Edges.Project = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := puq.withUser; query != nil {
-		if err := puq.loadUser(ctx, query, nodes, nil,
+	if query := _q.withUser; query != nil {
+		if err := _q.loadUser(ctx, query, nodes, nil,
 			func(n *ProjectUser, e *User) { n.Edges.User = e }); err != nil {
 			return nil, err
 		}
@@ -452,7 +452,7 @@ func (puq *ProjectUserQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]
 	return nodes, nil
 }
 
-func (puq *ProjectUserQuery) loadProject(ctx context.Context, query *ProjectQuery, nodes []*ProjectUser, init func(*ProjectUser), assign func(*ProjectUser, *Project)) error {
+func (_q *ProjectUserQuery) loadProject(ctx context.Context, query *ProjectQuery, nodes []*ProjectUser, init func(*ProjectUser), assign func(*ProjectUser, *Project)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*ProjectUser)
 	for i := range nodes {
@@ -484,7 +484,7 @@ func (puq *ProjectUserQuery) loadProject(ctx context.Context, query *ProjectQuer
 	}
 	return nil
 }
-func (puq *ProjectUserQuery) loadUser(ctx context.Context, query *UserQuery, nodes []*ProjectUser, init func(*ProjectUser), assign func(*ProjectUser, *User)) error {
+func (_q *ProjectUserQuery) loadUser(ctx context.Context, query *UserQuery, nodes []*ProjectUser, init func(*ProjectUser), assign func(*ProjectUser, *User)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*ProjectUser)
 	for i := range nodes {
@@ -517,24 +517,24 @@ func (puq *ProjectUserQuery) loadUser(ctx context.Context, query *UserQuery, nod
 	return nil
 }
 
-func (puq *ProjectUserQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := puq.querySpec()
-	_spec.Node.Columns = puq.ctx.Fields
-	if len(puq.ctx.Fields) > 0 {
-		_spec.Unique = puq.ctx.Unique != nil && *puq.ctx.Unique
+func (_q *ProjectUserQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, puq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (puq *ProjectUserQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *ProjectUserQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(projectuser.Table, projectuser.Columns, sqlgraph.NewFieldSpec(projectuser.FieldID, field.TypeInt))
-	_spec.From = puq.sql
-	if unique := puq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if puq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := puq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, projectuser.FieldID)
 		for i := range fields {
@@ -543,20 +543,20 @@ func (puq *ProjectUserQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := puq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := puq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := puq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := puq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -566,33 +566,33 @@ func (puq *ProjectUserQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (puq *ProjectUserQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(puq.driver.Dialect())
+func (_q *ProjectUserQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(projectuser.Table)
-	columns := puq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = projectuser.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if puq.sql != nil {
-		selector = puq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if puq.ctx.Unique != nil && *puq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range puq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range puq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := puq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := puq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -605,41 +605,41 @@ type ProjectUserGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (pugb *ProjectUserGroupBy) Aggregate(fns ...AggregateFunc) *ProjectUserGroupBy {
-	pugb.fns = append(pugb.fns, fns...)
-	return pugb
+func (_g *ProjectUserGroupBy) Aggregate(fns ...AggregateFunc) *ProjectUserGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (pugb *ProjectUserGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, pugb.build.ctx, ent.OpQueryGroupBy)
-	if err := pugb.build.prepareQuery(ctx); err != nil {
+func (_g *ProjectUserGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*ProjectUserQuery, *ProjectUserGroupBy](ctx, pugb.build, pugb, pugb.build.inters, v)
+	return scanWithInterceptors[*ProjectUserQuery, *ProjectUserGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (pugb *ProjectUserGroupBy) sqlScan(ctx context.Context, root *ProjectUserQuery, v any) error {
+func (_g *ProjectUserGroupBy) sqlScan(ctx context.Context, root *ProjectUserQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(pugb.fns))
-	for _, fn := range pugb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*pugb.flds)+len(pugb.fns))
-		for _, f := range *pugb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*pugb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := pugb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -653,27 +653,27 @@ type ProjectUserSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (pus *ProjectUserSelect) Aggregate(fns ...AggregateFunc) *ProjectUserSelect {
-	pus.fns = append(pus.fns, fns...)
-	return pus
+func (_s *ProjectUserSelect) Aggregate(fns ...AggregateFunc) *ProjectUserSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (pus *ProjectUserSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, pus.ctx, ent.OpQuerySelect)
-	if err := pus.prepareQuery(ctx); err != nil {
+func (_s *ProjectUserSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*ProjectUserQuery, *ProjectUserSelect](ctx, pus.ProjectUserQuery, pus, pus.inters, v)
+	return scanWithInterceptors[*ProjectUserQuery, *ProjectUserSelect](ctx, _s.ProjectUserQuery, _s, _s.inters, v)
 }
 
-func (pus *ProjectUserSelect) sqlScan(ctx context.Context, root *ProjectUserQuery, v any) error {
+func (_s *ProjectUserSelect) sqlScan(ctx context.Context, root *ProjectUserQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(pus.fns))
-	for _, fn := range pus.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*pus.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -681,7 +681,7 @@ func (pus *ProjectUserSelect) sqlScan(ctx context.Context, root *ProjectUserQuer
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := pus.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

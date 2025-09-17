@@ -20,103 +20,103 @@ type SMTPConfigCreate struct {
 }
 
 // SetSMTPServer sets the "smtp_server" field.
-func (scc *SMTPConfigCreate) SetSMTPServer(s string) *SMTPConfigCreate {
-	scc.mutation.SetSMTPServer(s)
-	return scc
+func (_c *SMTPConfigCreate) SetSMTPServer(v string) *SMTPConfigCreate {
+	_c.mutation.SetSMTPServer(v)
+	return _c
 }
 
 // SetNillableSMTPServer sets the "smtp_server" field if the given value is not nil.
-func (scc *SMTPConfigCreate) SetNillableSMTPServer(s *string) *SMTPConfigCreate {
-	if s != nil {
-		scc.SetSMTPServer(*s)
+func (_c *SMTPConfigCreate) SetNillableSMTPServer(v *string) *SMTPConfigCreate {
+	if v != nil {
+		_c.SetSMTPServer(*v)
 	}
-	return scc
+	return _c
 }
 
 // SetSMTPPort sets the "smtp_port" field.
-func (scc *SMTPConfigCreate) SetSMTPPort(i int) *SMTPConfigCreate {
-	scc.mutation.SetSMTPPort(i)
-	return scc
+func (_c *SMTPConfigCreate) SetSMTPPort(v int) *SMTPConfigCreate {
+	_c.mutation.SetSMTPPort(v)
+	return _c
 }
 
 // SetNillableSMTPPort sets the "smtp_port" field if the given value is not nil.
-func (scc *SMTPConfigCreate) SetNillableSMTPPort(i *int) *SMTPConfigCreate {
-	if i != nil {
-		scc.SetSMTPPort(*i)
+func (_c *SMTPConfigCreate) SetNillableSMTPPort(v *int) *SMTPConfigCreate {
+	if v != nil {
+		_c.SetSMTPPort(*v)
 	}
-	return scc
+	return _c
 }
 
 // SetSMTPUsername sets the "smtp_username" field.
-func (scc *SMTPConfigCreate) SetSMTPUsername(s string) *SMTPConfigCreate {
-	scc.mutation.SetSMTPUsername(s)
-	return scc
+func (_c *SMTPConfigCreate) SetSMTPUsername(v string) *SMTPConfigCreate {
+	_c.mutation.SetSMTPUsername(v)
+	return _c
 }
 
 // SetNillableSMTPUsername sets the "smtp_username" field if the given value is not nil.
-func (scc *SMTPConfigCreate) SetNillableSMTPUsername(s *string) *SMTPConfigCreate {
-	if s != nil {
-		scc.SetSMTPUsername(*s)
+func (_c *SMTPConfigCreate) SetNillableSMTPUsername(v *string) *SMTPConfigCreate {
+	if v != nil {
+		_c.SetSMTPUsername(*v)
 	}
-	return scc
+	return _c
 }
 
 // SetSMTPPassword sets the "smtp_password" field.
-func (scc *SMTPConfigCreate) SetSMTPPassword(s string) *SMTPConfigCreate {
-	scc.mutation.SetSMTPPassword(s)
-	return scc
+func (_c *SMTPConfigCreate) SetSMTPPassword(v string) *SMTPConfigCreate {
+	_c.mutation.SetSMTPPassword(v)
+	return _c
 }
 
 // SetNillableSMTPPassword sets the "smtp_password" field if the given value is not nil.
-func (scc *SMTPConfigCreate) SetNillableSMTPPassword(s *string) *SMTPConfigCreate {
-	if s != nil {
-		scc.SetSMTPPassword(*s)
+func (_c *SMTPConfigCreate) SetNillableSMTPPassword(v *string) *SMTPConfigCreate {
+	if v != nil {
+		_c.SetSMTPPassword(*v)
 	}
-	return scc
+	return _c
 }
 
 // SetSMTPSender sets the "smtp_sender" field.
-func (scc *SMTPConfigCreate) SetSMTPSender(s string) *SMTPConfigCreate {
-	scc.mutation.SetSMTPSender(s)
-	return scc
+func (_c *SMTPConfigCreate) SetSMTPSender(v string) *SMTPConfigCreate {
+	_c.mutation.SetSMTPSender(v)
+	return _c
 }
 
 // SetNillableSMTPSender sets the "smtp_sender" field if the given value is not nil.
-func (scc *SMTPConfigCreate) SetNillableSMTPSender(s *string) *SMTPConfigCreate {
-	if s != nil {
-		scc.SetSMTPSender(*s)
+func (_c *SMTPConfigCreate) SetNillableSMTPSender(v *string) *SMTPConfigCreate {
+	if v != nil {
+		_c.SetSMTPSender(*v)
 	}
-	return scc
+	return _c
 }
 
 // SetSMTPTLS sets the "smtp_tls" field.
-func (scc *SMTPConfigCreate) SetSMTPTLS(b bool) *SMTPConfigCreate {
-	scc.mutation.SetSMTPTLS(b)
-	return scc
+func (_c *SMTPConfigCreate) SetSMTPTLS(v bool) *SMTPConfigCreate {
+	_c.mutation.SetSMTPTLS(v)
+	return _c
 }
 
 // SetNillableSMTPTLS sets the "smtp_tls" field if the given value is not nil.
-func (scc *SMTPConfigCreate) SetNillableSMTPTLS(b *bool) *SMTPConfigCreate {
-	if b != nil {
-		scc.SetSMTPTLS(*b)
+func (_c *SMTPConfigCreate) SetNillableSMTPTLS(v *bool) *SMTPConfigCreate {
+	if v != nil {
+		_c.SetSMTPTLS(*v)
 	}
-	return scc
+	return _c
 }
 
 // Mutation returns the SMTPConfigMutation object of the builder.
-func (scc *SMTPConfigCreate) Mutation() *SMTPConfigMutation {
-	return scc.mutation
+func (_c *SMTPConfigCreate) Mutation() *SMTPConfigMutation {
+	return _c.mutation
 }
 
 // Save creates the SMTPConfig in the database.
-func (scc *SMTPConfigCreate) Save(ctx context.Context) (*SMTPConfig, error) {
-	scc.defaults()
-	return withHooks(ctx, scc.sqlSave, scc.mutation, scc.hooks)
+func (_c *SMTPConfigCreate) Save(ctx context.Context) (*SMTPConfig, error) {
+	_c.defaults()
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (scc *SMTPConfigCreate) SaveX(ctx context.Context) *SMTPConfig {
-	v, err := scc.Save(ctx)
+func (_c *SMTPConfigCreate) SaveX(ctx context.Context) *SMTPConfig {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -124,75 +124,75 @@ func (scc *SMTPConfigCreate) SaveX(ctx context.Context) *SMTPConfig {
 }
 
 // Exec executes the query.
-func (scc *SMTPConfigCreate) Exec(ctx context.Context) error {
-	_, err := scc.Save(ctx)
+func (_c *SMTPConfigCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (scc *SMTPConfigCreate) ExecX(ctx context.Context) {
-	if err := scc.Exec(ctx); err != nil {
+func (_c *SMTPConfigCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (scc *SMTPConfigCreate) defaults() {
-	if _, ok := scc.mutation.SMTPServer(); !ok {
+func (_c *SMTPConfigCreate) defaults() {
+	if _, ok := _c.mutation.SMTPServer(); !ok {
 		v := smtpconfig.DefaultSMTPServer
-		scc.mutation.SetSMTPServer(v)
+		_c.mutation.SetSMTPServer(v)
 	}
-	if _, ok := scc.mutation.SMTPPort(); !ok {
+	if _, ok := _c.mutation.SMTPPort(); !ok {
 		v := smtpconfig.DefaultSMTPPort
-		scc.mutation.SetSMTPPort(v)
+		_c.mutation.SetSMTPPort(v)
 	}
-	if _, ok := scc.mutation.SMTPUsername(); !ok {
+	if _, ok := _c.mutation.SMTPUsername(); !ok {
 		v := smtpconfig.DefaultSMTPUsername
-		scc.mutation.SetSMTPUsername(v)
+		_c.mutation.SetSMTPUsername(v)
 	}
-	if _, ok := scc.mutation.SMTPPassword(); !ok {
+	if _, ok := _c.mutation.SMTPPassword(); !ok {
 		v := smtpconfig.DefaultSMTPPassword
-		scc.mutation.SetSMTPPassword(v)
+		_c.mutation.SetSMTPPassword(v)
 	}
-	if _, ok := scc.mutation.SMTPSender(); !ok {
+	if _, ok := _c.mutation.SMTPSender(); !ok {
 		v := smtpconfig.DefaultSMTPSender
-		scc.mutation.SetSMTPSender(v)
+		_c.mutation.SetSMTPSender(v)
 	}
-	if _, ok := scc.mutation.SMTPTLS(); !ok {
+	if _, ok := _c.mutation.SMTPTLS(); !ok {
 		v := smtpconfig.DefaultSMTPTLS
-		scc.mutation.SetSMTPTLS(v)
+		_c.mutation.SetSMTPTLS(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (scc *SMTPConfigCreate) check() error {
-	if _, ok := scc.mutation.SMTPServer(); !ok {
+func (_c *SMTPConfigCreate) check() error {
+	if _, ok := _c.mutation.SMTPServer(); !ok {
 		return &ValidationError{Name: "smtp_server", err: errors.New(`ent: missing required field "SMTPConfig.smtp_server"`)}
 	}
-	if _, ok := scc.mutation.SMTPPort(); !ok {
+	if _, ok := _c.mutation.SMTPPort(); !ok {
 		return &ValidationError{Name: "smtp_port", err: errors.New(`ent: missing required field "SMTPConfig.smtp_port"`)}
 	}
-	if _, ok := scc.mutation.SMTPUsername(); !ok {
+	if _, ok := _c.mutation.SMTPUsername(); !ok {
 		return &ValidationError{Name: "smtp_username", err: errors.New(`ent: missing required field "SMTPConfig.smtp_username"`)}
 	}
-	if _, ok := scc.mutation.SMTPPassword(); !ok {
+	if _, ok := _c.mutation.SMTPPassword(); !ok {
 		return &ValidationError{Name: "smtp_password", err: errors.New(`ent: missing required field "SMTPConfig.smtp_password"`)}
 	}
-	if _, ok := scc.mutation.SMTPSender(); !ok {
+	if _, ok := _c.mutation.SMTPSender(); !ok {
 		return &ValidationError{Name: "smtp_sender", err: errors.New(`ent: missing required field "SMTPConfig.smtp_sender"`)}
 	}
-	if _, ok := scc.mutation.SMTPTLS(); !ok {
+	if _, ok := _c.mutation.SMTPTLS(); !ok {
 		return &ValidationError{Name: "smtp_tls", err: errors.New(`ent: missing required field "SMTPConfig.smtp_tls"`)}
 	}
 	return nil
 }
 
-func (scc *SMTPConfigCreate) sqlSave(ctx context.Context) (*SMTPConfig, error) {
-	if err := scc.check(); err != nil {
+func (_c *SMTPConfigCreate) sqlSave(ctx context.Context) (*SMTPConfig, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := scc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, scc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -200,37 +200,37 @@ func (scc *SMTPConfigCreate) sqlSave(ctx context.Context) (*SMTPConfig, error) {
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	scc.mutation.id = &_node.ID
-	scc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (scc *SMTPConfigCreate) createSpec() (*SMTPConfig, *sqlgraph.CreateSpec) {
+func (_c *SMTPConfigCreate) createSpec() (*SMTPConfig, *sqlgraph.CreateSpec) {
 	var (
-		_node = &SMTPConfig{config: scc.config}
+		_node = &SMTPConfig{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(smtpconfig.Table, sqlgraph.NewFieldSpec(smtpconfig.FieldID, field.TypeInt))
 	)
-	if value, ok := scc.mutation.SMTPServer(); ok {
+	if value, ok := _c.mutation.SMTPServer(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPServer, field.TypeString, value)
 		_node.SMTPServer = value
 	}
-	if value, ok := scc.mutation.SMTPPort(); ok {
+	if value, ok := _c.mutation.SMTPPort(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPPort, field.TypeInt, value)
 		_node.SMTPPort = value
 	}
-	if value, ok := scc.mutation.SMTPUsername(); ok {
+	if value, ok := _c.mutation.SMTPUsername(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPUsername, field.TypeString, value)
 		_node.SMTPUsername = value
 	}
-	if value, ok := scc.mutation.SMTPPassword(); ok {
+	if value, ok := _c.mutation.SMTPPassword(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPPassword, field.TypeString, value)
 		_node.SMTPPassword = value
 	}
-	if value, ok := scc.mutation.SMTPSender(); ok {
+	if value, ok := _c.mutation.SMTPSender(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPSender, field.TypeString, value)
 		_node.SMTPSender = value
 	}
-	if value, ok := scc.mutation.SMTPTLS(); ok {
+	if value, ok := _c.mutation.SMTPTLS(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPTLS, field.TypeBool, value)
 		_node.SMTPTLS = value
 	}
@@ -245,16 +245,16 @@ type SMTPConfigCreateBulk struct {
 }
 
 // Save creates the SMTPConfig entities in the database.
-func (sccb *SMTPConfigCreateBulk) Save(ctx context.Context) ([]*SMTPConfig, error) {
-	if sccb.err != nil {
-		return nil, sccb.err
+func (_c *SMTPConfigCreateBulk) Save(ctx context.Context) ([]*SMTPConfig, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(sccb.builders))
-	nodes := make([]*SMTPConfig, len(sccb.builders))
-	mutators := make([]Mutator, len(sccb.builders))
-	for i := range sccb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*SMTPConfig, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := sccb.builders[i]
+			builder := _c.builders[i]
 			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*SMTPConfigMutation)
@@ -268,11 +268,11 @@ func (sccb *SMTPConfigCreateBulk) Save(ctx context.Context) ([]*SMTPConfig, erro
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, sccb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, sccb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -296,7 +296,7 @@ func (sccb *SMTPConfigCreateBulk) Save(ctx context.Context) ([]*SMTPConfig, erro
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, sccb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -304,8 +304,8 @@ func (sccb *SMTPConfigCreateBulk) Save(ctx context.Context) ([]*SMTPConfig, erro
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (sccb *SMTPConfigCreateBulk) SaveX(ctx context.Context) []*SMTPConfig {
-	v, err := sccb.Save(ctx)
+func (_c *SMTPConfigCreateBulk) SaveX(ctx context.Context) []*SMTPConfig {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -313,14 +313,14 @@ func (sccb *SMTPConfigCreateBulk) SaveX(ctx context.Context) []*SMTPConfig {
 }
 
 // Exec executes the query.
-func (sccb *SMTPConfigCreateBulk) Exec(ctx context.Context) error {
-	_, err := sccb.Save(ctx)
+func (_c *SMTPConfigCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (sccb *SMTPConfigCreateBulk) ExecX(ctx context.Context) {
-	if err := sccb.Exec(ctx); err != nil {
+func (_c *SMTPConfigCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

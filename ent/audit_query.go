@@ -28,40 +28,40 @@ type AuditQuery struct {
 }
 
 // Where adds a new predicate for the AuditQuery builder.
-func (aq *AuditQuery) Where(ps ...predicate.Audit) *AuditQuery {
-	aq.predicates = append(aq.predicates, ps...)
-	return aq
+func (_q *AuditQuery) Where(ps ...predicate.Audit) *AuditQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (aq *AuditQuery) Limit(limit int) *AuditQuery {
-	aq.ctx.Limit = &limit
-	return aq
+func (_q *AuditQuery) Limit(limit int) *AuditQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (aq *AuditQuery) Offset(offset int) *AuditQuery {
-	aq.ctx.Offset = &offset
-	return aq
+func (_q *AuditQuery) Offset(offset int) *AuditQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (aq *AuditQuery) Unique(unique bool) *AuditQuery {
-	aq.ctx.Unique = &unique
-	return aq
+func (_q *AuditQuery) Unique(unique bool) *AuditQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (aq *AuditQuery) Order(o ...audit.OrderOption) *AuditQuery {
-	aq.order = append(aq.order, o...)
-	return aq
+func (_q *AuditQuery) Order(o ...audit.OrderOption) *AuditQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // First returns the first Audit entity from the query.
 // Returns a *NotFoundError when no Audit was found.
-func (aq *AuditQuery) First(ctx context.Context) (*Audit, error) {
-	nodes, err := aq.Limit(1).All(setContextOp(ctx, aq.ctx, ent.OpQueryFirst))
+func (_q *AuditQuery) First(ctx context.Context) (*Audit, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -72,8 +72,8 @@ func (aq *AuditQuery) First(ctx context.Context) (*Audit, error) {
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (aq *AuditQuery) FirstX(ctx context.Context) *Audit {
-	node, err := aq.First(ctx)
+func (_q *AuditQuery) FirstX(ctx context.Context) *Audit {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -82,9 +82,9 @@ func (aq *AuditQuery) FirstX(ctx context.Context) *Audit {
 
 // FirstID returns the first Audit ID from the query.
 // Returns a *NotFoundError when no Audit ID was found.
-func (aq *AuditQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *AuditQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = aq.Limit(1).IDs(setContextOp(ctx, aq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -95,8 +95,8 @@ func (aq *AuditQuery) FirstID(ctx context.Context) (id int, err error) {
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (aq *AuditQuery) FirstIDX(ctx context.Context) int {
-	id, err := aq.FirstID(ctx)
+func (_q *AuditQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -106,8 +106,8 @@ func (aq *AuditQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single Audit entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one Audit entity is found.
 // Returns a *NotFoundError when no Audit entities are found.
-func (aq *AuditQuery) Only(ctx context.Context) (*Audit, error) {
-	nodes, err := aq.Limit(2).All(setContextOp(ctx, aq.ctx, ent.OpQueryOnly))
+func (_q *AuditQuery) Only(ctx context.Context) (*Audit, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -122,8 +122,8 @@ func (aq *AuditQuery) Only(ctx context.Context) (*Audit, error) {
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (aq *AuditQuery) OnlyX(ctx context.Context) *Audit {
-	node, err := aq.Only(ctx)
+func (_q *AuditQuery) OnlyX(ctx context.Context) *Audit {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -133,9 +133,9 @@ func (aq *AuditQuery) OnlyX(ctx context.Context) *Audit {
 // OnlyID is like Only, but returns the only Audit ID in the query.
 // Returns a *NotSingularError when more than one Audit ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (aq *AuditQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *AuditQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = aq.Limit(2).IDs(setContextOp(ctx, aq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -150,8 +150,8 @@ func (aq *AuditQuery) OnlyID(ctx context.Context) (id int, err error) {
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (aq *AuditQuery) OnlyIDX(ctx context.Context) int {
-	id, err := aq.OnlyID(ctx)
+func (_q *AuditQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -159,18 +159,18 @@ func (aq *AuditQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of Audits.
-func (aq *AuditQuery) All(ctx context.Context) ([]*Audit, error) {
-	ctx = setContextOp(ctx, aq.ctx, ent.OpQueryAll)
-	if err := aq.prepareQuery(ctx); err != nil {
+func (_q *AuditQuery) All(ctx context.Context) ([]*Audit, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*Audit, *AuditQuery]()
-	return withInterceptors[[]*Audit](ctx, aq, qr, aq.inters)
+	return withInterceptors[[]*Audit](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (aq *AuditQuery) AllX(ctx context.Context) []*Audit {
-	nodes, err := aq.All(ctx)
+func (_q *AuditQuery) AllX(ctx context.Context) []*Audit {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -178,20 +178,20 @@ func (aq *AuditQuery) AllX(ctx context.Context) []*Audit {
 }
 
 // IDs executes the query and returns a list of Audit IDs.
-func (aq *AuditQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if aq.ctx.Unique == nil && aq.path != nil {
-		aq.Unique(true)
+func (_q *AuditQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, aq.ctx, ent.OpQueryIDs)
-	if err = aq.Select(audit.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(audit.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (aq *AuditQuery) IDsX(ctx context.Context) []int {
-	ids, err := aq.IDs(ctx)
+func (_q *AuditQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -199,17 +199,17 @@ func (aq *AuditQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (aq *AuditQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, aq.ctx, ent.OpQueryCount)
-	if err := aq.prepareQuery(ctx); err != nil {
+func (_q *AuditQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, aq, querierCount[*AuditQuery](), aq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*AuditQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (aq *AuditQuery) CountX(ctx context.Context) int {
-	count, err := aq.Count(ctx)
+func (_q *AuditQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -217,9 +217,9 @@ func (aq *AuditQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (aq *AuditQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, aq.ctx, ent.OpQueryExist)
-	switch _, err := aq.FirstID(ctx); {
+func (_q *AuditQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -230,8 +230,8 @@ func (aq *AuditQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (aq *AuditQuery) ExistX(ctx context.Context) bool {
-	exist, err := aq.Exist(ctx)
+func (_q *AuditQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -240,28 +240,28 @@ func (aq *AuditQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the AuditQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (aq *AuditQuery) Clone() *AuditQuery {
-	if aq == nil {
+func (_q *AuditQuery) Clone() *AuditQuery {
+	if _q == nil {
 		return nil
 	}
 	return &AuditQuery{
-		config:     aq.config,
-		ctx:        aq.ctx.Clone(),
-		order:      append([]audit.OrderOption{}, aq.order...),
-		inters:     append([]Interceptor{}, aq.inters...),
-		predicates: append([]predicate.Audit{}, aq.predicates...),
+		config:     _q.config,
+		ctx:        _q.ctx.Clone(),
+		order:      append([]audit.OrderOption{}, _q.order...),
+		inters:     append([]Interceptor{}, _q.inters...),
+		predicates: append([]predicate.Audit{}, _q.predicates...),
 		// clone intermediate query.
-		sql:  aq.sql.Clone(),
-		path: aq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
 // It is often used with aggregate functions, like: count, max, mean, min, sum.
-func (aq *AuditQuery) GroupBy(field string, fields ...string) *AuditGroupBy {
-	aq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &AuditGroupBy{build: aq}
-	grbuild.flds = &aq.ctx.Fields
+func (_q *AuditQuery) GroupBy(field string, fields ...string) *AuditGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &AuditGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = audit.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -269,62 +269,62 @@ func (aq *AuditQuery) GroupBy(field string, fields ...string) *AuditGroupBy {
 
 // Select allows the selection one or more fields/columns for the given query,
 // instead of selecting all fields in the entity.
-func (aq *AuditQuery) Select(fields ...string) *AuditSelect {
-	aq.ctx.Fields = append(aq.ctx.Fields, fields...)
-	sbuild := &AuditSelect{AuditQuery: aq}
+func (_q *AuditQuery) Select(fields ...string) *AuditSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &AuditSelect{AuditQuery: _q}
 	sbuild.label = audit.Label
-	sbuild.flds, sbuild.scan = &aq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a AuditSelect configured with the given aggregations.
-func (aq *AuditQuery) Aggregate(fns ...AggregateFunc) *AuditSelect {
-	return aq.Select().Aggregate(fns...)
+func (_q *AuditQuery) Aggregate(fns ...AggregateFunc) *AuditSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (aq *AuditQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range aq.inters {
+func (_q *AuditQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, aq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range aq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !audit.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if aq.path != nil {
-		prev, err := aq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		aq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (aq *AuditQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Audit, error) {
+func (_q *AuditQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Audit, error) {
 	var (
 		nodes = []*Audit{}
-		_spec = aq.querySpec()
+		_spec = _q.querySpec()
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*Audit).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &Audit{config: aq.config}
+		node := &Audit{config: _q.config}
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, aq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
@@ -333,24 +333,24 @@ func (aq *AuditQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Audit,
 	return nodes, nil
 }
 
-func (aq *AuditQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := aq.querySpec()
-	_spec.Node.Columns = aq.ctx.Fields
-	if len(aq.ctx.Fields) > 0 {
-		_spec.Unique = aq.ctx.Unique != nil && *aq.ctx.Unique
+func (_q *AuditQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, aq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (aq *AuditQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *AuditQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(audit.Table, audit.Columns, sqlgraph.NewFieldSpec(audit.FieldID, field.TypeInt))
-	_spec.From = aq.sql
-	if unique := aq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if aq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := aq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, audit.FieldID)
 		for i := range fields {
@@ -359,20 +359,20 @@ func (aq *AuditQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := aq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := aq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := aq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := aq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -382,33 +382,33 @@ func (aq *AuditQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (aq *AuditQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(aq.driver.Dialect())
+func (_q *AuditQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(audit.Table)
-	columns := aq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = audit.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if aq.sql != nil {
-		selector = aq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if aq.ctx.Unique != nil && *aq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range aq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range aq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := aq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := aq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -421,41 +421,41 @@ type AuditGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (agb *AuditGroupBy) Aggregate(fns ...AggregateFunc) *AuditGroupBy {
-	agb.fns = append(agb.fns, fns...)
-	return agb
+func (_g *AuditGroupBy) Aggregate(fns ...AggregateFunc) *AuditGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (agb *AuditGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, agb.build.ctx, ent.OpQueryGroupBy)
-	if err := agb.build.prepareQuery(ctx); err != nil {
+func (_g *AuditGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*AuditQuery, *AuditGroupBy](ctx, agb.build, agb, agb.build.inters, v)
+	return scanWithInterceptors[*AuditQuery, *AuditGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (agb *AuditGroupBy) sqlScan(ctx context.Context, root *AuditQuery, v any) error {
+func (_g *AuditGroupBy) sqlScan(ctx context.Context, root *AuditQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(agb.fns))
-	for _, fn := range agb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*agb.flds)+len(agb.fns))
-		for _, f := range *agb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*agb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := agb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -469,27 +469,27 @@ type AuditSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (as *AuditSelect) Aggregate(fns ...AggregateFunc) *AuditSelect {
-	as.fns = append(as.fns, fns...)
-	return as
+func (_s *AuditSelect) Aggregate(fns ...AggregateFunc) *AuditSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (as *AuditSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, as.ctx, ent.OpQuerySelect)
-	if err := as.prepareQuery(ctx); err != nil {
+func (_s *AuditSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*AuditQuery, *AuditSelect](ctx, as.AuditQuery, as, as.inters, v)
+	return scanWithInterceptors[*AuditQuery, *AuditSelect](ctx, _s.AuditQuery, _s, _s.inters, v)
 }
 
-func (as *AuditSelect) sqlScan(ctx context.Context, root *AuditQuery, v any) error {
+func (_s *AuditSelect) sqlScan(ctx context.Context, root *AuditQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(as.fns))
-	for _, fn := range as.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*as.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -497,7 +497,7 @@ func (as *AuditSelect) sqlScan(ctx context.Context, root *AuditQuery, v any) err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := as.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

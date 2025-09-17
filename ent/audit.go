@@ -35,7 +35,7 @@ func (*Audit) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the Audit fields.
-func (a *Audit) assignValues(columns []string, values []any) error {
+func (_m *Audit) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -46,9 +46,9 @@ func (a *Audit) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			a.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		default:
-			a.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -56,33 +56,33 @@ func (a *Audit) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the Audit.
 // This includes values selected through modifiers, order, etc.
-func (a *Audit) Value(name string) (ent.Value, error) {
-	return a.selectValues.Get(name)
+func (_m *Audit) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // Update returns a builder for updating this Audit.
 // Note that you need to call Audit.Unwrap() before calling this method if this Audit
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (a *Audit) Update() *AuditUpdateOne {
-	return NewAuditClient(a.config).UpdateOne(a)
+func (_m *Audit) Update() *AuditUpdateOne {
+	return NewAuditClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the Audit entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (a *Audit) Unwrap() *Audit {
-	_tx, ok := a.config.driver.(*txDriver)
+func (_m *Audit) Unwrap() *Audit {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: Audit is not a transactional entity")
 	}
-	a.config.driver = _tx.drv
-	return a
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (a *Audit) String() string {
+func (_m *Audit) String() string {
 	var builder strings.Builder
 	builder.WriteString("Audit(")
-	builder.WriteString(fmt.Sprintf("id=%v", a.ID))
+	builder.WriteString(fmt.Sprintf("id=%v", _m.ID))
 	builder.WriteByte(')')
 	return builder.String()
 }

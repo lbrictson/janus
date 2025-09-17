@@ -28,40 +28,40 @@ type DataConfigQuery struct {
 }
 
 // Where adds a new predicate for the DataConfigQuery builder.
-func (dcq *DataConfigQuery) Where(ps ...predicate.DataConfig) *DataConfigQuery {
-	dcq.predicates = append(dcq.predicates, ps...)
-	return dcq
+func (_q *DataConfigQuery) Where(ps ...predicate.DataConfig) *DataConfigQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (dcq *DataConfigQuery) Limit(limit int) *DataConfigQuery {
-	dcq.ctx.Limit = &limit
-	return dcq
+func (_q *DataConfigQuery) Limit(limit int) *DataConfigQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (dcq *DataConfigQuery) Offset(offset int) *DataConfigQuery {
-	dcq.ctx.Offset = &offset
-	return dcq
+func (_q *DataConfigQuery) Offset(offset int) *DataConfigQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (dcq *DataConfigQuery) Unique(unique bool) *DataConfigQuery {
-	dcq.ctx.Unique = &unique
-	return dcq
+func (_q *DataConfigQuery) Unique(unique bool) *DataConfigQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (dcq *DataConfigQuery) Order(o ...dataconfig.OrderOption) *DataConfigQuery {
-	dcq.order = append(dcq.order, o...)
-	return dcq
+func (_q *DataConfigQuery) Order(o ...dataconfig.OrderOption) *DataConfigQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // First returns the first DataConfig entity from the query.
 // Returns a *NotFoundError when no DataConfig was found.
-func (dcq *DataConfigQuery) First(ctx context.Context) (*DataConfig, error) {
-	nodes, err := dcq.Limit(1).All(setContextOp(ctx, dcq.ctx, ent.OpQueryFirst))
+func (_q *DataConfigQuery) First(ctx context.Context) (*DataConfig, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -72,8 +72,8 @@ func (dcq *DataConfigQuery) First(ctx context.Context) (*DataConfig, error) {
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (dcq *DataConfigQuery) FirstX(ctx context.Context) *DataConfig {
-	node, err := dcq.First(ctx)
+func (_q *DataConfigQuery) FirstX(ctx context.Context) *DataConfig {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -82,9 +82,9 @@ func (dcq *DataConfigQuery) FirstX(ctx context.Context) *DataConfig {
 
 // FirstID returns the first DataConfig ID from the query.
 // Returns a *NotFoundError when no DataConfig ID was found.
-func (dcq *DataConfigQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *DataConfigQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = dcq.Limit(1).IDs(setContextOp(ctx, dcq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -95,8 +95,8 @@ func (dcq *DataConfigQuery) FirstID(ctx context.Context) (id int, err error) {
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (dcq *DataConfigQuery) FirstIDX(ctx context.Context) int {
-	id, err := dcq.FirstID(ctx)
+func (_q *DataConfigQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -106,8 +106,8 @@ func (dcq *DataConfigQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single DataConfig entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one DataConfig entity is found.
 // Returns a *NotFoundError when no DataConfig entities are found.
-func (dcq *DataConfigQuery) Only(ctx context.Context) (*DataConfig, error) {
-	nodes, err := dcq.Limit(2).All(setContextOp(ctx, dcq.ctx, ent.OpQueryOnly))
+func (_q *DataConfigQuery) Only(ctx context.Context) (*DataConfig, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -122,8 +122,8 @@ func (dcq *DataConfigQuery) Only(ctx context.Context) (*DataConfig, error) {
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (dcq *DataConfigQuery) OnlyX(ctx context.Context) *DataConfig {
-	node, err := dcq.Only(ctx)
+func (_q *DataConfigQuery) OnlyX(ctx context.Context) *DataConfig {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -133,9 +133,9 @@ func (dcq *DataConfigQuery) OnlyX(ctx context.Context) *DataConfig {
 // OnlyID is like Only, but returns the only DataConfig ID in the query.
 // Returns a *NotSingularError when more than one DataConfig ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (dcq *DataConfigQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *DataConfigQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = dcq.Limit(2).IDs(setContextOp(ctx, dcq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -150,8 +150,8 @@ func (dcq *DataConfigQuery) OnlyID(ctx context.Context) (id int, err error) {
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (dcq *DataConfigQuery) OnlyIDX(ctx context.Context) int {
-	id, err := dcq.OnlyID(ctx)
+func (_q *DataConfigQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -159,18 +159,18 @@ func (dcq *DataConfigQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of DataConfigs.
-func (dcq *DataConfigQuery) All(ctx context.Context) ([]*DataConfig, error) {
-	ctx = setContextOp(ctx, dcq.ctx, ent.OpQueryAll)
-	if err := dcq.prepareQuery(ctx); err != nil {
+func (_q *DataConfigQuery) All(ctx context.Context) ([]*DataConfig, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*DataConfig, *DataConfigQuery]()
-	return withInterceptors[[]*DataConfig](ctx, dcq, qr, dcq.inters)
+	return withInterceptors[[]*DataConfig](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (dcq *DataConfigQuery) AllX(ctx context.Context) []*DataConfig {
-	nodes, err := dcq.All(ctx)
+func (_q *DataConfigQuery) AllX(ctx context.Context) []*DataConfig {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -178,20 +178,20 @@ func (dcq *DataConfigQuery) AllX(ctx context.Context) []*DataConfig {
 }
 
 // IDs executes the query and returns a list of DataConfig IDs.
-func (dcq *DataConfigQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if dcq.ctx.Unique == nil && dcq.path != nil {
-		dcq.Unique(true)
+func (_q *DataConfigQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, dcq.ctx, ent.OpQueryIDs)
-	if err = dcq.Select(dataconfig.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(dataconfig.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (dcq *DataConfigQuery) IDsX(ctx context.Context) []int {
-	ids, err := dcq.IDs(ctx)
+func (_q *DataConfigQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -199,17 +199,17 @@ func (dcq *DataConfigQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (dcq *DataConfigQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, dcq.ctx, ent.OpQueryCount)
-	if err := dcq.prepareQuery(ctx); err != nil {
+func (_q *DataConfigQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, dcq, querierCount[*DataConfigQuery](), dcq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*DataConfigQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (dcq *DataConfigQuery) CountX(ctx context.Context) int {
-	count, err := dcq.Count(ctx)
+func (_q *DataConfigQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -217,9 +217,9 @@ func (dcq *DataConfigQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (dcq *DataConfigQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, dcq.ctx, ent.OpQueryExist)
-	switch _, err := dcq.FirstID(ctx); {
+func (_q *DataConfigQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -230,8 +230,8 @@ func (dcq *DataConfigQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (dcq *DataConfigQuery) ExistX(ctx context.Context) bool {
-	exist, err := dcq.Exist(ctx)
+func (_q *DataConfigQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -240,19 +240,19 @@ func (dcq *DataConfigQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the DataConfigQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (dcq *DataConfigQuery) Clone() *DataConfigQuery {
-	if dcq == nil {
+func (_q *DataConfigQuery) Clone() *DataConfigQuery {
+	if _q == nil {
 		return nil
 	}
 	return &DataConfigQuery{
-		config:     dcq.config,
-		ctx:        dcq.ctx.Clone(),
-		order:      append([]dataconfig.OrderOption{}, dcq.order...),
-		inters:     append([]Interceptor{}, dcq.inters...),
-		predicates: append([]predicate.DataConfig{}, dcq.predicates...),
+		config:     _q.config,
+		ctx:        _q.ctx.Clone(),
+		order:      append([]dataconfig.OrderOption{}, _q.order...),
+		inters:     append([]Interceptor{}, _q.inters...),
+		predicates: append([]predicate.DataConfig{}, _q.predicates...),
 		// clone intermediate query.
-		sql:  dcq.sql.Clone(),
-		path: dcq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
@@ -270,10 +270,10 @@ func (dcq *DataConfigQuery) Clone() *DataConfigQuery {
 //		GroupBy(dataconfig.FieldDaysToKeep).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (dcq *DataConfigQuery) GroupBy(field string, fields ...string) *DataConfigGroupBy {
-	dcq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &DataConfigGroupBy{build: dcq}
-	grbuild.flds = &dcq.ctx.Fields
+func (_q *DataConfigQuery) GroupBy(field string, fields ...string) *DataConfigGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &DataConfigGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = dataconfig.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -291,62 +291,62 @@ func (dcq *DataConfigQuery) GroupBy(field string, fields ...string) *DataConfigG
 //	client.DataConfig.Query().
 //		Select(dataconfig.FieldDaysToKeep).
 //		Scan(ctx, &v)
-func (dcq *DataConfigQuery) Select(fields ...string) *DataConfigSelect {
-	dcq.ctx.Fields = append(dcq.ctx.Fields, fields...)
-	sbuild := &DataConfigSelect{DataConfigQuery: dcq}
+func (_q *DataConfigQuery) Select(fields ...string) *DataConfigSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &DataConfigSelect{DataConfigQuery: _q}
 	sbuild.label = dataconfig.Label
-	sbuild.flds, sbuild.scan = &dcq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a DataConfigSelect configured with the given aggregations.
-func (dcq *DataConfigQuery) Aggregate(fns ...AggregateFunc) *DataConfigSelect {
-	return dcq.Select().Aggregate(fns...)
+func (_q *DataConfigQuery) Aggregate(fns ...AggregateFunc) *DataConfigSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (dcq *DataConfigQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range dcq.inters {
+func (_q *DataConfigQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, dcq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range dcq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !dataconfig.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if dcq.path != nil {
-		prev, err := dcq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		dcq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (dcq *DataConfigQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*DataConfig, error) {
+func (_q *DataConfigQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*DataConfig, error) {
 	var (
 		nodes = []*DataConfig{}
-		_spec = dcq.querySpec()
+		_spec = _q.querySpec()
 	)
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*DataConfig).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &DataConfig{config: dcq.config}
+		node := &DataConfig{config: _q.config}
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, dcq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
@@ -355,24 +355,24 @@ func (dcq *DataConfigQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 	return nodes, nil
 }
 
-func (dcq *DataConfigQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := dcq.querySpec()
-	_spec.Node.Columns = dcq.ctx.Fields
-	if len(dcq.ctx.Fields) > 0 {
-		_spec.Unique = dcq.ctx.Unique != nil && *dcq.ctx.Unique
+func (_q *DataConfigQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, dcq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (dcq *DataConfigQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *DataConfigQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(dataconfig.Table, dataconfig.Columns, sqlgraph.NewFieldSpec(dataconfig.FieldID, field.TypeInt))
-	_spec.From = dcq.sql
-	if unique := dcq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if dcq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := dcq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, dataconfig.FieldID)
 		for i := range fields {
@@ -381,20 +381,20 @@ func (dcq *DataConfigQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := dcq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := dcq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := dcq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := dcq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -404,33 +404,33 @@ func (dcq *DataConfigQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (dcq *DataConfigQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(dcq.driver.Dialect())
+func (_q *DataConfigQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(dataconfig.Table)
-	columns := dcq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = dataconfig.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if dcq.sql != nil {
-		selector = dcq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if dcq.ctx.Unique != nil && *dcq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range dcq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range dcq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := dcq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := dcq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -443,41 +443,41 @@ type DataConfigGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (dcgb *DataConfigGroupBy) Aggregate(fns ...AggregateFunc) *DataConfigGroupBy {
-	dcgb.fns = append(dcgb.fns, fns...)
-	return dcgb
+func (_g *DataConfigGroupBy) Aggregate(fns ...AggregateFunc) *DataConfigGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (dcgb *DataConfigGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, dcgb.build.ctx, ent.OpQueryGroupBy)
-	if err := dcgb.build.prepareQuery(ctx); err != nil {
+func (_g *DataConfigGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*DataConfigQuery, *DataConfigGroupBy](ctx, dcgb.build, dcgb, dcgb.build.inters, v)
+	return scanWithInterceptors[*DataConfigQuery, *DataConfigGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (dcgb *DataConfigGroupBy) sqlScan(ctx context.Context, root *DataConfigQuery, v any) error {
+func (_g *DataConfigGroupBy) sqlScan(ctx context.Context, root *DataConfigQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(dcgb.fns))
-	for _, fn := range dcgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*dcgb.flds)+len(dcgb.fns))
-		for _, f := range *dcgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*dcgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := dcgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -491,27 +491,27 @@ type DataConfigSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (dcs *DataConfigSelect) Aggregate(fns ...AggregateFunc) *DataConfigSelect {
-	dcs.fns = append(dcs.fns, fns...)
-	return dcs
+func (_s *DataConfigSelect) Aggregate(fns ...AggregateFunc) *DataConfigSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (dcs *DataConfigSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, dcs.ctx, ent.OpQuerySelect)
-	if err := dcs.prepareQuery(ctx); err != nil {
+func (_s *DataConfigSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*DataConfigQuery, *DataConfigSelect](ctx, dcs.DataConfigQuery, dcs, dcs.inters, v)
+	return scanWithInterceptors[*DataConfigQuery, *DataConfigSelect](ctx, _s.DataConfigQuery, _s, _s.inters, v)
 }
 
-func (dcs *DataConfigSelect) sqlScan(ctx context.Context, root *DataConfigQuery, v any) error {
+func (_s *DataConfigSelect) sqlScan(ctx context.Context, root *DataConfigQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(dcs.fns))
-	for _, fn := range dcs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*dcs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -519,7 +519,7 @@ func (dcs *DataConfigSelect) sqlScan(ctx context.Context, root *DataConfigQuery,
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := dcs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
