@@ -22,184 +22,184 @@ type AuthConfigUpdate struct {
 }
 
 // Where appends a list predicates to the AuthConfigUpdate builder.
-func (acu *AuthConfigUpdate) Where(ps ...predicate.AuthConfig) *AuthConfigUpdate {
-	acu.mutation.Where(ps...)
-	return acu
+func (_u *AuthConfigUpdate) Where(ps ...predicate.AuthConfig) *AuthConfigUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetEnableSSO sets the "enable_sso" field.
-func (acu *AuthConfigUpdate) SetEnableSSO(b bool) *AuthConfigUpdate {
-	acu.mutation.SetEnableSSO(b)
-	return acu
+func (_u *AuthConfigUpdate) SetEnableSSO(v bool) *AuthConfigUpdate {
+	_u.mutation.SetEnableSSO(v)
+	return _u
 }
 
 // SetNillableEnableSSO sets the "enable_sso" field if the given value is not nil.
-func (acu *AuthConfigUpdate) SetNillableEnableSSO(b *bool) *AuthConfigUpdate {
-	if b != nil {
-		acu.SetEnableSSO(*b)
+func (_u *AuthConfigUpdate) SetNillableEnableSSO(v *bool) *AuthConfigUpdate {
+	if v != nil {
+		_u.SetEnableSSO(*v)
 	}
-	return acu
+	return _u
 }
 
 // SetDisablePasswordLogin sets the "disable_password_login" field.
-func (acu *AuthConfigUpdate) SetDisablePasswordLogin(b bool) *AuthConfigUpdate {
-	acu.mutation.SetDisablePasswordLogin(b)
-	return acu
+func (_u *AuthConfigUpdate) SetDisablePasswordLogin(v bool) *AuthConfigUpdate {
+	_u.mutation.SetDisablePasswordLogin(v)
+	return _u
 }
 
 // SetNillableDisablePasswordLogin sets the "disable_password_login" field if the given value is not nil.
-func (acu *AuthConfigUpdate) SetNillableDisablePasswordLogin(b *bool) *AuthConfigUpdate {
-	if b != nil {
-		acu.SetDisablePasswordLogin(*b)
+func (_u *AuthConfigUpdate) SetNillableDisablePasswordLogin(v *bool) *AuthConfigUpdate {
+	if v != nil {
+		_u.SetDisablePasswordLogin(*v)
 	}
-	return acu
+	return _u
 }
 
 // SetSSOProvider sets the "sso_provider" field.
-func (acu *AuthConfigUpdate) SetSSOProvider(s string) *AuthConfigUpdate {
-	acu.mutation.SetSSOProvider(s)
-	return acu
+func (_u *AuthConfigUpdate) SetSSOProvider(v string) *AuthConfigUpdate {
+	_u.mutation.SetSSOProvider(v)
+	return _u
 }
 
 // SetNillableSSOProvider sets the "sso_provider" field if the given value is not nil.
-func (acu *AuthConfigUpdate) SetNillableSSOProvider(s *string) *AuthConfigUpdate {
-	if s != nil {
-		acu.SetSSOProvider(*s)
+func (_u *AuthConfigUpdate) SetNillableSSOProvider(v *string) *AuthConfigUpdate {
+	if v != nil {
+		_u.SetSSOProvider(*v)
 	}
-	return acu
+	return _u
 }
 
 // SetSSOClientID sets the "sso_client_id" field.
-func (acu *AuthConfigUpdate) SetSSOClientID(s string) *AuthConfigUpdate {
-	acu.mutation.SetSSOClientID(s)
-	return acu
+func (_u *AuthConfigUpdate) SetSSOClientID(v string) *AuthConfigUpdate {
+	_u.mutation.SetSSOClientID(v)
+	return _u
 }
 
 // SetNillableSSOClientID sets the "sso_client_id" field if the given value is not nil.
-func (acu *AuthConfigUpdate) SetNillableSSOClientID(s *string) *AuthConfigUpdate {
-	if s != nil {
-		acu.SetSSOClientID(*s)
+func (_u *AuthConfigUpdate) SetNillableSSOClientID(v *string) *AuthConfigUpdate {
+	if v != nil {
+		_u.SetSSOClientID(*v)
 	}
-	return acu
+	return _u
 }
 
 // SetSSOClientSecret sets the "sso_client_secret" field.
-func (acu *AuthConfigUpdate) SetSSOClientSecret(s string) *AuthConfigUpdate {
-	acu.mutation.SetSSOClientSecret(s)
-	return acu
+func (_u *AuthConfigUpdate) SetSSOClientSecret(v string) *AuthConfigUpdate {
+	_u.mutation.SetSSOClientSecret(v)
+	return _u
 }
 
 // SetNillableSSOClientSecret sets the "sso_client_secret" field if the given value is not nil.
-func (acu *AuthConfigUpdate) SetNillableSSOClientSecret(s *string) *AuthConfigUpdate {
-	if s != nil {
-		acu.SetSSOClientSecret(*s)
+func (_u *AuthConfigUpdate) SetNillableSSOClientSecret(v *string) *AuthConfigUpdate {
+	if v != nil {
+		_u.SetSSOClientSecret(*v)
 	}
-	return acu
+	return _u
 }
 
 // SetSSORedirectURI sets the "sso_redirect_uri" field.
-func (acu *AuthConfigUpdate) SetSSORedirectURI(s string) *AuthConfigUpdate {
-	acu.mutation.SetSSORedirectURI(s)
-	return acu
+func (_u *AuthConfigUpdate) SetSSORedirectURI(v string) *AuthConfigUpdate {
+	_u.mutation.SetSSORedirectURI(v)
+	return _u
 }
 
 // SetNillableSSORedirectURI sets the "sso_redirect_uri" field if the given value is not nil.
-func (acu *AuthConfigUpdate) SetNillableSSORedirectURI(s *string) *AuthConfigUpdate {
-	if s != nil {
-		acu.SetSSORedirectURI(*s)
+func (_u *AuthConfigUpdate) SetNillableSSORedirectURI(v *string) *AuthConfigUpdate {
+	if v != nil {
+		_u.SetSSORedirectURI(*v)
 	}
-	return acu
+	return _u
 }
 
 // SetSSOAuthorizationURL sets the "sso_authorization_url" field.
-func (acu *AuthConfigUpdate) SetSSOAuthorizationURL(s string) *AuthConfigUpdate {
-	acu.mutation.SetSSOAuthorizationURL(s)
-	return acu
+func (_u *AuthConfigUpdate) SetSSOAuthorizationURL(v string) *AuthConfigUpdate {
+	_u.mutation.SetSSOAuthorizationURL(v)
+	return _u
 }
 
 // SetNillableSSOAuthorizationURL sets the "sso_authorization_url" field if the given value is not nil.
-func (acu *AuthConfigUpdate) SetNillableSSOAuthorizationURL(s *string) *AuthConfigUpdate {
-	if s != nil {
-		acu.SetSSOAuthorizationURL(*s)
+func (_u *AuthConfigUpdate) SetNillableSSOAuthorizationURL(v *string) *AuthConfigUpdate {
+	if v != nil {
+		_u.SetSSOAuthorizationURL(*v)
 	}
-	return acu
+	return _u
 }
 
 // SetSSOTokenURL sets the "sso_token_url" field.
-func (acu *AuthConfigUpdate) SetSSOTokenURL(s string) *AuthConfigUpdate {
-	acu.mutation.SetSSOTokenURL(s)
-	return acu
+func (_u *AuthConfigUpdate) SetSSOTokenURL(v string) *AuthConfigUpdate {
+	_u.mutation.SetSSOTokenURL(v)
+	return _u
 }
 
 // SetNillableSSOTokenURL sets the "sso_token_url" field if the given value is not nil.
-func (acu *AuthConfigUpdate) SetNillableSSOTokenURL(s *string) *AuthConfigUpdate {
-	if s != nil {
-		acu.SetSSOTokenURL(*s)
+func (_u *AuthConfigUpdate) SetNillableSSOTokenURL(v *string) *AuthConfigUpdate {
+	if v != nil {
+		_u.SetSSOTokenURL(*v)
 	}
-	return acu
+	return _u
 }
 
 // SetSSOUserInfoURL sets the "sso_user_info_url" field.
-func (acu *AuthConfigUpdate) SetSSOUserInfoURL(s string) *AuthConfigUpdate {
-	acu.mutation.SetSSOUserInfoURL(s)
-	return acu
+func (_u *AuthConfigUpdate) SetSSOUserInfoURL(v string) *AuthConfigUpdate {
+	_u.mutation.SetSSOUserInfoURL(v)
+	return _u
 }
 
 // SetNillableSSOUserInfoURL sets the "sso_user_info_url" field if the given value is not nil.
-func (acu *AuthConfigUpdate) SetNillableSSOUserInfoURL(s *string) *AuthConfigUpdate {
-	if s != nil {
-		acu.SetSSOUserInfoURL(*s)
+func (_u *AuthConfigUpdate) SetNillableSSOUserInfoURL(v *string) *AuthConfigUpdate {
+	if v != nil {
+		_u.SetSSOUserInfoURL(*v)
 	}
-	return acu
+	return _u
 }
 
 // SetEntraTenantID sets the "entra_tenant_id" field.
-func (acu *AuthConfigUpdate) SetEntraTenantID(s string) *AuthConfigUpdate {
-	acu.mutation.SetEntraTenantID(s)
-	return acu
+func (_u *AuthConfigUpdate) SetEntraTenantID(v string) *AuthConfigUpdate {
+	_u.mutation.SetEntraTenantID(v)
+	return _u
 }
 
 // SetNillableEntraTenantID sets the "entra_tenant_id" field if the given value is not nil.
-func (acu *AuthConfigUpdate) SetNillableEntraTenantID(s *string) *AuthConfigUpdate {
-	if s != nil {
-		acu.SetEntraTenantID(*s)
+func (_u *AuthConfigUpdate) SetNillableEntraTenantID(v *string) *AuthConfigUpdate {
+	if v != nil {
+		_u.SetEntraTenantID(*v)
 	}
-	return acu
+	return _u
 }
 
 // SetGoogleAllowedDomains sets the "google_allowed_domains" field.
-func (acu *AuthConfigUpdate) SetGoogleAllowedDomains(s string) *AuthConfigUpdate {
-	acu.mutation.SetGoogleAllowedDomains(s)
-	return acu
+func (_u *AuthConfigUpdate) SetGoogleAllowedDomains(v string) *AuthConfigUpdate {
+	_u.mutation.SetGoogleAllowedDomains(v)
+	return _u
 }
 
 // SetNillableGoogleAllowedDomains sets the "google_allowed_domains" field if the given value is not nil.
-func (acu *AuthConfigUpdate) SetNillableGoogleAllowedDomains(s *string) *AuthConfigUpdate {
-	if s != nil {
-		acu.SetGoogleAllowedDomains(*s)
+func (_u *AuthConfigUpdate) SetNillableGoogleAllowedDomains(v *string) *AuthConfigUpdate {
+	if v != nil {
+		_u.SetGoogleAllowedDomains(*v)
 	}
-	return acu
+	return _u
 }
 
 // SetSessionKey sets the "session_key" field.
-func (acu *AuthConfigUpdate) SetSessionKey(b []byte) *AuthConfigUpdate {
-	acu.mutation.SetSessionKey(b)
-	return acu
+func (_u *AuthConfigUpdate) SetSessionKey(v []byte) *AuthConfigUpdate {
+	_u.mutation.SetSessionKey(v)
+	return _u
 }
 
 // Mutation returns the AuthConfigMutation object of the builder.
-func (acu *AuthConfigUpdate) Mutation() *AuthConfigMutation {
-	return acu.mutation
+func (_u *AuthConfigUpdate) Mutation() *AuthConfigMutation {
+	return _u.mutation
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (acu *AuthConfigUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, acu.sqlSave, acu.mutation, acu.hooks)
+func (_u *AuthConfigUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (acu *AuthConfigUpdate) SaveX(ctx context.Context) int {
-	affected, err := acu.Save(ctx)
+func (_u *AuthConfigUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -207,64 +207,64 @@ func (acu *AuthConfigUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (acu *AuthConfigUpdate) Exec(ctx context.Context) error {
-	_, err := acu.Save(ctx)
+func (_u *AuthConfigUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (acu *AuthConfigUpdate) ExecX(ctx context.Context) {
-	if err := acu.Exec(ctx); err != nil {
+func (_u *AuthConfigUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (acu *AuthConfigUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *AuthConfigUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(authconfig.Table, authconfig.Columns, sqlgraph.NewFieldSpec(authconfig.FieldID, field.TypeInt))
-	if ps := acu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := acu.mutation.EnableSSO(); ok {
+	if value, ok := _u.mutation.EnableSSO(); ok {
 		_spec.SetField(authconfig.FieldEnableSSO, field.TypeBool, value)
 	}
-	if value, ok := acu.mutation.DisablePasswordLogin(); ok {
+	if value, ok := _u.mutation.DisablePasswordLogin(); ok {
 		_spec.SetField(authconfig.FieldDisablePasswordLogin, field.TypeBool, value)
 	}
-	if value, ok := acu.mutation.SSOProvider(); ok {
+	if value, ok := _u.mutation.SSOProvider(); ok {
 		_spec.SetField(authconfig.FieldSSOProvider, field.TypeString, value)
 	}
-	if value, ok := acu.mutation.SSOClientID(); ok {
+	if value, ok := _u.mutation.SSOClientID(); ok {
 		_spec.SetField(authconfig.FieldSSOClientID, field.TypeString, value)
 	}
-	if value, ok := acu.mutation.SSOClientSecret(); ok {
+	if value, ok := _u.mutation.SSOClientSecret(); ok {
 		_spec.SetField(authconfig.FieldSSOClientSecret, field.TypeString, value)
 	}
-	if value, ok := acu.mutation.SSORedirectURI(); ok {
+	if value, ok := _u.mutation.SSORedirectURI(); ok {
 		_spec.SetField(authconfig.FieldSSORedirectURI, field.TypeString, value)
 	}
-	if value, ok := acu.mutation.SSOAuthorizationURL(); ok {
+	if value, ok := _u.mutation.SSOAuthorizationURL(); ok {
 		_spec.SetField(authconfig.FieldSSOAuthorizationURL, field.TypeString, value)
 	}
-	if value, ok := acu.mutation.SSOTokenURL(); ok {
+	if value, ok := _u.mutation.SSOTokenURL(); ok {
 		_spec.SetField(authconfig.FieldSSOTokenURL, field.TypeString, value)
 	}
-	if value, ok := acu.mutation.SSOUserInfoURL(); ok {
+	if value, ok := _u.mutation.SSOUserInfoURL(); ok {
 		_spec.SetField(authconfig.FieldSSOUserInfoURL, field.TypeString, value)
 	}
-	if value, ok := acu.mutation.EntraTenantID(); ok {
+	if value, ok := _u.mutation.EntraTenantID(); ok {
 		_spec.SetField(authconfig.FieldEntraTenantID, field.TypeString, value)
 	}
-	if value, ok := acu.mutation.GoogleAllowedDomains(); ok {
+	if value, ok := _u.mutation.GoogleAllowedDomains(); ok {
 		_spec.SetField(authconfig.FieldGoogleAllowedDomains, field.TypeString, value)
 	}
-	if value, ok := acu.mutation.SessionKey(); ok {
+	if value, ok := _u.mutation.SessionKey(); ok {
 		_spec.SetField(authconfig.FieldSessionKey, field.TypeBytes, value)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, acu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{authconfig.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -272,8 +272,8 @@ func (acu *AuthConfigUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	acu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // AuthConfigUpdateOne is the builder for updating a single AuthConfig entity.
@@ -285,191 +285,191 @@ type AuthConfigUpdateOne struct {
 }
 
 // SetEnableSSO sets the "enable_sso" field.
-func (acuo *AuthConfigUpdateOne) SetEnableSSO(b bool) *AuthConfigUpdateOne {
-	acuo.mutation.SetEnableSSO(b)
-	return acuo
+func (_u *AuthConfigUpdateOne) SetEnableSSO(v bool) *AuthConfigUpdateOne {
+	_u.mutation.SetEnableSSO(v)
+	return _u
 }
 
 // SetNillableEnableSSO sets the "enable_sso" field if the given value is not nil.
-func (acuo *AuthConfigUpdateOne) SetNillableEnableSSO(b *bool) *AuthConfigUpdateOne {
-	if b != nil {
-		acuo.SetEnableSSO(*b)
+func (_u *AuthConfigUpdateOne) SetNillableEnableSSO(v *bool) *AuthConfigUpdateOne {
+	if v != nil {
+		_u.SetEnableSSO(*v)
 	}
-	return acuo
+	return _u
 }
 
 // SetDisablePasswordLogin sets the "disable_password_login" field.
-func (acuo *AuthConfigUpdateOne) SetDisablePasswordLogin(b bool) *AuthConfigUpdateOne {
-	acuo.mutation.SetDisablePasswordLogin(b)
-	return acuo
+func (_u *AuthConfigUpdateOne) SetDisablePasswordLogin(v bool) *AuthConfigUpdateOne {
+	_u.mutation.SetDisablePasswordLogin(v)
+	return _u
 }
 
 // SetNillableDisablePasswordLogin sets the "disable_password_login" field if the given value is not nil.
-func (acuo *AuthConfigUpdateOne) SetNillableDisablePasswordLogin(b *bool) *AuthConfigUpdateOne {
-	if b != nil {
-		acuo.SetDisablePasswordLogin(*b)
+func (_u *AuthConfigUpdateOne) SetNillableDisablePasswordLogin(v *bool) *AuthConfigUpdateOne {
+	if v != nil {
+		_u.SetDisablePasswordLogin(*v)
 	}
-	return acuo
+	return _u
 }
 
 // SetSSOProvider sets the "sso_provider" field.
-func (acuo *AuthConfigUpdateOne) SetSSOProvider(s string) *AuthConfigUpdateOne {
-	acuo.mutation.SetSSOProvider(s)
-	return acuo
+func (_u *AuthConfigUpdateOne) SetSSOProvider(v string) *AuthConfigUpdateOne {
+	_u.mutation.SetSSOProvider(v)
+	return _u
 }
 
 // SetNillableSSOProvider sets the "sso_provider" field if the given value is not nil.
-func (acuo *AuthConfigUpdateOne) SetNillableSSOProvider(s *string) *AuthConfigUpdateOne {
-	if s != nil {
-		acuo.SetSSOProvider(*s)
+func (_u *AuthConfigUpdateOne) SetNillableSSOProvider(v *string) *AuthConfigUpdateOne {
+	if v != nil {
+		_u.SetSSOProvider(*v)
 	}
-	return acuo
+	return _u
 }
 
 // SetSSOClientID sets the "sso_client_id" field.
-func (acuo *AuthConfigUpdateOne) SetSSOClientID(s string) *AuthConfigUpdateOne {
-	acuo.mutation.SetSSOClientID(s)
-	return acuo
+func (_u *AuthConfigUpdateOne) SetSSOClientID(v string) *AuthConfigUpdateOne {
+	_u.mutation.SetSSOClientID(v)
+	return _u
 }
 
 // SetNillableSSOClientID sets the "sso_client_id" field if the given value is not nil.
-func (acuo *AuthConfigUpdateOne) SetNillableSSOClientID(s *string) *AuthConfigUpdateOne {
-	if s != nil {
-		acuo.SetSSOClientID(*s)
+func (_u *AuthConfigUpdateOne) SetNillableSSOClientID(v *string) *AuthConfigUpdateOne {
+	if v != nil {
+		_u.SetSSOClientID(*v)
 	}
-	return acuo
+	return _u
 }
 
 // SetSSOClientSecret sets the "sso_client_secret" field.
-func (acuo *AuthConfigUpdateOne) SetSSOClientSecret(s string) *AuthConfigUpdateOne {
-	acuo.mutation.SetSSOClientSecret(s)
-	return acuo
+func (_u *AuthConfigUpdateOne) SetSSOClientSecret(v string) *AuthConfigUpdateOne {
+	_u.mutation.SetSSOClientSecret(v)
+	return _u
 }
 
 // SetNillableSSOClientSecret sets the "sso_client_secret" field if the given value is not nil.
-func (acuo *AuthConfigUpdateOne) SetNillableSSOClientSecret(s *string) *AuthConfigUpdateOne {
-	if s != nil {
-		acuo.SetSSOClientSecret(*s)
+func (_u *AuthConfigUpdateOne) SetNillableSSOClientSecret(v *string) *AuthConfigUpdateOne {
+	if v != nil {
+		_u.SetSSOClientSecret(*v)
 	}
-	return acuo
+	return _u
 }
 
 // SetSSORedirectURI sets the "sso_redirect_uri" field.
-func (acuo *AuthConfigUpdateOne) SetSSORedirectURI(s string) *AuthConfigUpdateOne {
-	acuo.mutation.SetSSORedirectURI(s)
-	return acuo
+func (_u *AuthConfigUpdateOne) SetSSORedirectURI(v string) *AuthConfigUpdateOne {
+	_u.mutation.SetSSORedirectURI(v)
+	return _u
 }
 
 // SetNillableSSORedirectURI sets the "sso_redirect_uri" field if the given value is not nil.
-func (acuo *AuthConfigUpdateOne) SetNillableSSORedirectURI(s *string) *AuthConfigUpdateOne {
-	if s != nil {
-		acuo.SetSSORedirectURI(*s)
+func (_u *AuthConfigUpdateOne) SetNillableSSORedirectURI(v *string) *AuthConfigUpdateOne {
+	if v != nil {
+		_u.SetSSORedirectURI(*v)
 	}
-	return acuo
+	return _u
 }
 
 // SetSSOAuthorizationURL sets the "sso_authorization_url" field.
-func (acuo *AuthConfigUpdateOne) SetSSOAuthorizationURL(s string) *AuthConfigUpdateOne {
-	acuo.mutation.SetSSOAuthorizationURL(s)
-	return acuo
+func (_u *AuthConfigUpdateOne) SetSSOAuthorizationURL(v string) *AuthConfigUpdateOne {
+	_u.mutation.SetSSOAuthorizationURL(v)
+	return _u
 }
 
 // SetNillableSSOAuthorizationURL sets the "sso_authorization_url" field if the given value is not nil.
-func (acuo *AuthConfigUpdateOne) SetNillableSSOAuthorizationURL(s *string) *AuthConfigUpdateOne {
-	if s != nil {
-		acuo.SetSSOAuthorizationURL(*s)
+func (_u *AuthConfigUpdateOne) SetNillableSSOAuthorizationURL(v *string) *AuthConfigUpdateOne {
+	if v != nil {
+		_u.SetSSOAuthorizationURL(*v)
 	}
-	return acuo
+	return _u
 }
 
 // SetSSOTokenURL sets the "sso_token_url" field.
-func (acuo *AuthConfigUpdateOne) SetSSOTokenURL(s string) *AuthConfigUpdateOne {
-	acuo.mutation.SetSSOTokenURL(s)
-	return acuo
+func (_u *AuthConfigUpdateOne) SetSSOTokenURL(v string) *AuthConfigUpdateOne {
+	_u.mutation.SetSSOTokenURL(v)
+	return _u
 }
 
 // SetNillableSSOTokenURL sets the "sso_token_url" field if the given value is not nil.
-func (acuo *AuthConfigUpdateOne) SetNillableSSOTokenURL(s *string) *AuthConfigUpdateOne {
-	if s != nil {
-		acuo.SetSSOTokenURL(*s)
+func (_u *AuthConfigUpdateOne) SetNillableSSOTokenURL(v *string) *AuthConfigUpdateOne {
+	if v != nil {
+		_u.SetSSOTokenURL(*v)
 	}
-	return acuo
+	return _u
 }
 
 // SetSSOUserInfoURL sets the "sso_user_info_url" field.
-func (acuo *AuthConfigUpdateOne) SetSSOUserInfoURL(s string) *AuthConfigUpdateOne {
-	acuo.mutation.SetSSOUserInfoURL(s)
-	return acuo
+func (_u *AuthConfigUpdateOne) SetSSOUserInfoURL(v string) *AuthConfigUpdateOne {
+	_u.mutation.SetSSOUserInfoURL(v)
+	return _u
 }
 
 // SetNillableSSOUserInfoURL sets the "sso_user_info_url" field if the given value is not nil.
-func (acuo *AuthConfigUpdateOne) SetNillableSSOUserInfoURL(s *string) *AuthConfigUpdateOne {
-	if s != nil {
-		acuo.SetSSOUserInfoURL(*s)
+func (_u *AuthConfigUpdateOne) SetNillableSSOUserInfoURL(v *string) *AuthConfigUpdateOne {
+	if v != nil {
+		_u.SetSSOUserInfoURL(*v)
 	}
-	return acuo
+	return _u
 }
 
 // SetEntraTenantID sets the "entra_tenant_id" field.
-func (acuo *AuthConfigUpdateOne) SetEntraTenantID(s string) *AuthConfigUpdateOne {
-	acuo.mutation.SetEntraTenantID(s)
-	return acuo
+func (_u *AuthConfigUpdateOne) SetEntraTenantID(v string) *AuthConfigUpdateOne {
+	_u.mutation.SetEntraTenantID(v)
+	return _u
 }
 
 // SetNillableEntraTenantID sets the "entra_tenant_id" field if the given value is not nil.
-func (acuo *AuthConfigUpdateOne) SetNillableEntraTenantID(s *string) *AuthConfigUpdateOne {
-	if s != nil {
-		acuo.SetEntraTenantID(*s)
+func (_u *AuthConfigUpdateOne) SetNillableEntraTenantID(v *string) *AuthConfigUpdateOne {
+	if v != nil {
+		_u.SetEntraTenantID(*v)
 	}
-	return acuo
+	return _u
 }
 
 // SetGoogleAllowedDomains sets the "google_allowed_domains" field.
-func (acuo *AuthConfigUpdateOne) SetGoogleAllowedDomains(s string) *AuthConfigUpdateOne {
-	acuo.mutation.SetGoogleAllowedDomains(s)
-	return acuo
+func (_u *AuthConfigUpdateOne) SetGoogleAllowedDomains(v string) *AuthConfigUpdateOne {
+	_u.mutation.SetGoogleAllowedDomains(v)
+	return _u
 }
 
 // SetNillableGoogleAllowedDomains sets the "google_allowed_domains" field if the given value is not nil.
-func (acuo *AuthConfigUpdateOne) SetNillableGoogleAllowedDomains(s *string) *AuthConfigUpdateOne {
-	if s != nil {
-		acuo.SetGoogleAllowedDomains(*s)
+func (_u *AuthConfigUpdateOne) SetNillableGoogleAllowedDomains(v *string) *AuthConfigUpdateOne {
+	if v != nil {
+		_u.SetGoogleAllowedDomains(*v)
 	}
-	return acuo
+	return _u
 }
 
 // SetSessionKey sets the "session_key" field.
-func (acuo *AuthConfigUpdateOne) SetSessionKey(b []byte) *AuthConfigUpdateOne {
-	acuo.mutation.SetSessionKey(b)
-	return acuo
+func (_u *AuthConfigUpdateOne) SetSessionKey(v []byte) *AuthConfigUpdateOne {
+	_u.mutation.SetSessionKey(v)
+	return _u
 }
 
 // Mutation returns the AuthConfigMutation object of the builder.
-func (acuo *AuthConfigUpdateOne) Mutation() *AuthConfigMutation {
-	return acuo.mutation
+func (_u *AuthConfigUpdateOne) Mutation() *AuthConfigMutation {
+	return _u.mutation
 }
 
 // Where appends a list predicates to the AuthConfigUpdate builder.
-func (acuo *AuthConfigUpdateOne) Where(ps ...predicate.AuthConfig) *AuthConfigUpdateOne {
-	acuo.mutation.Where(ps...)
-	return acuo
+func (_u *AuthConfigUpdateOne) Where(ps ...predicate.AuthConfig) *AuthConfigUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (acuo *AuthConfigUpdateOne) Select(field string, fields ...string) *AuthConfigUpdateOne {
-	acuo.fields = append([]string{field}, fields...)
-	return acuo
+func (_u *AuthConfigUpdateOne) Select(field string, fields ...string) *AuthConfigUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated AuthConfig entity.
-func (acuo *AuthConfigUpdateOne) Save(ctx context.Context) (*AuthConfig, error) {
-	return withHooks(ctx, acuo.sqlSave, acuo.mutation, acuo.hooks)
+func (_u *AuthConfigUpdateOne) Save(ctx context.Context) (*AuthConfig, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (acuo *AuthConfigUpdateOne) SaveX(ctx context.Context) *AuthConfig {
-	node, err := acuo.Save(ctx)
+func (_u *AuthConfigUpdateOne) SaveX(ctx context.Context) *AuthConfig {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -477,26 +477,26 @@ func (acuo *AuthConfigUpdateOne) SaveX(ctx context.Context) *AuthConfig {
 }
 
 // Exec executes the query on the entity.
-func (acuo *AuthConfigUpdateOne) Exec(ctx context.Context) error {
-	_, err := acuo.Save(ctx)
+func (_u *AuthConfigUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (acuo *AuthConfigUpdateOne) ExecX(ctx context.Context) {
-	if err := acuo.Exec(ctx); err != nil {
+func (_u *AuthConfigUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (acuo *AuthConfigUpdateOne) sqlSave(ctx context.Context) (_node *AuthConfig, err error) {
+func (_u *AuthConfigUpdateOne) sqlSave(ctx context.Context) (_node *AuthConfig, err error) {
 	_spec := sqlgraph.NewUpdateSpec(authconfig.Table, authconfig.Columns, sqlgraph.NewFieldSpec(authconfig.FieldID, field.TypeInt))
-	id, ok := acuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "AuthConfig.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := acuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, authconfig.FieldID)
 		for _, f := range fields {
@@ -508,53 +508,53 @@ func (acuo *AuthConfigUpdateOne) sqlSave(ctx context.Context) (_node *AuthConfig
 			}
 		}
 	}
-	if ps := acuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := acuo.mutation.EnableSSO(); ok {
+	if value, ok := _u.mutation.EnableSSO(); ok {
 		_spec.SetField(authconfig.FieldEnableSSO, field.TypeBool, value)
 	}
-	if value, ok := acuo.mutation.DisablePasswordLogin(); ok {
+	if value, ok := _u.mutation.DisablePasswordLogin(); ok {
 		_spec.SetField(authconfig.FieldDisablePasswordLogin, field.TypeBool, value)
 	}
-	if value, ok := acuo.mutation.SSOProvider(); ok {
+	if value, ok := _u.mutation.SSOProvider(); ok {
 		_spec.SetField(authconfig.FieldSSOProvider, field.TypeString, value)
 	}
-	if value, ok := acuo.mutation.SSOClientID(); ok {
+	if value, ok := _u.mutation.SSOClientID(); ok {
 		_spec.SetField(authconfig.FieldSSOClientID, field.TypeString, value)
 	}
-	if value, ok := acuo.mutation.SSOClientSecret(); ok {
+	if value, ok := _u.mutation.SSOClientSecret(); ok {
 		_spec.SetField(authconfig.FieldSSOClientSecret, field.TypeString, value)
 	}
-	if value, ok := acuo.mutation.SSORedirectURI(); ok {
+	if value, ok := _u.mutation.SSORedirectURI(); ok {
 		_spec.SetField(authconfig.FieldSSORedirectURI, field.TypeString, value)
 	}
-	if value, ok := acuo.mutation.SSOAuthorizationURL(); ok {
+	if value, ok := _u.mutation.SSOAuthorizationURL(); ok {
 		_spec.SetField(authconfig.FieldSSOAuthorizationURL, field.TypeString, value)
 	}
-	if value, ok := acuo.mutation.SSOTokenURL(); ok {
+	if value, ok := _u.mutation.SSOTokenURL(); ok {
 		_spec.SetField(authconfig.FieldSSOTokenURL, field.TypeString, value)
 	}
-	if value, ok := acuo.mutation.SSOUserInfoURL(); ok {
+	if value, ok := _u.mutation.SSOUserInfoURL(); ok {
 		_spec.SetField(authconfig.FieldSSOUserInfoURL, field.TypeString, value)
 	}
-	if value, ok := acuo.mutation.EntraTenantID(); ok {
+	if value, ok := _u.mutation.EntraTenantID(); ok {
 		_spec.SetField(authconfig.FieldEntraTenantID, field.TypeString, value)
 	}
-	if value, ok := acuo.mutation.GoogleAllowedDomains(); ok {
+	if value, ok := _u.mutation.GoogleAllowedDomains(); ok {
 		_spec.SetField(authconfig.FieldGoogleAllowedDomains, field.TypeString, value)
 	}
-	if value, ok := acuo.mutation.SessionKey(); ok {
+	if value, ok := _u.mutation.SessionKey(); ok {
 		_spec.SetField(authconfig.FieldSessionKey, field.TypeBytes, value)
 	}
-	_node = &AuthConfig{config: acuo.config}
+	_node = &AuthConfig{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, acuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{authconfig.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -562,6 +562,6 @@ func (acuo *AuthConfigUpdateOne) sqlSave(ctx context.Context) (_node *AuthConfig
 		}
 		return nil, err
 	}
-	acuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

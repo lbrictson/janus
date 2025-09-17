@@ -24,72 +24,72 @@ type ProjectUserUpdate struct {
 }
 
 // Where appends a list predicates to the ProjectUserUpdate builder.
-func (puu *ProjectUserUpdate) Where(ps ...predicate.ProjectUser) *ProjectUserUpdate {
-	puu.mutation.Where(ps...)
-	return puu
+func (_u *ProjectUserUpdate) Where(ps ...predicate.ProjectUser) *ProjectUserUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetCanEdit sets the "can_edit" field.
-func (puu *ProjectUserUpdate) SetCanEdit(b bool) *ProjectUserUpdate {
-	puu.mutation.SetCanEdit(b)
-	return puu
+func (_u *ProjectUserUpdate) SetCanEdit(v bool) *ProjectUserUpdate {
+	_u.mutation.SetCanEdit(v)
+	return _u
 }
 
 // SetNillableCanEdit sets the "can_edit" field if the given value is not nil.
-func (puu *ProjectUserUpdate) SetNillableCanEdit(b *bool) *ProjectUserUpdate {
-	if b != nil {
-		puu.SetCanEdit(*b)
+func (_u *ProjectUserUpdate) SetNillableCanEdit(v *bool) *ProjectUserUpdate {
+	if v != nil {
+		_u.SetCanEdit(*v)
 	}
-	return puu
+	return _u
 }
 
 // SetProjectID sets the "project" edge to the Project entity by ID.
-func (puu *ProjectUserUpdate) SetProjectID(id int) *ProjectUserUpdate {
-	puu.mutation.SetProjectID(id)
-	return puu
+func (_u *ProjectUserUpdate) SetProjectID(id int) *ProjectUserUpdate {
+	_u.mutation.SetProjectID(id)
+	return _u
 }
 
 // SetProject sets the "project" edge to the Project entity.
-func (puu *ProjectUserUpdate) SetProject(p *Project) *ProjectUserUpdate {
-	return puu.SetProjectID(p.ID)
+func (_u *ProjectUserUpdate) SetProject(v *Project) *ProjectUserUpdate {
+	return _u.SetProjectID(v.ID)
 }
 
 // SetUserID sets the "user" edge to the User entity by ID.
-func (puu *ProjectUserUpdate) SetUserID(id int) *ProjectUserUpdate {
-	puu.mutation.SetUserID(id)
-	return puu
+func (_u *ProjectUserUpdate) SetUserID(id int) *ProjectUserUpdate {
+	_u.mutation.SetUserID(id)
+	return _u
 }
 
 // SetUser sets the "user" edge to the User entity.
-func (puu *ProjectUserUpdate) SetUser(u *User) *ProjectUserUpdate {
-	return puu.SetUserID(u.ID)
+func (_u *ProjectUserUpdate) SetUser(v *User) *ProjectUserUpdate {
+	return _u.SetUserID(v.ID)
 }
 
 // Mutation returns the ProjectUserMutation object of the builder.
-func (puu *ProjectUserUpdate) Mutation() *ProjectUserMutation {
-	return puu.mutation
+func (_u *ProjectUserUpdate) Mutation() *ProjectUserMutation {
+	return _u.mutation
 }
 
 // ClearProject clears the "project" edge to the Project entity.
-func (puu *ProjectUserUpdate) ClearProject() *ProjectUserUpdate {
-	puu.mutation.ClearProject()
-	return puu
+func (_u *ProjectUserUpdate) ClearProject() *ProjectUserUpdate {
+	_u.mutation.ClearProject()
+	return _u
 }
 
 // ClearUser clears the "user" edge to the User entity.
-func (puu *ProjectUserUpdate) ClearUser() *ProjectUserUpdate {
-	puu.mutation.ClearUser()
-	return puu
+func (_u *ProjectUserUpdate) ClearUser() *ProjectUserUpdate {
+	_u.mutation.ClearUser()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (puu *ProjectUserUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, puu.sqlSave, puu.mutation, puu.hooks)
+func (_u *ProjectUserUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (puu *ProjectUserUpdate) SaveX(ctx context.Context) int {
-	affected, err := puu.Save(ctx)
+func (_u *ProjectUserUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -97,45 +97,45 @@ func (puu *ProjectUserUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (puu *ProjectUserUpdate) Exec(ctx context.Context) error {
-	_, err := puu.Save(ctx)
+func (_u *ProjectUserUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (puu *ProjectUserUpdate) ExecX(ctx context.Context) {
-	if err := puu.Exec(ctx); err != nil {
+func (_u *ProjectUserUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (puu *ProjectUserUpdate) check() error {
-	if puu.mutation.ProjectCleared() && len(puu.mutation.ProjectIDs()) > 0 {
+func (_u *ProjectUserUpdate) check() error {
+	if _u.mutation.ProjectCleared() && len(_u.mutation.ProjectIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "ProjectUser.project"`)
 	}
-	if puu.mutation.UserCleared() && len(puu.mutation.UserIDs()) > 0 {
+	if _u.mutation.UserCleared() && len(_u.mutation.UserIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "ProjectUser.user"`)
 	}
 	return nil
 }
 
-func (puu *ProjectUserUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := puu.check(); err != nil {
-		return n, err
+func (_u *ProjectUserUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(projectuser.Table, projectuser.Columns, sqlgraph.NewFieldSpec(projectuser.FieldID, field.TypeInt))
-	if ps := puu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := puu.mutation.CanEdit(); ok {
+	if value, ok := _u.mutation.CanEdit(); ok {
 		_spec.SetField(projectuser.FieldCanEdit, field.TypeBool, value)
 	}
-	if puu.mutation.ProjectCleared() {
+	if _u.mutation.ProjectCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -148,7 +148,7 @@ func (puu *ProjectUserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puu.mutation.ProjectIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProjectIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -164,7 +164,7 @@ func (puu *ProjectUserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if puu.mutation.UserCleared() {
+	if _u.mutation.UserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -177,7 +177,7 @@ func (puu *ProjectUserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puu.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -193,7 +193,7 @@ func (puu *ProjectUserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, puu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{projectuser.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -201,8 +201,8 @@ func (puu *ProjectUserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	puu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // ProjectUserUpdateOne is the builder for updating a single ProjectUser entity.
@@ -214,79 +214,79 @@ type ProjectUserUpdateOne struct {
 }
 
 // SetCanEdit sets the "can_edit" field.
-func (puuo *ProjectUserUpdateOne) SetCanEdit(b bool) *ProjectUserUpdateOne {
-	puuo.mutation.SetCanEdit(b)
-	return puuo
+func (_u *ProjectUserUpdateOne) SetCanEdit(v bool) *ProjectUserUpdateOne {
+	_u.mutation.SetCanEdit(v)
+	return _u
 }
 
 // SetNillableCanEdit sets the "can_edit" field if the given value is not nil.
-func (puuo *ProjectUserUpdateOne) SetNillableCanEdit(b *bool) *ProjectUserUpdateOne {
-	if b != nil {
-		puuo.SetCanEdit(*b)
+func (_u *ProjectUserUpdateOne) SetNillableCanEdit(v *bool) *ProjectUserUpdateOne {
+	if v != nil {
+		_u.SetCanEdit(*v)
 	}
-	return puuo
+	return _u
 }
 
 // SetProjectID sets the "project" edge to the Project entity by ID.
-func (puuo *ProjectUserUpdateOne) SetProjectID(id int) *ProjectUserUpdateOne {
-	puuo.mutation.SetProjectID(id)
-	return puuo
+func (_u *ProjectUserUpdateOne) SetProjectID(id int) *ProjectUserUpdateOne {
+	_u.mutation.SetProjectID(id)
+	return _u
 }
 
 // SetProject sets the "project" edge to the Project entity.
-func (puuo *ProjectUserUpdateOne) SetProject(p *Project) *ProjectUserUpdateOne {
-	return puuo.SetProjectID(p.ID)
+func (_u *ProjectUserUpdateOne) SetProject(v *Project) *ProjectUserUpdateOne {
+	return _u.SetProjectID(v.ID)
 }
 
 // SetUserID sets the "user" edge to the User entity by ID.
-func (puuo *ProjectUserUpdateOne) SetUserID(id int) *ProjectUserUpdateOne {
-	puuo.mutation.SetUserID(id)
-	return puuo
+func (_u *ProjectUserUpdateOne) SetUserID(id int) *ProjectUserUpdateOne {
+	_u.mutation.SetUserID(id)
+	return _u
 }
 
 // SetUser sets the "user" edge to the User entity.
-func (puuo *ProjectUserUpdateOne) SetUser(u *User) *ProjectUserUpdateOne {
-	return puuo.SetUserID(u.ID)
+func (_u *ProjectUserUpdateOne) SetUser(v *User) *ProjectUserUpdateOne {
+	return _u.SetUserID(v.ID)
 }
 
 // Mutation returns the ProjectUserMutation object of the builder.
-func (puuo *ProjectUserUpdateOne) Mutation() *ProjectUserMutation {
-	return puuo.mutation
+func (_u *ProjectUserUpdateOne) Mutation() *ProjectUserMutation {
+	return _u.mutation
 }
 
 // ClearProject clears the "project" edge to the Project entity.
-func (puuo *ProjectUserUpdateOne) ClearProject() *ProjectUserUpdateOne {
-	puuo.mutation.ClearProject()
-	return puuo
+func (_u *ProjectUserUpdateOne) ClearProject() *ProjectUserUpdateOne {
+	_u.mutation.ClearProject()
+	return _u
 }
 
 // ClearUser clears the "user" edge to the User entity.
-func (puuo *ProjectUserUpdateOne) ClearUser() *ProjectUserUpdateOne {
-	puuo.mutation.ClearUser()
-	return puuo
+func (_u *ProjectUserUpdateOne) ClearUser() *ProjectUserUpdateOne {
+	_u.mutation.ClearUser()
+	return _u
 }
 
 // Where appends a list predicates to the ProjectUserUpdate builder.
-func (puuo *ProjectUserUpdateOne) Where(ps ...predicate.ProjectUser) *ProjectUserUpdateOne {
-	puuo.mutation.Where(ps...)
-	return puuo
+func (_u *ProjectUserUpdateOne) Where(ps ...predicate.ProjectUser) *ProjectUserUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (puuo *ProjectUserUpdateOne) Select(field string, fields ...string) *ProjectUserUpdateOne {
-	puuo.fields = append([]string{field}, fields...)
-	return puuo
+func (_u *ProjectUserUpdateOne) Select(field string, fields ...string) *ProjectUserUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated ProjectUser entity.
-func (puuo *ProjectUserUpdateOne) Save(ctx context.Context) (*ProjectUser, error) {
-	return withHooks(ctx, puuo.sqlSave, puuo.mutation, puuo.hooks)
+func (_u *ProjectUserUpdateOne) Save(ctx context.Context) (*ProjectUser, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (puuo *ProjectUserUpdateOne) SaveX(ctx context.Context) *ProjectUser {
-	node, err := puuo.Save(ctx)
+func (_u *ProjectUserUpdateOne) SaveX(ctx context.Context) *ProjectUser {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -294,40 +294,40 @@ func (puuo *ProjectUserUpdateOne) SaveX(ctx context.Context) *ProjectUser {
 }
 
 // Exec executes the query on the entity.
-func (puuo *ProjectUserUpdateOne) Exec(ctx context.Context) error {
-	_, err := puuo.Save(ctx)
+func (_u *ProjectUserUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (puuo *ProjectUserUpdateOne) ExecX(ctx context.Context) {
-	if err := puuo.Exec(ctx); err != nil {
+func (_u *ProjectUserUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (puuo *ProjectUserUpdateOne) check() error {
-	if puuo.mutation.ProjectCleared() && len(puuo.mutation.ProjectIDs()) > 0 {
+func (_u *ProjectUserUpdateOne) check() error {
+	if _u.mutation.ProjectCleared() && len(_u.mutation.ProjectIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "ProjectUser.project"`)
 	}
-	if puuo.mutation.UserCleared() && len(puuo.mutation.UserIDs()) > 0 {
+	if _u.mutation.UserCleared() && len(_u.mutation.UserIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "ProjectUser.user"`)
 	}
 	return nil
 }
 
-func (puuo *ProjectUserUpdateOne) sqlSave(ctx context.Context) (_node *ProjectUser, err error) {
-	if err := puuo.check(); err != nil {
+func (_u *ProjectUserUpdateOne) sqlSave(ctx context.Context) (_node *ProjectUser, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(projectuser.Table, projectuser.Columns, sqlgraph.NewFieldSpec(projectuser.FieldID, field.TypeInt))
-	id, ok := puuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "ProjectUser.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := puuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, projectuser.FieldID)
 		for _, f := range fields {
@@ -339,17 +339,17 @@ func (puuo *ProjectUserUpdateOne) sqlSave(ctx context.Context) (_node *ProjectUs
 			}
 		}
 	}
-	if ps := puuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := puuo.mutation.CanEdit(); ok {
+	if value, ok := _u.mutation.CanEdit(); ok {
 		_spec.SetField(projectuser.FieldCanEdit, field.TypeBool, value)
 	}
-	if puuo.mutation.ProjectCleared() {
+	if _u.mutation.ProjectCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -362,7 +362,7 @@ func (puuo *ProjectUserUpdateOne) sqlSave(ctx context.Context) (_node *ProjectUs
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puuo.mutation.ProjectIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProjectIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -378,7 +378,7 @@ func (puuo *ProjectUserUpdateOne) sqlSave(ctx context.Context) (_node *ProjectUs
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if puuo.mutation.UserCleared() {
+	if _u.mutation.UserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -391,7 +391,7 @@ func (puuo *ProjectUserUpdateOne) sqlSave(ctx context.Context) (_node *ProjectUs
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puuo.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.UserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -407,10 +407,10 @@ func (puuo *ProjectUserUpdateOne) sqlSave(ctx context.Context) (_node *ProjectUs
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &ProjectUser{config: puuo.config}
+	_node = &ProjectUser{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, puuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{projectuser.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -418,6 +418,6 @@ func (puuo *ProjectUserUpdateOne) sqlSave(ctx context.Context) (_node *ProjectUs
 		}
 		return nil, err
 	}
-	puuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

@@ -42,11 +42,38 @@
                                             {{end}}
                                         </select>
                                     {{else}}
-                                        <input type="{{if .Sensitive}}password{{else}}text{{end}}"
-                                               class="form-control"
-                                               name="arg_{{.Name}}"
-                                               value="{{.DefaultValue}}"
-                                               required>
+                                        {{if .Sensitive}}
+                                            <input type="password"
+                                                   class="form-control"
+                                                   name="arg_{{.Name}}"
+                                                   value="{{.DefaultValue}}"
+                                                   required>
+                                        {{else if eq .Type "number"}}
+                                            <input type="number"
+                                                   step="any"
+                                                   class="form-control"
+                                                   name="arg_{{.Name}}"
+                                                   value="{{.DefaultValue}}"
+                                                   required>
+                                        {{else if eq .Type "date"}}
+                                            <input type="date"
+                                                   class="form-control"
+                                                   name="arg_{{.Name}}"
+                                                   value="{{.DefaultValue}}"
+                                                   required>
+                                        {{else if eq .Type "datetime"}}
+                                            <input type="datetime-local"
+                                                   class="form-control"
+                                                   name="arg_{{.Name}}"
+                                                   value="{{.DefaultValue}}"
+                                                   required>
+                                        {{else}}
+                                            <input type="text"
+                                                   class="form-control"
+                                                   name="arg_{{.Name}}"
+                                                   value="{{.DefaultValue}}"
+                                                   required>
+                                        {{end}}
                                     {{end}}
                                 </div>
                             {{end}}

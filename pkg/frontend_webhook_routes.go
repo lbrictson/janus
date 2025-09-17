@@ -3,15 +3,16 @@ package pkg
 import (
 	"context"
 	"fmt"
-	"github.com/labstack/echo/v4"
-	"github.com/lbrictson/janus/ent"
-	"github.com/lbrictson/janus/ent/inboundwebhook"
-	"github.com/lbrictson/janus/ent/job"
 	"io"
 	"log/slog"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/labstack/echo/v4"
+	"github.com/lbrictson/janus/ent"
+	"github.com/lbrictson/janus/ent/inboundwebhook"
+	"github.com/lbrictson/janus/ent/job"
 )
 
 func renderWebooksView(db *ent.Client, config *Config) echo.HandlerFunc {
@@ -25,6 +26,8 @@ func renderWebooksView(db *ent.Client, config *Config) echo.HandlerFunc {
 			JobLink           string
 			JobName           string
 			ProjectName       string
+			RequireAPIKey     bool
+			APIKey            string
 		}
 		webhooks, err := db.InboundWebhook.Query().WithJob().All(c.Request().Context())
 		if err != nil {
@@ -38,6 +41,10 @@ func renderWebooksView(db *ent.Client, config *Config) echo.HandlerFunc {
 				slog.Error("failed to get job from database", "error", err)
 				return renderErrorPage(c, "Error getting job from database", http.StatusInternalServerError)
 			}
+			apiKey := ""
+			if w.APIKey != nil {
+				apiKey = *w.APIKey
+			}
 			feWebhooks[i] = FEWebhook{
 				ID:                w.ID,
 				Key:               w.Key,
@@ -47,10 +54,30 @@ func renderWebooksView(db *ent.Client, config *Config) echo.HandlerFunc {
 				JobLink:           fmt.Sprintf("/projects/%v/jobs/%v/history", j.Edges.Project.ID, j.ID),
 				JobName:           j.Name,
 				ProjectName:       j.Edges.Project.Name,
+				RequireAPIKey:     w.RequireAPIKey,
+				APIKey:            apiKey,
 			}
 		}
+
+		// Check if we need to show a newly created webhook's API key
+		newWebhookID := c.QueryParam("new_webhook_id")
+		showAPIKey := c.QueryParam("show_api_key") == "true"
+		var newWebhook *FEWebhook
+		if newWebhookID != "" && showAPIKey {
+			id, err := strconv.Atoi(newWebhookID)
+			if err == nil {
+				for i := range feWebhooks {
+					if feWebhooks[i].ID == id {
+						newWebhook = &feWebhooks[i]
+						break
+					}
+				}
+			}
+		}
+
 		return c.Render(200, "webhooks", map[string]interface{}{
-			"Webhooks": feWebhooks,
+			"Webhooks":   feWebhooks,
+			"NewWebhook": newWebhook,
 		})
 	}
 }
@@ -81,15 +108,31 @@ func formNewWebhook(db *ent.Client) echo.HandlerFunc {
 			slog.Error("failed to get job from database", "error", err)
 			return renderErrorPage(c, "Error getting job from database", http.StatusInternalServerError)
 		}
+
 		key := generateLongString() + generateLongString()
-		_, err = db.InboundWebhook.Create().
+		requireAPIKey := c.FormValue("require_api_key") == "on"
+
+		webhookCreate := db.InboundWebhook.Create().
 			SetKey(key).
 			SetCreatedBy(c.Get("email").(string)).
 			SetJob(job).
-			Save(c.Request().Context())
+			SetRequireAPIKey(requireAPIKey)
+
+		var apiKey string
+		if requireAPIKey {
+			apiKey = generateLongString() + generateLongString()
+			webhookCreate.SetAPIKey(apiKey)
+		}
+
+		webhook, err := webhookCreate.Save(c.Request().Context())
 		if err != nil {
 			slog.Error("failed to create webhook", "error", err)
 			return renderErrorPage(c, "Error creating webhook", http.StatusInternalServerError)
+		}
+
+		// If API key was generated, show it to the user
+		if requireAPIKey {
+			return c.Redirect(302, fmt.Sprintf("/webhooks?new_webhook_id=%d&show_api_key=true", webhook.ID))
 		}
 		return c.Redirect(302, "/webhooks")
 	}
@@ -120,6 +163,20 @@ func handleIncomingJobWebhookTrigger(db *ent.Client, config *Config) echo.Handle
 			slog.Error("failed to get webhook from database", "error", err)
 			return c.String(500, "invalid webhook parameter")
 		}
+
+		// Check API key if required
+		if webhook.RequireAPIKey {
+			providedAPIKey := c.Request().Header.Get("X-API-KEY")
+			if providedAPIKey == "" {
+				slog.Warn("webhook request missing required API key", "webhook_id", webhook.ID)
+				return c.String(401, "API key required")
+			}
+			if webhook.APIKey == nil || providedAPIKey != *webhook.APIKey {
+				slog.Warn("webhook request with invalid API key", "webhook_id", webhook.ID)
+				return c.String(401, "Invalid API key")
+			}
+		}
+
 		j, err := db.Job.Query().WithProject().Where(job.ID(webhook.Edges.Job.ID)).Only(c.Request().Context())
 		if err != nil {
 			slog.Error("failed to get job from database", "error", err)
@@ -177,7 +234,7 @@ func handleIncomingJobWebhookTrigger(db *ent.Client, config *Config) echo.Handle
 				SetWasSuccessful(false).
 				SetDurationMs(0).
 				SetExitCode(0).
-				SetTriggeredByEmail(webhook.CreatedBy).
+				SetTriggeredByEmail("SYSTEM").
 				SetTriggeredByID(0).
 				SetOutput("job requires arguments to be passed in").
 				Save(context.Background())
@@ -192,7 +249,7 @@ func handleIncomingJobWebhookTrigger(db *ent.Client, config *Config) echo.Handle
 			SetWasSuccessful(false).
 			SetDurationMs(0).
 			SetExitCode(0).
-			SetTriggeredByEmail(webhook.CreatedBy).
+			SetTriggeredByEmail("SYSTEM").
 			SetTriggeredByID(0).
 			Save(context.Background())
 		if err != nil {

@@ -22,64 +22,92 @@ type InboundWebhookCreate struct {
 }
 
 // SetKey sets the "key" field.
-func (iwc *InboundWebhookCreate) SetKey(s string) *InboundWebhookCreate {
-	iwc.mutation.SetKey(s)
-	return iwc
+func (_c *InboundWebhookCreate) SetKey(v string) *InboundWebhookCreate {
+	_c.mutation.SetKey(v)
+	return _c
 }
 
 // SetCreatedBy sets the "created_by" field.
-func (iwc *InboundWebhookCreate) SetCreatedBy(s string) *InboundWebhookCreate {
-	iwc.mutation.SetCreatedBy(s)
-	return iwc
+func (_c *InboundWebhookCreate) SetCreatedBy(v string) *InboundWebhookCreate {
+	_c.mutation.SetCreatedBy(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (iwc *InboundWebhookCreate) SetCreatedAt(t time.Time) *InboundWebhookCreate {
-	iwc.mutation.SetCreatedAt(t)
-	return iwc
+func (_c *InboundWebhookCreate) SetCreatedAt(v time.Time) *InboundWebhookCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (iwc *InboundWebhookCreate) SetNillableCreatedAt(t *time.Time) *InboundWebhookCreate {
-	if t != nil {
-		iwc.SetCreatedAt(*t)
+func (_c *InboundWebhookCreate) SetNillableCreatedAt(v *time.Time) *InboundWebhookCreate {
+	if v != nil {
+		_c.SetCreatedAt(*v)
 	}
-	return iwc
+	return _c
+}
+
+// SetRequireAPIKey sets the "require_api_key" field.
+func (_c *InboundWebhookCreate) SetRequireAPIKey(v bool) *InboundWebhookCreate {
+	_c.mutation.SetRequireAPIKey(v)
+	return _c
+}
+
+// SetNillableRequireAPIKey sets the "require_api_key" field if the given value is not nil.
+func (_c *InboundWebhookCreate) SetNillableRequireAPIKey(v *bool) *InboundWebhookCreate {
+	if v != nil {
+		_c.SetRequireAPIKey(*v)
+	}
+	return _c
+}
+
+// SetAPIKey sets the "api_key" field.
+func (_c *InboundWebhookCreate) SetAPIKey(v string) *InboundWebhookCreate {
+	_c.mutation.SetAPIKey(v)
+	return _c
+}
+
+// SetNillableAPIKey sets the "api_key" field if the given value is not nil.
+func (_c *InboundWebhookCreate) SetNillableAPIKey(v *string) *InboundWebhookCreate {
+	if v != nil {
+		_c.SetAPIKey(*v)
+	}
+	return _c
 }
 
 // SetJobID sets the "job" edge to the Job entity by ID.
-func (iwc *InboundWebhookCreate) SetJobID(id int) *InboundWebhookCreate {
-	iwc.mutation.SetJobID(id)
-	return iwc
+func (_c *InboundWebhookCreate) SetJobID(id int) *InboundWebhookCreate {
+	_c.mutation.SetJobID(id)
+	return _c
 }
 
 // SetNillableJobID sets the "job" edge to the Job entity by ID if the given value is not nil.
-func (iwc *InboundWebhookCreate) SetNillableJobID(id *int) *InboundWebhookCreate {
+func (_c *InboundWebhookCreate) SetNillableJobID(id *int) *InboundWebhookCreate {
 	if id != nil {
-		iwc = iwc.SetJobID(*id)
+		_c = _c.SetJobID(*id)
 	}
-	return iwc
+	return _c
 }
 
 // SetJob sets the "job" edge to the Job entity.
-func (iwc *InboundWebhookCreate) SetJob(j *Job) *InboundWebhookCreate {
-	return iwc.SetJobID(j.ID)
+func (_c *InboundWebhookCreate) SetJob(v *Job) *InboundWebhookCreate {
+	return _c.SetJobID(v.ID)
 }
 
 // Mutation returns the InboundWebhookMutation object of the builder.
-func (iwc *InboundWebhookCreate) Mutation() *InboundWebhookMutation {
-	return iwc.mutation
+func (_c *InboundWebhookCreate) Mutation() *InboundWebhookMutation {
+	return _c.mutation
 }
 
 // Save creates the InboundWebhook in the database.
-func (iwc *InboundWebhookCreate) Save(ctx context.Context) (*InboundWebhook, error) {
-	iwc.defaults()
-	return withHooks(ctx, iwc.sqlSave, iwc.mutation, iwc.hooks)
+func (_c *InboundWebhookCreate) Save(ctx context.Context) (*InboundWebhook, error) {
+	_c.defaults()
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (iwc *InboundWebhookCreate) SaveX(ctx context.Context) *InboundWebhook {
-	v, err := iwc.Save(ctx)
+func (_c *InboundWebhookCreate) SaveX(ctx context.Context) *InboundWebhook {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -87,46 +115,53 @@ func (iwc *InboundWebhookCreate) SaveX(ctx context.Context) *InboundWebhook {
 }
 
 // Exec executes the query.
-func (iwc *InboundWebhookCreate) Exec(ctx context.Context) error {
-	_, err := iwc.Save(ctx)
+func (_c *InboundWebhookCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (iwc *InboundWebhookCreate) ExecX(ctx context.Context) {
-	if err := iwc.Exec(ctx); err != nil {
+func (_c *InboundWebhookCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (iwc *InboundWebhookCreate) defaults() {
-	if _, ok := iwc.mutation.CreatedAt(); !ok {
+func (_c *InboundWebhookCreate) defaults() {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		v := inboundwebhook.DefaultCreatedAt()
-		iwc.mutation.SetCreatedAt(v)
+		_c.mutation.SetCreatedAt(v)
+	}
+	if _, ok := _c.mutation.RequireAPIKey(); !ok {
+		v := inboundwebhook.DefaultRequireAPIKey
+		_c.mutation.SetRequireAPIKey(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (iwc *InboundWebhookCreate) check() error {
-	if _, ok := iwc.mutation.Key(); !ok {
+func (_c *InboundWebhookCreate) check() error {
+	if _, ok := _c.mutation.Key(); !ok {
 		return &ValidationError{Name: "key", err: errors.New(`ent: missing required field "InboundWebhook.key"`)}
 	}
-	if _, ok := iwc.mutation.CreatedBy(); !ok {
+	if _, ok := _c.mutation.CreatedBy(); !ok {
 		return &ValidationError{Name: "created_by", err: errors.New(`ent: missing required field "InboundWebhook.created_by"`)}
 	}
-	if _, ok := iwc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "InboundWebhook.created_at"`)}
+	}
+	if _, ok := _c.mutation.RequireAPIKey(); !ok {
+		return &ValidationError{Name: "require_api_key", err: errors.New(`ent: missing required field "InboundWebhook.require_api_key"`)}
 	}
 	return nil
 }
 
-func (iwc *InboundWebhookCreate) sqlSave(ctx context.Context) (*InboundWebhook, error) {
-	if err := iwc.check(); err != nil {
+func (_c *InboundWebhookCreate) sqlSave(ctx context.Context) (*InboundWebhook, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := iwc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, iwc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -134,29 +169,37 @@ func (iwc *InboundWebhookCreate) sqlSave(ctx context.Context) (*InboundWebhook, 
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	iwc.mutation.id = &_node.ID
-	iwc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (iwc *InboundWebhookCreate) createSpec() (*InboundWebhook, *sqlgraph.CreateSpec) {
+func (_c *InboundWebhookCreate) createSpec() (*InboundWebhook, *sqlgraph.CreateSpec) {
 	var (
-		_node = &InboundWebhook{config: iwc.config}
+		_node = &InboundWebhook{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(inboundwebhook.Table, sqlgraph.NewFieldSpec(inboundwebhook.FieldID, field.TypeInt))
 	)
-	if value, ok := iwc.mutation.Key(); ok {
+	if value, ok := _c.mutation.Key(); ok {
 		_spec.SetField(inboundwebhook.FieldKey, field.TypeString, value)
 		_node.Key = value
 	}
-	if value, ok := iwc.mutation.CreatedBy(); ok {
+	if value, ok := _c.mutation.CreatedBy(); ok {
 		_spec.SetField(inboundwebhook.FieldCreatedBy, field.TypeString, value)
 		_node.CreatedBy = value
 	}
-	if value, ok := iwc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(inboundwebhook.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
 	}
-	if nodes := iwc.mutation.JobIDs(); len(nodes) > 0 {
+	if value, ok := _c.mutation.RequireAPIKey(); ok {
+		_spec.SetField(inboundwebhook.FieldRequireAPIKey, field.TypeBool, value)
+		_node.RequireAPIKey = value
+	}
+	if value, ok := _c.mutation.APIKey(); ok {
+		_spec.SetField(inboundwebhook.FieldAPIKey, field.TypeString, value)
+		_node.APIKey = &value
+	}
+	if nodes := _c.mutation.JobIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -184,16 +227,16 @@ type InboundWebhookCreateBulk struct {
 }
 
 // Save creates the InboundWebhook entities in the database.
-func (iwcb *InboundWebhookCreateBulk) Save(ctx context.Context) ([]*InboundWebhook, error) {
-	if iwcb.err != nil {
-		return nil, iwcb.err
+func (_c *InboundWebhookCreateBulk) Save(ctx context.Context) ([]*InboundWebhook, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(iwcb.builders))
-	nodes := make([]*InboundWebhook, len(iwcb.builders))
-	mutators := make([]Mutator, len(iwcb.builders))
-	for i := range iwcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*InboundWebhook, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := iwcb.builders[i]
+			builder := _c.builders[i]
 			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*InboundWebhookMutation)
@@ -207,11 +250,11 @@ func (iwcb *InboundWebhookCreateBulk) Save(ctx context.Context) ([]*InboundWebho
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, iwcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, iwcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -235,7 +278,7 @@ func (iwcb *InboundWebhookCreateBulk) Save(ctx context.Context) ([]*InboundWebho
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, iwcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -243,8 +286,8 @@ func (iwcb *InboundWebhookCreateBulk) Save(ctx context.Context) ([]*InboundWebho
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (iwcb *InboundWebhookCreateBulk) SaveX(ctx context.Context) []*InboundWebhook {
-	v, err := iwcb.Save(ctx)
+func (_c *InboundWebhookCreateBulk) SaveX(ctx context.Context) []*InboundWebhook {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -252,14 +295,14 @@ func (iwcb *InboundWebhookCreateBulk) SaveX(ctx context.Context) []*InboundWebho
 }
 
 // Exec executes the query.
-func (iwcb *InboundWebhookCreateBulk) Exec(ctx context.Context) error {
-	_, err := iwcb.Save(ctx)
+func (_c *InboundWebhookCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (iwcb *InboundWebhookCreateBulk) ExecX(ctx context.Context) {
-	if err := iwcb.Exec(ctx); err != nil {
+func (_c *InboundWebhookCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

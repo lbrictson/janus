@@ -26,185 +26,185 @@ type JobVersionUpdate struct {
 }
 
 // Where appends a list predicates to the JobVersionUpdate builder.
-func (jvu *JobVersionUpdate) Where(ps ...predicate.JobVersion) *JobVersionUpdate {
-	jvu.mutation.Where(ps...)
-	return jvu
+func (_u *JobVersionUpdate) Where(ps ...predicate.JobVersion) *JobVersionUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (jvu *JobVersionUpdate) SetCreatedAt(t time.Time) *JobVersionUpdate {
-	jvu.mutation.SetCreatedAt(t)
-	return jvu
+func (_u *JobVersionUpdate) SetCreatedAt(v time.Time) *JobVersionUpdate {
+	_u.mutation.SetCreatedAt(v)
+	return _u
 }
 
 // SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (jvu *JobVersionUpdate) SetNillableCreatedAt(t *time.Time) *JobVersionUpdate {
-	if t != nil {
-		jvu.SetCreatedAt(*t)
+func (_u *JobVersionUpdate) SetNillableCreatedAt(v *time.Time) *JobVersionUpdate {
+	if v != nil {
+		_u.SetCreatedAt(*v)
 	}
-	return jvu
+	return _u
 }
 
 // SetName sets the "name" field.
-func (jvu *JobVersionUpdate) SetName(s string) *JobVersionUpdate {
-	jvu.mutation.SetName(s)
-	return jvu
+func (_u *JobVersionUpdate) SetName(v string) *JobVersionUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (jvu *JobVersionUpdate) SetNillableName(s *string) *JobVersionUpdate {
-	if s != nil {
-		jvu.SetName(*s)
+func (_u *JobVersionUpdate) SetNillableName(v *string) *JobVersionUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return jvu
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (jvu *JobVersionUpdate) SetDescription(s string) *JobVersionUpdate {
-	jvu.mutation.SetDescription(s)
-	return jvu
+func (_u *JobVersionUpdate) SetDescription(v string) *JobVersionUpdate {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (jvu *JobVersionUpdate) SetNillableDescription(s *string) *JobVersionUpdate {
-	if s != nil {
-		jvu.SetDescription(*s)
+func (_u *JobVersionUpdate) SetNillableDescription(v *string) *JobVersionUpdate {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return jvu
+	return _u
 }
 
 // SetScript sets the "script" field.
-func (jvu *JobVersionUpdate) SetScript(s string) *JobVersionUpdate {
-	jvu.mutation.SetScript(s)
-	return jvu
+func (_u *JobVersionUpdate) SetScript(v string) *JobVersionUpdate {
+	_u.mutation.SetScript(v)
+	return _u
 }
 
 // SetNillableScript sets the "script" field if the given value is not nil.
-func (jvu *JobVersionUpdate) SetNillableScript(s *string) *JobVersionUpdate {
-	if s != nil {
-		jvu.SetScript(*s)
+func (_u *JobVersionUpdate) SetNillableScript(v *string) *JobVersionUpdate {
+	if v != nil {
+		_u.SetScript(*v)
 	}
-	return jvu
+	return _u
 }
 
 // SetCronSchedule sets the "cron_schedule" field.
-func (jvu *JobVersionUpdate) SetCronSchedule(s string) *JobVersionUpdate {
-	jvu.mutation.SetCronSchedule(s)
-	return jvu
+func (_u *JobVersionUpdate) SetCronSchedule(v string) *JobVersionUpdate {
+	_u.mutation.SetCronSchedule(v)
+	return _u
 }
 
 // SetNillableCronSchedule sets the "cron_schedule" field if the given value is not nil.
-func (jvu *JobVersionUpdate) SetNillableCronSchedule(s *string) *JobVersionUpdate {
-	if s != nil {
-		jvu.SetCronSchedule(*s)
+func (_u *JobVersionUpdate) SetNillableCronSchedule(v *string) *JobVersionUpdate {
+	if v != nil {
+		_u.SetCronSchedule(*v)
 	}
-	return jvu
+	return _u
 }
 
 // ClearCronSchedule clears the value of the "cron_schedule" field.
-func (jvu *JobVersionUpdate) ClearCronSchedule() *JobVersionUpdate {
-	jvu.mutation.ClearCronSchedule()
-	return jvu
+func (_u *JobVersionUpdate) ClearCronSchedule() *JobVersionUpdate {
+	_u.mutation.ClearCronSchedule()
+	return _u
 }
 
 // SetScheduleEnabled sets the "schedule_enabled" field.
-func (jvu *JobVersionUpdate) SetScheduleEnabled(b bool) *JobVersionUpdate {
-	jvu.mutation.SetScheduleEnabled(b)
-	return jvu
+func (_u *JobVersionUpdate) SetScheduleEnabled(v bool) *JobVersionUpdate {
+	_u.mutation.SetScheduleEnabled(v)
+	return _u
 }
 
 // SetNillableScheduleEnabled sets the "schedule_enabled" field if the given value is not nil.
-func (jvu *JobVersionUpdate) SetNillableScheduleEnabled(b *bool) *JobVersionUpdate {
-	if b != nil {
-		jvu.SetScheduleEnabled(*b)
+func (_u *JobVersionUpdate) SetNillableScheduleEnabled(v *bool) *JobVersionUpdate {
+	if v != nil {
+		_u.SetScheduleEnabled(*v)
 	}
-	return jvu
+	return _u
 }
 
 // SetAllowConcurrentRuns sets the "allow_concurrent_runs" field.
-func (jvu *JobVersionUpdate) SetAllowConcurrentRuns(b bool) *JobVersionUpdate {
-	jvu.mutation.SetAllowConcurrentRuns(b)
-	return jvu
+func (_u *JobVersionUpdate) SetAllowConcurrentRuns(v bool) *JobVersionUpdate {
+	_u.mutation.SetAllowConcurrentRuns(v)
+	return _u
 }
 
 // SetNillableAllowConcurrentRuns sets the "allow_concurrent_runs" field if the given value is not nil.
-func (jvu *JobVersionUpdate) SetNillableAllowConcurrentRuns(b *bool) *JobVersionUpdate {
-	if b != nil {
-		jvu.SetAllowConcurrentRuns(*b)
+func (_u *JobVersionUpdate) SetNillableAllowConcurrentRuns(v *bool) *JobVersionUpdate {
+	if v != nil {
+		_u.SetAllowConcurrentRuns(*v)
 	}
-	return jvu
+	return _u
 }
 
 // SetArguments sets the "arguments" field.
-func (jvu *JobVersionUpdate) SetArguments(sa []schema.JobArgument) *JobVersionUpdate {
-	jvu.mutation.SetArguments(sa)
-	return jvu
+func (_u *JobVersionUpdate) SetArguments(v []schema.JobArgument) *JobVersionUpdate {
+	_u.mutation.SetArguments(v)
+	return _u
 }
 
-// AppendArguments appends sa to the "arguments" field.
-func (jvu *JobVersionUpdate) AppendArguments(sa []schema.JobArgument) *JobVersionUpdate {
-	jvu.mutation.AppendArguments(sa)
-	return jvu
+// AppendArguments appends value to the "arguments" field.
+func (_u *JobVersionUpdate) AppendArguments(v []schema.JobArgument) *JobVersionUpdate {
+	_u.mutation.AppendArguments(v)
+	return _u
 }
 
 // SetRequiresFileUpload sets the "requires_file_upload" field.
-func (jvu *JobVersionUpdate) SetRequiresFileUpload(b bool) *JobVersionUpdate {
-	jvu.mutation.SetRequiresFileUpload(b)
-	return jvu
+func (_u *JobVersionUpdate) SetRequiresFileUpload(v bool) *JobVersionUpdate {
+	_u.mutation.SetRequiresFileUpload(v)
+	return _u
 }
 
 // SetNillableRequiresFileUpload sets the "requires_file_upload" field if the given value is not nil.
-func (jvu *JobVersionUpdate) SetNillableRequiresFileUpload(b *bool) *JobVersionUpdate {
-	if b != nil {
-		jvu.SetRequiresFileUpload(*b)
+func (_u *JobVersionUpdate) SetNillableRequiresFileUpload(v *bool) *JobVersionUpdate {
+	if v != nil {
+		_u.SetRequiresFileUpload(*v)
 	}
-	return jvu
+	return _u
 }
 
 // SetChangedByEmail sets the "changed_by_email" field.
-func (jvu *JobVersionUpdate) SetChangedByEmail(s string) *JobVersionUpdate {
-	jvu.mutation.SetChangedByEmail(s)
-	return jvu
+func (_u *JobVersionUpdate) SetChangedByEmail(v string) *JobVersionUpdate {
+	_u.mutation.SetChangedByEmail(v)
+	return _u
 }
 
 // SetNillableChangedByEmail sets the "changed_by_email" field if the given value is not nil.
-func (jvu *JobVersionUpdate) SetNillableChangedByEmail(s *string) *JobVersionUpdate {
-	if s != nil {
-		jvu.SetChangedByEmail(*s)
+func (_u *JobVersionUpdate) SetNillableChangedByEmail(v *string) *JobVersionUpdate {
+	if v != nil {
+		_u.SetChangedByEmail(*v)
 	}
-	return jvu
+	return _u
 }
 
 // SetJobID sets the "job" edge to the Job entity by ID.
-func (jvu *JobVersionUpdate) SetJobID(id int) *JobVersionUpdate {
-	jvu.mutation.SetJobID(id)
-	return jvu
+func (_u *JobVersionUpdate) SetJobID(id int) *JobVersionUpdate {
+	_u.mutation.SetJobID(id)
+	return _u
 }
 
 // SetJob sets the "job" edge to the Job entity.
-func (jvu *JobVersionUpdate) SetJob(j *Job) *JobVersionUpdate {
-	return jvu.SetJobID(j.ID)
+func (_u *JobVersionUpdate) SetJob(v *Job) *JobVersionUpdate {
+	return _u.SetJobID(v.ID)
 }
 
 // Mutation returns the JobVersionMutation object of the builder.
-func (jvu *JobVersionUpdate) Mutation() *JobVersionMutation {
-	return jvu.mutation
+func (_u *JobVersionUpdate) Mutation() *JobVersionMutation {
+	return _u.mutation
 }
 
 // ClearJob clears the "job" edge to the Job entity.
-func (jvu *JobVersionUpdate) ClearJob() *JobVersionUpdate {
-	jvu.mutation.ClearJob()
-	return jvu
+func (_u *JobVersionUpdate) ClearJob() *JobVersionUpdate {
+	_u.mutation.ClearJob()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (jvu *JobVersionUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, jvu.sqlSave, jvu.mutation, jvu.hooks)
+func (_u *JobVersionUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (jvu *JobVersionUpdate) SaveX(ctx context.Context) int {
-	affected, err := jvu.Save(ctx)
+func (_u *JobVersionUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -212,77 +212,77 @@ func (jvu *JobVersionUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (jvu *JobVersionUpdate) Exec(ctx context.Context) error {
-	_, err := jvu.Save(ctx)
+func (_u *JobVersionUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jvu *JobVersionUpdate) ExecX(ctx context.Context) {
-	if err := jvu.Exec(ctx); err != nil {
+func (_u *JobVersionUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (jvu *JobVersionUpdate) check() error {
-	if jvu.mutation.JobCleared() && len(jvu.mutation.JobIDs()) > 0 {
+func (_u *JobVersionUpdate) check() error {
+	if _u.mutation.JobCleared() && len(_u.mutation.JobIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "JobVersion.job"`)
 	}
 	return nil
 }
 
-func (jvu *JobVersionUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := jvu.check(); err != nil {
-		return n, err
+func (_u *JobVersionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(jobversion.Table, jobversion.Columns, sqlgraph.NewFieldSpec(jobversion.FieldID, field.TypeInt))
-	if ps := jvu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := jvu.mutation.CreatedAt(); ok {
+	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(jobversion.FieldCreatedAt, field.TypeTime, value)
 	}
-	if value, ok := jvu.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(jobversion.FieldName, field.TypeString, value)
 	}
-	if value, ok := jvu.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(jobversion.FieldDescription, field.TypeString, value)
 	}
-	if value, ok := jvu.mutation.Script(); ok {
+	if value, ok := _u.mutation.Script(); ok {
 		_spec.SetField(jobversion.FieldScript, field.TypeString, value)
 	}
-	if value, ok := jvu.mutation.CronSchedule(); ok {
+	if value, ok := _u.mutation.CronSchedule(); ok {
 		_spec.SetField(jobversion.FieldCronSchedule, field.TypeString, value)
 	}
-	if jvu.mutation.CronScheduleCleared() {
+	if _u.mutation.CronScheduleCleared() {
 		_spec.ClearField(jobversion.FieldCronSchedule, field.TypeString)
 	}
-	if value, ok := jvu.mutation.ScheduleEnabled(); ok {
+	if value, ok := _u.mutation.ScheduleEnabled(); ok {
 		_spec.SetField(jobversion.FieldScheduleEnabled, field.TypeBool, value)
 	}
-	if value, ok := jvu.mutation.AllowConcurrentRuns(); ok {
+	if value, ok := _u.mutation.AllowConcurrentRuns(); ok {
 		_spec.SetField(jobversion.FieldAllowConcurrentRuns, field.TypeBool, value)
 	}
-	if value, ok := jvu.mutation.Arguments(); ok {
+	if value, ok := _u.mutation.Arguments(); ok {
 		_spec.SetField(jobversion.FieldArguments, field.TypeJSON, value)
 	}
-	if value, ok := jvu.mutation.AppendedArguments(); ok {
+	if value, ok := _u.mutation.AppendedArguments(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, jobversion.FieldArguments, value)
 		})
 	}
-	if value, ok := jvu.mutation.RequiresFileUpload(); ok {
+	if value, ok := _u.mutation.RequiresFileUpload(); ok {
 		_spec.SetField(jobversion.FieldRequiresFileUpload, field.TypeBool, value)
 	}
-	if value, ok := jvu.mutation.ChangedByEmail(); ok {
+	if value, ok := _u.mutation.ChangedByEmail(); ok {
 		_spec.SetField(jobversion.FieldChangedByEmail, field.TypeString, value)
 	}
-	if jvu.mutation.JobCleared() {
+	if _u.mutation.JobCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -295,7 +295,7 @@ func (jvu *JobVersionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := jvu.mutation.JobIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.JobIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -311,7 +311,7 @@ func (jvu *JobVersionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, jvu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{jobversion.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -319,8 +319,8 @@ func (jvu *JobVersionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	jvu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // JobVersionUpdateOne is the builder for updating a single JobVersion entity.
@@ -332,192 +332,192 @@ type JobVersionUpdateOne struct {
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (jvuo *JobVersionUpdateOne) SetCreatedAt(t time.Time) *JobVersionUpdateOne {
-	jvuo.mutation.SetCreatedAt(t)
-	return jvuo
+func (_u *JobVersionUpdateOne) SetCreatedAt(v time.Time) *JobVersionUpdateOne {
+	_u.mutation.SetCreatedAt(v)
+	return _u
 }
 
 // SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (jvuo *JobVersionUpdateOne) SetNillableCreatedAt(t *time.Time) *JobVersionUpdateOne {
-	if t != nil {
-		jvuo.SetCreatedAt(*t)
+func (_u *JobVersionUpdateOne) SetNillableCreatedAt(v *time.Time) *JobVersionUpdateOne {
+	if v != nil {
+		_u.SetCreatedAt(*v)
 	}
-	return jvuo
+	return _u
 }
 
 // SetName sets the "name" field.
-func (jvuo *JobVersionUpdateOne) SetName(s string) *JobVersionUpdateOne {
-	jvuo.mutation.SetName(s)
-	return jvuo
+func (_u *JobVersionUpdateOne) SetName(v string) *JobVersionUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (jvuo *JobVersionUpdateOne) SetNillableName(s *string) *JobVersionUpdateOne {
-	if s != nil {
-		jvuo.SetName(*s)
+func (_u *JobVersionUpdateOne) SetNillableName(v *string) *JobVersionUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return jvuo
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (jvuo *JobVersionUpdateOne) SetDescription(s string) *JobVersionUpdateOne {
-	jvuo.mutation.SetDescription(s)
-	return jvuo
+func (_u *JobVersionUpdateOne) SetDescription(v string) *JobVersionUpdateOne {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (jvuo *JobVersionUpdateOne) SetNillableDescription(s *string) *JobVersionUpdateOne {
-	if s != nil {
-		jvuo.SetDescription(*s)
+func (_u *JobVersionUpdateOne) SetNillableDescription(v *string) *JobVersionUpdateOne {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return jvuo
+	return _u
 }
 
 // SetScript sets the "script" field.
-func (jvuo *JobVersionUpdateOne) SetScript(s string) *JobVersionUpdateOne {
-	jvuo.mutation.SetScript(s)
-	return jvuo
+func (_u *JobVersionUpdateOne) SetScript(v string) *JobVersionUpdateOne {
+	_u.mutation.SetScript(v)
+	return _u
 }
 
 // SetNillableScript sets the "script" field if the given value is not nil.
-func (jvuo *JobVersionUpdateOne) SetNillableScript(s *string) *JobVersionUpdateOne {
-	if s != nil {
-		jvuo.SetScript(*s)
+func (_u *JobVersionUpdateOne) SetNillableScript(v *string) *JobVersionUpdateOne {
+	if v != nil {
+		_u.SetScript(*v)
 	}
-	return jvuo
+	return _u
 }
 
 // SetCronSchedule sets the "cron_schedule" field.
-func (jvuo *JobVersionUpdateOne) SetCronSchedule(s string) *JobVersionUpdateOne {
-	jvuo.mutation.SetCronSchedule(s)
-	return jvuo
+func (_u *JobVersionUpdateOne) SetCronSchedule(v string) *JobVersionUpdateOne {
+	_u.mutation.SetCronSchedule(v)
+	return _u
 }
 
 // SetNillableCronSchedule sets the "cron_schedule" field if the given value is not nil.
-func (jvuo *JobVersionUpdateOne) SetNillableCronSchedule(s *string) *JobVersionUpdateOne {
-	if s != nil {
-		jvuo.SetCronSchedule(*s)
+func (_u *JobVersionUpdateOne) SetNillableCronSchedule(v *string) *JobVersionUpdateOne {
+	if v != nil {
+		_u.SetCronSchedule(*v)
 	}
-	return jvuo
+	return _u
 }
 
 // ClearCronSchedule clears the value of the "cron_schedule" field.
-func (jvuo *JobVersionUpdateOne) ClearCronSchedule() *JobVersionUpdateOne {
-	jvuo.mutation.ClearCronSchedule()
-	return jvuo
+func (_u *JobVersionUpdateOne) ClearCronSchedule() *JobVersionUpdateOne {
+	_u.mutation.ClearCronSchedule()
+	return _u
 }
 
 // SetScheduleEnabled sets the "schedule_enabled" field.
-func (jvuo *JobVersionUpdateOne) SetScheduleEnabled(b bool) *JobVersionUpdateOne {
-	jvuo.mutation.SetScheduleEnabled(b)
-	return jvuo
+func (_u *JobVersionUpdateOne) SetScheduleEnabled(v bool) *JobVersionUpdateOne {
+	_u.mutation.SetScheduleEnabled(v)
+	return _u
 }
 
 // SetNillableScheduleEnabled sets the "schedule_enabled" field if the given value is not nil.
-func (jvuo *JobVersionUpdateOne) SetNillableScheduleEnabled(b *bool) *JobVersionUpdateOne {
-	if b != nil {
-		jvuo.SetScheduleEnabled(*b)
+func (_u *JobVersionUpdateOne) SetNillableScheduleEnabled(v *bool) *JobVersionUpdateOne {
+	if v != nil {
+		_u.SetScheduleEnabled(*v)
 	}
-	return jvuo
+	return _u
 }
 
 // SetAllowConcurrentRuns sets the "allow_concurrent_runs" field.
-func (jvuo *JobVersionUpdateOne) SetAllowConcurrentRuns(b bool) *JobVersionUpdateOne {
-	jvuo.mutation.SetAllowConcurrentRuns(b)
-	return jvuo
+func (_u *JobVersionUpdateOne) SetAllowConcurrentRuns(v bool) *JobVersionUpdateOne {
+	_u.mutation.SetAllowConcurrentRuns(v)
+	return _u
 }
 
 // SetNillableAllowConcurrentRuns sets the "allow_concurrent_runs" field if the given value is not nil.
-func (jvuo *JobVersionUpdateOne) SetNillableAllowConcurrentRuns(b *bool) *JobVersionUpdateOne {
-	if b != nil {
-		jvuo.SetAllowConcurrentRuns(*b)
+func (_u *JobVersionUpdateOne) SetNillableAllowConcurrentRuns(v *bool) *JobVersionUpdateOne {
+	if v != nil {
+		_u.SetAllowConcurrentRuns(*v)
 	}
-	return jvuo
+	return _u
 }
 
 // SetArguments sets the "arguments" field.
-func (jvuo *JobVersionUpdateOne) SetArguments(sa []schema.JobArgument) *JobVersionUpdateOne {
-	jvuo.mutation.SetArguments(sa)
-	return jvuo
+func (_u *JobVersionUpdateOne) SetArguments(v []schema.JobArgument) *JobVersionUpdateOne {
+	_u.mutation.SetArguments(v)
+	return _u
 }
 
-// AppendArguments appends sa to the "arguments" field.
-func (jvuo *JobVersionUpdateOne) AppendArguments(sa []schema.JobArgument) *JobVersionUpdateOne {
-	jvuo.mutation.AppendArguments(sa)
-	return jvuo
+// AppendArguments appends value to the "arguments" field.
+func (_u *JobVersionUpdateOne) AppendArguments(v []schema.JobArgument) *JobVersionUpdateOne {
+	_u.mutation.AppendArguments(v)
+	return _u
 }
 
 // SetRequiresFileUpload sets the "requires_file_upload" field.
-func (jvuo *JobVersionUpdateOne) SetRequiresFileUpload(b bool) *JobVersionUpdateOne {
-	jvuo.mutation.SetRequiresFileUpload(b)
-	return jvuo
+func (_u *JobVersionUpdateOne) SetRequiresFileUpload(v bool) *JobVersionUpdateOne {
+	_u.mutation.SetRequiresFileUpload(v)
+	return _u
 }
 
 // SetNillableRequiresFileUpload sets the "requires_file_upload" field if the given value is not nil.
-func (jvuo *JobVersionUpdateOne) SetNillableRequiresFileUpload(b *bool) *JobVersionUpdateOne {
-	if b != nil {
-		jvuo.SetRequiresFileUpload(*b)
+func (_u *JobVersionUpdateOne) SetNillableRequiresFileUpload(v *bool) *JobVersionUpdateOne {
+	if v != nil {
+		_u.SetRequiresFileUpload(*v)
 	}
-	return jvuo
+	return _u
 }
 
 // SetChangedByEmail sets the "changed_by_email" field.
-func (jvuo *JobVersionUpdateOne) SetChangedByEmail(s string) *JobVersionUpdateOne {
-	jvuo.mutation.SetChangedByEmail(s)
-	return jvuo
+func (_u *JobVersionUpdateOne) SetChangedByEmail(v string) *JobVersionUpdateOne {
+	_u.mutation.SetChangedByEmail(v)
+	return _u
 }
 
 // SetNillableChangedByEmail sets the "changed_by_email" field if the given value is not nil.
-func (jvuo *JobVersionUpdateOne) SetNillableChangedByEmail(s *string) *JobVersionUpdateOne {
-	if s != nil {
-		jvuo.SetChangedByEmail(*s)
+func (_u *JobVersionUpdateOne) SetNillableChangedByEmail(v *string) *JobVersionUpdateOne {
+	if v != nil {
+		_u.SetChangedByEmail(*v)
 	}
-	return jvuo
+	return _u
 }
 
 // SetJobID sets the "job" edge to the Job entity by ID.
-func (jvuo *JobVersionUpdateOne) SetJobID(id int) *JobVersionUpdateOne {
-	jvuo.mutation.SetJobID(id)
-	return jvuo
+func (_u *JobVersionUpdateOne) SetJobID(id int) *JobVersionUpdateOne {
+	_u.mutation.SetJobID(id)
+	return _u
 }
 
 // SetJob sets the "job" edge to the Job entity.
-func (jvuo *JobVersionUpdateOne) SetJob(j *Job) *JobVersionUpdateOne {
-	return jvuo.SetJobID(j.ID)
+func (_u *JobVersionUpdateOne) SetJob(v *Job) *JobVersionUpdateOne {
+	return _u.SetJobID(v.ID)
 }
 
 // Mutation returns the JobVersionMutation object of the builder.
-func (jvuo *JobVersionUpdateOne) Mutation() *JobVersionMutation {
-	return jvuo.mutation
+func (_u *JobVersionUpdateOne) Mutation() *JobVersionMutation {
+	return _u.mutation
 }
 
 // ClearJob clears the "job" edge to the Job entity.
-func (jvuo *JobVersionUpdateOne) ClearJob() *JobVersionUpdateOne {
-	jvuo.mutation.ClearJob()
-	return jvuo
+func (_u *JobVersionUpdateOne) ClearJob() *JobVersionUpdateOne {
+	_u.mutation.ClearJob()
+	return _u
 }
 
 // Where appends a list predicates to the JobVersionUpdate builder.
-func (jvuo *JobVersionUpdateOne) Where(ps ...predicate.JobVersion) *JobVersionUpdateOne {
-	jvuo.mutation.Where(ps...)
-	return jvuo
+func (_u *JobVersionUpdateOne) Where(ps ...predicate.JobVersion) *JobVersionUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (jvuo *JobVersionUpdateOne) Select(field string, fields ...string) *JobVersionUpdateOne {
-	jvuo.fields = append([]string{field}, fields...)
-	return jvuo
+func (_u *JobVersionUpdateOne) Select(field string, fields ...string) *JobVersionUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated JobVersion entity.
-func (jvuo *JobVersionUpdateOne) Save(ctx context.Context) (*JobVersion, error) {
-	return withHooks(ctx, jvuo.sqlSave, jvuo.mutation, jvuo.hooks)
+func (_u *JobVersionUpdateOne) Save(ctx context.Context) (*JobVersion, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (jvuo *JobVersionUpdateOne) SaveX(ctx context.Context) *JobVersion {
-	node, err := jvuo.Save(ctx)
+func (_u *JobVersionUpdateOne) SaveX(ctx context.Context) *JobVersion {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -525,37 +525,37 @@ func (jvuo *JobVersionUpdateOne) SaveX(ctx context.Context) *JobVersion {
 }
 
 // Exec executes the query on the entity.
-func (jvuo *JobVersionUpdateOne) Exec(ctx context.Context) error {
-	_, err := jvuo.Save(ctx)
+func (_u *JobVersionUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jvuo *JobVersionUpdateOne) ExecX(ctx context.Context) {
-	if err := jvuo.Exec(ctx); err != nil {
+func (_u *JobVersionUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (jvuo *JobVersionUpdateOne) check() error {
-	if jvuo.mutation.JobCleared() && len(jvuo.mutation.JobIDs()) > 0 {
+func (_u *JobVersionUpdateOne) check() error {
+	if _u.mutation.JobCleared() && len(_u.mutation.JobIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "JobVersion.job"`)
 	}
 	return nil
 }
 
-func (jvuo *JobVersionUpdateOne) sqlSave(ctx context.Context) (_node *JobVersion, err error) {
-	if err := jvuo.check(); err != nil {
+func (_u *JobVersionUpdateOne) sqlSave(ctx context.Context) (_node *JobVersion, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(jobversion.Table, jobversion.Columns, sqlgraph.NewFieldSpec(jobversion.FieldID, field.TypeInt))
-	id, ok := jvuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "JobVersion.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := jvuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, jobversion.FieldID)
 		for _, f := range fields {
@@ -567,52 +567,52 @@ func (jvuo *JobVersionUpdateOne) sqlSave(ctx context.Context) (_node *JobVersion
 			}
 		}
 	}
-	if ps := jvuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := jvuo.mutation.CreatedAt(); ok {
+	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(jobversion.FieldCreatedAt, field.TypeTime, value)
 	}
-	if value, ok := jvuo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(jobversion.FieldName, field.TypeString, value)
 	}
-	if value, ok := jvuo.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(jobversion.FieldDescription, field.TypeString, value)
 	}
-	if value, ok := jvuo.mutation.Script(); ok {
+	if value, ok := _u.mutation.Script(); ok {
 		_spec.SetField(jobversion.FieldScript, field.TypeString, value)
 	}
-	if value, ok := jvuo.mutation.CronSchedule(); ok {
+	if value, ok := _u.mutation.CronSchedule(); ok {
 		_spec.SetField(jobversion.FieldCronSchedule, field.TypeString, value)
 	}
-	if jvuo.mutation.CronScheduleCleared() {
+	if _u.mutation.CronScheduleCleared() {
 		_spec.ClearField(jobversion.FieldCronSchedule, field.TypeString)
 	}
-	if value, ok := jvuo.mutation.ScheduleEnabled(); ok {
+	if value, ok := _u.mutation.ScheduleEnabled(); ok {
 		_spec.SetField(jobversion.FieldScheduleEnabled, field.TypeBool, value)
 	}
-	if value, ok := jvuo.mutation.AllowConcurrentRuns(); ok {
+	if value, ok := _u.mutation.AllowConcurrentRuns(); ok {
 		_spec.SetField(jobversion.FieldAllowConcurrentRuns, field.TypeBool, value)
 	}
-	if value, ok := jvuo.mutation.Arguments(); ok {
+	if value, ok := _u.mutation.Arguments(); ok {
 		_spec.SetField(jobversion.FieldArguments, field.TypeJSON, value)
 	}
-	if value, ok := jvuo.mutation.AppendedArguments(); ok {
+	if value, ok := _u.mutation.AppendedArguments(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, jobversion.FieldArguments, value)
 		})
 	}
-	if value, ok := jvuo.mutation.RequiresFileUpload(); ok {
+	if value, ok := _u.mutation.RequiresFileUpload(); ok {
 		_spec.SetField(jobversion.FieldRequiresFileUpload, field.TypeBool, value)
 	}
-	if value, ok := jvuo.mutation.ChangedByEmail(); ok {
+	if value, ok := _u.mutation.ChangedByEmail(); ok {
 		_spec.SetField(jobversion.FieldChangedByEmail, field.TypeString, value)
 	}
-	if jvuo.mutation.JobCleared() {
+	if _u.mutation.JobCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -625,7 +625,7 @@ func (jvuo *JobVersionUpdateOne) sqlSave(ctx context.Context) (_node *JobVersion
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := jvuo.mutation.JobIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.JobIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -641,10 +641,10 @@ func (jvuo *JobVersionUpdateOne) sqlSave(ctx context.Context) (_node *JobVersion
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &JobVersion{config: jvuo.config}
+	_node = &JobVersion{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, jvuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{jobversion.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -652,6 +652,6 @@ func (jvuo *JobVersionUpdateOne) sqlSave(ctx context.Context) (_node *JobVersion
 		}
 		return nil, err
 	}
-	jvuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

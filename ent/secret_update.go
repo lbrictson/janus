@@ -24,98 +24,98 @@ type SecretUpdate struct {
 }
 
 // Where appends a list predicates to the SecretUpdate builder.
-func (su *SecretUpdate) Where(ps ...predicate.Secret) *SecretUpdate {
-	su.mutation.Where(ps...)
-	return su
+func (_u *SecretUpdate) Where(ps ...predicate.Secret) *SecretUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetName sets the "name" field.
-func (su *SecretUpdate) SetName(s string) *SecretUpdate {
-	su.mutation.SetName(s)
-	return su
+func (_u *SecretUpdate) SetName(v string) *SecretUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (su *SecretUpdate) SetNillableName(s *string) *SecretUpdate {
-	if s != nil {
-		su.SetName(*s)
+func (_u *SecretUpdate) SetNillableName(v *string) *SecretUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return su
+	return _u
 }
 
 // SetValue sets the "value" field.
-func (su *SecretUpdate) SetValue(s string) *SecretUpdate {
-	su.mutation.SetValue(s)
-	return su
+func (_u *SecretUpdate) SetValue(v string) *SecretUpdate {
+	_u.mutation.SetValue(v)
+	return _u
 }
 
 // SetNillableValue sets the "value" field if the given value is not nil.
-func (su *SecretUpdate) SetNillableValue(s *string) *SecretUpdate {
-	if s != nil {
-		su.SetValue(*s)
+func (_u *SecretUpdate) SetNillableValue(v *string) *SecretUpdate {
+	if v != nil {
+		_u.SetValue(*v)
 	}
-	return su
+	return _u
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (su *SecretUpdate) SetCreatedAt(t time.Time) *SecretUpdate {
-	su.mutation.SetCreatedAt(t)
-	return su
+func (_u *SecretUpdate) SetCreatedAt(v time.Time) *SecretUpdate {
+	_u.mutation.SetCreatedAt(v)
+	return _u
 }
 
 // SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (su *SecretUpdate) SetNillableCreatedAt(t *time.Time) *SecretUpdate {
-	if t != nil {
-		su.SetCreatedAt(*t)
+func (_u *SecretUpdate) SetNillableCreatedAt(v *time.Time) *SecretUpdate {
+	if v != nil {
+		_u.SetCreatedAt(*v)
 	}
-	return su
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (su *SecretUpdate) SetUpdatedAt(t time.Time) *SecretUpdate {
-	su.mutation.SetUpdatedAt(t)
-	return su
+func (_u *SecretUpdate) SetUpdatedAt(v time.Time) *SecretUpdate {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetProjectID sets the "project" edge to the Project entity by ID.
-func (su *SecretUpdate) SetProjectID(id int) *SecretUpdate {
-	su.mutation.SetProjectID(id)
-	return su
+func (_u *SecretUpdate) SetProjectID(id int) *SecretUpdate {
+	_u.mutation.SetProjectID(id)
+	return _u
 }
 
 // SetNillableProjectID sets the "project" edge to the Project entity by ID if the given value is not nil.
-func (su *SecretUpdate) SetNillableProjectID(id *int) *SecretUpdate {
+func (_u *SecretUpdate) SetNillableProjectID(id *int) *SecretUpdate {
 	if id != nil {
-		su = su.SetProjectID(*id)
+		_u = _u.SetProjectID(*id)
 	}
-	return su
+	return _u
 }
 
 // SetProject sets the "project" edge to the Project entity.
-func (su *SecretUpdate) SetProject(p *Project) *SecretUpdate {
-	return su.SetProjectID(p.ID)
+func (_u *SecretUpdate) SetProject(v *Project) *SecretUpdate {
+	return _u.SetProjectID(v.ID)
 }
 
 // Mutation returns the SecretMutation object of the builder.
-func (su *SecretUpdate) Mutation() *SecretMutation {
-	return su.mutation
+func (_u *SecretUpdate) Mutation() *SecretMutation {
+	return _u.mutation
 }
 
 // ClearProject clears the "project" edge to the Project entity.
-func (su *SecretUpdate) ClearProject() *SecretUpdate {
-	su.mutation.ClearProject()
-	return su
+func (_u *SecretUpdate) ClearProject() *SecretUpdate {
+	_u.mutation.ClearProject()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (su *SecretUpdate) Save(ctx context.Context) (int, error) {
-	su.defaults()
-	return withHooks(ctx, su.sqlSave, su.mutation, su.hooks)
+func (_u *SecretUpdate) Save(ctx context.Context) (int, error) {
+	_u.defaults()
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (su *SecretUpdate) SaveX(ctx context.Context) int {
-	affected, err := su.Save(ctx)
+func (_u *SecretUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -123,48 +123,48 @@ func (su *SecretUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (su *SecretUpdate) Exec(ctx context.Context) error {
-	_, err := su.Save(ctx)
+func (_u *SecretUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (su *SecretUpdate) ExecX(ctx context.Context) {
-	if err := su.Exec(ctx); err != nil {
+func (_u *SecretUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (su *SecretUpdate) defaults() {
-	if _, ok := su.mutation.UpdatedAt(); !ok {
+func (_u *SecretUpdate) defaults() {
+	if _, ok := _u.mutation.UpdatedAt(); !ok {
 		v := secret.UpdateDefaultUpdatedAt()
-		su.mutation.SetUpdatedAt(v)
+		_u.mutation.SetUpdatedAt(v)
 	}
 }
 
-func (su *SecretUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *SecretUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(secret.Table, secret.Columns, sqlgraph.NewFieldSpec(secret.FieldID, field.TypeInt))
-	if ps := su.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := su.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(secret.FieldName, field.TypeString, value)
 	}
-	if value, ok := su.mutation.Value(); ok {
+	if value, ok := _u.mutation.Value(); ok {
 		_spec.SetField(secret.FieldValue, field.TypeString, value)
 	}
-	if value, ok := su.mutation.CreatedAt(); ok {
+	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(secret.FieldCreatedAt, field.TypeTime, value)
 	}
-	if value, ok := su.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(secret.FieldUpdatedAt, field.TypeTime, value)
 	}
-	if su.mutation.ProjectCleared() {
+	if _u.mutation.ProjectCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -177,7 +177,7 @@ func (su *SecretUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := su.mutation.ProjectIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProjectIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -193,7 +193,7 @@ func (su *SecretUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, su.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{secret.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -201,8 +201,8 @@ func (su *SecretUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	su.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // SecretUpdateOne is the builder for updating a single Secret entity.
@@ -214,105 +214,105 @@ type SecretUpdateOne struct {
 }
 
 // SetName sets the "name" field.
-func (suo *SecretUpdateOne) SetName(s string) *SecretUpdateOne {
-	suo.mutation.SetName(s)
-	return suo
+func (_u *SecretUpdateOne) SetName(v string) *SecretUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (suo *SecretUpdateOne) SetNillableName(s *string) *SecretUpdateOne {
-	if s != nil {
-		suo.SetName(*s)
+func (_u *SecretUpdateOne) SetNillableName(v *string) *SecretUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return suo
+	return _u
 }
 
 // SetValue sets the "value" field.
-func (suo *SecretUpdateOne) SetValue(s string) *SecretUpdateOne {
-	suo.mutation.SetValue(s)
-	return suo
+func (_u *SecretUpdateOne) SetValue(v string) *SecretUpdateOne {
+	_u.mutation.SetValue(v)
+	return _u
 }
 
 // SetNillableValue sets the "value" field if the given value is not nil.
-func (suo *SecretUpdateOne) SetNillableValue(s *string) *SecretUpdateOne {
-	if s != nil {
-		suo.SetValue(*s)
+func (_u *SecretUpdateOne) SetNillableValue(v *string) *SecretUpdateOne {
+	if v != nil {
+		_u.SetValue(*v)
 	}
-	return suo
+	return _u
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (suo *SecretUpdateOne) SetCreatedAt(t time.Time) *SecretUpdateOne {
-	suo.mutation.SetCreatedAt(t)
-	return suo
+func (_u *SecretUpdateOne) SetCreatedAt(v time.Time) *SecretUpdateOne {
+	_u.mutation.SetCreatedAt(v)
+	return _u
 }
 
 // SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (suo *SecretUpdateOne) SetNillableCreatedAt(t *time.Time) *SecretUpdateOne {
-	if t != nil {
-		suo.SetCreatedAt(*t)
+func (_u *SecretUpdateOne) SetNillableCreatedAt(v *time.Time) *SecretUpdateOne {
+	if v != nil {
+		_u.SetCreatedAt(*v)
 	}
-	return suo
+	return _u
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (suo *SecretUpdateOne) SetUpdatedAt(t time.Time) *SecretUpdateOne {
-	suo.mutation.SetUpdatedAt(t)
-	return suo
+func (_u *SecretUpdateOne) SetUpdatedAt(v time.Time) *SecretUpdateOne {
+	_u.mutation.SetUpdatedAt(v)
+	return _u
 }
 
 // SetProjectID sets the "project" edge to the Project entity by ID.
-func (suo *SecretUpdateOne) SetProjectID(id int) *SecretUpdateOne {
-	suo.mutation.SetProjectID(id)
-	return suo
+func (_u *SecretUpdateOne) SetProjectID(id int) *SecretUpdateOne {
+	_u.mutation.SetProjectID(id)
+	return _u
 }
 
 // SetNillableProjectID sets the "project" edge to the Project entity by ID if the given value is not nil.
-func (suo *SecretUpdateOne) SetNillableProjectID(id *int) *SecretUpdateOne {
+func (_u *SecretUpdateOne) SetNillableProjectID(id *int) *SecretUpdateOne {
 	if id != nil {
-		suo = suo.SetProjectID(*id)
+		_u = _u.SetProjectID(*id)
 	}
-	return suo
+	return _u
 }
 
 // SetProject sets the "project" edge to the Project entity.
-func (suo *SecretUpdateOne) SetProject(p *Project) *SecretUpdateOne {
-	return suo.SetProjectID(p.ID)
+func (_u *SecretUpdateOne) SetProject(v *Project) *SecretUpdateOne {
+	return _u.SetProjectID(v.ID)
 }
 
 // Mutation returns the SecretMutation object of the builder.
-func (suo *SecretUpdateOne) Mutation() *SecretMutation {
-	return suo.mutation
+func (_u *SecretUpdateOne) Mutation() *SecretMutation {
+	return _u.mutation
 }
 
 // ClearProject clears the "project" edge to the Project entity.
-func (suo *SecretUpdateOne) ClearProject() *SecretUpdateOne {
-	suo.mutation.ClearProject()
-	return suo
+func (_u *SecretUpdateOne) ClearProject() *SecretUpdateOne {
+	_u.mutation.ClearProject()
+	return _u
 }
 
 // Where appends a list predicates to the SecretUpdate builder.
-func (suo *SecretUpdateOne) Where(ps ...predicate.Secret) *SecretUpdateOne {
-	suo.mutation.Where(ps...)
-	return suo
+func (_u *SecretUpdateOne) Where(ps ...predicate.Secret) *SecretUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (suo *SecretUpdateOne) Select(field string, fields ...string) *SecretUpdateOne {
-	suo.fields = append([]string{field}, fields...)
-	return suo
+func (_u *SecretUpdateOne) Select(field string, fields ...string) *SecretUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated Secret entity.
-func (suo *SecretUpdateOne) Save(ctx context.Context) (*Secret, error) {
-	suo.defaults()
-	return withHooks(ctx, suo.sqlSave, suo.mutation, suo.hooks)
+func (_u *SecretUpdateOne) Save(ctx context.Context) (*Secret, error) {
+	_u.defaults()
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (suo *SecretUpdateOne) SaveX(ctx context.Context) *Secret {
-	node, err := suo.Save(ctx)
+func (_u *SecretUpdateOne) SaveX(ctx context.Context) *Secret {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -320,34 +320,34 @@ func (suo *SecretUpdateOne) SaveX(ctx context.Context) *Secret {
 }
 
 // Exec executes the query on the entity.
-func (suo *SecretUpdateOne) Exec(ctx context.Context) error {
-	_, err := suo.Save(ctx)
+func (_u *SecretUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (suo *SecretUpdateOne) ExecX(ctx context.Context) {
-	if err := suo.Exec(ctx); err != nil {
+func (_u *SecretUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (suo *SecretUpdateOne) defaults() {
-	if _, ok := suo.mutation.UpdatedAt(); !ok {
+func (_u *SecretUpdateOne) defaults() {
+	if _, ok := _u.mutation.UpdatedAt(); !ok {
 		v := secret.UpdateDefaultUpdatedAt()
-		suo.mutation.SetUpdatedAt(v)
+		_u.mutation.SetUpdatedAt(v)
 	}
 }
 
-func (suo *SecretUpdateOne) sqlSave(ctx context.Context) (_node *Secret, err error) {
+func (_u *SecretUpdateOne) sqlSave(ctx context.Context) (_node *Secret, err error) {
 	_spec := sqlgraph.NewUpdateSpec(secret.Table, secret.Columns, sqlgraph.NewFieldSpec(secret.FieldID, field.TypeInt))
-	id, ok := suo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Secret.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := suo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, secret.FieldID)
 		for _, f := range fields {
@@ -359,26 +359,26 @@ func (suo *SecretUpdateOne) sqlSave(ctx context.Context) (_node *Secret, err err
 			}
 		}
 	}
-	if ps := suo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := suo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(secret.FieldName, field.TypeString, value)
 	}
-	if value, ok := suo.mutation.Value(); ok {
+	if value, ok := _u.mutation.Value(); ok {
 		_spec.SetField(secret.FieldValue, field.TypeString, value)
 	}
-	if value, ok := suo.mutation.CreatedAt(); ok {
+	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(secret.FieldCreatedAt, field.TypeTime, value)
 	}
-	if value, ok := suo.mutation.UpdatedAt(); ok {
+	if value, ok := _u.mutation.UpdatedAt(); ok {
 		_spec.SetField(secret.FieldUpdatedAt, field.TypeTime, value)
 	}
-	if suo.mutation.ProjectCleared() {
+	if _u.mutation.ProjectCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -391,7 +391,7 @@ func (suo *SecretUpdateOne) sqlSave(ctx context.Context) (_node *Secret, err err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := suo.mutation.ProjectIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProjectIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -407,10 +407,10 @@ func (suo *SecretUpdateOne) sqlSave(ctx context.Context) (_node *Secret, err err
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &Secret{config: suo.config}
+	_node = &Secret{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, suo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{secret.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -418,6 +418,6 @@ func (suo *SecretUpdateOne) sqlSave(ctx context.Context) (_node *Secret, err err
 		}
 		return nil, err
 	}
-	suo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

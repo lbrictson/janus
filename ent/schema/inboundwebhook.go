@@ -18,6 +18,8 @@ func (InboundWebhook) Fields() []ent.Field {
 		field.String("key").Unique(),
 		field.String("created_by"),
 		field.Time("created_at").Default(time.Now),
+		field.Bool("require_api_key").Default(false),
+		field.String("api_key").Optional().Nillable(),
 	}
 }
 

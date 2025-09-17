@@ -28,412 +28,412 @@ type JobUpdate struct {
 }
 
 // Where appends a list predicates to the JobUpdate builder.
-func (ju *JobUpdate) Where(ps ...predicate.Job) *JobUpdate {
-	ju.mutation.Where(ps...)
-	return ju
+func (_u *JobUpdate) Where(ps ...predicate.Job) *JobUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetName sets the "name" field.
-func (ju *JobUpdate) SetName(s string) *JobUpdate {
-	ju.mutation.SetName(s)
-	return ju
+func (_u *JobUpdate) SetName(v string) *JobUpdate {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableName(s *string) *JobUpdate {
-	if s != nil {
-		ju.SetName(*s)
+func (_u *JobUpdate) SetNillableName(v *string) *JobUpdate {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return ju
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (ju *JobUpdate) SetDescription(s string) *JobUpdate {
-	ju.mutation.SetDescription(s)
-	return ju
+func (_u *JobUpdate) SetDescription(v string) *JobUpdate {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableDescription(s *string) *JobUpdate {
-	if s != nil {
-		ju.SetDescription(*s)
+func (_u *JobUpdate) SetNillableDescription(v *string) *JobUpdate {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return ju
+	return _u
 }
 
 // ClearDescription clears the value of the "description" field.
-func (ju *JobUpdate) ClearDescription() *JobUpdate {
-	ju.mutation.ClearDescription()
-	return ju
+func (_u *JobUpdate) ClearDescription() *JobUpdate {
+	_u.mutation.ClearDescription()
+	return _u
 }
 
 // SetCronSchedule sets the "cron_schedule" field.
-func (ju *JobUpdate) SetCronSchedule(s string) *JobUpdate {
-	ju.mutation.SetCronSchedule(s)
-	return ju
+func (_u *JobUpdate) SetCronSchedule(v string) *JobUpdate {
+	_u.mutation.SetCronSchedule(v)
+	return _u
 }
 
 // SetNillableCronSchedule sets the "cron_schedule" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableCronSchedule(s *string) *JobUpdate {
-	if s != nil {
-		ju.SetCronSchedule(*s)
+func (_u *JobUpdate) SetNillableCronSchedule(v *string) *JobUpdate {
+	if v != nil {
+		_u.SetCronSchedule(*v)
 	}
-	return ju
+	return _u
 }
 
 // ClearCronSchedule clears the value of the "cron_schedule" field.
-func (ju *JobUpdate) ClearCronSchedule() *JobUpdate {
-	ju.mutation.ClearCronSchedule()
-	return ju
+func (_u *JobUpdate) ClearCronSchedule() *JobUpdate {
+	_u.mutation.ClearCronSchedule()
+	return _u
 }
 
 // SetScheduleEnabled sets the "schedule_enabled" field.
-func (ju *JobUpdate) SetScheduleEnabled(b bool) *JobUpdate {
-	ju.mutation.SetScheduleEnabled(b)
-	return ju
+func (_u *JobUpdate) SetScheduleEnabled(v bool) *JobUpdate {
+	_u.mutation.SetScheduleEnabled(v)
+	return _u
 }
 
 // SetNillableScheduleEnabled sets the "schedule_enabled" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableScheduleEnabled(b *bool) *JobUpdate {
-	if b != nil {
-		ju.SetScheduleEnabled(*b)
+func (_u *JobUpdate) SetNillableScheduleEnabled(v *bool) *JobUpdate {
+	if v != nil {
+		_u.SetScheduleEnabled(*v)
 	}
-	return ju
+	return _u
 }
 
 // SetAllowConcurrentRuns sets the "allow_concurrent_runs" field.
-func (ju *JobUpdate) SetAllowConcurrentRuns(b bool) *JobUpdate {
-	ju.mutation.SetAllowConcurrentRuns(b)
-	return ju
+func (_u *JobUpdate) SetAllowConcurrentRuns(v bool) *JobUpdate {
+	_u.mutation.SetAllowConcurrentRuns(v)
+	return _u
 }
 
 // SetNillableAllowConcurrentRuns sets the "allow_concurrent_runs" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableAllowConcurrentRuns(b *bool) *JobUpdate {
-	if b != nil {
-		ju.SetAllowConcurrentRuns(*b)
+func (_u *JobUpdate) SetNillableAllowConcurrentRuns(v *bool) *JobUpdate {
+	if v != nil {
+		_u.SetAllowConcurrentRuns(*v)
 	}
-	return ju
+	return _u
 }
 
 // SetArguments sets the "arguments" field.
-func (ju *JobUpdate) SetArguments(sa []schema.JobArgument) *JobUpdate {
-	ju.mutation.SetArguments(sa)
-	return ju
+func (_u *JobUpdate) SetArguments(v []schema.JobArgument) *JobUpdate {
+	_u.mutation.SetArguments(v)
+	return _u
 }
 
-// AppendArguments appends sa to the "arguments" field.
-func (ju *JobUpdate) AppendArguments(sa []schema.JobArgument) *JobUpdate {
-	ju.mutation.AppendArguments(sa)
-	return ju
+// AppendArguments appends value to the "arguments" field.
+func (_u *JobUpdate) AppendArguments(v []schema.JobArgument) *JobUpdate {
+	_u.mutation.AppendArguments(v)
+	return _u
 }
 
 // ClearArguments clears the value of the "arguments" field.
-func (ju *JobUpdate) ClearArguments() *JobUpdate {
-	ju.mutation.ClearArguments()
-	return ju
+func (_u *JobUpdate) ClearArguments() *JobUpdate {
+	_u.mutation.ClearArguments()
+	return _u
 }
 
 // SetRequiresFileUpload sets the "requires_file_upload" field.
-func (ju *JobUpdate) SetRequiresFileUpload(b bool) *JobUpdate {
-	ju.mutation.SetRequiresFileUpload(b)
-	return ju
+func (_u *JobUpdate) SetRequiresFileUpload(v bool) *JobUpdate {
+	_u.mutation.SetRequiresFileUpload(v)
+	return _u
 }
 
 // SetNillableRequiresFileUpload sets the "requires_file_upload" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableRequiresFileUpload(b *bool) *JobUpdate {
-	if b != nil {
-		ju.SetRequiresFileUpload(*b)
+func (_u *JobUpdate) SetNillableRequiresFileUpload(v *bool) *JobUpdate {
+	if v != nil {
+		_u.SetRequiresFileUpload(*v)
 	}
-	return ju
+	return _u
 }
 
 // SetAverageDurationMs sets the "average_duration_ms" field.
-func (ju *JobUpdate) SetAverageDurationMs(i int64) *JobUpdate {
-	ju.mutation.ResetAverageDurationMs()
-	ju.mutation.SetAverageDurationMs(i)
-	return ju
+func (_u *JobUpdate) SetAverageDurationMs(v int64) *JobUpdate {
+	_u.mutation.ResetAverageDurationMs()
+	_u.mutation.SetAverageDurationMs(v)
+	return _u
 }
 
 // SetNillableAverageDurationMs sets the "average_duration_ms" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableAverageDurationMs(i *int64) *JobUpdate {
-	if i != nil {
-		ju.SetAverageDurationMs(*i)
+func (_u *JobUpdate) SetNillableAverageDurationMs(v *int64) *JobUpdate {
+	if v != nil {
+		_u.SetAverageDurationMs(*v)
 	}
-	return ju
+	return _u
 }
 
-// AddAverageDurationMs adds i to the "average_duration_ms" field.
-func (ju *JobUpdate) AddAverageDurationMs(i int64) *JobUpdate {
-	ju.mutation.AddAverageDurationMs(i)
-	return ju
+// AddAverageDurationMs adds value to the "average_duration_ms" field.
+func (_u *JobUpdate) AddAverageDurationMs(v int64) *JobUpdate {
+	_u.mutation.AddAverageDurationMs(v)
+	return _u
 }
 
 // ClearAverageDurationMs clears the value of the "average_duration_ms" field.
-func (ju *JobUpdate) ClearAverageDurationMs() *JobUpdate {
-	ju.mutation.ClearAverageDurationMs()
-	return ju
+func (_u *JobUpdate) ClearAverageDurationMs() *JobUpdate {
+	_u.mutation.ClearAverageDurationMs()
+	return _u
 }
 
 // SetTimeoutSeconds sets the "timeout_seconds" field.
-func (ju *JobUpdate) SetTimeoutSeconds(i int) *JobUpdate {
-	ju.mutation.ResetTimeoutSeconds()
-	ju.mutation.SetTimeoutSeconds(i)
-	return ju
+func (_u *JobUpdate) SetTimeoutSeconds(v int) *JobUpdate {
+	_u.mutation.ResetTimeoutSeconds()
+	_u.mutation.SetTimeoutSeconds(v)
+	return _u
 }
 
 // SetNillableTimeoutSeconds sets the "timeout_seconds" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableTimeoutSeconds(i *int) *JobUpdate {
-	if i != nil {
-		ju.SetTimeoutSeconds(*i)
+func (_u *JobUpdate) SetNillableTimeoutSeconds(v *int) *JobUpdate {
+	if v != nil {
+		_u.SetTimeoutSeconds(*v)
 	}
-	return ju
+	return _u
 }
 
-// AddTimeoutSeconds adds i to the "timeout_seconds" field.
-func (ju *JobUpdate) AddTimeoutSeconds(i int) *JobUpdate {
-	ju.mutation.AddTimeoutSeconds(i)
-	return ju
+// AddTimeoutSeconds adds value to the "timeout_seconds" field.
+func (_u *JobUpdate) AddTimeoutSeconds(v int) *JobUpdate {
+	_u.mutation.AddTimeoutSeconds(v)
+	return _u
 }
 
 // ClearTimeoutSeconds clears the value of the "timeout_seconds" field.
-func (ju *JobUpdate) ClearTimeoutSeconds() *JobUpdate {
-	ju.mutation.ClearTimeoutSeconds()
-	return ju
+func (_u *JobUpdate) ClearTimeoutSeconds() *JobUpdate {
+	_u.mutation.ClearTimeoutSeconds()
+	return _u
 }
 
 // SetLastEditTime sets the "last_edit_time" field.
-func (ju *JobUpdate) SetLastEditTime(t time.Time) *JobUpdate {
-	ju.mutation.SetLastEditTime(t)
-	return ju
+func (_u *JobUpdate) SetLastEditTime(v time.Time) *JobUpdate {
+	_u.mutation.SetLastEditTime(v)
+	return _u
 }
 
 // SetNotifyOnStartChannelIds sets the "notify_on_start_channel_ids" field.
-func (ju *JobUpdate) SetNotifyOnStartChannelIds(i []int) *JobUpdate {
-	ju.mutation.SetNotifyOnStartChannelIds(i)
-	return ju
+func (_u *JobUpdate) SetNotifyOnStartChannelIds(v []int) *JobUpdate {
+	_u.mutation.SetNotifyOnStartChannelIds(v)
+	return _u
 }
 
-// AppendNotifyOnStartChannelIds appends i to the "notify_on_start_channel_ids" field.
-func (ju *JobUpdate) AppendNotifyOnStartChannelIds(i []int) *JobUpdate {
-	ju.mutation.AppendNotifyOnStartChannelIds(i)
-	return ju
+// AppendNotifyOnStartChannelIds appends value to the "notify_on_start_channel_ids" field.
+func (_u *JobUpdate) AppendNotifyOnStartChannelIds(v []int) *JobUpdate {
+	_u.mutation.AppendNotifyOnStartChannelIds(v)
+	return _u
 }
 
 // ClearNotifyOnStartChannelIds clears the value of the "notify_on_start_channel_ids" field.
-func (ju *JobUpdate) ClearNotifyOnStartChannelIds() *JobUpdate {
-	ju.mutation.ClearNotifyOnStartChannelIds()
-	return ju
+func (_u *JobUpdate) ClearNotifyOnStartChannelIds() *JobUpdate {
+	_u.mutation.ClearNotifyOnStartChannelIds()
+	return _u
 }
 
 // SetNotifyOnSuccessChannelIds sets the "notify_on_success_channel_ids" field.
-func (ju *JobUpdate) SetNotifyOnSuccessChannelIds(i []int) *JobUpdate {
-	ju.mutation.SetNotifyOnSuccessChannelIds(i)
-	return ju
+func (_u *JobUpdate) SetNotifyOnSuccessChannelIds(v []int) *JobUpdate {
+	_u.mutation.SetNotifyOnSuccessChannelIds(v)
+	return _u
 }
 
-// AppendNotifyOnSuccessChannelIds appends i to the "notify_on_success_channel_ids" field.
-func (ju *JobUpdate) AppendNotifyOnSuccessChannelIds(i []int) *JobUpdate {
-	ju.mutation.AppendNotifyOnSuccessChannelIds(i)
-	return ju
+// AppendNotifyOnSuccessChannelIds appends value to the "notify_on_success_channel_ids" field.
+func (_u *JobUpdate) AppendNotifyOnSuccessChannelIds(v []int) *JobUpdate {
+	_u.mutation.AppendNotifyOnSuccessChannelIds(v)
+	return _u
 }
 
 // ClearNotifyOnSuccessChannelIds clears the value of the "notify_on_success_channel_ids" field.
-func (ju *JobUpdate) ClearNotifyOnSuccessChannelIds() *JobUpdate {
-	ju.mutation.ClearNotifyOnSuccessChannelIds()
-	return ju
+func (_u *JobUpdate) ClearNotifyOnSuccessChannelIds() *JobUpdate {
+	_u.mutation.ClearNotifyOnSuccessChannelIds()
+	return _u
 }
 
 // SetNotifyOnFailureChannelIds sets the "notify_on_failure_channel_ids" field.
-func (ju *JobUpdate) SetNotifyOnFailureChannelIds(i []int) *JobUpdate {
-	ju.mutation.SetNotifyOnFailureChannelIds(i)
-	return ju
+func (_u *JobUpdate) SetNotifyOnFailureChannelIds(v []int) *JobUpdate {
+	_u.mutation.SetNotifyOnFailureChannelIds(v)
+	return _u
 }
 
-// AppendNotifyOnFailureChannelIds appends i to the "notify_on_failure_channel_ids" field.
-func (ju *JobUpdate) AppendNotifyOnFailureChannelIds(i []int) *JobUpdate {
-	ju.mutation.AppendNotifyOnFailureChannelIds(i)
-	return ju
+// AppendNotifyOnFailureChannelIds appends value to the "notify_on_failure_channel_ids" field.
+func (_u *JobUpdate) AppendNotifyOnFailureChannelIds(v []int) *JobUpdate {
+	_u.mutation.AppendNotifyOnFailureChannelIds(v)
+	return _u
 }
 
 // ClearNotifyOnFailureChannelIds clears the value of the "notify_on_failure_channel_ids" field.
-func (ju *JobUpdate) ClearNotifyOnFailureChannelIds() *JobUpdate {
-	ju.mutation.ClearNotifyOnFailureChannelIds()
-	return ju
+func (_u *JobUpdate) ClearNotifyOnFailureChannelIds() *JobUpdate {
+	_u.mutation.ClearNotifyOnFailureChannelIds()
+	return _u
 }
 
 // SetLastRunTime sets the "last_run_time" field.
-func (ju *JobUpdate) SetLastRunTime(t time.Time) *JobUpdate {
-	ju.mutation.SetLastRunTime(t)
-	return ju
+func (_u *JobUpdate) SetLastRunTime(v time.Time) *JobUpdate {
+	_u.mutation.SetLastRunTime(v)
+	return _u
 }
 
 // SetNillableLastRunTime sets the "last_run_time" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableLastRunTime(t *time.Time) *JobUpdate {
-	if t != nil {
-		ju.SetLastRunTime(*t)
+func (_u *JobUpdate) SetNillableLastRunTime(v *time.Time) *JobUpdate {
+	if v != nil {
+		_u.SetLastRunTime(*v)
 	}
-	return ju
+	return _u
 }
 
 // SetNextCronRunTime sets the "next_cron_run_time" field.
-func (ju *JobUpdate) SetNextCronRunTime(t time.Time) *JobUpdate {
-	ju.mutation.SetNextCronRunTime(t)
-	return ju
+func (_u *JobUpdate) SetNextCronRunTime(v time.Time) *JobUpdate {
+	_u.mutation.SetNextCronRunTime(v)
+	return _u
 }
 
 // SetNillableNextCronRunTime sets the "next_cron_run_time" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableNextCronRunTime(t *time.Time) *JobUpdate {
-	if t != nil {
-		ju.SetNextCronRunTime(*t)
+func (_u *JobUpdate) SetNillableNextCronRunTime(v *time.Time) *JobUpdate {
+	if v != nil {
+		_u.SetNextCronRunTime(*v)
 	}
-	return ju
+	return _u
 }
 
 // SetScript sets the "script" field.
-func (ju *JobUpdate) SetScript(s string) *JobUpdate {
-	ju.mutation.SetScript(s)
-	return ju
+func (_u *JobUpdate) SetScript(v string) *JobUpdate {
+	_u.mutation.SetScript(v)
+	return _u
 }
 
 // SetNillableScript sets the "script" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableScript(s *string) *JobUpdate {
-	if s != nil {
-		ju.SetScript(*s)
+func (_u *JobUpdate) SetNillableScript(v *string) *JobUpdate {
+	if v != nil {
+		_u.SetScript(*v)
 	}
-	return ju
+	return _u
 }
 
 // SetLastRunSuccess sets the "last_run_success" field.
-func (ju *JobUpdate) SetLastRunSuccess(b bool) *JobUpdate {
-	ju.mutation.SetLastRunSuccess(b)
-	return ju
+func (_u *JobUpdate) SetLastRunSuccess(v bool) *JobUpdate {
+	_u.mutation.SetLastRunSuccess(v)
+	return _u
 }
 
 // SetNillableLastRunSuccess sets the "last_run_success" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableLastRunSuccess(b *bool) *JobUpdate {
-	if b != nil {
-		ju.SetLastRunSuccess(*b)
+func (_u *JobUpdate) SetNillableLastRunSuccess(v *bool) *JobUpdate {
+	if v != nil {
+		_u.SetLastRunSuccess(*v)
 	}
-	return ju
+	return _u
 }
 
 // SetCreatedByAPI sets the "created_by_api" field.
-func (ju *JobUpdate) SetCreatedByAPI(b bool) *JobUpdate {
-	ju.mutation.SetCreatedByAPI(b)
-	return ju
+func (_u *JobUpdate) SetCreatedByAPI(v bool) *JobUpdate {
+	_u.mutation.SetCreatedByAPI(v)
+	return _u
 }
 
 // SetNillableCreatedByAPI sets the "created_by_api" field if the given value is not nil.
-func (ju *JobUpdate) SetNillableCreatedByAPI(b *bool) *JobUpdate {
-	if b != nil {
-		ju.SetCreatedByAPI(*b)
+func (_u *JobUpdate) SetNillableCreatedByAPI(v *bool) *JobUpdate {
+	if v != nil {
+		_u.SetCreatedByAPI(*v)
 	}
-	return ju
+	return _u
 }
 
 // SetProjectID sets the "project" edge to the Project entity by ID.
-func (ju *JobUpdate) SetProjectID(id int) *JobUpdate {
-	ju.mutation.SetProjectID(id)
-	return ju
+func (_u *JobUpdate) SetProjectID(id int) *JobUpdate {
+	_u.mutation.SetProjectID(id)
+	return _u
 }
 
 // SetProject sets the "project" edge to the Project entity.
-func (ju *JobUpdate) SetProject(p *Project) *JobUpdate {
-	return ju.SetProjectID(p.ID)
+func (_u *JobUpdate) SetProject(v *Project) *JobUpdate {
+	return _u.SetProjectID(v.ID)
 }
 
 // AddHistoryIDs adds the "history" edge to the JobHistory entity by IDs.
-func (ju *JobUpdate) AddHistoryIDs(ids ...int) *JobUpdate {
-	ju.mutation.AddHistoryIDs(ids...)
-	return ju
+func (_u *JobUpdate) AddHistoryIDs(ids ...int) *JobUpdate {
+	_u.mutation.AddHistoryIDs(ids...)
+	return _u
 }
 
 // AddHistory adds the "history" edges to the JobHistory entity.
-func (ju *JobUpdate) AddHistory(j ...*JobHistory) *JobUpdate {
-	ids := make([]int, len(j))
-	for i := range j {
-		ids[i] = j[i].ID
+func (_u *JobUpdate) AddHistory(v ...*JobHistory) *JobUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return ju.AddHistoryIDs(ids...)
+	return _u.AddHistoryIDs(ids...)
 }
 
 // AddVersionIDs adds the "versions" edge to the JobVersion entity by IDs.
-func (ju *JobUpdate) AddVersionIDs(ids ...int) *JobUpdate {
-	ju.mutation.AddVersionIDs(ids...)
-	return ju
+func (_u *JobUpdate) AddVersionIDs(ids ...int) *JobUpdate {
+	_u.mutation.AddVersionIDs(ids...)
+	return _u
 }
 
 // AddVersions adds the "versions" edges to the JobVersion entity.
-func (ju *JobUpdate) AddVersions(j ...*JobVersion) *JobUpdate {
-	ids := make([]int, len(j))
-	for i := range j {
-		ids[i] = j[i].ID
+func (_u *JobUpdate) AddVersions(v ...*JobVersion) *JobUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return ju.AddVersionIDs(ids...)
+	return _u.AddVersionIDs(ids...)
 }
 
 // Mutation returns the JobMutation object of the builder.
-func (ju *JobUpdate) Mutation() *JobMutation {
-	return ju.mutation
+func (_u *JobUpdate) Mutation() *JobMutation {
+	return _u.mutation
 }
 
 // ClearProject clears the "project" edge to the Project entity.
-func (ju *JobUpdate) ClearProject() *JobUpdate {
-	ju.mutation.ClearProject()
-	return ju
+func (_u *JobUpdate) ClearProject() *JobUpdate {
+	_u.mutation.ClearProject()
+	return _u
 }
 
 // ClearHistory clears all "history" edges to the JobHistory entity.
-func (ju *JobUpdate) ClearHistory() *JobUpdate {
-	ju.mutation.ClearHistory()
-	return ju
+func (_u *JobUpdate) ClearHistory() *JobUpdate {
+	_u.mutation.ClearHistory()
+	return _u
 }
 
 // RemoveHistoryIDs removes the "history" edge to JobHistory entities by IDs.
-func (ju *JobUpdate) RemoveHistoryIDs(ids ...int) *JobUpdate {
-	ju.mutation.RemoveHistoryIDs(ids...)
-	return ju
+func (_u *JobUpdate) RemoveHistoryIDs(ids ...int) *JobUpdate {
+	_u.mutation.RemoveHistoryIDs(ids...)
+	return _u
 }
 
 // RemoveHistory removes "history" edges to JobHistory entities.
-func (ju *JobUpdate) RemoveHistory(j ...*JobHistory) *JobUpdate {
-	ids := make([]int, len(j))
-	for i := range j {
-		ids[i] = j[i].ID
+func (_u *JobUpdate) RemoveHistory(v ...*JobHistory) *JobUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return ju.RemoveHistoryIDs(ids...)
+	return _u.RemoveHistoryIDs(ids...)
 }
 
 // ClearVersions clears all "versions" edges to the JobVersion entity.
-func (ju *JobUpdate) ClearVersions() *JobUpdate {
-	ju.mutation.ClearVersions()
-	return ju
+func (_u *JobUpdate) ClearVersions() *JobUpdate {
+	_u.mutation.ClearVersions()
+	return _u
 }
 
 // RemoveVersionIDs removes the "versions" edge to JobVersion entities by IDs.
-func (ju *JobUpdate) RemoveVersionIDs(ids ...int) *JobUpdate {
-	ju.mutation.RemoveVersionIDs(ids...)
-	return ju
+func (_u *JobUpdate) RemoveVersionIDs(ids ...int) *JobUpdate {
+	_u.mutation.RemoveVersionIDs(ids...)
+	return _u
 }
 
 // RemoveVersions removes "versions" edges to JobVersion entities.
-func (ju *JobUpdate) RemoveVersions(j ...*JobVersion) *JobUpdate {
-	ids := make([]int, len(j))
-	for i := range j {
-		ids[i] = j[i].ID
+func (_u *JobUpdate) RemoveVersions(v ...*JobVersion) *JobUpdate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return ju.RemoveVersionIDs(ids...)
+	return _u.RemoveVersionIDs(ids...)
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (ju *JobUpdate) Save(ctx context.Context) (int, error) {
-	ju.defaults()
-	return withHooks(ctx, ju.sqlSave, ju.mutation, ju.hooks)
+func (_u *JobUpdate) Save(ctx context.Context) (int, error) {
+	_u.defaults()
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (ju *JobUpdate) SaveX(ctx context.Context) int {
-	affected, err := ju.Save(ctx)
+func (_u *JobUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -441,156 +441,156 @@ func (ju *JobUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (ju *JobUpdate) Exec(ctx context.Context) error {
-	_, err := ju.Save(ctx)
+func (_u *JobUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ju *JobUpdate) ExecX(ctx context.Context) {
-	if err := ju.Exec(ctx); err != nil {
+func (_u *JobUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (ju *JobUpdate) defaults() {
-	if _, ok := ju.mutation.LastEditTime(); !ok {
+func (_u *JobUpdate) defaults() {
+	if _, ok := _u.mutation.LastEditTime(); !ok {
 		v := job.UpdateDefaultLastEditTime()
-		ju.mutation.SetLastEditTime(v)
+		_u.mutation.SetLastEditTime(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (ju *JobUpdate) check() error {
-	if v, ok := ju.mutation.Name(); ok {
+func (_u *JobUpdate) check() error {
+	if v, ok := _u.mutation.Name(); ok {
 		if err := job.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf(`ent: validator failed for field "Job.name": %w`, err)}
 		}
 	}
-	if ju.mutation.ProjectCleared() && len(ju.mutation.ProjectIDs()) > 0 {
+	if _u.mutation.ProjectCleared() && len(_u.mutation.ProjectIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Job.project"`)
 	}
 	return nil
 }
 
-func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
-	if err := ju.check(); err != nil {
-		return n, err
+func (_u *JobUpdate) sqlSave(ctx context.Context) (_node int, err error) {
+	if err := _u.check(); err != nil {
+		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(job.Table, job.Columns, sqlgraph.NewFieldSpec(job.FieldID, field.TypeInt))
-	if ps := ju.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := ju.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(job.FieldName, field.TypeString, value)
 	}
-	if value, ok := ju.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(job.FieldDescription, field.TypeString, value)
 	}
-	if ju.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(job.FieldDescription, field.TypeString)
 	}
-	if value, ok := ju.mutation.CronSchedule(); ok {
+	if value, ok := _u.mutation.CronSchedule(); ok {
 		_spec.SetField(job.FieldCronSchedule, field.TypeString, value)
 	}
-	if ju.mutation.CronScheduleCleared() {
+	if _u.mutation.CronScheduleCleared() {
 		_spec.ClearField(job.FieldCronSchedule, field.TypeString)
 	}
-	if value, ok := ju.mutation.ScheduleEnabled(); ok {
+	if value, ok := _u.mutation.ScheduleEnabled(); ok {
 		_spec.SetField(job.FieldScheduleEnabled, field.TypeBool, value)
 	}
-	if value, ok := ju.mutation.AllowConcurrentRuns(); ok {
+	if value, ok := _u.mutation.AllowConcurrentRuns(); ok {
 		_spec.SetField(job.FieldAllowConcurrentRuns, field.TypeBool, value)
 	}
-	if value, ok := ju.mutation.Arguments(); ok {
+	if value, ok := _u.mutation.Arguments(); ok {
 		_spec.SetField(job.FieldArguments, field.TypeJSON, value)
 	}
-	if value, ok := ju.mutation.AppendedArguments(); ok {
+	if value, ok := _u.mutation.AppendedArguments(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, job.FieldArguments, value)
 		})
 	}
-	if ju.mutation.ArgumentsCleared() {
+	if _u.mutation.ArgumentsCleared() {
 		_spec.ClearField(job.FieldArguments, field.TypeJSON)
 	}
-	if value, ok := ju.mutation.RequiresFileUpload(); ok {
+	if value, ok := _u.mutation.RequiresFileUpload(); ok {
 		_spec.SetField(job.FieldRequiresFileUpload, field.TypeBool, value)
 	}
-	if value, ok := ju.mutation.AverageDurationMs(); ok {
+	if value, ok := _u.mutation.AverageDurationMs(); ok {
 		_spec.SetField(job.FieldAverageDurationMs, field.TypeInt64, value)
 	}
-	if value, ok := ju.mutation.AddedAverageDurationMs(); ok {
+	if value, ok := _u.mutation.AddedAverageDurationMs(); ok {
 		_spec.AddField(job.FieldAverageDurationMs, field.TypeInt64, value)
 	}
-	if ju.mutation.AverageDurationMsCleared() {
+	if _u.mutation.AverageDurationMsCleared() {
 		_spec.ClearField(job.FieldAverageDurationMs, field.TypeInt64)
 	}
-	if value, ok := ju.mutation.TimeoutSeconds(); ok {
+	if value, ok := _u.mutation.TimeoutSeconds(); ok {
 		_spec.SetField(job.FieldTimeoutSeconds, field.TypeInt, value)
 	}
-	if value, ok := ju.mutation.AddedTimeoutSeconds(); ok {
+	if value, ok := _u.mutation.AddedTimeoutSeconds(); ok {
 		_spec.AddField(job.FieldTimeoutSeconds, field.TypeInt, value)
 	}
-	if ju.mutation.TimeoutSecondsCleared() {
+	if _u.mutation.TimeoutSecondsCleared() {
 		_spec.ClearField(job.FieldTimeoutSeconds, field.TypeInt)
 	}
-	if value, ok := ju.mutation.LastEditTime(); ok {
+	if value, ok := _u.mutation.LastEditTime(); ok {
 		_spec.SetField(job.FieldLastEditTime, field.TypeTime, value)
 	}
-	if value, ok := ju.mutation.NotifyOnStartChannelIds(); ok {
+	if value, ok := _u.mutation.NotifyOnStartChannelIds(); ok {
 		_spec.SetField(job.FieldNotifyOnStartChannelIds, field.TypeJSON, value)
 	}
-	if value, ok := ju.mutation.AppendedNotifyOnStartChannelIds(); ok {
+	if value, ok := _u.mutation.AppendedNotifyOnStartChannelIds(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, job.FieldNotifyOnStartChannelIds, value)
 		})
 	}
-	if ju.mutation.NotifyOnStartChannelIdsCleared() {
+	if _u.mutation.NotifyOnStartChannelIdsCleared() {
 		_spec.ClearField(job.FieldNotifyOnStartChannelIds, field.TypeJSON)
 	}
-	if value, ok := ju.mutation.NotifyOnSuccessChannelIds(); ok {
+	if value, ok := _u.mutation.NotifyOnSuccessChannelIds(); ok {
 		_spec.SetField(job.FieldNotifyOnSuccessChannelIds, field.TypeJSON, value)
 	}
-	if value, ok := ju.mutation.AppendedNotifyOnSuccessChannelIds(); ok {
+	if value, ok := _u.mutation.AppendedNotifyOnSuccessChannelIds(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, job.FieldNotifyOnSuccessChannelIds, value)
 		})
 	}
-	if ju.mutation.NotifyOnSuccessChannelIdsCleared() {
+	if _u.mutation.NotifyOnSuccessChannelIdsCleared() {
 		_spec.ClearField(job.FieldNotifyOnSuccessChannelIds, field.TypeJSON)
 	}
-	if value, ok := ju.mutation.NotifyOnFailureChannelIds(); ok {
+	if value, ok := _u.mutation.NotifyOnFailureChannelIds(); ok {
 		_spec.SetField(job.FieldNotifyOnFailureChannelIds, field.TypeJSON, value)
 	}
-	if value, ok := ju.mutation.AppendedNotifyOnFailureChannelIds(); ok {
+	if value, ok := _u.mutation.AppendedNotifyOnFailureChannelIds(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, job.FieldNotifyOnFailureChannelIds, value)
 		})
 	}
-	if ju.mutation.NotifyOnFailureChannelIdsCleared() {
+	if _u.mutation.NotifyOnFailureChannelIdsCleared() {
 		_spec.ClearField(job.FieldNotifyOnFailureChannelIds, field.TypeJSON)
 	}
-	if value, ok := ju.mutation.LastRunTime(); ok {
+	if value, ok := _u.mutation.LastRunTime(); ok {
 		_spec.SetField(job.FieldLastRunTime, field.TypeTime, value)
 	}
-	if value, ok := ju.mutation.NextCronRunTime(); ok {
+	if value, ok := _u.mutation.NextCronRunTime(); ok {
 		_spec.SetField(job.FieldNextCronRunTime, field.TypeTime, value)
 	}
-	if value, ok := ju.mutation.Script(); ok {
+	if value, ok := _u.mutation.Script(); ok {
 		_spec.SetField(job.FieldScript, field.TypeString, value)
 	}
-	if value, ok := ju.mutation.LastRunSuccess(); ok {
+	if value, ok := _u.mutation.LastRunSuccess(); ok {
 		_spec.SetField(job.FieldLastRunSuccess, field.TypeBool, value)
 	}
-	if value, ok := ju.mutation.CreatedByAPI(); ok {
+	if value, ok := _u.mutation.CreatedByAPI(); ok {
 		_spec.SetField(job.FieldCreatedByAPI, field.TypeBool, value)
 	}
-	if ju.mutation.ProjectCleared() {
+	if _u.mutation.ProjectCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -603,7 +603,7 @@ func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ju.mutation.ProjectIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProjectIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -619,7 +619,7 @@ func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if ju.mutation.HistoryCleared() {
+	if _u.mutation.HistoryCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -632,7 +632,7 @@ func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ju.mutation.RemovedHistoryIDs(); len(nodes) > 0 && !ju.mutation.HistoryCleared() {
+	if nodes := _u.mutation.RemovedHistoryIDs(); len(nodes) > 0 && !_u.mutation.HistoryCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -648,7 +648,7 @@ func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ju.mutation.HistoryIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.HistoryIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -664,7 +664,7 @@ func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if ju.mutation.VersionsCleared() {
+	if _u.mutation.VersionsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -677,7 +677,7 @@ func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ju.mutation.RemovedVersionsIDs(); len(nodes) > 0 && !ju.mutation.VersionsCleared() {
+	if nodes := _u.mutation.RemovedVersionsIDs(); len(nodes) > 0 && !_u.mutation.VersionsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -693,7 +693,7 @@ func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ju.mutation.VersionsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.VersionsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -709,7 +709,7 @@ func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, ju.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{job.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -717,8 +717,8 @@ func (ju *JobUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	ju.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // JobUpdateOne is the builder for updating a single Job entity.
@@ -730,419 +730,419 @@ type JobUpdateOne struct {
 }
 
 // SetName sets the "name" field.
-func (juo *JobUpdateOne) SetName(s string) *JobUpdateOne {
-	juo.mutation.SetName(s)
-	return juo
+func (_u *JobUpdateOne) SetName(v string) *JobUpdateOne {
+	_u.mutation.SetName(v)
+	return _u
 }
 
 // SetNillableName sets the "name" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableName(s *string) *JobUpdateOne {
-	if s != nil {
-		juo.SetName(*s)
+func (_u *JobUpdateOne) SetNillableName(v *string) *JobUpdateOne {
+	if v != nil {
+		_u.SetName(*v)
 	}
-	return juo
+	return _u
 }
 
 // SetDescription sets the "description" field.
-func (juo *JobUpdateOne) SetDescription(s string) *JobUpdateOne {
-	juo.mutation.SetDescription(s)
-	return juo
+func (_u *JobUpdateOne) SetDescription(v string) *JobUpdateOne {
+	_u.mutation.SetDescription(v)
+	return _u
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableDescription(s *string) *JobUpdateOne {
-	if s != nil {
-		juo.SetDescription(*s)
+func (_u *JobUpdateOne) SetNillableDescription(v *string) *JobUpdateOne {
+	if v != nil {
+		_u.SetDescription(*v)
 	}
-	return juo
+	return _u
 }
 
 // ClearDescription clears the value of the "description" field.
-func (juo *JobUpdateOne) ClearDescription() *JobUpdateOne {
-	juo.mutation.ClearDescription()
-	return juo
+func (_u *JobUpdateOne) ClearDescription() *JobUpdateOne {
+	_u.mutation.ClearDescription()
+	return _u
 }
 
 // SetCronSchedule sets the "cron_schedule" field.
-func (juo *JobUpdateOne) SetCronSchedule(s string) *JobUpdateOne {
-	juo.mutation.SetCronSchedule(s)
-	return juo
+func (_u *JobUpdateOne) SetCronSchedule(v string) *JobUpdateOne {
+	_u.mutation.SetCronSchedule(v)
+	return _u
 }
 
 // SetNillableCronSchedule sets the "cron_schedule" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableCronSchedule(s *string) *JobUpdateOne {
-	if s != nil {
-		juo.SetCronSchedule(*s)
+func (_u *JobUpdateOne) SetNillableCronSchedule(v *string) *JobUpdateOne {
+	if v != nil {
+		_u.SetCronSchedule(*v)
 	}
-	return juo
+	return _u
 }
 
 // ClearCronSchedule clears the value of the "cron_schedule" field.
-func (juo *JobUpdateOne) ClearCronSchedule() *JobUpdateOne {
-	juo.mutation.ClearCronSchedule()
-	return juo
+func (_u *JobUpdateOne) ClearCronSchedule() *JobUpdateOne {
+	_u.mutation.ClearCronSchedule()
+	return _u
 }
 
 // SetScheduleEnabled sets the "schedule_enabled" field.
-func (juo *JobUpdateOne) SetScheduleEnabled(b bool) *JobUpdateOne {
-	juo.mutation.SetScheduleEnabled(b)
-	return juo
+func (_u *JobUpdateOne) SetScheduleEnabled(v bool) *JobUpdateOne {
+	_u.mutation.SetScheduleEnabled(v)
+	return _u
 }
 
 // SetNillableScheduleEnabled sets the "schedule_enabled" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableScheduleEnabled(b *bool) *JobUpdateOne {
-	if b != nil {
-		juo.SetScheduleEnabled(*b)
+func (_u *JobUpdateOne) SetNillableScheduleEnabled(v *bool) *JobUpdateOne {
+	if v != nil {
+		_u.SetScheduleEnabled(*v)
 	}
-	return juo
+	return _u
 }
 
 // SetAllowConcurrentRuns sets the "allow_concurrent_runs" field.
-func (juo *JobUpdateOne) SetAllowConcurrentRuns(b bool) *JobUpdateOne {
-	juo.mutation.SetAllowConcurrentRuns(b)
-	return juo
+func (_u *JobUpdateOne) SetAllowConcurrentRuns(v bool) *JobUpdateOne {
+	_u.mutation.SetAllowConcurrentRuns(v)
+	return _u
 }
 
 // SetNillableAllowConcurrentRuns sets the "allow_concurrent_runs" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableAllowConcurrentRuns(b *bool) *JobUpdateOne {
-	if b != nil {
-		juo.SetAllowConcurrentRuns(*b)
+func (_u *JobUpdateOne) SetNillableAllowConcurrentRuns(v *bool) *JobUpdateOne {
+	if v != nil {
+		_u.SetAllowConcurrentRuns(*v)
 	}
-	return juo
+	return _u
 }
 
 // SetArguments sets the "arguments" field.
-func (juo *JobUpdateOne) SetArguments(sa []schema.JobArgument) *JobUpdateOne {
-	juo.mutation.SetArguments(sa)
-	return juo
+func (_u *JobUpdateOne) SetArguments(v []schema.JobArgument) *JobUpdateOne {
+	_u.mutation.SetArguments(v)
+	return _u
 }
 
-// AppendArguments appends sa to the "arguments" field.
-func (juo *JobUpdateOne) AppendArguments(sa []schema.JobArgument) *JobUpdateOne {
-	juo.mutation.AppendArguments(sa)
-	return juo
+// AppendArguments appends value to the "arguments" field.
+func (_u *JobUpdateOne) AppendArguments(v []schema.JobArgument) *JobUpdateOne {
+	_u.mutation.AppendArguments(v)
+	return _u
 }
 
 // ClearArguments clears the value of the "arguments" field.
-func (juo *JobUpdateOne) ClearArguments() *JobUpdateOne {
-	juo.mutation.ClearArguments()
-	return juo
+func (_u *JobUpdateOne) ClearArguments() *JobUpdateOne {
+	_u.mutation.ClearArguments()
+	return _u
 }
 
 // SetRequiresFileUpload sets the "requires_file_upload" field.
-func (juo *JobUpdateOne) SetRequiresFileUpload(b bool) *JobUpdateOne {
-	juo.mutation.SetRequiresFileUpload(b)
-	return juo
+func (_u *JobUpdateOne) SetRequiresFileUpload(v bool) *JobUpdateOne {
+	_u.mutation.SetRequiresFileUpload(v)
+	return _u
 }
 
 // SetNillableRequiresFileUpload sets the "requires_file_upload" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableRequiresFileUpload(b *bool) *JobUpdateOne {
-	if b != nil {
-		juo.SetRequiresFileUpload(*b)
+func (_u *JobUpdateOne) SetNillableRequiresFileUpload(v *bool) *JobUpdateOne {
+	if v != nil {
+		_u.SetRequiresFileUpload(*v)
 	}
-	return juo
+	return _u
 }
 
 // SetAverageDurationMs sets the "average_duration_ms" field.
-func (juo *JobUpdateOne) SetAverageDurationMs(i int64) *JobUpdateOne {
-	juo.mutation.ResetAverageDurationMs()
-	juo.mutation.SetAverageDurationMs(i)
-	return juo
+func (_u *JobUpdateOne) SetAverageDurationMs(v int64) *JobUpdateOne {
+	_u.mutation.ResetAverageDurationMs()
+	_u.mutation.SetAverageDurationMs(v)
+	return _u
 }
 
 // SetNillableAverageDurationMs sets the "average_duration_ms" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableAverageDurationMs(i *int64) *JobUpdateOne {
-	if i != nil {
-		juo.SetAverageDurationMs(*i)
+func (_u *JobUpdateOne) SetNillableAverageDurationMs(v *int64) *JobUpdateOne {
+	if v != nil {
+		_u.SetAverageDurationMs(*v)
 	}
-	return juo
+	return _u
 }
 
-// AddAverageDurationMs adds i to the "average_duration_ms" field.
-func (juo *JobUpdateOne) AddAverageDurationMs(i int64) *JobUpdateOne {
-	juo.mutation.AddAverageDurationMs(i)
-	return juo
+// AddAverageDurationMs adds value to the "average_duration_ms" field.
+func (_u *JobUpdateOne) AddAverageDurationMs(v int64) *JobUpdateOne {
+	_u.mutation.AddAverageDurationMs(v)
+	return _u
 }
 
 // ClearAverageDurationMs clears the value of the "average_duration_ms" field.
-func (juo *JobUpdateOne) ClearAverageDurationMs() *JobUpdateOne {
-	juo.mutation.ClearAverageDurationMs()
-	return juo
+func (_u *JobUpdateOne) ClearAverageDurationMs() *JobUpdateOne {
+	_u.mutation.ClearAverageDurationMs()
+	return _u
 }
 
 // SetTimeoutSeconds sets the "timeout_seconds" field.
-func (juo *JobUpdateOne) SetTimeoutSeconds(i int) *JobUpdateOne {
-	juo.mutation.ResetTimeoutSeconds()
-	juo.mutation.SetTimeoutSeconds(i)
-	return juo
+func (_u *JobUpdateOne) SetTimeoutSeconds(v int) *JobUpdateOne {
+	_u.mutation.ResetTimeoutSeconds()
+	_u.mutation.SetTimeoutSeconds(v)
+	return _u
 }
 
 // SetNillableTimeoutSeconds sets the "timeout_seconds" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableTimeoutSeconds(i *int) *JobUpdateOne {
-	if i != nil {
-		juo.SetTimeoutSeconds(*i)
+func (_u *JobUpdateOne) SetNillableTimeoutSeconds(v *int) *JobUpdateOne {
+	if v != nil {
+		_u.SetTimeoutSeconds(*v)
 	}
-	return juo
+	return _u
 }
 
-// AddTimeoutSeconds adds i to the "timeout_seconds" field.
-func (juo *JobUpdateOne) AddTimeoutSeconds(i int) *JobUpdateOne {
-	juo.mutation.AddTimeoutSeconds(i)
-	return juo
+// AddTimeoutSeconds adds value to the "timeout_seconds" field.
+func (_u *JobUpdateOne) AddTimeoutSeconds(v int) *JobUpdateOne {
+	_u.mutation.AddTimeoutSeconds(v)
+	return _u
 }
 
 // ClearTimeoutSeconds clears the value of the "timeout_seconds" field.
-func (juo *JobUpdateOne) ClearTimeoutSeconds() *JobUpdateOne {
-	juo.mutation.ClearTimeoutSeconds()
-	return juo
+func (_u *JobUpdateOne) ClearTimeoutSeconds() *JobUpdateOne {
+	_u.mutation.ClearTimeoutSeconds()
+	return _u
 }
 
 // SetLastEditTime sets the "last_edit_time" field.
-func (juo *JobUpdateOne) SetLastEditTime(t time.Time) *JobUpdateOne {
-	juo.mutation.SetLastEditTime(t)
-	return juo
+func (_u *JobUpdateOne) SetLastEditTime(v time.Time) *JobUpdateOne {
+	_u.mutation.SetLastEditTime(v)
+	return _u
 }
 
 // SetNotifyOnStartChannelIds sets the "notify_on_start_channel_ids" field.
-func (juo *JobUpdateOne) SetNotifyOnStartChannelIds(i []int) *JobUpdateOne {
-	juo.mutation.SetNotifyOnStartChannelIds(i)
-	return juo
+func (_u *JobUpdateOne) SetNotifyOnStartChannelIds(v []int) *JobUpdateOne {
+	_u.mutation.SetNotifyOnStartChannelIds(v)
+	return _u
 }
 
-// AppendNotifyOnStartChannelIds appends i to the "notify_on_start_channel_ids" field.
-func (juo *JobUpdateOne) AppendNotifyOnStartChannelIds(i []int) *JobUpdateOne {
-	juo.mutation.AppendNotifyOnStartChannelIds(i)
-	return juo
+// AppendNotifyOnStartChannelIds appends value to the "notify_on_start_channel_ids" field.
+func (_u *JobUpdateOne) AppendNotifyOnStartChannelIds(v []int) *JobUpdateOne {
+	_u.mutation.AppendNotifyOnStartChannelIds(v)
+	return _u
 }
 
 // ClearNotifyOnStartChannelIds clears the value of the "notify_on_start_channel_ids" field.
-func (juo *JobUpdateOne) ClearNotifyOnStartChannelIds() *JobUpdateOne {
-	juo.mutation.ClearNotifyOnStartChannelIds()
-	return juo
+func (_u *JobUpdateOne) ClearNotifyOnStartChannelIds() *JobUpdateOne {
+	_u.mutation.ClearNotifyOnStartChannelIds()
+	return _u
 }
 
 // SetNotifyOnSuccessChannelIds sets the "notify_on_success_channel_ids" field.
-func (juo *JobUpdateOne) SetNotifyOnSuccessChannelIds(i []int) *JobUpdateOne {
-	juo.mutation.SetNotifyOnSuccessChannelIds(i)
-	return juo
+func (_u *JobUpdateOne) SetNotifyOnSuccessChannelIds(v []int) *JobUpdateOne {
+	_u.mutation.SetNotifyOnSuccessChannelIds(v)
+	return _u
 }
 
-// AppendNotifyOnSuccessChannelIds appends i to the "notify_on_success_channel_ids" field.
-func (juo *JobUpdateOne) AppendNotifyOnSuccessChannelIds(i []int) *JobUpdateOne {
-	juo.mutation.AppendNotifyOnSuccessChannelIds(i)
-	return juo
+// AppendNotifyOnSuccessChannelIds appends value to the "notify_on_success_channel_ids" field.
+func (_u *JobUpdateOne) AppendNotifyOnSuccessChannelIds(v []int) *JobUpdateOne {
+	_u.mutation.AppendNotifyOnSuccessChannelIds(v)
+	return _u
 }
 
 // ClearNotifyOnSuccessChannelIds clears the value of the "notify_on_success_channel_ids" field.
-func (juo *JobUpdateOne) ClearNotifyOnSuccessChannelIds() *JobUpdateOne {
-	juo.mutation.ClearNotifyOnSuccessChannelIds()
-	return juo
+func (_u *JobUpdateOne) ClearNotifyOnSuccessChannelIds() *JobUpdateOne {
+	_u.mutation.ClearNotifyOnSuccessChannelIds()
+	return _u
 }
 
 // SetNotifyOnFailureChannelIds sets the "notify_on_failure_channel_ids" field.
-func (juo *JobUpdateOne) SetNotifyOnFailureChannelIds(i []int) *JobUpdateOne {
-	juo.mutation.SetNotifyOnFailureChannelIds(i)
-	return juo
+func (_u *JobUpdateOne) SetNotifyOnFailureChannelIds(v []int) *JobUpdateOne {
+	_u.mutation.SetNotifyOnFailureChannelIds(v)
+	return _u
 }
 
-// AppendNotifyOnFailureChannelIds appends i to the "notify_on_failure_channel_ids" field.
-func (juo *JobUpdateOne) AppendNotifyOnFailureChannelIds(i []int) *JobUpdateOne {
-	juo.mutation.AppendNotifyOnFailureChannelIds(i)
-	return juo
+// AppendNotifyOnFailureChannelIds appends value to the "notify_on_failure_channel_ids" field.
+func (_u *JobUpdateOne) AppendNotifyOnFailureChannelIds(v []int) *JobUpdateOne {
+	_u.mutation.AppendNotifyOnFailureChannelIds(v)
+	return _u
 }
 
 // ClearNotifyOnFailureChannelIds clears the value of the "notify_on_failure_channel_ids" field.
-func (juo *JobUpdateOne) ClearNotifyOnFailureChannelIds() *JobUpdateOne {
-	juo.mutation.ClearNotifyOnFailureChannelIds()
-	return juo
+func (_u *JobUpdateOne) ClearNotifyOnFailureChannelIds() *JobUpdateOne {
+	_u.mutation.ClearNotifyOnFailureChannelIds()
+	return _u
 }
 
 // SetLastRunTime sets the "last_run_time" field.
-func (juo *JobUpdateOne) SetLastRunTime(t time.Time) *JobUpdateOne {
-	juo.mutation.SetLastRunTime(t)
-	return juo
+func (_u *JobUpdateOne) SetLastRunTime(v time.Time) *JobUpdateOne {
+	_u.mutation.SetLastRunTime(v)
+	return _u
 }
 
 // SetNillableLastRunTime sets the "last_run_time" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableLastRunTime(t *time.Time) *JobUpdateOne {
-	if t != nil {
-		juo.SetLastRunTime(*t)
+func (_u *JobUpdateOne) SetNillableLastRunTime(v *time.Time) *JobUpdateOne {
+	if v != nil {
+		_u.SetLastRunTime(*v)
 	}
-	return juo
+	return _u
 }
 
 // SetNextCronRunTime sets the "next_cron_run_time" field.
-func (juo *JobUpdateOne) SetNextCronRunTime(t time.Time) *JobUpdateOne {
-	juo.mutation.SetNextCronRunTime(t)
-	return juo
+func (_u *JobUpdateOne) SetNextCronRunTime(v time.Time) *JobUpdateOne {
+	_u.mutation.SetNextCronRunTime(v)
+	return _u
 }
 
 // SetNillableNextCronRunTime sets the "next_cron_run_time" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableNextCronRunTime(t *time.Time) *JobUpdateOne {
-	if t != nil {
-		juo.SetNextCronRunTime(*t)
+func (_u *JobUpdateOne) SetNillableNextCronRunTime(v *time.Time) *JobUpdateOne {
+	if v != nil {
+		_u.SetNextCronRunTime(*v)
 	}
-	return juo
+	return _u
 }
 
 // SetScript sets the "script" field.
-func (juo *JobUpdateOne) SetScript(s string) *JobUpdateOne {
-	juo.mutation.SetScript(s)
-	return juo
+func (_u *JobUpdateOne) SetScript(v string) *JobUpdateOne {
+	_u.mutation.SetScript(v)
+	return _u
 }
 
 // SetNillableScript sets the "script" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableScript(s *string) *JobUpdateOne {
-	if s != nil {
-		juo.SetScript(*s)
+func (_u *JobUpdateOne) SetNillableScript(v *string) *JobUpdateOne {
+	if v != nil {
+		_u.SetScript(*v)
 	}
-	return juo
+	return _u
 }
 
 // SetLastRunSuccess sets the "last_run_success" field.
-func (juo *JobUpdateOne) SetLastRunSuccess(b bool) *JobUpdateOne {
-	juo.mutation.SetLastRunSuccess(b)
-	return juo
+func (_u *JobUpdateOne) SetLastRunSuccess(v bool) *JobUpdateOne {
+	_u.mutation.SetLastRunSuccess(v)
+	return _u
 }
 
 // SetNillableLastRunSuccess sets the "last_run_success" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableLastRunSuccess(b *bool) *JobUpdateOne {
-	if b != nil {
-		juo.SetLastRunSuccess(*b)
+func (_u *JobUpdateOne) SetNillableLastRunSuccess(v *bool) *JobUpdateOne {
+	if v != nil {
+		_u.SetLastRunSuccess(*v)
 	}
-	return juo
+	return _u
 }
 
 // SetCreatedByAPI sets the "created_by_api" field.
-func (juo *JobUpdateOne) SetCreatedByAPI(b bool) *JobUpdateOne {
-	juo.mutation.SetCreatedByAPI(b)
-	return juo
+func (_u *JobUpdateOne) SetCreatedByAPI(v bool) *JobUpdateOne {
+	_u.mutation.SetCreatedByAPI(v)
+	return _u
 }
 
 // SetNillableCreatedByAPI sets the "created_by_api" field if the given value is not nil.
-func (juo *JobUpdateOne) SetNillableCreatedByAPI(b *bool) *JobUpdateOne {
-	if b != nil {
-		juo.SetCreatedByAPI(*b)
+func (_u *JobUpdateOne) SetNillableCreatedByAPI(v *bool) *JobUpdateOne {
+	if v != nil {
+		_u.SetCreatedByAPI(*v)
 	}
-	return juo
+	return _u
 }
 
 // SetProjectID sets the "project" edge to the Project entity by ID.
-func (juo *JobUpdateOne) SetProjectID(id int) *JobUpdateOne {
-	juo.mutation.SetProjectID(id)
-	return juo
+func (_u *JobUpdateOne) SetProjectID(id int) *JobUpdateOne {
+	_u.mutation.SetProjectID(id)
+	return _u
 }
 
 // SetProject sets the "project" edge to the Project entity.
-func (juo *JobUpdateOne) SetProject(p *Project) *JobUpdateOne {
-	return juo.SetProjectID(p.ID)
+func (_u *JobUpdateOne) SetProject(v *Project) *JobUpdateOne {
+	return _u.SetProjectID(v.ID)
 }
 
 // AddHistoryIDs adds the "history" edge to the JobHistory entity by IDs.
-func (juo *JobUpdateOne) AddHistoryIDs(ids ...int) *JobUpdateOne {
-	juo.mutation.AddHistoryIDs(ids...)
-	return juo
+func (_u *JobUpdateOne) AddHistoryIDs(ids ...int) *JobUpdateOne {
+	_u.mutation.AddHistoryIDs(ids...)
+	return _u
 }
 
 // AddHistory adds the "history" edges to the JobHistory entity.
-func (juo *JobUpdateOne) AddHistory(j ...*JobHistory) *JobUpdateOne {
-	ids := make([]int, len(j))
-	for i := range j {
-		ids[i] = j[i].ID
+func (_u *JobUpdateOne) AddHistory(v ...*JobHistory) *JobUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return juo.AddHistoryIDs(ids...)
+	return _u.AddHistoryIDs(ids...)
 }
 
 // AddVersionIDs adds the "versions" edge to the JobVersion entity by IDs.
-func (juo *JobUpdateOne) AddVersionIDs(ids ...int) *JobUpdateOne {
-	juo.mutation.AddVersionIDs(ids...)
-	return juo
+func (_u *JobUpdateOne) AddVersionIDs(ids ...int) *JobUpdateOne {
+	_u.mutation.AddVersionIDs(ids...)
+	return _u
 }
 
 // AddVersions adds the "versions" edges to the JobVersion entity.
-func (juo *JobUpdateOne) AddVersions(j ...*JobVersion) *JobUpdateOne {
-	ids := make([]int, len(j))
-	for i := range j {
-		ids[i] = j[i].ID
+func (_u *JobUpdateOne) AddVersions(v ...*JobVersion) *JobUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return juo.AddVersionIDs(ids...)
+	return _u.AddVersionIDs(ids...)
 }
 
 // Mutation returns the JobMutation object of the builder.
-func (juo *JobUpdateOne) Mutation() *JobMutation {
-	return juo.mutation
+func (_u *JobUpdateOne) Mutation() *JobMutation {
+	return _u.mutation
 }
 
 // ClearProject clears the "project" edge to the Project entity.
-func (juo *JobUpdateOne) ClearProject() *JobUpdateOne {
-	juo.mutation.ClearProject()
-	return juo
+func (_u *JobUpdateOne) ClearProject() *JobUpdateOne {
+	_u.mutation.ClearProject()
+	return _u
 }
 
 // ClearHistory clears all "history" edges to the JobHistory entity.
-func (juo *JobUpdateOne) ClearHistory() *JobUpdateOne {
-	juo.mutation.ClearHistory()
-	return juo
+func (_u *JobUpdateOne) ClearHistory() *JobUpdateOne {
+	_u.mutation.ClearHistory()
+	return _u
 }
 
 // RemoveHistoryIDs removes the "history" edge to JobHistory entities by IDs.
-func (juo *JobUpdateOne) RemoveHistoryIDs(ids ...int) *JobUpdateOne {
-	juo.mutation.RemoveHistoryIDs(ids...)
-	return juo
+func (_u *JobUpdateOne) RemoveHistoryIDs(ids ...int) *JobUpdateOne {
+	_u.mutation.RemoveHistoryIDs(ids...)
+	return _u
 }
 
 // RemoveHistory removes "history" edges to JobHistory entities.
-func (juo *JobUpdateOne) RemoveHistory(j ...*JobHistory) *JobUpdateOne {
-	ids := make([]int, len(j))
-	for i := range j {
-		ids[i] = j[i].ID
+func (_u *JobUpdateOne) RemoveHistory(v ...*JobHistory) *JobUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return juo.RemoveHistoryIDs(ids...)
+	return _u.RemoveHistoryIDs(ids...)
 }
 
 // ClearVersions clears all "versions" edges to the JobVersion entity.
-func (juo *JobUpdateOne) ClearVersions() *JobUpdateOne {
-	juo.mutation.ClearVersions()
-	return juo
+func (_u *JobUpdateOne) ClearVersions() *JobUpdateOne {
+	_u.mutation.ClearVersions()
+	return _u
 }
 
 // RemoveVersionIDs removes the "versions" edge to JobVersion entities by IDs.
-func (juo *JobUpdateOne) RemoveVersionIDs(ids ...int) *JobUpdateOne {
-	juo.mutation.RemoveVersionIDs(ids...)
-	return juo
+func (_u *JobUpdateOne) RemoveVersionIDs(ids ...int) *JobUpdateOne {
+	_u.mutation.RemoveVersionIDs(ids...)
+	return _u
 }
 
 // RemoveVersions removes "versions" edges to JobVersion entities.
-func (juo *JobUpdateOne) RemoveVersions(j ...*JobVersion) *JobUpdateOne {
-	ids := make([]int, len(j))
-	for i := range j {
-		ids[i] = j[i].ID
+func (_u *JobUpdateOne) RemoveVersions(v ...*JobVersion) *JobUpdateOne {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return juo.RemoveVersionIDs(ids...)
+	return _u.RemoveVersionIDs(ids...)
 }
 
 // Where appends a list predicates to the JobUpdate builder.
-func (juo *JobUpdateOne) Where(ps ...predicate.Job) *JobUpdateOne {
-	juo.mutation.Where(ps...)
-	return juo
+func (_u *JobUpdateOne) Where(ps ...predicate.Job) *JobUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (juo *JobUpdateOne) Select(field string, fields ...string) *JobUpdateOne {
-	juo.fields = append([]string{field}, fields...)
-	return juo
+func (_u *JobUpdateOne) Select(field string, fields ...string) *JobUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated Job entity.
-func (juo *JobUpdateOne) Save(ctx context.Context) (*Job, error) {
-	juo.defaults()
-	return withHooks(ctx, juo.sqlSave, juo.mutation, juo.hooks)
+func (_u *JobUpdateOne) Save(ctx context.Context) (*Job, error) {
+	_u.defaults()
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (juo *JobUpdateOne) SaveX(ctx context.Context) *Job {
-	node, err := juo.Save(ctx)
+func (_u *JobUpdateOne) SaveX(ctx context.Context) *Job {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -1150,50 +1150,50 @@ func (juo *JobUpdateOne) SaveX(ctx context.Context) *Job {
 }
 
 // Exec executes the query on the entity.
-func (juo *JobUpdateOne) Exec(ctx context.Context) error {
-	_, err := juo.Save(ctx)
+func (_u *JobUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (juo *JobUpdateOne) ExecX(ctx context.Context) {
-	if err := juo.Exec(ctx); err != nil {
+func (_u *JobUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (juo *JobUpdateOne) defaults() {
-	if _, ok := juo.mutation.LastEditTime(); !ok {
+func (_u *JobUpdateOne) defaults() {
+	if _, ok := _u.mutation.LastEditTime(); !ok {
 		v := job.UpdateDefaultLastEditTime()
-		juo.mutation.SetLastEditTime(v)
+		_u.mutation.SetLastEditTime(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (juo *JobUpdateOne) check() error {
-	if v, ok := juo.mutation.Name(); ok {
+func (_u *JobUpdateOne) check() error {
+	if v, ok := _u.mutation.Name(); ok {
 		if err := job.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf(`ent: validator failed for field "Job.name": %w`, err)}
 		}
 	}
-	if juo.mutation.ProjectCleared() && len(juo.mutation.ProjectIDs()) > 0 {
+	if _u.mutation.ProjectCleared() && len(_u.mutation.ProjectIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Job.project"`)
 	}
 	return nil
 }
 
-func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
-	if err := juo.check(); err != nil {
+func (_u *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
+	if err := _u.check(); err != nil {
 		return _node, err
 	}
 	_spec := sqlgraph.NewUpdateSpec(job.Table, job.Columns, sqlgraph.NewFieldSpec(job.FieldID, field.TypeInt))
-	id, ok := juo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Job.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := juo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, job.FieldID)
 		for _, f := range fields {
@@ -1205,118 +1205,118 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 			}
 		}
 	}
-	if ps := juo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := juo.mutation.Name(); ok {
+	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(job.FieldName, field.TypeString, value)
 	}
-	if value, ok := juo.mutation.Description(); ok {
+	if value, ok := _u.mutation.Description(); ok {
 		_spec.SetField(job.FieldDescription, field.TypeString, value)
 	}
-	if juo.mutation.DescriptionCleared() {
+	if _u.mutation.DescriptionCleared() {
 		_spec.ClearField(job.FieldDescription, field.TypeString)
 	}
-	if value, ok := juo.mutation.CronSchedule(); ok {
+	if value, ok := _u.mutation.CronSchedule(); ok {
 		_spec.SetField(job.FieldCronSchedule, field.TypeString, value)
 	}
-	if juo.mutation.CronScheduleCleared() {
+	if _u.mutation.CronScheduleCleared() {
 		_spec.ClearField(job.FieldCronSchedule, field.TypeString)
 	}
-	if value, ok := juo.mutation.ScheduleEnabled(); ok {
+	if value, ok := _u.mutation.ScheduleEnabled(); ok {
 		_spec.SetField(job.FieldScheduleEnabled, field.TypeBool, value)
 	}
-	if value, ok := juo.mutation.AllowConcurrentRuns(); ok {
+	if value, ok := _u.mutation.AllowConcurrentRuns(); ok {
 		_spec.SetField(job.FieldAllowConcurrentRuns, field.TypeBool, value)
 	}
-	if value, ok := juo.mutation.Arguments(); ok {
+	if value, ok := _u.mutation.Arguments(); ok {
 		_spec.SetField(job.FieldArguments, field.TypeJSON, value)
 	}
-	if value, ok := juo.mutation.AppendedArguments(); ok {
+	if value, ok := _u.mutation.AppendedArguments(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, job.FieldArguments, value)
 		})
 	}
-	if juo.mutation.ArgumentsCleared() {
+	if _u.mutation.ArgumentsCleared() {
 		_spec.ClearField(job.FieldArguments, field.TypeJSON)
 	}
-	if value, ok := juo.mutation.RequiresFileUpload(); ok {
+	if value, ok := _u.mutation.RequiresFileUpload(); ok {
 		_spec.SetField(job.FieldRequiresFileUpload, field.TypeBool, value)
 	}
-	if value, ok := juo.mutation.AverageDurationMs(); ok {
+	if value, ok := _u.mutation.AverageDurationMs(); ok {
 		_spec.SetField(job.FieldAverageDurationMs, field.TypeInt64, value)
 	}
-	if value, ok := juo.mutation.AddedAverageDurationMs(); ok {
+	if value, ok := _u.mutation.AddedAverageDurationMs(); ok {
 		_spec.AddField(job.FieldAverageDurationMs, field.TypeInt64, value)
 	}
-	if juo.mutation.AverageDurationMsCleared() {
+	if _u.mutation.AverageDurationMsCleared() {
 		_spec.ClearField(job.FieldAverageDurationMs, field.TypeInt64)
 	}
-	if value, ok := juo.mutation.TimeoutSeconds(); ok {
+	if value, ok := _u.mutation.TimeoutSeconds(); ok {
 		_spec.SetField(job.FieldTimeoutSeconds, field.TypeInt, value)
 	}
-	if value, ok := juo.mutation.AddedTimeoutSeconds(); ok {
+	if value, ok := _u.mutation.AddedTimeoutSeconds(); ok {
 		_spec.AddField(job.FieldTimeoutSeconds, field.TypeInt, value)
 	}
-	if juo.mutation.TimeoutSecondsCleared() {
+	if _u.mutation.TimeoutSecondsCleared() {
 		_spec.ClearField(job.FieldTimeoutSeconds, field.TypeInt)
 	}
-	if value, ok := juo.mutation.LastEditTime(); ok {
+	if value, ok := _u.mutation.LastEditTime(); ok {
 		_spec.SetField(job.FieldLastEditTime, field.TypeTime, value)
 	}
-	if value, ok := juo.mutation.NotifyOnStartChannelIds(); ok {
+	if value, ok := _u.mutation.NotifyOnStartChannelIds(); ok {
 		_spec.SetField(job.FieldNotifyOnStartChannelIds, field.TypeJSON, value)
 	}
-	if value, ok := juo.mutation.AppendedNotifyOnStartChannelIds(); ok {
+	if value, ok := _u.mutation.AppendedNotifyOnStartChannelIds(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, job.FieldNotifyOnStartChannelIds, value)
 		})
 	}
-	if juo.mutation.NotifyOnStartChannelIdsCleared() {
+	if _u.mutation.NotifyOnStartChannelIdsCleared() {
 		_spec.ClearField(job.FieldNotifyOnStartChannelIds, field.TypeJSON)
 	}
-	if value, ok := juo.mutation.NotifyOnSuccessChannelIds(); ok {
+	if value, ok := _u.mutation.NotifyOnSuccessChannelIds(); ok {
 		_spec.SetField(job.FieldNotifyOnSuccessChannelIds, field.TypeJSON, value)
 	}
-	if value, ok := juo.mutation.AppendedNotifyOnSuccessChannelIds(); ok {
+	if value, ok := _u.mutation.AppendedNotifyOnSuccessChannelIds(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, job.FieldNotifyOnSuccessChannelIds, value)
 		})
 	}
-	if juo.mutation.NotifyOnSuccessChannelIdsCleared() {
+	if _u.mutation.NotifyOnSuccessChannelIdsCleared() {
 		_spec.ClearField(job.FieldNotifyOnSuccessChannelIds, field.TypeJSON)
 	}
-	if value, ok := juo.mutation.NotifyOnFailureChannelIds(); ok {
+	if value, ok := _u.mutation.NotifyOnFailureChannelIds(); ok {
 		_spec.SetField(job.FieldNotifyOnFailureChannelIds, field.TypeJSON, value)
 	}
-	if value, ok := juo.mutation.AppendedNotifyOnFailureChannelIds(); ok {
+	if value, ok := _u.mutation.AppendedNotifyOnFailureChannelIds(); ok {
 		_spec.AddModifier(func(u *sql.UpdateBuilder) {
 			sqljson.Append(u, job.FieldNotifyOnFailureChannelIds, value)
 		})
 	}
-	if juo.mutation.NotifyOnFailureChannelIdsCleared() {
+	if _u.mutation.NotifyOnFailureChannelIdsCleared() {
 		_spec.ClearField(job.FieldNotifyOnFailureChannelIds, field.TypeJSON)
 	}
-	if value, ok := juo.mutation.LastRunTime(); ok {
+	if value, ok := _u.mutation.LastRunTime(); ok {
 		_spec.SetField(job.FieldLastRunTime, field.TypeTime, value)
 	}
-	if value, ok := juo.mutation.NextCronRunTime(); ok {
+	if value, ok := _u.mutation.NextCronRunTime(); ok {
 		_spec.SetField(job.FieldNextCronRunTime, field.TypeTime, value)
 	}
-	if value, ok := juo.mutation.Script(); ok {
+	if value, ok := _u.mutation.Script(); ok {
 		_spec.SetField(job.FieldScript, field.TypeString, value)
 	}
-	if value, ok := juo.mutation.LastRunSuccess(); ok {
+	if value, ok := _u.mutation.LastRunSuccess(); ok {
 		_spec.SetField(job.FieldLastRunSuccess, field.TypeBool, value)
 	}
-	if value, ok := juo.mutation.CreatedByAPI(); ok {
+	if value, ok := _u.mutation.CreatedByAPI(); ok {
 		_spec.SetField(job.FieldCreatedByAPI, field.TypeBool, value)
 	}
-	if juo.mutation.ProjectCleared() {
+	if _u.mutation.ProjectCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -1329,7 +1329,7 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := juo.mutation.ProjectIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.ProjectIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -1345,7 +1345,7 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if juo.mutation.HistoryCleared() {
+	if _u.mutation.HistoryCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -1358,7 +1358,7 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := juo.mutation.RemovedHistoryIDs(); len(nodes) > 0 && !juo.mutation.HistoryCleared() {
+	if nodes := _u.mutation.RemovedHistoryIDs(); len(nodes) > 0 && !_u.mutation.HistoryCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -1374,7 +1374,7 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := juo.mutation.HistoryIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.HistoryIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -1390,7 +1390,7 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if juo.mutation.VersionsCleared() {
+	if _u.mutation.VersionsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -1403,7 +1403,7 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := juo.mutation.RemovedVersionsIDs(); len(nodes) > 0 && !juo.mutation.VersionsCleared() {
+	if nodes := _u.mutation.RemovedVersionsIDs(); len(nodes) > 0 && !_u.mutation.VersionsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -1419,7 +1419,7 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := juo.mutation.VersionsIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.VersionsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -1435,10 +1435,10 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &Job{config: juo.config}
+	_node = &Job{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, juo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{job.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -1446,6 +1446,6 @@ func (juo *JobUpdateOne) sqlSave(ctx context.Context) (_node *Job, err error) {
 		}
 		return nil, err
 	}
-	juo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

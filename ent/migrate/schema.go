@@ -57,6 +57,8 @@ var (
 		{Name: "key", Type: field.TypeString, Unique: true},
 		{Name: "created_by", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeTime},
+		{Name: "require_api_key", Type: field.TypeBool, Default: false},
+		{Name: "api_key", Type: field.TypeString, Nullable: true},
 		{Name: "inbound_webhook_job", Type: field.TypeInt, Nullable: true},
 	}
 	// InboundWebhooksTable holds the schema information for the "inbound_webhooks" table.
@@ -67,7 +69,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "inbound_webhooks_jobs_job",
-				Columns:    []*schema.Column{InboundWebhooksColumns[4]},
+				Columns:    []*schema.Column{InboundWebhooksColumns[6]},
 				RefColumns: []*schema.Column{JobsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},

@@ -86,6 +86,10 @@ func init() {
 	inboundwebhookDescCreatedAt := inboundwebhookFields[2].Descriptor()
 	// inboundwebhook.DefaultCreatedAt holds the default value on creation for the created_at field.
 	inboundwebhook.DefaultCreatedAt = inboundwebhookDescCreatedAt.Default.(func() time.Time)
+	// inboundwebhookDescRequireAPIKey is the schema descriptor for require_api_key field.
+	inboundwebhookDescRequireAPIKey := inboundwebhookFields[3].Descriptor()
+	// inboundwebhook.DefaultRequireAPIKey holds the default value on creation for the require_api_key field.
+	inboundwebhook.DefaultRequireAPIKey = inboundwebhookDescRequireAPIKey.Default.(bool)
 	jobFields := schema.Job{}.Fields()
 	_ = jobFields
 	// jobDescName is the schema descriptor for name field.

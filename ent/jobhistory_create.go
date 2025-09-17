@@ -24,133 +24,133 @@ type JobHistoryCreate struct {
 }
 
 // SetWasSuccessful sets the "was_successful" field.
-func (jhc *JobHistoryCreate) SetWasSuccessful(b bool) *JobHistoryCreate {
-	jhc.mutation.SetWasSuccessful(b)
-	return jhc
+func (_c *JobHistoryCreate) SetWasSuccessful(v bool) *JobHistoryCreate {
+	_c.mutation.SetWasSuccessful(v)
+	return _c
 }
 
 // SetDurationMs sets the "duration_ms" field.
-func (jhc *JobHistoryCreate) SetDurationMs(i int64) *JobHistoryCreate {
-	jhc.mutation.SetDurationMs(i)
-	return jhc
+func (_c *JobHistoryCreate) SetDurationMs(v int64) *JobHistoryCreate {
+	_c.mutation.SetDurationMs(v)
+	return _c
 }
 
 // SetParameters sets the "parameters" field.
-func (jhc *JobHistoryCreate) SetParameters(s []schema.Parameter) *JobHistoryCreate {
-	jhc.mutation.SetParameters(s)
-	return jhc
+func (_c *JobHistoryCreate) SetParameters(v []schema.Parameter) *JobHistoryCreate {
+	_c.mutation.SetParameters(v)
+	return _c
 }
 
 // SetOutput sets the "output" field.
-func (jhc *JobHistoryCreate) SetOutput(s string) *JobHistoryCreate {
-	jhc.mutation.SetOutput(s)
-	return jhc
+func (_c *JobHistoryCreate) SetOutput(v string) *JobHistoryCreate {
+	_c.mutation.SetOutput(v)
+	return _c
 }
 
 // SetNillableOutput sets the "output" field if the given value is not nil.
-func (jhc *JobHistoryCreate) SetNillableOutput(s *string) *JobHistoryCreate {
-	if s != nil {
-		jhc.SetOutput(*s)
+func (_c *JobHistoryCreate) SetNillableOutput(v *string) *JobHistoryCreate {
+	if v != nil {
+		_c.SetOutput(*v)
 	}
-	return jhc
+	return _c
 }
 
 // SetExitCode sets the "exit_code" field.
-func (jhc *JobHistoryCreate) SetExitCode(i int) *JobHistoryCreate {
-	jhc.mutation.SetExitCode(i)
-	return jhc
+func (_c *JobHistoryCreate) SetExitCode(v int) *JobHistoryCreate {
+	_c.mutation.SetExitCode(v)
+	return _c
 }
 
 // SetTriggeredByEmail sets the "triggered_by_email" field.
-func (jhc *JobHistoryCreate) SetTriggeredByEmail(s string) *JobHistoryCreate {
-	jhc.mutation.SetTriggeredByEmail(s)
-	return jhc
+func (_c *JobHistoryCreate) SetTriggeredByEmail(v string) *JobHistoryCreate {
+	_c.mutation.SetTriggeredByEmail(v)
+	return _c
 }
 
 // SetTriggeredByID sets the "triggered_by_id" field.
-func (jhc *JobHistoryCreate) SetTriggeredByID(i int) *JobHistoryCreate {
-	jhc.mutation.SetTriggeredByID(i)
-	return jhc
+func (_c *JobHistoryCreate) SetTriggeredByID(v int) *JobHistoryCreate {
+	_c.mutation.SetTriggeredByID(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (jhc *JobHistoryCreate) SetCreatedAt(t time.Time) *JobHistoryCreate {
-	jhc.mutation.SetCreatedAt(t)
-	return jhc
+func (_c *JobHistoryCreate) SetCreatedAt(v time.Time) *JobHistoryCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (jhc *JobHistoryCreate) SetNillableCreatedAt(t *time.Time) *JobHistoryCreate {
-	if t != nil {
-		jhc.SetCreatedAt(*t)
+func (_c *JobHistoryCreate) SetNillableCreatedAt(v *time.Time) *JobHistoryCreate {
+	if v != nil {
+		_c.SetCreatedAt(*v)
 	}
-	return jhc
+	return _c
 }
 
 // SetStatus sets the "status" field.
-func (jhc *JobHistoryCreate) SetStatus(s string) *JobHistoryCreate {
-	jhc.mutation.SetStatus(s)
-	return jhc
+func (_c *JobHistoryCreate) SetStatus(v string) *JobHistoryCreate {
+	_c.mutation.SetStatus(v)
+	return _c
 }
 
 // SetNillableStatus sets the "status" field if the given value is not nil.
-func (jhc *JobHistoryCreate) SetNillableStatus(s *string) *JobHistoryCreate {
-	if s != nil {
-		jhc.SetStatus(*s)
+func (_c *JobHistoryCreate) SetNillableStatus(v *string) *JobHistoryCreate {
+	if v != nil {
+		_c.SetStatus(*v)
 	}
-	return jhc
+	return _c
 }
 
 // SetTrigger sets the "trigger" field.
-func (jhc *JobHistoryCreate) SetTrigger(s string) *JobHistoryCreate {
-	jhc.mutation.SetTrigger(s)
-	return jhc
+func (_c *JobHistoryCreate) SetTrigger(v string) *JobHistoryCreate {
+	_c.mutation.SetTrigger(v)
+	return _c
 }
 
 // SetNillableTrigger sets the "trigger" field if the given value is not nil.
-func (jhc *JobHistoryCreate) SetNillableTrigger(s *string) *JobHistoryCreate {
-	if s != nil {
-		jhc.SetTrigger(*s)
+func (_c *JobHistoryCreate) SetNillableTrigger(v *string) *JobHistoryCreate {
+	if v != nil {
+		_c.SetTrigger(*v)
 	}
-	return jhc
+	return _c
 }
 
 // SetProjectID sets the "project" edge to the Project entity by ID.
-func (jhc *JobHistoryCreate) SetProjectID(id int) *JobHistoryCreate {
-	jhc.mutation.SetProjectID(id)
-	return jhc
+func (_c *JobHistoryCreate) SetProjectID(id int) *JobHistoryCreate {
+	_c.mutation.SetProjectID(id)
+	return _c
 }
 
 // SetProject sets the "project" edge to the Project entity.
-func (jhc *JobHistoryCreate) SetProject(p *Project) *JobHistoryCreate {
-	return jhc.SetProjectID(p.ID)
+func (_c *JobHistoryCreate) SetProject(v *Project) *JobHistoryCreate {
+	return _c.SetProjectID(v.ID)
 }
 
 // SetJobID sets the "job" edge to the Job entity by ID.
-func (jhc *JobHistoryCreate) SetJobID(id int) *JobHistoryCreate {
-	jhc.mutation.SetJobID(id)
-	return jhc
+func (_c *JobHistoryCreate) SetJobID(id int) *JobHistoryCreate {
+	_c.mutation.SetJobID(id)
+	return _c
 }
 
 // SetJob sets the "job" edge to the Job entity.
-func (jhc *JobHistoryCreate) SetJob(j *Job) *JobHistoryCreate {
-	return jhc.SetJobID(j.ID)
+func (_c *JobHistoryCreate) SetJob(v *Job) *JobHistoryCreate {
+	return _c.SetJobID(v.ID)
 }
 
 // Mutation returns the JobHistoryMutation object of the builder.
-func (jhc *JobHistoryCreate) Mutation() *JobHistoryMutation {
-	return jhc.mutation
+func (_c *JobHistoryCreate) Mutation() *JobHistoryMutation {
+	return _c.mutation
 }
 
 // Save creates the JobHistory in the database.
-func (jhc *JobHistoryCreate) Save(ctx context.Context) (*JobHistory, error) {
-	jhc.defaults()
-	return withHooks(ctx, jhc.sqlSave, jhc.mutation, jhc.hooks)
+func (_c *JobHistoryCreate) Save(ctx context.Context) (*JobHistory, error) {
+	_c.defaults()
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (jhc *JobHistoryCreate) SaveX(ctx context.Context) *JobHistory {
-	v, err := jhc.Save(ctx)
+func (_c *JobHistoryCreate) SaveX(ctx context.Context) *JobHistory {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -158,82 +158,82 @@ func (jhc *JobHistoryCreate) SaveX(ctx context.Context) *JobHistory {
 }
 
 // Exec executes the query.
-func (jhc *JobHistoryCreate) Exec(ctx context.Context) error {
-	_, err := jhc.Save(ctx)
+func (_c *JobHistoryCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jhc *JobHistoryCreate) ExecX(ctx context.Context) {
-	if err := jhc.Exec(ctx); err != nil {
+func (_c *JobHistoryCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (jhc *JobHistoryCreate) defaults() {
-	if _, ok := jhc.mutation.Output(); !ok {
+func (_c *JobHistoryCreate) defaults() {
+	if _, ok := _c.mutation.Output(); !ok {
 		v := jobhistory.DefaultOutput
-		jhc.mutation.SetOutput(v)
+		_c.mutation.SetOutput(v)
 	}
-	if _, ok := jhc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		v := jobhistory.DefaultCreatedAt()
-		jhc.mutation.SetCreatedAt(v)
+		_c.mutation.SetCreatedAt(v)
 	}
-	if _, ok := jhc.mutation.Status(); !ok {
+	if _, ok := _c.mutation.Status(); !ok {
 		v := jobhistory.DefaultStatus
-		jhc.mutation.SetStatus(v)
+		_c.mutation.SetStatus(v)
 	}
-	if _, ok := jhc.mutation.Trigger(); !ok {
+	if _, ok := _c.mutation.Trigger(); !ok {
 		v := jobhistory.DefaultTrigger
-		jhc.mutation.SetTrigger(v)
+		_c.mutation.SetTrigger(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (jhc *JobHistoryCreate) check() error {
-	if _, ok := jhc.mutation.WasSuccessful(); !ok {
+func (_c *JobHistoryCreate) check() error {
+	if _, ok := _c.mutation.WasSuccessful(); !ok {
 		return &ValidationError{Name: "was_successful", err: errors.New(`ent: missing required field "JobHistory.was_successful"`)}
 	}
-	if _, ok := jhc.mutation.DurationMs(); !ok {
+	if _, ok := _c.mutation.DurationMs(); !ok {
 		return &ValidationError{Name: "duration_ms", err: errors.New(`ent: missing required field "JobHistory.duration_ms"`)}
 	}
-	if _, ok := jhc.mutation.Output(); !ok {
+	if _, ok := _c.mutation.Output(); !ok {
 		return &ValidationError{Name: "output", err: errors.New(`ent: missing required field "JobHistory.output"`)}
 	}
-	if _, ok := jhc.mutation.ExitCode(); !ok {
+	if _, ok := _c.mutation.ExitCode(); !ok {
 		return &ValidationError{Name: "exit_code", err: errors.New(`ent: missing required field "JobHistory.exit_code"`)}
 	}
-	if _, ok := jhc.mutation.TriggeredByEmail(); !ok {
+	if _, ok := _c.mutation.TriggeredByEmail(); !ok {
 		return &ValidationError{Name: "triggered_by_email", err: errors.New(`ent: missing required field "JobHistory.triggered_by_email"`)}
 	}
-	if _, ok := jhc.mutation.TriggeredByID(); !ok {
+	if _, ok := _c.mutation.TriggeredByID(); !ok {
 		return &ValidationError{Name: "triggered_by_id", err: errors.New(`ent: missing required field "JobHistory.triggered_by_id"`)}
 	}
-	if _, ok := jhc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "JobHistory.created_at"`)}
 	}
-	if _, ok := jhc.mutation.Status(); !ok {
+	if _, ok := _c.mutation.Status(); !ok {
 		return &ValidationError{Name: "status", err: errors.New(`ent: missing required field "JobHistory.status"`)}
 	}
-	if _, ok := jhc.mutation.Trigger(); !ok {
+	if _, ok := _c.mutation.Trigger(); !ok {
 		return &ValidationError{Name: "trigger", err: errors.New(`ent: missing required field "JobHistory.trigger"`)}
 	}
-	if len(jhc.mutation.ProjectIDs()) == 0 {
+	if len(_c.mutation.ProjectIDs()) == 0 {
 		return &ValidationError{Name: "project", err: errors.New(`ent: missing required edge "JobHistory.project"`)}
 	}
-	if len(jhc.mutation.JobIDs()) == 0 {
+	if len(_c.mutation.JobIDs()) == 0 {
 		return &ValidationError{Name: "job", err: errors.New(`ent: missing required edge "JobHistory.job"`)}
 	}
 	return nil
 }
 
-func (jhc *JobHistoryCreate) sqlSave(ctx context.Context) (*JobHistory, error) {
-	if err := jhc.check(); err != nil {
+func (_c *JobHistoryCreate) sqlSave(ctx context.Context) (*JobHistory, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := jhc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, jhc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -241,57 +241,57 @@ func (jhc *JobHistoryCreate) sqlSave(ctx context.Context) (*JobHistory, error) {
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	jhc.mutation.id = &_node.ID
-	jhc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (jhc *JobHistoryCreate) createSpec() (*JobHistory, *sqlgraph.CreateSpec) {
+func (_c *JobHistoryCreate) createSpec() (*JobHistory, *sqlgraph.CreateSpec) {
 	var (
-		_node = &JobHistory{config: jhc.config}
+		_node = &JobHistory{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(jobhistory.Table, sqlgraph.NewFieldSpec(jobhistory.FieldID, field.TypeInt))
 	)
-	if value, ok := jhc.mutation.WasSuccessful(); ok {
+	if value, ok := _c.mutation.WasSuccessful(); ok {
 		_spec.SetField(jobhistory.FieldWasSuccessful, field.TypeBool, value)
 		_node.WasSuccessful = value
 	}
-	if value, ok := jhc.mutation.DurationMs(); ok {
+	if value, ok := _c.mutation.DurationMs(); ok {
 		_spec.SetField(jobhistory.FieldDurationMs, field.TypeInt64, value)
 		_node.DurationMs = value
 	}
-	if value, ok := jhc.mutation.Parameters(); ok {
+	if value, ok := _c.mutation.Parameters(); ok {
 		_spec.SetField(jobhistory.FieldParameters, field.TypeJSON, value)
 		_node.Parameters = value
 	}
-	if value, ok := jhc.mutation.Output(); ok {
+	if value, ok := _c.mutation.Output(); ok {
 		_spec.SetField(jobhistory.FieldOutput, field.TypeString, value)
 		_node.Output = value
 	}
-	if value, ok := jhc.mutation.ExitCode(); ok {
+	if value, ok := _c.mutation.ExitCode(); ok {
 		_spec.SetField(jobhistory.FieldExitCode, field.TypeInt, value)
 		_node.ExitCode = value
 	}
-	if value, ok := jhc.mutation.TriggeredByEmail(); ok {
+	if value, ok := _c.mutation.TriggeredByEmail(); ok {
 		_spec.SetField(jobhistory.FieldTriggeredByEmail, field.TypeString, value)
 		_node.TriggeredByEmail = value
 	}
-	if value, ok := jhc.mutation.TriggeredByID(); ok {
+	if value, ok := _c.mutation.TriggeredByID(); ok {
 		_spec.SetField(jobhistory.FieldTriggeredByID, field.TypeInt, value)
 		_node.TriggeredByID = value
 	}
-	if value, ok := jhc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(jobhistory.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := jhc.mutation.Status(); ok {
+	if value, ok := _c.mutation.Status(); ok {
 		_spec.SetField(jobhistory.FieldStatus, field.TypeString, value)
 		_node.Status = value
 	}
-	if value, ok := jhc.mutation.Trigger(); ok {
+	if value, ok := _c.mutation.Trigger(); ok {
 		_spec.SetField(jobhistory.FieldTrigger, field.TypeString, value)
 		_node.Trigger = value
 	}
-	if nodes := jhc.mutation.ProjectIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ProjectIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -308,7 +308,7 @@ func (jhc *JobHistoryCreate) createSpec() (*JobHistory, *sqlgraph.CreateSpec) {
 		_node.project_history = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := jhc.mutation.JobIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.JobIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -336,16 +336,16 @@ type JobHistoryCreateBulk struct {
 }
 
 // Save creates the JobHistory entities in the database.
-func (jhcb *JobHistoryCreateBulk) Save(ctx context.Context) ([]*JobHistory, error) {
-	if jhcb.err != nil {
-		return nil, jhcb.err
+func (_c *JobHistoryCreateBulk) Save(ctx context.Context) ([]*JobHistory, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(jhcb.builders))
-	nodes := make([]*JobHistory, len(jhcb.builders))
-	mutators := make([]Mutator, len(jhcb.builders))
-	for i := range jhcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*JobHistory, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := jhcb.builders[i]
+			builder := _c.builders[i]
 			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*JobHistoryMutation)
@@ -359,11 +359,11 @@ func (jhcb *JobHistoryCreateBulk) Save(ctx context.Context) ([]*JobHistory, erro
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, jhcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, jhcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -387,7 +387,7 @@ func (jhcb *JobHistoryCreateBulk) Save(ctx context.Context) ([]*JobHistory, erro
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, jhcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -395,8 +395,8 @@ func (jhcb *JobHistoryCreateBulk) Save(ctx context.Context) ([]*JobHistory, erro
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (jhcb *JobHistoryCreateBulk) SaveX(ctx context.Context) []*JobHistory {
-	v, err := jhcb.Save(ctx)
+func (_c *JobHistoryCreateBulk) SaveX(ctx context.Context) []*JobHistory {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -404,14 +404,14 @@ func (jhcb *JobHistoryCreateBulk) SaveX(ctx context.Context) []*JobHistory {
 }
 
 // Exec executes the query.
-func (jhcb *JobHistoryCreateBulk) Exec(ctx context.Context) error {
-	_, err := jhcb.Save(ctx)
+func (_c *JobHistoryCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jhcb *JobHistoryCreateBulk) ExecX(ctx context.Context) {
-	if err := jhcb.Exec(ctx); err != nil {
+func (_c *JobHistoryCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

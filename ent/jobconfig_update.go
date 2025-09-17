@@ -22,66 +22,66 @@ type JobConfigUpdate struct {
 }
 
 // Where appends a list predicates to the JobConfigUpdate builder.
-func (jcu *JobConfigUpdate) Where(ps ...predicate.JobConfig) *JobConfigUpdate {
-	jcu.mutation.Where(ps...)
-	return jcu
+func (_u *JobConfigUpdate) Where(ps ...predicate.JobConfig) *JobConfigUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetMaxConcurrentJobs sets the "max_concurrent_jobs" field.
-func (jcu *JobConfigUpdate) SetMaxConcurrentJobs(i int) *JobConfigUpdate {
-	jcu.mutation.ResetMaxConcurrentJobs()
-	jcu.mutation.SetMaxConcurrentJobs(i)
-	return jcu
+func (_u *JobConfigUpdate) SetMaxConcurrentJobs(v int) *JobConfigUpdate {
+	_u.mutation.ResetMaxConcurrentJobs()
+	_u.mutation.SetMaxConcurrentJobs(v)
+	return _u
 }
 
 // SetNillableMaxConcurrentJobs sets the "max_concurrent_jobs" field if the given value is not nil.
-func (jcu *JobConfigUpdate) SetNillableMaxConcurrentJobs(i *int) *JobConfigUpdate {
-	if i != nil {
-		jcu.SetMaxConcurrentJobs(*i)
+func (_u *JobConfigUpdate) SetNillableMaxConcurrentJobs(v *int) *JobConfigUpdate {
+	if v != nil {
+		_u.SetMaxConcurrentJobs(*v)
 	}
-	return jcu
+	return _u
 }
 
-// AddMaxConcurrentJobs adds i to the "max_concurrent_jobs" field.
-func (jcu *JobConfigUpdate) AddMaxConcurrentJobs(i int) *JobConfigUpdate {
-	jcu.mutation.AddMaxConcurrentJobs(i)
-	return jcu
+// AddMaxConcurrentJobs adds value to the "max_concurrent_jobs" field.
+func (_u *JobConfigUpdate) AddMaxConcurrentJobs(v int) *JobConfigUpdate {
+	_u.mutation.AddMaxConcurrentJobs(v)
+	return _u
 }
 
 // SetDefaultTimeoutSeconds sets the "default_timeout_seconds" field.
-func (jcu *JobConfigUpdate) SetDefaultTimeoutSeconds(i int) *JobConfigUpdate {
-	jcu.mutation.ResetDefaultTimeoutSeconds()
-	jcu.mutation.SetDefaultTimeoutSeconds(i)
-	return jcu
+func (_u *JobConfigUpdate) SetDefaultTimeoutSeconds(v int) *JobConfigUpdate {
+	_u.mutation.ResetDefaultTimeoutSeconds()
+	_u.mutation.SetDefaultTimeoutSeconds(v)
+	return _u
 }
 
 // SetNillableDefaultTimeoutSeconds sets the "default_timeout_seconds" field if the given value is not nil.
-func (jcu *JobConfigUpdate) SetNillableDefaultTimeoutSeconds(i *int) *JobConfigUpdate {
-	if i != nil {
-		jcu.SetDefaultTimeoutSeconds(*i)
+func (_u *JobConfigUpdate) SetNillableDefaultTimeoutSeconds(v *int) *JobConfigUpdate {
+	if v != nil {
+		_u.SetDefaultTimeoutSeconds(*v)
 	}
-	return jcu
+	return _u
 }
 
-// AddDefaultTimeoutSeconds adds i to the "default_timeout_seconds" field.
-func (jcu *JobConfigUpdate) AddDefaultTimeoutSeconds(i int) *JobConfigUpdate {
-	jcu.mutation.AddDefaultTimeoutSeconds(i)
-	return jcu
+// AddDefaultTimeoutSeconds adds value to the "default_timeout_seconds" field.
+func (_u *JobConfigUpdate) AddDefaultTimeoutSeconds(v int) *JobConfigUpdate {
+	_u.mutation.AddDefaultTimeoutSeconds(v)
+	return _u
 }
 
 // Mutation returns the JobConfigMutation object of the builder.
-func (jcu *JobConfigUpdate) Mutation() *JobConfigMutation {
-	return jcu.mutation
+func (_u *JobConfigUpdate) Mutation() *JobConfigMutation {
+	return _u.mutation
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (jcu *JobConfigUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, jcu.sqlSave, jcu.mutation, jcu.hooks)
+func (_u *JobConfigUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (jcu *JobConfigUpdate) SaveX(ctx context.Context) int {
-	affected, err := jcu.Save(ctx)
+func (_u *JobConfigUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -89,40 +89,40 @@ func (jcu *JobConfigUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (jcu *JobConfigUpdate) Exec(ctx context.Context) error {
-	_, err := jcu.Save(ctx)
+func (_u *JobConfigUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jcu *JobConfigUpdate) ExecX(ctx context.Context) {
-	if err := jcu.Exec(ctx); err != nil {
+func (_u *JobConfigUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (jcu *JobConfigUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *JobConfigUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(jobconfig.Table, jobconfig.Columns, sqlgraph.NewFieldSpec(jobconfig.FieldID, field.TypeInt))
-	if ps := jcu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := jcu.mutation.MaxConcurrentJobs(); ok {
+	if value, ok := _u.mutation.MaxConcurrentJobs(); ok {
 		_spec.SetField(jobconfig.FieldMaxConcurrentJobs, field.TypeInt, value)
 	}
-	if value, ok := jcu.mutation.AddedMaxConcurrentJobs(); ok {
+	if value, ok := _u.mutation.AddedMaxConcurrentJobs(); ok {
 		_spec.AddField(jobconfig.FieldMaxConcurrentJobs, field.TypeInt, value)
 	}
-	if value, ok := jcu.mutation.DefaultTimeoutSeconds(); ok {
+	if value, ok := _u.mutation.DefaultTimeoutSeconds(); ok {
 		_spec.SetField(jobconfig.FieldDefaultTimeoutSeconds, field.TypeInt, value)
 	}
-	if value, ok := jcu.mutation.AddedDefaultTimeoutSeconds(); ok {
+	if value, ok := _u.mutation.AddedDefaultTimeoutSeconds(); ok {
 		_spec.AddField(jobconfig.FieldDefaultTimeoutSeconds, field.TypeInt, value)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, jcu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{jobconfig.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -130,8 +130,8 @@ func (jcu *JobConfigUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	jcu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // JobConfigUpdateOne is the builder for updating a single JobConfig entity.
@@ -143,73 +143,73 @@ type JobConfigUpdateOne struct {
 }
 
 // SetMaxConcurrentJobs sets the "max_concurrent_jobs" field.
-func (jcuo *JobConfigUpdateOne) SetMaxConcurrentJobs(i int) *JobConfigUpdateOne {
-	jcuo.mutation.ResetMaxConcurrentJobs()
-	jcuo.mutation.SetMaxConcurrentJobs(i)
-	return jcuo
+func (_u *JobConfigUpdateOne) SetMaxConcurrentJobs(v int) *JobConfigUpdateOne {
+	_u.mutation.ResetMaxConcurrentJobs()
+	_u.mutation.SetMaxConcurrentJobs(v)
+	return _u
 }
 
 // SetNillableMaxConcurrentJobs sets the "max_concurrent_jobs" field if the given value is not nil.
-func (jcuo *JobConfigUpdateOne) SetNillableMaxConcurrentJobs(i *int) *JobConfigUpdateOne {
-	if i != nil {
-		jcuo.SetMaxConcurrentJobs(*i)
+func (_u *JobConfigUpdateOne) SetNillableMaxConcurrentJobs(v *int) *JobConfigUpdateOne {
+	if v != nil {
+		_u.SetMaxConcurrentJobs(*v)
 	}
-	return jcuo
+	return _u
 }
 
-// AddMaxConcurrentJobs adds i to the "max_concurrent_jobs" field.
-func (jcuo *JobConfigUpdateOne) AddMaxConcurrentJobs(i int) *JobConfigUpdateOne {
-	jcuo.mutation.AddMaxConcurrentJobs(i)
-	return jcuo
+// AddMaxConcurrentJobs adds value to the "max_concurrent_jobs" field.
+func (_u *JobConfigUpdateOne) AddMaxConcurrentJobs(v int) *JobConfigUpdateOne {
+	_u.mutation.AddMaxConcurrentJobs(v)
+	return _u
 }
 
 // SetDefaultTimeoutSeconds sets the "default_timeout_seconds" field.
-func (jcuo *JobConfigUpdateOne) SetDefaultTimeoutSeconds(i int) *JobConfigUpdateOne {
-	jcuo.mutation.ResetDefaultTimeoutSeconds()
-	jcuo.mutation.SetDefaultTimeoutSeconds(i)
-	return jcuo
+func (_u *JobConfigUpdateOne) SetDefaultTimeoutSeconds(v int) *JobConfigUpdateOne {
+	_u.mutation.ResetDefaultTimeoutSeconds()
+	_u.mutation.SetDefaultTimeoutSeconds(v)
+	return _u
 }
 
 // SetNillableDefaultTimeoutSeconds sets the "default_timeout_seconds" field if the given value is not nil.
-func (jcuo *JobConfigUpdateOne) SetNillableDefaultTimeoutSeconds(i *int) *JobConfigUpdateOne {
-	if i != nil {
-		jcuo.SetDefaultTimeoutSeconds(*i)
+func (_u *JobConfigUpdateOne) SetNillableDefaultTimeoutSeconds(v *int) *JobConfigUpdateOne {
+	if v != nil {
+		_u.SetDefaultTimeoutSeconds(*v)
 	}
-	return jcuo
+	return _u
 }
 
-// AddDefaultTimeoutSeconds adds i to the "default_timeout_seconds" field.
-func (jcuo *JobConfigUpdateOne) AddDefaultTimeoutSeconds(i int) *JobConfigUpdateOne {
-	jcuo.mutation.AddDefaultTimeoutSeconds(i)
-	return jcuo
+// AddDefaultTimeoutSeconds adds value to the "default_timeout_seconds" field.
+func (_u *JobConfigUpdateOne) AddDefaultTimeoutSeconds(v int) *JobConfigUpdateOne {
+	_u.mutation.AddDefaultTimeoutSeconds(v)
+	return _u
 }
 
 // Mutation returns the JobConfigMutation object of the builder.
-func (jcuo *JobConfigUpdateOne) Mutation() *JobConfigMutation {
-	return jcuo.mutation
+func (_u *JobConfigUpdateOne) Mutation() *JobConfigMutation {
+	return _u.mutation
 }
 
 // Where appends a list predicates to the JobConfigUpdate builder.
-func (jcuo *JobConfigUpdateOne) Where(ps ...predicate.JobConfig) *JobConfigUpdateOne {
-	jcuo.mutation.Where(ps...)
-	return jcuo
+func (_u *JobConfigUpdateOne) Where(ps ...predicate.JobConfig) *JobConfigUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (jcuo *JobConfigUpdateOne) Select(field string, fields ...string) *JobConfigUpdateOne {
-	jcuo.fields = append([]string{field}, fields...)
-	return jcuo
+func (_u *JobConfigUpdateOne) Select(field string, fields ...string) *JobConfigUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated JobConfig entity.
-func (jcuo *JobConfigUpdateOne) Save(ctx context.Context) (*JobConfig, error) {
-	return withHooks(ctx, jcuo.sqlSave, jcuo.mutation, jcuo.hooks)
+func (_u *JobConfigUpdateOne) Save(ctx context.Context) (*JobConfig, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (jcuo *JobConfigUpdateOne) SaveX(ctx context.Context) *JobConfig {
-	node, err := jcuo.Save(ctx)
+func (_u *JobConfigUpdateOne) SaveX(ctx context.Context) *JobConfig {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -217,26 +217,26 @@ func (jcuo *JobConfigUpdateOne) SaveX(ctx context.Context) *JobConfig {
 }
 
 // Exec executes the query on the entity.
-func (jcuo *JobConfigUpdateOne) Exec(ctx context.Context) error {
-	_, err := jcuo.Save(ctx)
+func (_u *JobConfigUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jcuo *JobConfigUpdateOne) ExecX(ctx context.Context) {
-	if err := jcuo.Exec(ctx); err != nil {
+func (_u *JobConfigUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (jcuo *JobConfigUpdateOne) sqlSave(ctx context.Context) (_node *JobConfig, err error) {
+func (_u *JobConfigUpdateOne) sqlSave(ctx context.Context) (_node *JobConfig, err error) {
 	_spec := sqlgraph.NewUpdateSpec(jobconfig.Table, jobconfig.Columns, sqlgraph.NewFieldSpec(jobconfig.FieldID, field.TypeInt))
-	id, ok := jcuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "JobConfig.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := jcuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, jobconfig.FieldID)
 		for _, f := range fields {
@@ -248,29 +248,29 @@ func (jcuo *JobConfigUpdateOne) sqlSave(ctx context.Context) (_node *JobConfig, 
 			}
 		}
 	}
-	if ps := jcuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := jcuo.mutation.MaxConcurrentJobs(); ok {
+	if value, ok := _u.mutation.MaxConcurrentJobs(); ok {
 		_spec.SetField(jobconfig.FieldMaxConcurrentJobs, field.TypeInt, value)
 	}
-	if value, ok := jcuo.mutation.AddedMaxConcurrentJobs(); ok {
+	if value, ok := _u.mutation.AddedMaxConcurrentJobs(); ok {
 		_spec.AddField(jobconfig.FieldMaxConcurrentJobs, field.TypeInt, value)
 	}
-	if value, ok := jcuo.mutation.DefaultTimeoutSeconds(); ok {
+	if value, ok := _u.mutation.DefaultTimeoutSeconds(); ok {
 		_spec.SetField(jobconfig.FieldDefaultTimeoutSeconds, field.TypeInt, value)
 	}
-	if value, ok := jcuo.mutation.AddedDefaultTimeoutSeconds(); ok {
+	if value, ok := _u.mutation.AddedDefaultTimeoutSeconds(); ok {
 		_spec.AddField(jobconfig.FieldDefaultTimeoutSeconds, field.TypeInt, value)
 	}
-	_node = &JobConfig{config: jcuo.config}
+	_node = &JobConfig{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, jcuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{jobconfig.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -278,6 +278,6 @@ func (jcuo *JobConfigUpdateOne) sqlSave(ctx context.Context) (_node *JobConfig, 
 		}
 		return nil, err
 	}
-	jcuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

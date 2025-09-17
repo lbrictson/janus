@@ -2,13 +2,14 @@ package pkg
 
 import (
 	"context"
+	"log/slog"
+	"sync"
+	"time"
+
 	"github.com/lbrictson/janus/ent"
 	"github.com/lbrictson/janus/ent/job"
 	"github.com/lbrictson/janus/ent/jobhistory"
 	"github.com/robfig/cron/v3"
-	"log/slog"
-	"sync"
-	"time"
 )
 
 var cronJobs map[int]cron.EntryID
@@ -48,7 +49,7 @@ func cronJobWrapper(db *ent.Client, j ent.Job) func() {
 		for _, x := range freshJob.Arguments {
 			if x.DefaultValue == "" {
 				slog.Warn("cron job was scheduled to run but had no default value for arguments, cancelled run", "job_id", freshJob.ID, "job_name", freshJob.Name)
-				db.JobHistory.Update().Where(jobhistory.IDEQ(historyItem.ID)).SetStatus("failed").SetWasSuccessful(false).SetOutput("Job failed due to having one or more arguments without a defautl value").Save(context.Background())
+				db.JobHistory.Update().Where(jobhistory.IDEQ(historyItem.ID)).SetStatus("failed").SetWasSuccessful(false).SetOutput("Job failed due to having one or more arguments without a default value").Save(context.Background())
 				return
 			}
 			args = append(args, JobRuntimeArg{
@@ -73,10 +74,17 @@ func addCronJob(db *ent.Client, j *ent.Job) {
 		cronService.Remove(entryID)
 		delete(cronJobs, j.ID)
 	}
+	slog.Info("adding cron job", "job_id", j.ID, "schedule", j.CronSchedule)
 	entry, err := cronService.AddFunc(j.CronSchedule, cronJobWrapper(db, *j))
 	if err != nil {
 		slog.Error("failed to add cron job", "error", err)
+		return
 	}
+	//entries := cronService.Entries()
+	//for _, e := range entries {
+	//	slog.Info("CronEntry", "entry", e.ID, "next", e.Next, "prev", e.Prev, "schedule", e.Schedule)
+	//
+	//}
 	cronJobs[j.ID] = entry
 	cronJobMapLock.Unlock()
 	slog.Info("added cron job", "job_id", j.ID)

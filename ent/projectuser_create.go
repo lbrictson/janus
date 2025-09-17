@@ -22,55 +22,55 @@ type ProjectUserCreate struct {
 }
 
 // SetCanEdit sets the "can_edit" field.
-func (puc *ProjectUserCreate) SetCanEdit(b bool) *ProjectUserCreate {
-	puc.mutation.SetCanEdit(b)
-	return puc
+func (_c *ProjectUserCreate) SetCanEdit(v bool) *ProjectUserCreate {
+	_c.mutation.SetCanEdit(v)
+	return _c
 }
 
 // SetNillableCanEdit sets the "can_edit" field if the given value is not nil.
-func (puc *ProjectUserCreate) SetNillableCanEdit(b *bool) *ProjectUserCreate {
-	if b != nil {
-		puc.SetCanEdit(*b)
+func (_c *ProjectUserCreate) SetNillableCanEdit(v *bool) *ProjectUserCreate {
+	if v != nil {
+		_c.SetCanEdit(*v)
 	}
-	return puc
+	return _c
 }
 
 // SetProjectID sets the "project" edge to the Project entity by ID.
-func (puc *ProjectUserCreate) SetProjectID(id int) *ProjectUserCreate {
-	puc.mutation.SetProjectID(id)
-	return puc
+func (_c *ProjectUserCreate) SetProjectID(id int) *ProjectUserCreate {
+	_c.mutation.SetProjectID(id)
+	return _c
 }
 
 // SetProject sets the "project" edge to the Project entity.
-func (puc *ProjectUserCreate) SetProject(p *Project) *ProjectUserCreate {
-	return puc.SetProjectID(p.ID)
+func (_c *ProjectUserCreate) SetProject(v *Project) *ProjectUserCreate {
+	return _c.SetProjectID(v.ID)
 }
 
 // SetUserID sets the "user" edge to the User entity by ID.
-func (puc *ProjectUserCreate) SetUserID(id int) *ProjectUserCreate {
-	puc.mutation.SetUserID(id)
-	return puc
+func (_c *ProjectUserCreate) SetUserID(id int) *ProjectUserCreate {
+	_c.mutation.SetUserID(id)
+	return _c
 }
 
 // SetUser sets the "user" edge to the User entity.
-func (puc *ProjectUserCreate) SetUser(u *User) *ProjectUserCreate {
-	return puc.SetUserID(u.ID)
+func (_c *ProjectUserCreate) SetUser(v *User) *ProjectUserCreate {
+	return _c.SetUserID(v.ID)
 }
 
 // Mutation returns the ProjectUserMutation object of the builder.
-func (puc *ProjectUserCreate) Mutation() *ProjectUserMutation {
-	return puc.mutation
+func (_c *ProjectUserCreate) Mutation() *ProjectUserMutation {
+	return _c.mutation
 }
 
 // Save creates the ProjectUser in the database.
-func (puc *ProjectUserCreate) Save(ctx context.Context) (*ProjectUser, error) {
-	puc.defaults()
-	return withHooks(ctx, puc.sqlSave, puc.mutation, puc.hooks)
+func (_c *ProjectUserCreate) Save(ctx context.Context) (*ProjectUser, error) {
+	_c.defaults()
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (puc *ProjectUserCreate) SaveX(ctx context.Context) *ProjectUser {
-	v, err := puc.Save(ctx)
+func (_c *ProjectUserCreate) SaveX(ctx context.Context) *ProjectUser {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -78,46 +78,46 @@ func (puc *ProjectUserCreate) SaveX(ctx context.Context) *ProjectUser {
 }
 
 // Exec executes the query.
-func (puc *ProjectUserCreate) Exec(ctx context.Context) error {
-	_, err := puc.Save(ctx)
+func (_c *ProjectUserCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (puc *ProjectUserCreate) ExecX(ctx context.Context) {
-	if err := puc.Exec(ctx); err != nil {
+func (_c *ProjectUserCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (puc *ProjectUserCreate) defaults() {
-	if _, ok := puc.mutation.CanEdit(); !ok {
+func (_c *ProjectUserCreate) defaults() {
+	if _, ok := _c.mutation.CanEdit(); !ok {
 		v := projectuser.DefaultCanEdit
-		puc.mutation.SetCanEdit(v)
+		_c.mutation.SetCanEdit(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (puc *ProjectUserCreate) check() error {
-	if _, ok := puc.mutation.CanEdit(); !ok {
+func (_c *ProjectUserCreate) check() error {
+	if _, ok := _c.mutation.CanEdit(); !ok {
 		return &ValidationError{Name: "can_edit", err: errors.New(`ent: missing required field "ProjectUser.can_edit"`)}
 	}
-	if len(puc.mutation.ProjectIDs()) == 0 {
+	if len(_c.mutation.ProjectIDs()) == 0 {
 		return &ValidationError{Name: "project", err: errors.New(`ent: missing required edge "ProjectUser.project"`)}
 	}
-	if len(puc.mutation.UserIDs()) == 0 {
+	if len(_c.mutation.UserIDs()) == 0 {
 		return &ValidationError{Name: "user", err: errors.New(`ent: missing required edge "ProjectUser.user"`)}
 	}
 	return nil
 }
 
-func (puc *ProjectUserCreate) sqlSave(ctx context.Context) (*ProjectUser, error) {
-	if err := puc.check(); err != nil {
+func (_c *ProjectUserCreate) sqlSave(ctx context.Context) (*ProjectUser, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := puc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, puc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -125,21 +125,21 @@ func (puc *ProjectUserCreate) sqlSave(ctx context.Context) (*ProjectUser, error)
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	puc.mutation.id = &_node.ID
-	puc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (puc *ProjectUserCreate) createSpec() (*ProjectUser, *sqlgraph.CreateSpec) {
+func (_c *ProjectUserCreate) createSpec() (*ProjectUser, *sqlgraph.CreateSpec) {
 	var (
-		_node = &ProjectUser{config: puc.config}
+		_node = &ProjectUser{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(projectuser.Table, sqlgraph.NewFieldSpec(projectuser.FieldID, field.TypeInt))
 	)
-	if value, ok := puc.mutation.CanEdit(); ok {
+	if value, ok := _c.mutation.CanEdit(); ok {
 		_spec.SetField(projectuser.FieldCanEdit, field.TypeBool, value)
 		_node.CanEdit = value
 	}
-	if nodes := puc.mutation.ProjectIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ProjectIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -156,7 +156,7 @@ func (puc *ProjectUserCreate) createSpec() (*ProjectUser, *sqlgraph.CreateSpec) 
 		_node.project_project_users = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := puc.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.UserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -184,16 +184,16 @@ type ProjectUserCreateBulk struct {
 }
 
 // Save creates the ProjectUser entities in the database.
-func (pucb *ProjectUserCreateBulk) Save(ctx context.Context) ([]*ProjectUser, error) {
-	if pucb.err != nil {
-		return nil, pucb.err
+func (_c *ProjectUserCreateBulk) Save(ctx context.Context) ([]*ProjectUser, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(pucb.builders))
-	nodes := make([]*ProjectUser, len(pucb.builders))
-	mutators := make([]Mutator, len(pucb.builders))
-	for i := range pucb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*ProjectUser, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := pucb.builders[i]
+			builder := _c.builders[i]
 			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*ProjectUserMutation)
@@ -207,11 +207,11 @@ func (pucb *ProjectUserCreateBulk) Save(ctx context.Context) ([]*ProjectUser, er
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, pucb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, pucb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -235,7 +235,7 @@ func (pucb *ProjectUserCreateBulk) Save(ctx context.Context) ([]*ProjectUser, er
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, pucb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -243,8 +243,8 @@ func (pucb *ProjectUserCreateBulk) Save(ctx context.Context) ([]*ProjectUser, er
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (pucb *ProjectUserCreateBulk) SaveX(ctx context.Context) []*ProjectUser {
-	v, err := pucb.Save(ctx)
+func (_c *ProjectUserCreateBulk) SaveX(ctx context.Context) []*ProjectUser {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -252,14 +252,14 @@ func (pucb *ProjectUserCreateBulk) SaveX(ctx context.Context) []*ProjectUser {
 }
 
 // Exec executes the query.
-func (pucb *ProjectUserCreateBulk) Exec(ctx context.Context) error {
-	_, err := pucb.Save(ctx)
+func (_c *ProjectUserCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (pucb *ProjectUserCreateBulk) ExecX(ctx context.Context) {
-	if err := pucb.Exec(ctx); err != nil {
+func (_c *ProjectUserCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

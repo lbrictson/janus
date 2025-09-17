@@ -368,8 +368,8 @@ func (c *AuditClient) Update() *AuditUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *AuditClient) UpdateOne(a *Audit) *AuditUpdateOne {
-	mutation := newAuditMutation(c.config, OpUpdateOne, withAudit(a))
+func (c *AuditClient) UpdateOne(_m *Audit) *AuditUpdateOne {
+	mutation := newAuditMutation(c.config, OpUpdateOne, withAudit(_m))
 	return &AuditUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -386,8 +386,8 @@ func (c *AuditClient) Delete() *AuditDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *AuditClient) DeleteOne(a *Audit) *AuditDeleteOne {
-	return c.DeleteOneID(a.ID)
+func (c *AuditClient) DeleteOne(_m *Audit) *AuditDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -501,8 +501,8 @@ func (c *AuthConfigClient) Update() *AuthConfigUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *AuthConfigClient) UpdateOne(ac *AuthConfig) *AuthConfigUpdateOne {
-	mutation := newAuthConfigMutation(c.config, OpUpdateOne, withAuthConfig(ac))
+func (c *AuthConfigClient) UpdateOne(_m *AuthConfig) *AuthConfigUpdateOne {
+	mutation := newAuthConfigMutation(c.config, OpUpdateOne, withAuthConfig(_m))
 	return &AuthConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -519,8 +519,8 @@ func (c *AuthConfigClient) Delete() *AuthConfigDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *AuthConfigClient) DeleteOne(ac *AuthConfig) *AuthConfigDeleteOne {
-	return c.DeleteOneID(ac.ID)
+func (c *AuthConfigClient) DeleteOne(_m *AuthConfig) *AuthConfigDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -634,8 +634,8 @@ func (c *DataConfigClient) Update() *DataConfigUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *DataConfigClient) UpdateOne(dc *DataConfig) *DataConfigUpdateOne {
-	mutation := newDataConfigMutation(c.config, OpUpdateOne, withDataConfig(dc))
+func (c *DataConfigClient) UpdateOne(_m *DataConfig) *DataConfigUpdateOne {
+	mutation := newDataConfigMutation(c.config, OpUpdateOne, withDataConfig(_m))
 	return &DataConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -652,8 +652,8 @@ func (c *DataConfigClient) Delete() *DataConfigDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *DataConfigClient) DeleteOne(dc *DataConfig) *DataConfigDeleteOne {
-	return c.DeleteOneID(dc.ID)
+func (c *DataConfigClient) DeleteOne(_m *DataConfig) *DataConfigDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -767,8 +767,8 @@ func (c *InboundWebhookClient) Update() *InboundWebhookUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *InboundWebhookClient) UpdateOne(iw *InboundWebhook) *InboundWebhookUpdateOne {
-	mutation := newInboundWebhookMutation(c.config, OpUpdateOne, withInboundWebhook(iw))
+func (c *InboundWebhookClient) UpdateOne(_m *InboundWebhook) *InboundWebhookUpdateOne {
+	mutation := newInboundWebhookMutation(c.config, OpUpdateOne, withInboundWebhook(_m))
 	return &InboundWebhookUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -785,8 +785,8 @@ func (c *InboundWebhookClient) Delete() *InboundWebhookDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *InboundWebhookClient) DeleteOne(iw *InboundWebhook) *InboundWebhookDeleteOne {
-	return c.DeleteOneID(iw.ID)
+func (c *InboundWebhookClient) DeleteOne(_m *InboundWebhook) *InboundWebhookDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -821,16 +821,16 @@ func (c *InboundWebhookClient) GetX(ctx context.Context, id int) *InboundWebhook
 }
 
 // QueryJob queries the job edge of a InboundWebhook.
-func (c *InboundWebhookClient) QueryJob(iw *InboundWebhook) *JobQuery {
+func (c *InboundWebhookClient) QueryJob(_m *InboundWebhook) *JobQuery {
 	query := (&JobClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := iw.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(inboundwebhook.Table, inboundwebhook.FieldID, id),
 			sqlgraph.To(job.Table, job.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, inboundwebhook.JobTable, inboundwebhook.JobColumn),
 		)
-		fromV = sqlgraph.Neighbors(iw.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -916,8 +916,8 @@ func (c *JobClient) Update() *JobUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *JobClient) UpdateOne(j *Job) *JobUpdateOne {
-	mutation := newJobMutation(c.config, OpUpdateOne, withJob(j))
+func (c *JobClient) UpdateOne(_m *Job) *JobUpdateOne {
+	mutation := newJobMutation(c.config, OpUpdateOne, withJob(_m))
 	return &JobUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -934,8 +934,8 @@ func (c *JobClient) Delete() *JobDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *JobClient) DeleteOne(j *Job) *JobDeleteOne {
-	return c.DeleteOneID(j.ID)
+func (c *JobClient) DeleteOne(_m *Job) *JobDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -970,48 +970,48 @@ func (c *JobClient) GetX(ctx context.Context, id int) *Job {
 }
 
 // QueryProject queries the project edge of a Job.
-func (c *JobClient) QueryProject(j *Job) *ProjectQuery {
+func (c *JobClient) QueryProject(_m *Job) *ProjectQuery {
 	query := (&ProjectClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := j.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(job.Table, job.FieldID, id),
 			sqlgraph.To(project.Table, project.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, job.ProjectTable, job.ProjectColumn),
 		)
-		fromV = sqlgraph.Neighbors(j.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryHistory queries the history edge of a Job.
-func (c *JobClient) QueryHistory(j *Job) *JobHistoryQuery {
+func (c *JobClient) QueryHistory(_m *Job) *JobHistoryQuery {
 	query := (&JobHistoryClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := j.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(job.Table, job.FieldID, id),
 			sqlgraph.To(jobhistory.Table, jobhistory.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, false, job.HistoryTable, job.HistoryColumn),
 		)
-		fromV = sqlgraph.Neighbors(j.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryVersions queries the versions edge of a Job.
-func (c *JobClient) QueryVersions(j *Job) *JobVersionQuery {
+func (c *JobClient) QueryVersions(_m *Job) *JobVersionQuery {
 	query := (&JobVersionClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := j.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(job.Table, job.FieldID, id),
 			sqlgraph.To(jobversion.Table, jobversion.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, false, job.VersionsTable, job.VersionsColumn),
 		)
-		fromV = sqlgraph.Neighbors(j.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -1097,8 +1097,8 @@ func (c *JobConfigClient) Update() *JobConfigUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *JobConfigClient) UpdateOne(jc *JobConfig) *JobConfigUpdateOne {
-	mutation := newJobConfigMutation(c.config, OpUpdateOne, withJobConfig(jc))
+func (c *JobConfigClient) UpdateOne(_m *JobConfig) *JobConfigUpdateOne {
+	mutation := newJobConfigMutation(c.config, OpUpdateOne, withJobConfig(_m))
 	return &JobConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1115,8 +1115,8 @@ func (c *JobConfigClient) Delete() *JobConfigDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *JobConfigClient) DeleteOne(jc *JobConfig) *JobConfigDeleteOne {
-	return c.DeleteOneID(jc.ID)
+func (c *JobConfigClient) DeleteOne(_m *JobConfig) *JobConfigDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -1230,8 +1230,8 @@ func (c *JobHistoryClient) Update() *JobHistoryUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *JobHistoryClient) UpdateOne(jh *JobHistory) *JobHistoryUpdateOne {
-	mutation := newJobHistoryMutation(c.config, OpUpdateOne, withJobHistory(jh))
+func (c *JobHistoryClient) UpdateOne(_m *JobHistory) *JobHistoryUpdateOne {
+	mutation := newJobHistoryMutation(c.config, OpUpdateOne, withJobHistory(_m))
 	return &JobHistoryUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1248,8 +1248,8 @@ func (c *JobHistoryClient) Delete() *JobHistoryDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *JobHistoryClient) DeleteOne(jh *JobHistory) *JobHistoryDeleteOne {
-	return c.DeleteOneID(jh.ID)
+func (c *JobHistoryClient) DeleteOne(_m *JobHistory) *JobHistoryDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -1284,32 +1284,32 @@ func (c *JobHistoryClient) GetX(ctx context.Context, id int) *JobHistory {
 }
 
 // QueryProject queries the project edge of a JobHistory.
-func (c *JobHistoryClient) QueryProject(jh *JobHistory) *ProjectQuery {
+func (c *JobHistoryClient) QueryProject(_m *JobHistory) *ProjectQuery {
 	query := (&ProjectClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := jh.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(jobhistory.Table, jobhistory.FieldID, id),
 			sqlgraph.To(project.Table, project.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, jobhistory.ProjectTable, jobhistory.ProjectColumn),
 		)
-		fromV = sqlgraph.Neighbors(jh.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryJob queries the job edge of a JobHistory.
-func (c *JobHistoryClient) QueryJob(jh *JobHistory) *JobQuery {
+func (c *JobHistoryClient) QueryJob(_m *JobHistory) *JobQuery {
 	query := (&JobClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := jh.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(jobhistory.Table, jobhistory.FieldID, id),
 			sqlgraph.To(job.Table, job.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, jobhistory.JobTable, jobhistory.JobColumn),
 		)
-		fromV = sqlgraph.Neighbors(jh.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -1395,8 +1395,8 @@ func (c *JobVersionClient) Update() *JobVersionUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *JobVersionClient) UpdateOne(jv *JobVersion) *JobVersionUpdateOne {
-	mutation := newJobVersionMutation(c.config, OpUpdateOne, withJobVersion(jv))
+func (c *JobVersionClient) UpdateOne(_m *JobVersion) *JobVersionUpdateOne {
+	mutation := newJobVersionMutation(c.config, OpUpdateOne, withJobVersion(_m))
 	return &JobVersionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1413,8 +1413,8 @@ func (c *JobVersionClient) Delete() *JobVersionDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *JobVersionClient) DeleteOne(jv *JobVersion) *JobVersionDeleteOne {
-	return c.DeleteOneID(jv.ID)
+func (c *JobVersionClient) DeleteOne(_m *JobVersion) *JobVersionDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -1449,16 +1449,16 @@ func (c *JobVersionClient) GetX(ctx context.Context, id int) *JobVersion {
 }
 
 // QueryJob queries the job edge of a JobVersion.
-func (c *JobVersionClient) QueryJob(jv *JobVersion) *JobQuery {
+func (c *JobVersionClient) QueryJob(_m *JobVersion) *JobQuery {
 	query := (&JobClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := jv.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(jobversion.Table, jobversion.FieldID, id),
 			sqlgraph.To(job.Table, job.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, jobversion.JobTable, jobversion.JobColumn),
 		)
-		fromV = sqlgraph.Neighbors(jv.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -1544,8 +1544,8 @@ func (c *NotificationChannelClient) Update() *NotificationChannelUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *NotificationChannelClient) UpdateOne(nc *NotificationChannel) *NotificationChannelUpdateOne {
-	mutation := newNotificationChannelMutation(c.config, OpUpdateOne, withNotificationChannel(nc))
+func (c *NotificationChannelClient) UpdateOne(_m *NotificationChannel) *NotificationChannelUpdateOne {
+	mutation := newNotificationChannelMutation(c.config, OpUpdateOne, withNotificationChannel(_m))
 	return &NotificationChannelUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1562,8 +1562,8 @@ func (c *NotificationChannelClient) Delete() *NotificationChannelDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *NotificationChannelClient) DeleteOne(nc *NotificationChannel) *NotificationChannelDeleteOne {
-	return c.DeleteOneID(nc.ID)
+func (c *NotificationChannelClient) DeleteOne(_m *NotificationChannel) *NotificationChannelDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -1677,8 +1677,8 @@ func (c *ProjectClient) Update() *ProjectUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *ProjectClient) UpdateOne(pr *Project) *ProjectUpdateOne {
-	mutation := newProjectMutation(c.config, OpUpdateOne, withProject(pr))
+func (c *ProjectClient) UpdateOne(_m *Project) *ProjectUpdateOne {
+	mutation := newProjectMutation(c.config, OpUpdateOne, withProject(_m))
 	return &ProjectUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1695,8 +1695,8 @@ func (c *ProjectClient) Delete() *ProjectDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *ProjectClient) DeleteOne(pr *Project) *ProjectDeleteOne {
-	return c.DeleteOneID(pr.ID)
+func (c *ProjectClient) DeleteOne(_m *Project) *ProjectDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -1731,48 +1731,48 @@ func (c *ProjectClient) GetX(ctx context.Context, id int) *Project {
 }
 
 // QueryProjectUsers queries the projectUsers edge of a Project.
-func (c *ProjectClient) QueryProjectUsers(pr *Project) *ProjectUserQuery {
+func (c *ProjectClient) QueryProjectUsers(_m *Project) *ProjectUserQuery {
 	query := (&ProjectUserClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := pr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(project.Table, project.FieldID, id),
 			sqlgraph.To(projectuser.Table, projectuser.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, false, project.ProjectUsersTable, project.ProjectUsersColumn),
 		)
-		fromV = sqlgraph.Neighbors(pr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryJobs queries the jobs edge of a Project.
-func (c *ProjectClient) QueryJobs(pr *Project) *JobQuery {
+func (c *ProjectClient) QueryJobs(_m *Project) *JobQuery {
 	query := (&JobClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := pr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(project.Table, project.FieldID, id),
 			sqlgraph.To(job.Table, job.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, false, project.JobsTable, project.JobsColumn),
 		)
-		fromV = sqlgraph.Neighbors(pr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryHistory queries the history edge of a Project.
-func (c *ProjectClient) QueryHistory(pr *Project) *JobHistoryQuery {
+func (c *ProjectClient) QueryHistory(_m *Project) *JobHistoryQuery {
 	query := (&JobHistoryClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := pr.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(project.Table, project.FieldID, id),
 			sqlgraph.To(jobhistory.Table, jobhistory.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, false, project.HistoryTable, project.HistoryColumn),
 		)
-		fromV = sqlgraph.Neighbors(pr.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -1858,8 +1858,8 @@ func (c *ProjectUserClient) Update() *ProjectUserUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *ProjectUserClient) UpdateOne(pu *ProjectUser) *ProjectUserUpdateOne {
-	mutation := newProjectUserMutation(c.config, OpUpdateOne, withProjectUser(pu))
+func (c *ProjectUserClient) UpdateOne(_m *ProjectUser) *ProjectUserUpdateOne {
+	mutation := newProjectUserMutation(c.config, OpUpdateOne, withProjectUser(_m))
 	return &ProjectUserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -1876,8 +1876,8 @@ func (c *ProjectUserClient) Delete() *ProjectUserDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *ProjectUserClient) DeleteOne(pu *ProjectUser) *ProjectUserDeleteOne {
-	return c.DeleteOneID(pu.ID)
+func (c *ProjectUserClient) DeleteOne(_m *ProjectUser) *ProjectUserDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -1912,32 +1912,32 @@ func (c *ProjectUserClient) GetX(ctx context.Context, id int) *ProjectUser {
 }
 
 // QueryProject queries the project edge of a ProjectUser.
-func (c *ProjectUserClient) QueryProject(pu *ProjectUser) *ProjectQuery {
+func (c *ProjectUserClient) QueryProject(_m *ProjectUser) *ProjectQuery {
 	query := (&ProjectClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := pu.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(projectuser.Table, projectuser.FieldID, id),
 			sqlgraph.To(project.Table, project.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, projectuser.ProjectTable, projectuser.ProjectColumn),
 		)
-		fromV = sqlgraph.Neighbors(pu.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
 }
 
 // QueryUser queries the user edge of a ProjectUser.
-func (c *ProjectUserClient) QueryUser(pu *ProjectUser) *UserQuery {
+func (c *ProjectUserClient) QueryUser(_m *ProjectUser) *UserQuery {
 	query := (&UserClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := pu.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(projectuser.Table, projectuser.FieldID, id),
 			sqlgraph.To(user.Table, user.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, projectuser.UserTable, projectuser.UserColumn),
 		)
-		fromV = sqlgraph.Neighbors(pu.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -2023,8 +2023,8 @@ func (c *SMTPConfigClient) Update() *SMTPConfigUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *SMTPConfigClient) UpdateOne(sc *SMTPConfig) *SMTPConfigUpdateOne {
-	mutation := newSMTPConfigMutation(c.config, OpUpdateOne, withSMTPConfig(sc))
+func (c *SMTPConfigClient) UpdateOne(_m *SMTPConfig) *SMTPConfigUpdateOne {
+	mutation := newSMTPConfigMutation(c.config, OpUpdateOne, withSMTPConfig(_m))
 	return &SMTPConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -2041,8 +2041,8 @@ func (c *SMTPConfigClient) Delete() *SMTPConfigDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *SMTPConfigClient) DeleteOne(sc *SMTPConfig) *SMTPConfigDeleteOne {
-	return c.DeleteOneID(sc.ID)
+func (c *SMTPConfigClient) DeleteOne(_m *SMTPConfig) *SMTPConfigDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -2156,8 +2156,8 @@ func (c *SecretClient) Update() *SecretUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *SecretClient) UpdateOne(s *Secret) *SecretUpdateOne {
-	mutation := newSecretMutation(c.config, OpUpdateOne, withSecret(s))
+func (c *SecretClient) UpdateOne(_m *Secret) *SecretUpdateOne {
+	mutation := newSecretMutation(c.config, OpUpdateOne, withSecret(_m))
 	return &SecretUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -2174,8 +2174,8 @@ func (c *SecretClient) Delete() *SecretDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *SecretClient) DeleteOne(s *Secret) *SecretDeleteOne {
-	return c.DeleteOneID(s.ID)
+func (c *SecretClient) DeleteOne(_m *Secret) *SecretDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -2210,16 +2210,16 @@ func (c *SecretClient) GetX(ctx context.Context, id int) *Secret {
 }
 
 // QueryProject queries the project edge of a Secret.
-func (c *SecretClient) QueryProject(s *Secret) *ProjectQuery {
+func (c *SecretClient) QueryProject(_m *Secret) *ProjectQuery {
 	query := (&ProjectClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := s.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(secret.Table, secret.FieldID, id),
 			sqlgraph.To(project.Table, project.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, false, secret.ProjectTable, secret.ProjectColumn),
 		)
-		fromV = sqlgraph.Neighbors(s.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query
@@ -2305,8 +2305,8 @@ func (c *UserClient) Update() *UserUpdate {
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *UserClient) UpdateOne(u *User) *UserUpdateOne {
-	mutation := newUserMutation(c.config, OpUpdateOne, withUser(u))
+func (c *UserClient) UpdateOne(_m *User) *UserUpdateOne {
+	mutation := newUserMutation(c.config, OpUpdateOne, withUser(_m))
 	return &UserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
@@ -2323,8 +2323,8 @@ func (c *UserClient) Delete() *UserDelete {
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *UserClient) DeleteOne(u *User) *UserDeleteOne {
-	return c.DeleteOneID(u.ID)
+func (c *UserClient) DeleteOne(_m *User) *UserDeleteOne {
+	return c.DeleteOneID(_m.ID)
 }
 
 // DeleteOneID returns a builder for deleting the given entity by its id.
@@ -2359,16 +2359,16 @@ func (c *UserClient) GetX(ctx context.Context, id int) *User {
 }
 
 // QueryProjectUsers queries the projectUsers edge of a User.
-func (c *UserClient) QueryProjectUsers(u *User) *ProjectUserQuery {
+func (c *UserClient) QueryProjectUsers(_m *User) *ProjectUserQuery {
 	query := (&ProjectUserClient{config: c.config}).Query()
 	query.path = func(context.Context) (fromV *sql.Selector, _ error) {
-		id := u.ID
+		id := _m.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldID, id),
 			sqlgraph.To(projectuser.Table, projectuser.FieldID),
 			sqlgraph.Edge(sqlgraph.O2M, false, user.ProjectUsersTable, user.ProjectUsersColumn),
 		)
-		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
+		fromV = sqlgraph.Neighbors(_m.driver.Dialect(), step)
 		return fromV, nil
 	}
 	return query

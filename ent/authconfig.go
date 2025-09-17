@@ -65,7 +65,7 @@ func (*AuthConfig) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the AuthConfig fields.
-func (ac *AuthConfig) assignValues(columns []string, values []any) error {
+func (_m *AuthConfig) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -76,81 +76,81 @@ func (ac *AuthConfig) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			ac.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case authconfig.FieldEnableSSO:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field enable_sso", values[i])
 			} else if value.Valid {
-				ac.EnableSSO = value.Bool
+				_m.EnableSSO = value.Bool
 			}
 		case authconfig.FieldDisablePasswordLogin:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field disable_password_login", values[i])
 			} else if value.Valid {
-				ac.DisablePasswordLogin = value.Bool
+				_m.DisablePasswordLogin = value.Bool
 			}
 		case authconfig.FieldSSOProvider:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field sso_provider", values[i])
 			} else if value.Valid {
-				ac.SSOProvider = value.String
+				_m.SSOProvider = value.String
 			}
 		case authconfig.FieldSSOClientID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field sso_client_id", values[i])
 			} else if value.Valid {
-				ac.SSOClientID = value.String
+				_m.SSOClientID = value.String
 			}
 		case authconfig.FieldSSOClientSecret:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field sso_client_secret", values[i])
 			} else if value.Valid {
-				ac.SSOClientSecret = value.String
+				_m.SSOClientSecret = value.String
 			}
 		case authconfig.FieldSSORedirectURI:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field sso_redirect_uri", values[i])
 			} else if value.Valid {
-				ac.SSORedirectURI = value.String
+				_m.SSORedirectURI = value.String
 			}
 		case authconfig.FieldSSOAuthorizationURL:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field sso_authorization_url", values[i])
 			} else if value.Valid {
-				ac.SSOAuthorizationURL = value.String
+				_m.SSOAuthorizationURL = value.String
 			}
 		case authconfig.FieldSSOTokenURL:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field sso_token_url", values[i])
 			} else if value.Valid {
-				ac.SSOTokenURL = value.String
+				_m.SSOTokenURL = value.String
 			}
 		case authconfig.FieldSSOUserInfoURL:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field sso_user_info_url", values[i])
 			} else if value.Valid {
-				ac.SSOUserInfoURL = value.String
+				_m.SSOUserInfoURL = value.String
 			}
 		case authconfig.FieldEntraTenantID:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field entra_tenant_id", values[i])
 			} else if value.Valid {
-				ac.EntraTenantID = value.String
+				_m.EntraTenantID = value.String
 			}
 		case authconfig.FieldGoogleAllowedDomains:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field google_allowed_domains", values[i])
 			} else if value.Valid {
-				ac.GoogleAllowedDomains = value.String
+				_m.GoogleAllowedDomains = value.String
 			}
 		case authconfig.FieldSessionKey:
 			if value, ok := values[i].(*[]byte); !ok {
 				return fmt.Errorf("unexpected type %T for field session_key", values[i])
 			} else if value != nil {
-				ac.SessionKey = *value
+				_m.SessionKey = *value
 			}
 		default:
-			ac.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -158,68 +158,68 @@ func (ac *AuthConfig) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the AuthConfig.
 // This includes values selected through modifiers, order, etc.
-func (ac *AuthConfig) Value(name string) (ent.Value, error) {
-	return ac.selectValues.Get(name)
+func (_m *AuthConfig) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // Update returns a builder for updating this AuthConfig.
 // Note that you need to call AuthConfig.Unwrap() before calling this method if this AuthConfig
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (ac *AuthConfig) Update() *AuthConfigUpdateOne {
-	return NewAuthConfigClient(ac.config).UpdateOne(ac)
+func (_m *AuthConfig) Update() *AuthConfigUpdateOne {
+	return NewAuthConfigClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the AuthConfig entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (ac *AuthConfig) Unwrap() *AuthConfig {
-	_tx, ok := ac.config.driver.(*txDriver)
+func (_m *AuthConfig) Unwrap() *AuthConfig {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: AuthConfig is not a transactional entity")
 	}
-	ac.config.driver = _tx.drv
-	return ac
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (ac *AuthConfig) String() string {
+func (_m *AuthConfig) String() string {
 	var builder strings.Builder
 	builder.WriteString("AuthConfig(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", ac.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("enable_sso=")
-	builder.WriteString(fmt.Sprintf("%v", ac.EnableSSO))
+	builder.WriteString(fmt.Sprintf("%v", _m.EnableSSO))
 	builder.WriteString(", ")
 	builder.WriteString("disable_password_login=")
-	builder.WriteString(fmt.Sprintf("%v", ac.DisablePasswordLogin))
+	builder.WriteString(fmt.Sprintf("%v", _m.DisablePasswordLogin))
 	builder.WriteString(", ")
 	builder.WriteString("sso_provider=")
-	builder.WriteString(ac.SSOProvider)
+	builder.WriteString(_m.SSOProvider)
 	builder.WriteString(", ")
 	builder.WriteString("sso_client_id=")
-	builder.WriteString(ac.SSOClientID)
+	builder.WriteString(_m.SSOClientID)
 	builder.WriteString(", ")
 	builder.WriteString("sso_client_secret=")
-	builder.WriteString(ac.SSOClientSecret)
+	builder.WriteString(_m.SSOClientSecret)
 	builder.WriteString(", ")
 	builder.WriteString("sso_redirect_uri=")
-	builder.WriteString(ac.SSORedirectURI)
+	builder.WriteString(_m.SSORedirectURI)
 	builder.WriteString(", ")
 	builder.WriteString("sso_authorization_url=")
-	builder.WriteString(ac.SSOAuthorizationURL)
+	builder.WriteString(_m.SSOAuthorizationURL)
 	builder.WriteString(", ")
 	builder.WriteString("sso_token_url=")
-	builder.WriteString(ac.SSOTokenURL)
+	builder.WriteString(_m.SSOTokenURL)
 	builder.WriteString(", ")
 	builder.WriteString("sso_user_info_url=")
-	builder.WriteString(ac.SSOUserInfoURL)
+	builder.WriteString(_m.SSOUserInfoURL)
 	builder.WriteString(", ")
 	builder.WriteString("entra_tenant_id=")
-	builder.WriteString(ac.EntraTenantID)
+	builder.WriteString(_m.EntraTenantID)
 	builder.WriteString(", ")
 	builder.WriteString("google_allowed_domains=")
-	builder.WriteString(ac.GoogleAllowedDomains)
+	builder.WriteString(_m.GoogleAllowedDomains)
 	builder.WriteString(", ")
 	builder.WriteString("session_key=")
-	builder.WriteString(fmt.Sprintf("%v", ac.SessionKey))
+	builder.WriteString(fmt.Sprintf("%v", _m.SessionKey))
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -33,44 +33,44 @@ type JobHistoryQuery struct {
 }
 
 // Where adds a new predicate for the JobHistoryQuery builder.
-func (jhq *JobHistoryQuery) Where(ps ...predicate.JobHistory) *JobHistoryQuery {
-	jhq.predicates = append(jhq.predicates, ps...)
-	return jhq
+func (_q *JobHistoryQuery) Where(ps ...predicate.JobHistory) *JobHistoryQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (jhq *JobHistoryQuery) Limit(limit int) *JobHistoryQuery {
-	jhq.ctx.Limit = &limit
-	return jhq
+func (_q *JobHistoryQuery) Limit(limit int) *JobHistoryQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (jhq *JobHistoryQuery) Offset(offset int) *JobHistoryQuery {
-	jhq.ctx.Offset = &offset
-	return jhq
+func (_q *JobHistoryQuery) Offset(offset int) *JobHistoryQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (jhq *JobHistoryQuery) Unique(unique bool) *JobHistoryQuery {
-	jhq.ctx.Unique = &unique
-	return jhq
+func (_q *JobHistoryQuery) Unique(unique bool) *JobHistoryQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (jhq *JobHistoryQuery) Order(o ...jobhistory.OrderOption) *JobHistoryQuery {
-	jhq.order = append(jhq.order, o...)
-	return jhq
+func (_q *JobHistoryQuery) Order(o ...jobhistory.OrderOption) *JobHistoryQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryProject chains the current query on the "project" edge.
-func (jhq *JobHistoryQuery) QueryProject() *ProjectQuery {
-	query := (&ProjectClient{config: jhq.config}).Query()
+func (_q *JobHistoryQuery) QueryProject() *ProjectQuery {
+	query := (&ProjectClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := jhq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := jhq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -79,20 +79,20 @@ func (jhq *JobHistoryQuery) QueryProject() *ProjectQuery {
 			sqlgraph.To(project.Table, project.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, jobhistory.ProjectTable, jobhistory.ProjectColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(jhq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
 }
 
 // QueryJob chains the current query on the "job" edge.
-func (jhq *JobHistoryQuery) QueryJob() *JobQuery {
-	query := (&JobClient{config: jhq.config}).Query()
+func (_q *JobHistoryQuery) QueryJob() *JobQuery {
+	query := (&JobClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := jhq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := jhq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -101,7 +101,7 @@ func (jhq *JobHistoryQuery) QueryJob() *JobQuery {
 			sqlgraph.To(job.Table, job.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, jobhistory.JobTable, jobhistory.JobColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(jhq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -109,8 +109,8 @@ func (jhq *JobHistoryQuery) QueryJob() *JobQuery {
 
 // First returns the first JobHistory entity from the query.
 // Returns a *NotFoundError when no JobHistory was found.
-func (jhq *JobHistoryQuery) First(ctx context.Context) (*JobHistory, error) {
-	nodes, err := jhq.Limit(1).All(setContextOp(ctx, jhq.ctx, ent.OpQueryFirst))
+func (_q *JobHistoryQuery) First(ctx context.Context) (*JobHistory, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -121,8 +121,8 @@ func (jhq *JobHistoryQuery) First(ctx context.Context) (*JobHistory, error) {
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (jhq *JobHistoryQuery) FirstX(ctx context.Context) *JobHistory {
-	node, err := jhq.First(ctx)
+func (_q *JobHistoryQuery) FirstX(ctx context.Context) *JobHistory {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -131,9 +131,9 @@ func (jhq *JobHistoryQuery) FirstX(ctx context.Context) *JobHistory {
 
 // FirstID returns the first JobHistory ID from the query.
 // Returns a *NotFoundError when no JobHistory ID was found.
-func (jhq *JobHistoryQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *JobHistoryQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = jhq.Limit(1).IDs(setContextOp(ctx, jhq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -144,8 +144,8 @@ func (jhq *JobHistoryQuery) FirstID(ctx context.Context) (id int, err error) {
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (jhq *JobHistoryQuery) FirstIDX(ctx context.Context) int {
-	id, err := jhq.FirstID(ctx)
+func (_q *JobHistoryQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -155,8 +155,8 @@ func (jhq *JobHistoryQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single JobHistory entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one JobHistory entity is found.
 // Returns a *NotFoundError when no JobHistory entities are found.
-func (jhq *JobHistoryQuery) Only(ctx context.Context) (*JobHistory, error) {
-	nodes, err := jhq.Limit(2).All(setContextOp(ctx, jhq.ctx, ent.OpQueryOnly))
+func (_q *JobHistoryQuery) Only(ctx context.Context) (*JobHistory, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -171,8 +171,8 @@ func (jhq *JobHistoryQuery) Only(ctx context.Context) (*JobHistory, error) {
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (jhq *JobHistoryQuery) OnlyX(ctx context.Context) *JobHistory {
-	node, err := jhq.Only(ctx)
+func (_q *JobHistoryQuery) OnlyX(ctx context.Context) *JobHistory {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -182,9 +182,9 @@ func (jhq *JobHistoryQuery) OnlyX(ctx context.Context) *JobHistory {
 // OnlyID is like Only, but returns the only JobHistory ID in the query.
 // Returns a *NotSingularError when more than one JobHistory ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (jhq *JobHistoryQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *JobHistoryQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = jhq.Limit(2).IDs(setContextOp(ctx, jhq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -199,8 +199,8 @@ func (jhq *JobHistoryQuery) OnlyID(ctx context.Context) (id int, err error) {
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (jhq *JobHistoryQuery) OnlyIDX(ctx context.Context) int {
-	id, err := jhq.OnlyID(ctx)
+func (_q *JobHistoryQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -208,18 +208,18 @@ func (jhq *JobHistoryQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of JobHistories.
-func (jhq *JobHistoryQuery) All(ctx context.Context) ([]*JobHistory, error) {
-	ctx = setContextOp(ctx, jhq.ctx, ent.OpQueryAll)
-	if err := jhq.prepareQuery(ctx); err != nil {
+func (_q *JobHistoryQuery) All(ctx context.Context) ([]*JobHistory, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*JobHistory, *JobHistoryQuery]()
-	return withInterceptors[[]*JobHistory](ctx, jhq, qr, jhq.inters)
+	return withInterceptors[[]*JobHistory](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (jhq *JobHistoryQuery) AllX(ctx context.Context) []*JobHistory {
-	nodes, err := jhq.All(ctx)
+func (_q *JobHistoryQuery) AllX(ctx context.Context) []*JobHistory {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -227,20 +227,20 @@ func (jhq *JobHistoryQuery) AllX(ctx context.Context) []*JobHistory {
 }
 
 // IDs executes the query and returns a list of JobHistory IDs.
-func (jhq *JobHistoryQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if jhq.ctx.Unique == nil && jhq.path != nil {
-		jhq.Unique(true)
+func (_q *JobHistoryQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, jhq.ctx, ent.OpQueryIDs)
-	if err = jhq.Select(jobhistory.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(jobhistory.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (jhq *JobHistoryQuery) IDsX(ctx context.Context) []int {
-	ids, err := jhq.IDs(ctx)
+func (_q *JobHistoryQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -248,17 +248,17 @@ func (jhq *JobHistoryQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (jhq *JobHistoryQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, jhq.ctx, ent.OpQueryCount)
-	if err := jhq.prepareQuery(ctx); err != nil {
+func (_q *JobHistoryQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, jhq, querierCount[*JobHistoryQuery](), jhq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*JobHistoryQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (jhq *JobHistoryQuery) CountX(ctx context.Context) int {
-	count, err := jhq.Count(ctx)
+func (_q *JobHistoryQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -266,9 +266,9 @@ func (jhq *JobHistoryQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (jhq *JobHistoryQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, jhq.ctx, ent.OpQueryExist)
-	switch _, err := jhq.FirstID(ctx); {
+func (_q *JobHistoryQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -279,8 +279,8 @@ func (jhq *JobHistoryQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (jhq *JobHistoryQuery) ExistX(ctx context.Context) bool {
-	exist, err := jhq.Exist(ctx)
+func (_q *JobHistoryQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -289,44 +289,44 @@ func (jhq *JobHistoryQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the JobHistoryQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (jhq *JobHistoryQuery) Clone() *JobHistoryQuery {
-	if jhq == nil {
+func (_q *JobHistoryQuery) Clone() *JobHistoryQuery {
+	if _q == nil {
 		return nil
 	}
 	return &JobHistoryQuery{
-		config:      jhq.config,
-		ctx:         jhq.ctx.Clone(),
-		order:       append([]jobhistory.OrderOption{}, jhq.order...),
-		inters:      append([]Interceptor{}, jhq.inters...),
-		predicates:  append([]predicate.JobHistory{}, jhq.predicates...),
-		withProject: jhq.withProject.Clone(),
-		withJob:     jhq.withJob.Clone(),
+		config:      _q.config,
+		ctx:         _q.ctx.Clone(),
+		order:       append([]jobhistory.OrderOption{}, _q.order...),
+		inters:      append([]Interceptor{}, _q.inters...),
+		predicates:  append([]predicate.JobHistory{}, _q.predicates...),
+		withProject: _q.withProject.Clone(),
+		withJob:     _q.withJob.Clone(),
 		// clone intermediate query.
-		sql:  jhq.sql.Clone(),
-		path: jhq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithProject tells the query-builder to eager-load the nodes that are connected to
 // the "project" edge. The optional arguments are used to configure the query builder of the edge.
-func (jhq *JobHistoryQuery) WithProject(opts ...func(*ProjectQuery)) *JobHistoryQuery {
-	query := (&ProjectClient{config: jhq.config}).Query()
+func (_q *JobHistoryQuery) WithProject(opts ...func(*ProjectQuery)) *JobHistoryQuery {
+	query := (&ProjectClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	jhq.withProject = query
-	return jhq
+	_q.withProject = query
+	return _q
 }
 
 // WithJob tells the query-builder to eager-load the nodes that are connected to
 // the "job" edge. The optional arguments are used to configure the query builder of the edge.
-func (jhq *JobHistoryQuery) WithJob(opts ...func(*JobQuery)) *JobHistoryQuery {
-	query := (&JobClient{config: jhq.config}).Query()
+func (_q *JobHistoryQuery) WithJob(opts ...func(*JobQuery)) *JobHistoryQuery {
+	query := (&JobClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	jhq.withJob = query
-	return jhq
+	_q.withJob = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -343,10 +343,10 @@ func (jhq *JobHistoryQuery) WithJob(opts ...func(*JobQuery)) *JobHistoryQuery {
 //		GroupBy(jobhistory.FieldWasSuccessful).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (jhq *JobHistoryQuery) GroupBy(field string, fields ...string) *JobHistoryGroupBy {
-	jhq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &JobHistoryGroupBy{build: jhq}
-	grbuild.flds = &jhq.ctx.Fields
+func (_q *JobHistoryQuery) GroupBy(field string, fields ...string) *JobHistoryGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &JobHistoryGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = jobhistory.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -364,56 +364,56 @@ func (jhq *JobHistoryQuery) GroupBy(field string, fields ...string) *JobHistoryG
 //	client.JobHistory.Query().
 //		Select(jobhistory.FieldWasSuccessful).
 //		Scan(ctx, &v)
-func (jhq *JobHistoryQuery) Select(fields ...string) *JobHistorySelect {
-	jhq.ctx.Fields = append(jhq.ctx.Fields, fields...)
-	sbuild := &JobHistorySelect{JobHistoryQuery: jhq}
+func (_q *JobHistoryQuery) Select(fields ...string) *JobHistorySelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &JobHistorySelect{JobHistoryQuery: _q}
 	sbuild.label = jobhistory.Label
-	sbuild.flds, sbuild.scan = &jhq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a JobHistorySelect configured with the given aggregations.
-func (jhq *JobHistoryQuery) Aggregate(fns ...AggregateFunc) *JobHistorySelect {
-	return jhq.Select().Aggregate(fns...)
+func (_q *JobHistoryQuery) Aggregate(fns ...AggregateFunc) *JobHistorySelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (jhq *JobHistoryQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range jhq.inters {
+func (_q *JobHistoryQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, jhq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range jhq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !jobhistory.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if jhq.path != nil {
-		prev, err := jhq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		jhq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (jhq *JobHistoryQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*JobHistory, error) {
+func (_q *JobHistoryQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*JobHistory, error) {
 	var (
 		nodes       = []*JobHistory{}
-		withFKs     = jhq.withFKs
-		_spec       = jhq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [2]bool{
-			jhq.withProject != nil,
-			jhq.withJob != nil,
+			_q.withProject != nil,
+			_q.withJob != nil,
 		}
 	)
-	if jhq.withProject != nil || jhq.withJob != nil {
+	if _q.withProject != nil || _q.withJob != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -423,7 +423,7 @@ func (jhq *JobHistoryQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 		return (*JobHistory).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &JobHistory{config: jhq.config}
+		node := &JobHistory{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -431,20 +431,20 @@ func (jhq *JobHistoryQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, jhq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := jhq.withProject; query != nil {
-		if err := jhq.loadProject(ctx, query, nodes, nil,
+	if query := _q.withProject; query != nil {
+		if err := _q.loadProject(ctx, query, nodes, nil,
 			func(n *JobHistory, e *Project) { n.Edges.Project = e }); err != nil {
 			return nil, err
 		}
 	}
-	if query := jhq.withJob; query != nil {
-		if err := jhq.loadJob(ctx, query, nodes, nil,
+	if query := _q.withJob; query != nil {
+		if err := _q.loadJob(ctx, query, nodes, nil,
 			func(n *JobHistory, e *Job) { n.Edges.Job = e }); err != nil {
 			return nil, err
 		}
@@ -452,7 +452,7 @@ func (jhq *JobHistoryQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 	return nodes, nil
 }
 
-func (jhq *JobHistoryQuery) loadProject(ctx context.Context, query *ProjectQuery, nodes []*JobHistory, init func(*JobHistory), assign func(*JobHistory, *Project)) error {
+func (_q *JobHistoryQuery) loadProject(ctx context.Context, query *ProjectQuery, nodes []*JobHistory, init func(*JobHistory), assign func(*JobHistory, *Project)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*JobHistory)
 	for i := range nodes {
@@ -484,7 +484,7 @@ func (jhq *JobHistoryQuery) loadProject(ctx context.Context, query *ProjectQuery
 	}
 	return nil
 }
-func (jhq *JobHistoryQuery) loadJob(ctx context.Context, query *JobQuery, nodes []*JobHistory, init func(*JobHistory), assign func(*JobHistory, *Job)) error {
+func (_q *JobHistoryQuery) loadJob(ctx context.Context, query *JobQuery, nodes []*JobHistory, init func(*JobHistory), assign func(*JobHistory, *Job)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*JobHistory)
 	for i := range nodes {
@@ -517,24 +517,24 @@ func (jhq *JobHistoryQuery) loadJob(ctx context.Context, query *JobQuery, nodes 
 	return nil
 }
 
-func (jhq *JobHistoryQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := jhq.querySpec()
-	_spec.Node.Columns = jhq.ctx.Fields
-	if len(jhq.ctx.Fields) > 0 {
-		_spec.Unique = jhq.ctx.Unique != nil && *jhq.ctx.Unique
+func (_q *JobHistoryQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, jhq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (jhq *JobHistoryQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *JobHistoryQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(jobhistory.Table, jobhistory.Columns, sqlgraph.NewFieldSpec(jobhistory.FieldID, field.TypeInt))
-	_spec.From = jhq.sql
-	if unique := jhq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if jhq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := jhq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, jobhistory.FieldID)
 		for i := range fields {
@@ -543,20 +543,20 @@ func (jhq *JobHistoryQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := jhq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := jhq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := jhq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := jhq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -566,33 +566,33 @@ func (jhq *JobHistoryQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (jhq *JobHistoryQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(jhq.driver.Dialect())
+func (_q *JobHistoryQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(jobhistory.Table)
-	columns := jhq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = jobhistory.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if jhq.sql != nil {
-		selector = jhq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if jhq.ctx.Unique != nil && *jhq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range jhq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range jhq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := jhq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := jhq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -605,41 +605,41 @@ type JobHistoryGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (jhgb *JobHistoryGroupBy) Aggregate(fns ...AggregateFunc) *JobHistoryGroupBy {
-	jhgb.fns = append(jhgb.fns, fns...)
-	return jhgb
+func (_g *JobHistoryGroupBy) Aggregate(fns ...AggregateFunc) *JobHistoryGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (jhgb *JobHistoryGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, jhgb.build.ctx, ent.OpQueryGroupBy)
-	if err := jhgb.build.prepareQuery(ctx); err != nil {
+func (_g *JobHistoryGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*JobHistoryQuery, *JobHistoryGroupBy](ctx, jhgb.build, jhgb, jhgb.build.inters, v)
+	return scanWithInterceptors[*JobHistoryQuery, *JobHistoryGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (jhgb *JobHistoryGroupBy) sqlScan(ctx context.Context, root *JobHistoryQuery, v any) error {
+func (_g *JobHistoryGroupBy) sqlScan(ctx context.Context, root *JobHistoryQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(jhgb.fns))
-	for _, fn := range jhgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*jhgb.flds)+len(jhgb.fns))
-		for _, f := range *jhgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*jhgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := jhgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -653,27 +653,27 @@ type JobHistorySelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (jhs *JobHistorySelect) Aggregate(fns ...AggregateFunc) *JobHistorySelect {
-	jhs.fns = append(jhs.fns, fns...)
-	return jhs
+func (_s *JobHistorySelect) Aggregate(fns ...AggregateFunc) *JobHistorySelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (jhs *JobHistorySelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, jhs.ctx, ent.OpQuerySelect)
-	if err := jhs.prepareQuery(ctx); err != nil {
+func (_s *JobHistorySelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*JobHistoryQuery, *JobHistorySelect](ctx, jhs.JobHistoryQuery, jhs, jhs.inters, v)
+	return scanWithInterceptors[*JobHistoryQuery, *JobHistorySelect](ctx, _s.JobHistoryQuery, _s, _s.inters, v)
 }
 
-func (jhs *JobHistorySelect) sqlScan(ctx context.Context, root *JobHistoryQuery, v any) error {
+func (_s *JobHistorySelect) sqlScan(ctx context.Context, root *JobHistoryQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(jhs.fns))
-	for _, fn := range jhs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*jhs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -681,7 +681,7 @@ func (jhs *JobHistorySelect) sqlScan(ctx context.Context, root *JobHistoryQuery,
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := jhs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

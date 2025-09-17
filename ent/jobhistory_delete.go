@@ -20,56 +20,56 @@ type JobHistoryDelete struct {
 }
 
 // Where appends a list predicates to the JobHistoryDelete builder.
-func (jhd *JobHistoryDelete) Where(ps ...predicate.JobHistory) *JobHistoryDelete {
-	jhd.mutation.Where(ps...)
-	return jhd
+func (_d *JobHistoryDelete) Where(ps ...predicate.JobHistory) *JobHistoryDelete {
+	_d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (jhd *JobHistoryDelete) Exec(ctx context.Context) (int, error) {
-	return withHooks(ctx, jhd.sqlExec, jhd.mutation, jhd.hooks)
+func (_d *JobHistoryDelete) Exec(ctx context.Context) (int, error) {
+	return withHooks(ctx, _d.sqlExec, _d.mutation, _d.hooks)
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jhd *JobHistoryDelete) ExecX(ctx context.Context) int {
-	n, err := jhd.Exec(ctx)
+func (_d *JobHistoryDelete) ExecX(ctx context.Context) int {
+	n, err := _d.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (jhd *JobHistoryDelete) sqlExec(ctx context.Context) (int, error) {
+func (_d *JobHistoryDelete) sqlExec(ctx context.Context) (int, error) {
 	_spec := sqlgraph.NewDeleteSpec(jobhistory.Table, sqlgraph.NewFieldSpec(jobhistory.FieldID, field.TypeInt))
-	if ps := jhd.mutation.predicates; len(ps) > 0 {
+	if ps := _d.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, jhd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, _d.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
-	jhd.mutation.done = true
+	_d.mutation.done = true
 	return affected, err
 }
 
 // JobHistoryDeleteOne is the builder for deleting a single JobHistory entity.
 type JobHistoryDeleteOne struct {
-	jhd *JobHistoryDelete
+	_d *JobHistoryDelete
 }
 
 // Where appends a list predicates to the JobHistoryDelete builder.
-func (jhdo *JobHistoryDeleteOne) Where(ps ...predicate.JobHistory) *JobHistoryDeleteOne {
-	jhdo.jhd.mutation.Where(ps...)
-	return jhdo
+func (_d *JobHistoryDeleteOne) Where(ps ...predicate.JobHistory) *JobHistoryDeleteOne {
+	_d._d.mutation.Where(ps...)
+	return _d
 }
 
 // Exec executes the deletion query.
-func (jhdo *JobHistoryDeleteOne) Exec(ctx context.Context) error {
-	n, err := jhdo.jhd.Exec(ctx)
+func (_d *JobHistoryDeleteOne) Exec(ctx context.Context) error {
+	n, err := _d._d.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
@@ -81,8 +81,8 @@ func (jhdo *JobHistoryDeleteOne) Exec(ctx context.Context) error {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jhdo *JobHistoryDeleteOne) ExecX(ctx context.Context) {
-	if err := jhdo.Exec(ctx); err != nil {
+func (_d *JobHistoryDeleteOne) ExecX(ctx context.Context) {
+	if err := _d.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

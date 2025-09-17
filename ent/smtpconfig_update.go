@@ -22,115 +22,115 @@ type SMTPConfigUpdate struct {
 }
 
 // Where appends a list predicates to the SMTPConfigUpdate builder.
-func (scu *SMTPConfigUpdate) Where(ps ...predicate.SMTPConfig) *SMTPConfigUpdate {
-	scu.mutation.Where(ps...)
-	return scu
+func (_u *SMTPConfigUpdate) Where(ps ...predicate.SMTPConfig) *SMTPConfigUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetSMTPServer sets the "smtp_server" field.
-func (scu *SMTPConfigUpdate) SetSMTPServer(s string) *SMTPConfigUpdate {
-	scu.mutation.SetSMTPServer(s)
-	return scu
+func (_u *SMTPConfigUpdate) SetSMTPServer(v string) *SMTPConfigUpdate {
+	_u.mutation.SetSMTPServer(v)
+	return _u
 }
 
 // SetNillableSMTPServer sets the "smtp_server" field if the given value is not nil.
-func (scu *SMTPConfigUpdate) SetNillableSMTPServer(s *string) *SMTPConfigUpdate {
-	if s != nil {
-		scu.SetSMTPServer(*s)
+func (_u *SMTPConfigUpdate) SetNillableSMTPServer(v *string) *SMTPConfigUpdate {
+	if v != nil {
+		_u.SetSMTPServer(*v)
 	}
-	return scu
+	return _u
 }
 
 // SetSMTPPort sets the "smtp_port" field.
-func (scu *SMTPConfigUpdate) SetSMTPPort(i int) *SMTPConfigUpdate {
-	scu.mutation.ResetSMTPPort()
-	scu.mutation.SetSMTPPort(i)
-	return scu
+func (_u *SMTPConfigUpdate) SetSMTPPort(v int) *SMTPConfigUpdate {
+	_u.mutation.ResetSMTPPort()
+	_u.mutation.SetSMTPPort(v)
+	return _u
 }
 
 // SetNillableSMTPPort sets the "smtp_port" field if the given value is not nil.
-func (scu *SMTPConfigUpdate) SetNillableSMTPPort(i *int) *SMTPConfigUpdate {
-	if i != nil {
-		scu.SetSMTPPort(*i)
+func (_u *SMTPConfigUpdate) SetNillableSMTPPort(v *int) *SMTPConfigUpdate {
+	if v != nil {
+		_u.SetSMTPPort(*v)
 	}
-	return scu
+	return _u
 }
 
-// AddSMTPPort adds i to the "smtp_port" field.
-func (scu *SMTPConfigUpdate) AddSMTPPort(i int) *SMTPConfigUpdate {
-	scu.mutation.AddSMTPPort(i)
-	return scu
+// AddSMTPPort adds value to the "smtp_port" field.
+func (_u *SMTPConfigUpdate) AddSMTPPort(v int) *SMTPConfigUpdate {
+	_u.mutation.AddSMTPPort(v)
+	return _u
 }
 
 // SetSMTPUsername sets the "smtp_username" field.
-func (scu *SMTPConfigUpdate) SetSMTPUsername(s string) *SMTPConfigUpdate {
-	scu.mutation.SetSMTPUsername(s)
-	return scu
+func (_u *SMTPConfigUpdate) SetSMTPUsername(v string) *SMTPConfigUpdate {
+	_u.mutation.SetSMTPUsername(v)
+	return _u
 }
 
 // SetNillableSMTPUsername sets the "smtp_username" field if the given value is not nil.
-func (scu *SMTPConfigUpdate) SetNillableSMTPUsername(s *string) *SMTPConfigUpdate {
-	if s != nil {
-		scu.SetSMTPUsername(*s)
+func (_u *SMTPConfigUpdate) SetNillableSMTPUsername(v *string) *SMTPConfigUpdate {
+	if v != nil {
+		_u.SetSMTPUsername(*v)
 	}
-	return scu
+	return _u
 }
 
 // SetSMTPPassword sets the "smtp_password" field.
-func (scu *SMTPConfigUpdate) SetSMTPPassword(s string) *SMTPConfigUpdate {
-	scu.mutation.SetSMTPPassword(s)
-	return scu
+func (_u *SMTPConfigUpdate) SetSMTPPassword(v string) *SMTPConfigUpdate {
+	_u.mutation.SetSMTPPassword(v)
+	return _u
 }
 
 // SetNillableSMTPPassword sets the "smtp_password" field if the given value is not nil.
-func (scu *SMTPConfigUpdate) SetNillableSMTPPassword(s *string) *SMTPConfigUpdate {
-	if s != nil {
-		scu.SetSMTPPassword(*s)
+func (_u *SMTPConfigUpdate) SetNillableSMTPPassword(v *string) *SMTPConfigUpdate {
+	if v != nil {
+		_u.SetSMTPPassword(*v)
 	}
-	return scu
+	return _u
 }
 
 // SetSMTPSender sets the "smtp_sender" field.
-func (scu *SMTPConfigUpdate) SetSMTPSender(s string) *SMTPConfigUpdate {
-	scu.mutation.SetSMTPSender(s)
-	return scu
+func (_u *SMTPConfigUpdate) SetSMTPSender(v string) *SMTPConfigUpdate {
+	_u.mutation.SetSMTPSender(v)
+	return _u
 }
 
 // SetNillableSMTPSender sets the "smtp_sender" field if the given value is not nil.
-func (scu *SMTPConfigUpdate) SetNillableSMTPSender(s *string) *SMTPConfigUpdate {
-	if s != nil {
-		scu.SetSMTPSender(*s)
+func (_u *SMTPConfigUpdate) SetNillableSMTPSender(v *string) *SMTPConfigUpdate {
+	if v != nil {
+		_u.SetSMTPSender(*v)
 	}
-	return scu
+	return _u
 }
 
 // SetSMTPTLS sets the "smtp_tls" field.
-func (scu *SMTPConfigUpdate) SetSMTPTLS(b bool) *SMTPConfigUpdate {
-	scu.mutation.SetSMTPTLS(b)
-	return scu
+func (_u *SMTPConfigUpdate) SetSMTPTLS(v bool) *SMTPConfigUpdate {
+	_u.mutation.SetSMTPTLS(v)
+	return _u
 }
 
 // SetNillableSMTPTLS sets the "smtp_tls" field if the given value is not nil.
-func (scu *SMTPConfigUpdate) SetNillableSMTPTLS(b *bool) *SMTPConfigUpdate {
-	if b != nil {
-		scu.SetSMTPTLS(*b)
+func (_u *SMTPConfigUpdate) SetNillableSMTPTLS(v *bool) *SMTPConfigUpdate {
+	if v != nil {
+		_u.SetSMTPTLS(*v)
 	}
-	return scu
+	return _u
 }
 
 // Mutation returns the SMTPConfigMutation object of the builder.
-func (scu *SMTPConfigUpdate) Mutation() *SMTPConfigMutation {
-	return scu.mutation
+func (_u *SMTPConfigUpdate) Mutation() *SMTPConfigMutation {
+	return _u.mutation
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (scu *SMTPConfigUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, scu.sqlSave, scu.mutation, scu.hooks)
+func (_u *SMTPConfigUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (scu *SMTPConfigUpdate) SaveX(ctx context.Context) int {
-	affected, err := scu.Save(ctx)
+func (_u *SMTPConfigUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -138,49 +138,49 @@ func (scu *SMTPConfigUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (scu *SMTPConfigUpdate) Exec(ctx context.Context) error {
-	_, err := scu.Save(ctx)
+func (_u *SMTPConfigUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (scu *SMTPConfigUpdate) ExecX(ctx context.Context) {
-	if err := scu.Exec(ctx); err != nil {
+func (_u *SMTPConfigUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (scu *SMTPConfigUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *SMTPConfigUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(smtpconfig.Table, smtpconfig.Columns, sqlgraph.NewFieldSpec(smtpconfig.FieldID, field.TypeInt))
-	if ps := scu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := scu.mutation.SMTPServer(); ok {
+	if value, ok := _u.mutation.SMTPServer(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPServer, field.TypeString, value)
 	}
-	if value, ok := scu.mutation.SMTPPort(); ok {
+	if value, ok := _u.mutation.SMTPPort(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPPort, field.TypeInt, value)
 	}
-	if value, ok := scu.mutation.AddedSMTPPort(); ok {
+	if value, ok := _u.mutation.AddedSMTPPort(); ok {
 		_spec.AddField(smtpconfig.FieldSMTPPort, field.TypeInt, value)
 	}
-	if value, ok := scu.mutation.SMTPUsername(); ok {
+	if value, ok := _u.mutation.SMTPUsername(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPUsername, field.TypeString, value)
 	}
-	if value, ok := scu.mutation.SMTPPassword(); ok {
+	if value, ok := _u.mutation.SMTPPassword(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPPassword, field.TypeString, value)
 	}
-	if value, ok := scu.mutation.SMTPSender(); ok {
+	if value, ok := _u.mutation.SMTPSender(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPSender, field.TypeString, value)
 	}
-	if value, ok := scu.mutation.SMTPTLS(); ok {
+	if value, ok := _u.mutation.SMTPTLS(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPTLS, field.TypeBool, value)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, scu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{smtpconfig.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -188,8 +188,8 @@ func (scu *SMTPConfigUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	scu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // SMTPConfigUpdateOne is the builder for updating a single SMTPConfig entity.
@@ -201,122 +201,122 @@ type SMTPConfigUpdateOne struct {
 }
 
 // SetSMTPServer sets the "smtp_server" field.
-func (scuo *SMTPConfigUpdateOne) SetSMTPServer(s string) *SMTPConfigUpdateOne {
-	scuo.mutation.SetSMTPServer(s)
-	return scuo
+func (_u *SMTPConfigUpdateOne) SetSMTPServer(v string) *SMTPConfigUpdateOne {
+	_u.mutation.SetSMTPServer(v)
+	return _u
 }
 
 // SetNillableSMTPServer sets the "smtp_server" field if the given value is not nil.
-func (scuo *SMTPConfigUpdateOne) SetNillableSMTPServer(s *string) *SMTPConfigUpdateOne {
-	if s != nil {
-		scuo.SetSMTPServer(*s)
+func (_u *SMTPConfigUpdateOne) SetNillableSMTPServer(v *string) *SMTPConfigUpdateOne {
+	if v != nil {
+		_u.SetSMTPServer(*v)
 	}
-	return scuo
+	return _u
 }
 
 // SetSMTPPort sets the "smtp_port" field.
-func (scuo *SMTPConfigUpdateOne) SetSMTPPort(i int) *SMTPConfigUpdateOne {
-	scuo.mutation.ResetSMTPPort()
-	scuo.mutation.SetSMTPPort(i)
-	return scuo
+func (_u *SMTPConfigUpdateOne) SetSMTPPort(v int) *SMTPConfigUpdateOne {
+	_u.mutation.ResetSMTPPort()
+	_u.mutation.SetSMTPPort(v)
+	return _u
 }
 
 // SetNillableSMTPPort sets the "smtp_port" field if the given value is not nil.
-func (scuo *SMTPConfigUpdateOne) SetNillableSMTPPort(i *int) *SMTPConfigUpdateOne {
-	if i != nil {
-		scuo.SetSMTPPort(*i)
+func (_u *SMTPConfigUpdateOne) SetNillableSMTPPort(v *int) *SMTPConfigUpdateOne {
+	if v != nil {
+		_u.SetSMTPPort(*v)
 	}
-	return scuo
+	return _u
 }
 
-// AddSMTPPort adds i to the "smtp_port" field.
-func (scuo *SMTPConfigUpdateOne) AddSMTPPort(i int) *SMTPConfigUpdateOne {
-	scuo.mutation.AddSMTPPort(i)
-	return scuo
+// AddSMTPPort adds value to the "smtp_port" field.
+func (_u *SMTPConfigUpdateOne) AddSMTPPort(v int) *SMTPConfigUpdateOne {
+	_u.mutation.AddSMTPPort(v)
+	return _u
 }
 
 // SetSMTPUsername sets the "smtp_username" field.
-func (scuo *SMTPConfigUpdateOne) SetSMTPUsername(s string) *SMTPConfigUpdateOne {
-	scuo.mutation.SetSMTPUsername(s)
-	return scuo
+func (_u *SMTPConfigUpdateOne) SetSMTPUsername(v string) *SMTPConfigUpdateOne {
+	_u.mutation.SetSMTPUsername(v)
+	return _u
 }
 
 // SetNillableSMTPUsername sets the "smtp_username" field if the given value is not nil.
-func (scuo *SMTPConfigUpdateOne) SetNillableSMTPUsername(s *string) *SMTPConfigUpdateOne {
-	if s != nil {
-		scuo.SetSMTPUsername(*s)
+func (_u *SMTPConfigUpdateOne) SetNillableSMTPUsername(v *string) *SMTPConfigUpdateOne {
+	if v != nil {
+		_u.SetSMTPUsername(*v)
 	}
-	return scuo
+	return _u
 }
 
 // SetSMTPPassword sets the "smtp_password" field.
-func (scuo *SMTPConfigUpdateOne) SetSMTPPassword(s string) *SMTPConfigUpdateOne {
-	scuo.mutation.SetSMTPPassword(s)
-	return scuo
+func (_u *SMTPConfigUpdateOne) SetSMTPPassword(v string) *SMTPConfigUpdateOne {
+	_u.mutation.SetSMTPPassword(v)
+	return _u
 }
 
 // SetNillableSMTPPassword sets the "smtp_password" field if the given value is not nil.
-func (scuo *SMTPConfigUpdateOne) SetNillableSMTPPassword(s *string) *SMTPConfigUpdateOne {
-	if s != nil {
-		scuo.SetSMTPPassword(*s)
+func (_u *SMTPConfigUpdateOne) SetNillableSMTPPassword(v *string) *SMTPConfigUpdateOne {
+	if v != nil {
+		_u.SetSMTPPassword(*v)
 	}
-	return scuo
+	return _u
 }
 
 // SetSMTPSender sets the "smtp_sender" field.
-func (scuo *SMTPConfigUpdateOne) SetSMTPSender(s string) *SMTPConfigUpdateOne {
-	scuo.mutation.SetSMTPSender(s)
-	return scuo
+func (_u *SMTPConfigUpdateOne) SetSMTPSender(v string) *SMTPConfigUpdateOne {
+	_u.mutation.SetSMTPSender(v)
+	return _u
 }
 
 // SetNillableSMTPSender sets the "smtp_sender" field if the given value is not nil.
-func (scuo *SMTPConfigUpdateOne) SetNillableSMTPSender(s *string) *SMTPConfigUpdateOne {
-	if s != nil {
-		scuo.SetSMTPSender(*s)
+func (_u *SMTPConfigUpdateOne) SetNillableSMTPSender(v *string) *SMTPConfigUpdateOne {
+	if v != nil {
+		_u.SetSMTPSender(*v)
 	}
-	return scuo
+	return _u
 }
 
 // SetSMTPTLS sets the "smtp_tls" field.
-func (scuo *SMTPConfigUpdateOne) SetSMTPTLS(b bool) *SMTPConfigUpdateOne {
-	scuo.mutation.SetSMTPTLS(b)
-	return scuo
+func (_u *SMTPConfigUpdateOne) SetSMTPTLS(v bool) *SMTPConfigUpdateOne {
+	_u.mutation.SetSMTPTLS(v)
+	return _u
 }
 
 // SetNillableSMTPTLS sets the "smtp_tls" field if the given value is not nil.
-func (scuo *SMTPConfigUpdateOne) SetNillableSMTPTLS(b *bool) *SMTPConfigUpdateOne {
-	if b != nil {
-		scuo.SetSMTPTLS(*b)
+func (_u *SMTPConfigUpdateOne) SetNillableSMTPTLS(v *bool) *SMTPConfigUpdateOne {
+	if v != nil {
+		_u.SetSMTPTLS(*v)
 	}
-	return scuo
+	return _u
 }
 
 // Mutation returns the SMTPConfigMutation object of the builder.
-func (scuo *SMTPConfigUpdateOne) Mutation() *SMTPConfigMutation {
-	return scuo.mutation
+func (_u *SMTPConfigUpdateOne) Mutation() *SMTPConfigMutation {
+	return _u.mutation
 }
 
 // Where appends a list predicates to the SMTPConfigUpdate builder.
-func (scuo *SMTPConfigUpdateOne) Where(ps ...predicate.SMTPConfig) *SMTPConfigUpdateOne {
-	scuo.mutation.Where(ps...)
-	return scuo
+func (_u *SMTPConfigUpdateOne) Where(ps ...predicate.SMTPConfig) *SMTPConfigUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (scuo *SMTPConfigUpdateOne) Select(field string, fields ...string) *SMTPConfigUpdateOne {
-	scuo.fields = append([]string{field}, fields...)
-	return scuo
+func (_u *SMTPConfigUpdateOne) Select(field string, fields ...string) *SMTPConfigUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated SMTPConfig entity.
-func (scuo *SMTPConfigUpdateOne) Save(ctx context.Context) (*SMTPConfig, error) {
-	return withHooks(ctx, scuo.sqlSave, scuo.mutation, scuo.hooks)
+func (_u *SMTPConfigUpdateOne) Save(ctx context.Context) (*SMTPConfig, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (scuo *SMTPConfigUpdateOne) SaveX(ctx context.Context) *SMTPConfig {
-	node, err := scuo.Save(ctx)
+func (_u *SMTPConfigUpdateOne) SaveX(ctx context.Context) *SMTPConfig {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -324,26 +324,26 @@ func (scuo *SMTPConfigUpdateOne) SaveX(ctx context.Context) *SMTPConfig {
 }
 
 // Exec executes the query on the entity.
-func (scuo *SMTPConfigUpdateOne) Exec(ctx context.Context) error {
-	_, err := scuo.Save(ctx)
+func (_u *SMTPConfigUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (scuo *SMTPConfigUpdateOne) ExecX(ctx context.Context) {
-	if err := scuo.Exec(ctx); err != nil {
+func (_u *SMTPConfigUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (scuo *SMTPConfigUpdateOne) sqlSave(ctx context.Context) (_node *SMTPConfig, err error) {
+func (_u *SMTPConfigUpdateOne) sqlSave(ctx context.Context) (_node *SMTPConfig, err error) {
 	_spec := sqlgraph.NewUpdateSpec(smtpconfig.Table, smtpconfig.Columns, sqlgraph.NewFieldSpec(smtpconfig.FieldID, field.TypeInt))
-	id, ok := scuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "SMTPConfig.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := scuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, smtpconfig.FieldID)
 		for _, f := range fields {
@@ -355,38 +355,38 @@ func (scuo *SMTPConfigUpdateOne) sqlSave(ctx context.Context) (_node *SMTPConfig
 			}
 		}
 	}
-	if ps := scuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := scuo.mutation.SMTPServer(); ok {
+	if value, ok := _u.mutation.SMTPServer(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPServer, field.TypeString, value)
 	}
-	if value, ok := scuo.mutation.SMTPPort(); ok {
+	if value, ok := _u.mutation.SMTPPort(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPPort, field.TypeInt, value)
 	}
-	if value, ok := scuo.mutation.AddedSMTPPort(); ok {
+	if value, ok := _u.mutation.AddedSMTPPort(); ok {
 		_spec.AddField(smtpconfig.FieldSMTPPort, field.TypeInt, value)
 	}
-	if value, ok := scuo.mutation.SMTPUsername(); ok {
+	if value, ok := _u.mutation.SMTPUsername(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPUsername, field.TypeString, value)
 	}
-	if value, ok := scuo.mutation.SMTPPassword(); ok {
+	if value, ok := _u.mutation.SMTPPassword(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPPassword, field.TypeString, value)
 	}
-	if value, ok := scuo.mutation.SMTPSender(); ok {
+	if value, ok := _u.mutation.SMTPSender(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPSender, field.TypeString, value)
 	}
-	if value, ok := scuo.mutation.SMTPTLS(); ok {
+	if value, ok := _u.mutation.SMTPTLS(); ok {
 		_spec.SetField(smtpconfig.FieldSMTPTLS, field.TypeBool, value)
 	}
-	_node = &SMTPConfig{config: scuo.config}
+	_node = &SMTPConfig{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, scuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{smtpconfig.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -394,6 +394,6 @@ func (scuo *SMTPConfigUpdateOne) sqlSave(ctx context.Context) (_node *SMTPConfig
 		}
 		return nil, err
 	}
-	scuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

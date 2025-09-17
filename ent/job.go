@@ -133,7 +133,7 @@ func (*Job) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the Job fields.
-func (j *Job) assignValues(columns []string, values []any) error {
+func (_m *Job) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -144,42 +144,42 @@ func (j *Job) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			j.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case job.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				j.Name = value.String
+				_m.Name = value.String
 			}
 		case job.FieldDescription:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field description", values[i])
 			} else if value.Valid {
-				j.Description = value.String
+				_m.Description = value.String
 			}
 		case job.FieldCronSchedule:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field cron_schedule", values[i])
 			} else if value.Valid {
-				j.CronSchedule = value.String
+				_m.CronSchedule = value.String
 			}
 		case job.FieldScheduleEnabled:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field schedule_enabled", values[i])
 			} else if value.Valid {
-				j.ScheduleEnabled = value.Bool
+				_m.ScheduleEnabled = value.Bool
 			}
 		case job.FieldAllowConcurrentRuns:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field allow_concurrent_runs", values[i])
 			} else if value.Valid {
-				j.AllowConcurrentRuns = value.Bool
+				_m.AllowConcurrentRuns = value.Bool
 			}
 		case job.FieldArguments:
 			if value, ok := values[i].(*[]byte); !ok {
 				return fmt.Errorf("unexpected type %T for field arguments", values[i])
 			} else if value != nil && len(*value) > 0 {
-				if err := json.Unmarshal(*value, &j.Arguments); err != nil {
+				if err := json.Unmarshal(*value, &_m.Arguments); err != nil {
 					return fmt.Errorf("unmarshal field arguments: %w", err)
 				}
 			}
@@ -187,37 +187,37 @@ func (j *Job) assignValues(columns []string, values []any) error {
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field requires_file_upload", values[i])
 			} else if value.Valid {
-				j.RequiresFileUpload = value.Bool
+				_m.RequiresFileUpload = value.Bool
 			}
 		case job.FieldAverageDurationMs:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field average_duration_ms", values[i])
 			} else if value.Valid {
-				j.AverageDurationMs = value.Int64
+				_m.AverageDurationMs = value.Int64
 			}
 		case job.FieldTimeoutSeconds:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field timeout_seconds", values[i])
 			} else if value.Valid {
-				j.TimeoutSeconds = int(value.Int64)
+				_m.TimeoutSeconds = int(value.Int64)
 			}
 		case job.FieldLastEditTime:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field last_edit_time", values[i])
 			} else if value.Valid {
-				j.LastEditTime = value.Time
+				_m.LastEditTime = value.Time
 			}
 		case job.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				j.CreatedAt = value.Time
+				_m.CreatedAt = value.Time
 			}
 		case job.FieldNotifyOnStartChannelIds:
 			if value, ok := values[i].(*[]byte); !ok {
 				return fmt.Errorf("unexpected type %T for field notify_on_start_channel_ids", values[i])
 			} else if value != nil && len(*value) > 0 {
-				if err := json.Unmarshal(*value, &j.NotifyOnStartChannelIds); err != nil {
+				if err := json.Unmarshal(*value, &_m.NotifyOnStartChannelIds); err != nil {
 					return fmt.Errorf("unmarshal field notify_on_start_channel_ids: %w", err)
 				}
 			}
@@ -225,7 +225,7 @@ func (j *Job) assignValues(columns []string, values []any) error {
 			if value, ok := values[i].(*[]byte); !ok {
 				return fmt.Errorf("unexpected type %T for field notify_on_success_channel_ids", values[i])
 			} else if value != nil && len(*value) > 0 {
-				if err := json.Unmarshal(*value, &j.NotifyOnSuccessChannelIds); err != nil {
+				if err := json.Unmarshal(*value, &_m.NotifyOnSuccessChannelIds); err != nil {
 					return fmt.Errorf("unmarshal field notify_on_success_channel_ids: %w", err)
 				}
 			}
@@ -233,7 +233,7 @@ func (j *Job) assignValues(columns []string, values []any) error {
 			if value, ok := values[i].(*[]byte); !ok {
 				return fmt.Errorf("unexpected type %T for field notify_on_failure_channel_ids", values[i])
 			} else if value != nil && len(*value) > 0 {
-				if err := json.Unmarshal(*value, &j.NotifyOnFailureChannelIds); err != nil {
+				if err := json.Unmarshal(*value, &_m.NotifyOnFailureChannelIds); err != nil {
 					return fmt.Errorf("unmarshal field notify_on_failure_channel_ids: %w", err)
 				}
 			}
@@ -241,41 +241,41 @@ func (j *Job) assignValues(columns []string, values []any) error {
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field last_run_time", values[i])
 			} else if value.Valid {
-				j.LastRunTime = value.Time
+				_m.LastRunTime = value.Time
 			}
 		case job.FieldNextCronRunTime:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field next_cron_run_time", values[i])
 			} else if value.Valid {
-				j.NextCronRunTime = value.Time
+				_m.NextCronRunTime = value.Time
 			}
 		case job.FieldScript:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field script", values[i])
 			} else if value.Valid {
-				j.Script = value.String
+				_m.Script = value.String
 			}
 		case job.FieldLastRunSuccess:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field last_run_success", values[i])
 			} else if value.Valid {
-				j.LastRunSuccess = value.Bool
+				_m.LastRunSuccess = value.Bool
 			}
 		case job.FieldCreatedByAPI:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field created_by_api", values[i])
 			} else if value.Valid {
-				j.CreatedByAPI = value.Bool
+				_m.CreatedByAPI = value.Bool
 			}
 		case job.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field project_jobs", value)
 			} else if value.Valid {
-				j.project_jobs = new(int)
-				*j.project_jobs = int(value.Int64)
+				_m.project_jobs = new(int)
+				*_m.project_jobs = int(value.Int64)
 			}
 		default:
-			j.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -283,104 +283,104 @@ func (j *Job) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the Job.
 // This includes values selected through modifiers, order, etc.
-func (j *Job) Value(name string) (ent.Value, error) {
-	return j.selectValues.Get(name)
+func (_m *Job) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryProject queries the "project" edge of the Job entity.
-func (j *Job) QueryProject() *ProjectQuery {
-	return NewJobClient(j.config).QueryProject(j)
+func (_m *Job) QueryProject() *ProjectQuery {
+	return NewJobClient(_m.config).QueryProject(_m)
 }
 
 // QueryHistory queries the "history" edge of the Job entity.
-func (j *Job) QueryHistory() *JobHistoryQuery {
-	return NewJobClient(j.config).QueryHistory(j)
+func (_m *Job) QueryHistory() *JobHistoryQuery {
+	return NewJobClient(_m.config).QueryHistory(_m)
 }
 
 // QueryVersions queries the "versions" edge of the Job entity.
-func (j *Job) QueryVersions() *JobVersionQuery {
-	return NewJobClient(j.config).QueryVersions(j)
+func (_m *Job) QueryVersions() *JobVersionQuery {
+	return NewJobClient(_m.config).QueryVersions(_m)
 }
 
 // Update returns a builder for updating this Job.
 // Note that you need to call Job.Unwrap() before calling this method if this Job
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (j *Job) Update() *JobUpdateOne {
-	return NewJobClient(j.config).UpdateOne(j)
+func (_m *Job) Update() *JobUpdateOne {
+	return NewJobClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the Job entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (j *Job) Unwrap() *Job {
-	_tx, ok := j.config.driver.(*txDriver)
+func (_m *Job) Unwrap() *Job {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: Job is not a transactional entity")
 	}
-	j.config.driver = _tx.drv
-	return j
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (j *Job) String() string {
+func (_m *Job) String() string {
 	var builder strings.Builder
 	builder.WriteString("Job(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", j.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("name=")
-	builder.WriteString(j.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("description=")
-	builder.WriteString(j.Description)
+	builder.WriteString(_m.Description)
 	builder.WriteString(", ")
 	builder.WriteString("cron_schedule=")
-	builder.WriteString(j.CronSchedule)
+	builder.WriteString(_m.CronSchedule)
 	builder.WriteString(", ")
 	builder.WriteString("schedule_enabled=")
-	builder.WriteString(fmt.Sprintf("%v", j.ScheduleEnabled))
+	builder.WriteString(fmt.Sprintf("%v", _m.ScheduleEnabled))
 	builder.WriteString(", ")
 	builder.WriteString("allow_concurrent_runs=")
-	builder.WriteString(fmt.Sprintf("%v", j.AllowConcurrentRuns))
+	builder.WriteString(fmt.Sprintf("%v", _m.AllowConcurrentRuns))
 	builder.WriteString(", ")
 	builder.WriteString("arguments=")
-	builder.WriteString(fmt.Sprintf("%v", j.Arguments))
+	builder.WriteString(fmt.Sprintf("%v", _m.Arguments))
 	builder.WriteString(", ")
 	builder.WriteString("requires_file_upload=")
-	builder.WriteString(fmt.Sprintf("%v", j.RequiresFileUpload))
+	builder.WriteString(fmt.Sprintf("%v", _m.RequiresFileUpload))
 	builder.WriteString(", ")
 	builder.WriteString("average_duration_ms=")
-	builder.WriteString(fmt.Sprintf("%v", j.AverageDurationMs))
+	builder.WriteString(fmt.Sprintf("%v", _m.AverageDurationMs))
 	builder.WriteString(", ")
 	builder.WriteString("timeout_seconds=")
-	builder.WriteString(fmt.Sprintf("%v", j.TimeoutSeconds))
+	builder.WriteString(fmt.Sprintf("%v", _m.TimeoutSeconds))
 	builder.WriteString(", ")
 	builder.WriteString("last_edit_time=")
-	builder.WriteString(j.LastEditTime.Format(time.ANSIC))
+	builder.WriteString(_m.LastEditTime.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(j.CreatedAt.Format(time.ANSIC))
+	builder.WriteString(_m.CreatedAt.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("notify_on_start_channel_ids=")
-	builder.WriteString(fmt.Sprintf("%v", j.NotifyOnStartChannelIds))
+	builder.WriteString(fmt.Sprintf("%v", _m.NotifyOnStartChannelIds))
 	builder.WriteString(", ")
 	builder.WriteString("notify_on_success_channel_ids=")
-	builder.WriteString(fmt.Sprintf("%v", j.NotifyOnSuccessChannelIds))
+	builder.WriteString(fmt.Sprintf("%v", _m.NotifyOnSuccessChannelIds))
 	builder.WriteString(", ")
 	builder.WriteString("notify_on_failure_channel_ids=")
-	builder.WriteString(fmt.Sprintf("%v", j.NotifyOnFailureChannelIds))
+	builder.WriteString(fmt.Sprintf("%v", _m.NotifyOnFailureChannelIds))
 	builder.WriteString(", ")
 	builder.WriteString("last_run_time=")
-	builder.WriteString(j.LastRunTime.Format(time.ANSIC))
+	builder.WriteString(_m.LastRunTime.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("next_cron_run_time=")
-	builder.WriteString(j.NextCronRunTime.Format(time.ANSIC))
+	builder.WriteString(_m.NextCronRunTime.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("script=")
-	builder.WriteString(j.Script)
+	builder.WriteString(_m.Script)
 	builder.WriteString(", ")
 	builder.WriteString("last_run_success=")
-	builder.WriteString(fmt.Sprintf("%v", j.LastRunSuccess))
+	builder.WriteString(fmt.Sprintf("%v", _m.LastRunSuccess))
 	builder.WriteString(", ")
 	builder.WriteString("created_by_api=")
-	builder.WriteString(fmt.Sprintf("%v", j.CreatedByAPI))
+	builder.WriteString(fmt.Sprintf("%v", _m.CreatedByAPI))
 	builder.WriteByte(')')
 	return builder.String()
 }

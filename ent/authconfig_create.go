@@ -20,179 +20,179 @@ type AuthConfigCreate struct {
 }
 
 // SetEnableSSO sets the "enable_sso" field.
-func (acc *AuthConfigCreate) SetEnableSSO(b bool) *AuthConfigCreate {
-	acc.mutation.SetEnableSSO(b)
-	return acc
+func (_c *AuthConfigCreate) SetEnableSSO(v bool) *AuthConfigCreate {
+	_c.mutation.SetEnableSSO(v)
+	return _c
 }
 
 // SetNillableEnableSSO sets the "enable_sso" field if the given value is not nil.
-func (acc *AuthConfigCreate) SetNillableEnableSSO(b *bool) *AuthConfigCreate {
-	if b != nil {
-		acc.SetEnableSSO(*b)
+func (_c *AuthConfigCreate) SetNillableEnableSSO(v *bool) *AuthConfigCreate {
+	if v != nil {
+		_c.SetEnableSSO(*v)
 	}
-	return acc
+	return _c
 }
 
 // SetDisablePasswordLogin sets the "disable_password_login" field.
-func (acc *AuthConfigCreate) SetDisablePasswordLogin(b bool) *AuthConfigCreate {
-	acc.mutation.SetDisablePasswordLogin(b)
-	return acc
+func (_c *AuthConfigCreate) SetDisablePasswordLogin(v bool) *AuthConfigCreate {
+	_c.mutation.SetDisablePasswordLogin(v)
+	return _c
 }
 
 // SetNillableDisablePasswordLogin sets the "disable_password_login" field if the given value is not nil.
-func (acc *AuthConfigCreate) SetNillableDisablePasswordLogin(b *bool) *AuthConfigCreate {
-	if b != nil {
-		acc.SetDisablePasswordLogin(*b)
+func (_c *AuthConfigCreate) SetNillableDisablePasswordLogin(v *bool) *AuthConfigCreate {
+	if v != nil {
+		_c.SetDisablePasswordLogin(*v)
 	}
-	return acc
+	return _c
 }
 
 // SetSSOProvider sets the "sso_provider" field.
-func (acc *AuthConfigCreate) SetSSOProvider(s string) *AuthConfigCreate {
-	acc.mutation.SetSSOProvider(s)
-	return acc
+func (_c *AuthConfigCreate) SetSSOProvider(v string) *AuthConfigCreate {
+	_c.mutation.SetSSOProvider(v)
+	return _c
 }
 
 // SetNillableSSOProvider sets the "sso_provider" field if the given value is not nil.
-func (acc *AuthConfigCreate) SetNillableSSOProvider(s *string) *AuthConfigCreate {
-	if s != nil {
-		acc.SetSSOProvider(*s)
+func (_c *AuthConfigCreate) SetNillableSSOProvider(v *string) *AuthConfigCreate {
+	if v != nil {
+		_c.SetSSOProvider(*v)
 	}
-	return acc
+	return _c
 }
 
 // SetSSOClientID sets the "sso_client_id" field.
-func (acc *AuthConfigCreate) SetSSOClientID(s string) *AuthConfigCreate {
-	acc.mutation.SetSSOClientID(s)
-	return acc
+func (_c *AuthConfigCreate) SetSSOClientID(v string) *AuthConfigCreate {
+	_c.mutation.SetSSOClientID(v)
+	return _c
 }
 
 // SetNillableSSOClientID sets the "sso_client_id" field if the given value is not nil.
-func (acc *AuthConfigCreate) SetNillableSSOClientID(s *string) *AuthConfigCreate {
-	if s != nil {
-		acc.SetSSOClientID(*s)
+func (_c *AuthConfigCreate) SetNillableSSOClientID(v *string) *AuthConfigCreate {
+	if v != nil {
+		_c.SetSSOClientID(*v)
 	}
-	return acc
+	return _c
 }
 
 // SetSSOClientSecret sets the "sso_client_secret" field.
-func (acc *AuthConfigCreate) SetSSOClientSecret(s string) *AuthConfigCreate {
-	acc.mutation.SetSSOClientSecret(s)
-	return acc
+func (_c *AuthConfigCreate) SetSSOClientSecret(v string) *AuthConfigCreate {
+	_c.mutation.SetSSOClientSecret(v)
+	return _c
 }
 
 // SetNillableSSOClientSecret sets the "sso_client_secret" field if the given value is not nil.
-func (acc *AuthConfigCreate) SetNillableSSOClientSecret(s *string) *AuthConfigCreate {
-	if s != nil {
-		acc.SetSSOClientSecret(*s)
+func (_c *AuthConfigCreate) SetNillableSSOClientSecret(v *string) *AuthConfigCreate {
+	if v != nil {
+		_c.SetSSOClientSecret(*v)
 	}
-	return acc
+	return _c
 }
 
 // SetSSORedirectURI sets the "sso_redirect_uri" field.
-func (acc *AuthConfigCreate) SetSSORedirectURI(s string) *AuthConfigCreate {
-	acc.mutation.SetSSORedirectURI(s)
-	return acc
+func (_c *AuthConfigCreate) SetSSORedirectURI(v string) *AuthConfigCreate {
+	_c.mutation.SetSSORedirectURI(v)
+	return _c
 }
 
 // SetNillableSSORedirectURI sets the "sso_redirect_uri" field if the given value is not nil.
-func (acc *AuthConfigCreate) SetNillableSSORedirectURI(s *string) *AuthConfigCreate {
-	if s != nil {
-		acc.SetSSORedirectURI(*s)
+func (_c *AuthConfigCreate) SetNillableSSORedirectURI(v *string) *AuthConfigCreate {
+	if v != nil {
+		_c.SetSSORedirectURI(*v)
 	}
-	return acc
+	return _c
 }
 
 // SetSSOAuthorizationURL sets the "sso_authorization_url" field.
-func (acc *AuthConfigCreate) SetSSOAuthorizationURL(s string) *AuthConfigCreate {
-	acc.mutation.SetSSOAuthorizationURL(s)
-	return acc
+func (_c *AuthConfigCreate) SetSSOAuthorizationURL(v string) *AuthConfigCreate {
+	_c.mutation.SetSSOAuthorizationURL(v)
+	return _c
 }
 
 // SetNillableSSOAuthorizationURL sets the "sso_authorization_url" field if the given value is not nil.
-func (acc *AuthConfigCreate) SetNillableSSOAuthorizationURL(s *string) *AuthConfigCreate {
-	if s != nil {
-		acc.SetSSOAuthorizationURL(*s)
+func (_c *AuthConfigCreate) SetNillableSSOAuthorizationURL(v *string) *AuthConfigCreate {
+	if v != nil {
+		_c.SetSSOAuthorizationURL(*v)
 	}
-	return acc
+	return _c
 }
 
 // SetSSOTokenURL sets the "sso_token_url" field.
-func (acc *AuthConfigCreate) SetSSOTokenURL(s string) *AuthConfigCreate {
-	acc.mutation.SetSSOTokenURL(s)
-	return acc
+func (_c *AuthConfigCreate) SetSSOTokenURL(v string) *AuthConfigCreate {
+	_c.mutation.SetSSOTokenURL(v)
+	return _c
 }
 
 // SetNillableSSOTokenURL sets the "sso_token_url" field if the given value is not nil.
-func (acc *AuthConfigCreate) SetNillableSSOTokenURL(s *string) *AuthConfigCreate {
-	if s != nil {
-		acc.SetSSOTokenURL(*s)
+func (_c *AuthConfigCreate) SetNillableSSOTokenURL(v *string) *AuthConfigCreate {
+	if v != nil {
+		_c.SetSSOTokenURL(*v)
 	}
-	return acc
+	return _c
 }
 
 // SetSSOUserInfoURL sets the "sso_user_info_url" field.
-func (acc *AuthConfigCreate) SetSSOUserInfoURL(s string) *AuthConfigCreate {
-	acc.mutation.SetSSOUserInfoURL(s)
-	return acc
+func (_c *AuthConfigCreate) SetSSOUserInfoURL(v string) *AuthConfigCreate {
+	_c.mutation.SetSSOUserInfoURL(v)
+	return _c
 }
 
 // SetNillableSSOUserInfoURL sets the "sso_user_info_url" field if the given value is not nil.
-func (acc *AuthConfigCreate) SetNillableSSOUserInfoURL(s *string) *AuthConfigCreate {
-	if s != nil {
-		acc.SetSSOUserInfoURL(*s)
+func (_c *AuthConfigCreate) SetNillableSSOUserInfoURL(v *string) *AuthConfigCreate {
+	if v != nil {
+		_c.SetSSOUserInfoURL(*v)
 	}
-	return acc
+	return _c
 }
 
 // SetEntraTenantID sets the "entra_tenant_id" field.
-func (acc *AuthConfigCreate) SetEntraTenantID(s string) *AuthConfigCreate {
-	acc.mutation.SetEntraTenantID(s)
-	return acc
+func (_c *AuthConfigCreate) SetEntraTenantID(v string) *AuthConfigCreate {
+	_c.mutation.SetEntraTenantID(v)
+	return _c
 }
 
 // SetNillableEntraTenantID sets the "entra_tenant_id" field if the given value is not nil.
-func (acc *AuthConfigCreate) SetNillableEntraTenantID(s *string) *AuthConfigCreate {
-	if s != nil {
-		acc.SetEntraTenantID(*s)
+func (_c *AuthConfigCreate) SetNillableEntraTenantID(v *string) *AuthConfigCreate {
+	if v != nil {
+		_c.SetEntraTenantID(*v)
 	}
-	return acc
+	return _c
 }
 
 // SetGoogleAllowedDomains sets the "google_allowed_domains" field.
-func (acc *AuthConfigCreate) SetGoogleAllowedDomains(s string) *AuthConfigCreate {
-	acc.mutation.SetGoogleAllowedDomains(s)
-	return acc
+func (_c *AuthConfigCreate) SetGoogleAllowedDomains(v string) *AuthConfigCreate {
+	_c.mutation.SetGoogleAllowedDomains(v)
+	return _c
 }
 
 // SetNillableGoogleAllowedDomains sets the "google_allowed_domains" field if the given value is not nil.
-func (acc *AuthConfigCreate) SetNillableGoogleAllowedDomains(s *string) *AuthConfigCreate {
-	if s != nil {
-		acc.SetGoogleAllowedDomains(*s)
+func (_c *AuthConfigCreate) SetNillableGoogleAllowedDomains(v *string) *AuthConfigCreate {
+	if v != nil {
+		_c.SetGoogleAllowedDomains(*v)
 	}
-	return acc
+	return _c
 }
 
 // SetSessionKey sets the "session_key" field.
-func (acc *AuthConfigCreate) SetSessionKey(b []byte) *AuthConfigCreate {
-	acc.mutation.SetSessionKey(b)
-	return acc
+func (_c *AuthConfigCreate) SetSessionKey(v []byte) *AuthConfigCreate {
+	_c.mutation.SetSessionKey(v)
+	return _c
 }
 
 // Mutation returns the AuthConfigMutation object of the builder.
-func (acc *AuthConfigCreate) Mutation() *AuthConfigMutation {
-	return acc.mutation
+func (_c *AuthConfigCreate) Mutation() *AuthConfigMutation {
+	return _c.mutation
 }
 
 // Save creates the AuthConfig in the database.
-func (acc *AuthConfigCreate) Save(ctx context.Context) (*AuthConfig, error) {
-	acc.defaults()
-	return withHooks(ctx, acc.sqlSave, acc.mutation, acc.hooks)
+func (_c *AuthConfigCreate) Save(ctx context.Context) (*AuthConfig, error) {
+	_c.defaults()
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (acc *AuthConfigCreate) SaveX(ctx context.Context) *AuthConfig {
-	v, err := acc.Save(ctx)
+func (_c *AuthConfigCreate) SaveX(ctx context.Context) *AuthConfig {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -200,117 +200,117 @@ func (acc *AuthConfigCreate) SaveX(ctx context.Context) *AuthConfig {
 }
 
 // Exec executes the query.
-func (acc *AuthConfigCreate) Exec(ctx context.Context) error {
-	_, err := acc.Save(ctx)
+func (_c *AuthConfigCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (acc *AuthConfigCreate) ExecX(ctx context.Context) {
-	if err := acc.Exec(ctx); err != nil {
+func (_c *AuthConfigCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (acc *AuthConfigCreate) defaults() {
-	if _, ok := acc.mutation.EnableSSO(); !ok {
+func (_c *AuthConfigCreate) defaults() {
+	if _, ok := _c.mutation.EnableSSO(); !ok {
 		v := authconfig.DefaultEnableSSO
-		acc.mutation.SetEnableSSO(v)
+		_c.mutation.SetEnableSSO(v)
 	}
-	if _, ok := acc.mutation.DisablePasswordLogin(); !ok {
+	if _, ok := _c.mutation.DisablePasswordLogin(); !ok {
 		v := authconfig.DefaultDisablePasswordLogin
-		acc.mutation.SetDisablePasswordLogin(v)
+		_c.mutation.SetDisablePasswordLogin(v)
 	}
-	if _, ok := acc.mutation.SSOProvider(); !ok {
+	if _, ok := _c.mutation.SSOProvider(); !ok {
 		v := authconfig.DefaultSSOProvider
-		acc.mutation.SetSSOProvider(v)
+		_c.mutation.SetSSOProvider(v)
 	}
-	if _, ok := acc.mutation.SSOClientID(); !ok {
+	if _, ok := _c.mutation.SSOClientID(); !ok {
 		v := authconfig.DefaultSSOClientID
-		acc.mutation.SetSSOClientID(v)
+		_c.mutation.SetSSOClientID(v)
 	}
-	if _, ok := acc.mutation.SSOClientSecret(); !ok {
+	if _, ok := _c.mutation.SSOClientSecret(); !ok {
 		v := authconfig.DefaultSSOClientSecret
-		acc.mutation.SetSSOClientSecret(v)
+		_c.mutation.SetSSOClientSecret(v)
 	}
-	if _, ok := acc.mutation.SSORedirectURI(); !ok {
+	if _, ok := _c.mutation.SSORedirectURI(); !ok {
 		v := authconfig.DefaultSSORedirectURI
-		acc.mutation.SetSSORedirectURI(v)
+		_c.mutation.SetSSORedirectURI(v)
 	}
-	if _, ok := acc.mutation.SSOAuthorizationURL(); !ok {
+	if _, ok := _c.mutation.SSOAuthorizationURL(); !ok {
 		v := authconfig.DefaultSSOAuthorizationURL
-		acc.mutation.SetSSOAuthorizationURL(v)
+		_c.mutation.SetSSOAuthorizationURL(v)
 	}
-	if _, ok := acc.mutation.SSOTokenURL(); !ok {
+	if _, ok := _c.mutation.SSOTokenURL(); !ok {
 		v := authconfig.DefaultSSOTokenURL
-		acc.mutation.SetSSOTokenURL(v)
+		_c.mutation.SetSSOTokenURL(v)
 	}
-	if _, ok := acc.mutation.SSOUserInfoURL(); !ok {
+	if _, ok := _c.mutation.SSOUserInfoURL(); !ok {
 		v := authconfig.DefaultSSOUserInfoURL
-		acc.mutation.SetSSOUserInfoURL(v)
+		_c.mutation.SetSSOUserInfoURL(v)
 	}
-	if _, ok := acc.mutation.EntraTenantID(); !ok {
+	if _, ok := _c.mutation.EntraTenantID(); !ok {
 		v := authconfig.DefaultEntraTenantID
-		acc.mutation.SetEntraTenantID(v)
+		_c.mutation.SetEntraTenantID(v)
 	}
-	if _, ok := acc.mutation.GoogleAllowedDomains(); !ok {
+	if _, ok := _c.mutation.GoogleAllowedDomains(); !ok {
 		v := authconfig.DefaultGoogleAllowedDomains
-		acc.mutation.SetGoogleAllowedDomains(v)
+		_c.mutation.SetGoogleAllowedDomains(v)
 	}
-	if _, ok := acc.mutation.SessionKey(); !ok {
+	if _, ok := _c.mutation.SessionKey(); !ok {
 		v := authconfig.DefaultSessionKey
-		acc.mutation.SetSessionKey(v)
+		_c.mutation.SetSessionKey(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (acc *AuthConfigCreate) check() error {
-	if _, ok := acc.mutation.EnableSSO(); !ok {
+func (_c *AuthConfigCreate) check() error {
+	if _, ok := _c.mutation.EnableSSO(); !ok {
 		return &ValidationError{Name: "enable_sso", err: errors.New(`ent: missing required field "AuthConfig.enable_sso"`)}
 	}
-	if _, ok := acc.mutation.DisablePasswordLogin(); !ok {
+	if _, ok := _c.mutation.DisablePasswordLogin(); !ok {
 		return &ValidationError{Name: "disable_password_login", err: errors.New(`ent: missing required field "AuthConfig.disable_password_login"`)}
 	}
-	if _, ok := acc.mutation.SSOProvider(); !ok {
+	if _, ok := _c.mutation.SSOProvider(); !ok {
 		return &ValidationError{Name: "sso_provider", err: errors.New(`ent: missing required field "AuthConfig.sso_provider"`)}
 	}
-	if _, ok := acc.mutation.SSOClientID(); !ok {
+	if _, ok := _c.mutation.SSOClientID(); !ok {
 		return &ValidationError{Name: "sso_client_id", err: errors.New(`ent: missing required field "AuthConfig.sso_client_id"`)}
 	}
-	if _, ok := acc.mutation.SSOClientSecret(); !ok {
+	if _, ok := _c.mutation.SSOClientSecret(); !ok {
 		return &ValidationError{Name: "sso_client_secret", err: errors.New(`ent: missing required field "AuthConfig.sso_client_secret"`)}
 	}
-	if _, ok := acc.mutation.SSORedirectURI(); !ok {
+	if _, ok := _c.mutation.SSORedirectURI(); !ok {
 		return &ValidationError{Name: "sso_redirect_uri", err: errors.New(`ent: missing required field "AuthConfig.sso_redirect_uri"`)}
 	}
-	if _, ok := acc.mutation.SSOAuthorizationURL(); !ok {
+	if _, ok := _c.mutation.SSOAuthorizationURL(); !ok {
 		return &ValidationError{Name: "sso_authorization_url", err: errors.New(`ent: missing required field "AuthConfig.sso_authorization_url"`)}
 	}
-	if _, ok := acc.mutation.SSOTokenURL(); !ok {
+	if _, ok := _c.mutation.SSOTokenURL(); !ok {
 		return &ValidationError{Name: "sso_token_url", err: errors.New(`ent: missing required field "AuthConfig.sso_token_url"`)}
 	}
-	if _, ok := acc.mutation.SSOUserInfoURL(); !ok {
+	if _, ok := _c.mutation.SSOUserInfoURL(); !ok {
 		return &ValidationError{Name: "sso_user_info_url", err: errors.New(`ent: missing required field "AuthConfig.sso_user_info_url"`)}
 	}
-	if _, ok := acc.mutation.EntraTenantID(); !ok {
+	if _, ok := _c.mutation.EntraTenantID(); !ok {
 		return &ValidationError{Name: "entra_tenant_id", err: errors.New(`ent: missing required field "AuthConfig.entra_tenant_id"`)}
 	}
-	if _, ok := acc.mutation.GoogleAllowedDomains(); !ok {
+	if _, ok := _c.mutation.GoogleAllowedDomains(); !ok {
 		return &ValidationError{Name: "google_allowed_domains", err: errors.New(`ent: missing required field "AuthConfig.google_allowed_domains"`)}
 	}
-	if _, ok := acc.mutation.SessionKey(); !ok {
+	if _, ok := _c.mutation.SessionKey(); !ok {
 		return &ValidationError{Name: "session_key", err: errors.New(`ent: missing required field "AuthConfig.session_key"`)}
 	}
 	return nil
 }
 
-func (acc *AuthConfigCreate) sqlSave(ctx context.Context) (*AuthConfig, error) {
-	if err := acc.check(); err != nil {
+func (_c *AuthConfigCreate) sqlSave(ctx context.Context) (*AuthConfig, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := acc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, acc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -318,61 +318,61 @@ func (acc *AuthConfigCreate) sqlSave(ctx context.Context) (*AuthConfig, error) {
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	acc.mutation.id = &_node.ID
-	acc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (acc *AuthConfigCreate) createSpec() (*AuthConfig, *sqlgraph.CreateSpec) {
+func (_c *AuthConfigCreate) createSpec() (*AuthConfig, *sqlgraph.CreateSpec) {
 	var (
-		_node = &AuthConfig{config: acc.config}
+		_node = &AuthConfig{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(authconfig.Table, sqlgraph.NewFieldSpec(authconfig.FieldID, field.TypeInt))
 	)
-	if value, ok := acc.mutation.EnableSSO(); ok {
+	if value, ok := _c.mutation.EnableSSO(); ok {
 		_spec.SetField(authconfig.FieldEnableSSO, field.TypeBool, value)
 		_node.EnableSSO = value
 	}
-	if value, ok := acc.mutation.DisablePasswordLogin(); ok {
+	if value, ok := _c.mutation.DisablePasswordLogin(); ok {
 		_spec.SetField(authconfig.FieldDisablePasswordLogin, field.TypeBool, value)
 		_node.DisablePasswordLogin = value
 	}
-	if value, ok := acc.mutation.SSOProvider(); ok {
+	if value, ok := _c.mutation.SSOProvider(); ok {
 		_spec.SetField(authconfig.FieldSSOProvider, field.TypeString, value)
 		_node.SSOProvider = value
 	}
-	if value, ok := acc.mutation.SSOClientID(); ok {
+	if value, ok := _c.mutation.SSOClientID(); ok {
 		_spec.SetField(authconfig.FieldSSOClientID, field.TypeString, value)
 		_node.SSOClientID = value
 	}
-	if value, ok := acc.mutation.SSOClientSecret(); ok {
+	if value, ok := _c.mutation.SSOClientSecret(); ok {
 		_spec.SetField(authconfig.FieldSSOClientSecret, field.TypeString, value)
 		_node.SSOClientSecret = value
 	}
-	if value, ok := acc.mutation.SSORedirectURI(); ok {
+	if value, ok := _c.mutation.SSORedirectURI(); ok {
 		_spec.SetField(authconfig.FieldSSORedirectURI, field.TypeString, value)
 		_node.SSORedirectURI = value
 	}
-	if value, ok := acc.mutation.SSOAuthorizationURL(); ok {
+	if value, ok := _c.mutation.SSOAuthorizationURL(); ok {
 		_spec.SetField(authconfig.FieldSSOAuthorizationURL, field.TypeString, value)
 		_node.SSOAuthorizationURL = value
 	}
-	if value, ok := acc.mutation.SSOTokenURL(); ok {
+	if value, ok := _c.mutation.SSOTokenURL(); ok {
 		_spec.SetField(authconfig.FieldSSOTokenURL, field.TypeString, value)
 		_node.SSOTokenURL = value
 	}
-	if value, ok := acc.mutation.SSOUserInfoURL(); ok {
+	if value, ok := _c.mutation.SSOUserInfoURL(); ok {
 		_spec.SetField(authconfig.FieldSSOUserInfoURL, field.TypeString, value)
 		_node.SSOUserInfoURL = value
 	}
-	if value, ok := acc.mutation.EntraTenantID(); ok {
+	if value, ok := _c.mutation.EntraTenantID(); ok {
 		_spec.SetField(authconfig.FieldEntraTenantID, field.TypeString, value)
 		_node.EntraTenantID = value
 	}
-	if value, ok := acc.mutation.GoogleAllowedDomains(); ok {
+	if value, ok := _c.mutation.GoogleAllowedDomains(); ok {
 		_spec.SetField(authconfig.FieldGoogleAllowedDomains, field.TypeString, value)
 		_node.GoogleAllowedDomains = value
 	}
-	if value, ok := acc.mutation.SessionKey(); ok {
+	if value, ok := _c.mutation.SessionKey(); ok {
 		_spec.SetField(authconfig.FieldSessionKey, field.TypeBytes, value)
 		_node.SessionKey = value
 	}
@@ -387,16 +387,16 @@ type AuthConfigCreateBulk struct {
 }
 
 // Save creates the AuthConfig entities in the database.
-func (accb *AuthConfigCreateBulk) Save(ctx context.Context) ([]*AuthConfig, error) {
-	if accb.err != nil {
-		return nil, accb.err
+func (_c *AuthConfigCreateBulk) Save(ctx context.Context) ([]*AuthConfig, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(accb.builders))
-	nodes := make([]*AuthConfig, len(accb.builders))
-	mutators := make([]Mutator, len(accb.builders))
-	for i := range accb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*AuthConfig, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := accb.builders[i]
+			builder := _c.builders[i]
 			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*AuthConfigMutation)
@@ -410,11 +410,11 @@ func (accb *AuthConfigCreateBulk) Save(ctx context.Context) ([]*AuthConfig, erro
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, accb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, accb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -438,7 +438,7 @@ func (accb *AuthConfigCreateBulk) Save(ctx context.Context) ([]*AuthConfig, erro
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, accb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -446,8 +446,8 @@ func (accb *AuthConfigCreateBulk) Save(ctx context.Context) ([]*AuthConfig, erro
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (accb *AuthConfigCreateBulk) SaveX(ctx context.Context) []*AuthConfig {
-	v, err := accb.Save(ctx)
+func (_c *AuthConfigCreateBulk) SaveX(ctx context.Context) []*AuthConfig {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -455,14 +455,14 @@ func (accb *AuthConfigCreateBulk) SaveX(ctx context.Context) []*AuthConfig {
 }
 
 // Exec executes the query.
-func (accb *AuthConfigCreateBulk) Exec(ctx context.Context) error {
-	_, err := accb.Save(ctx)
+func (_c *AuthConfigCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (accb *AuthConfigCreateBulk) ExecX(ctx context.Context) {
-	if err := accb.Exec(ctx); err != nil {
+func (_c *AuthConfigCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

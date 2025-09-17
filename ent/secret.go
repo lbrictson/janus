@@ -75,7 +75,7 @@ func (*Secret) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the Secret fields.
-func (s *Secret) assignValues(columns []string, values []any) error {
+func (_m *Secret) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -86,40 +86,40 @@ func (s *Secret) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			s.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case secret.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
 			} else if value.Valid {
-				s.Name = value.String
+				_m.Name = value.String
 			}
 		case secret.FieldValue:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field value", values[i])
 			} else if value.Valid {
-				s.Value = value.String
+				_m.Value = value.String
 			}
 		case secret.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
-				s.CreatedAt = value.Time
+				_m.CreatedAt = value.Time
 			}
 		case secret.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
-				s.UpdatedAt = value.Time
+				_m.UpdatedAt = value.Time
 			}
 		case secret.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for edge-field secret_project", value)
 			} else if value.Valid {
-				s.secret_project = new(int)
-				*s.secret_project = int(value.Int64)
+				_m.secret_project = new(int)
+				*_m.secret_project = int(value.Int64)
 			}
 		default:
-			s.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -127,49 +127,49 @@ func (s *Secret) assignValues(columns []string, values []any) error {
 
 // GetValue returns the ent.Value that was dynamically selected and assigned to the Secret.
 // This includes values selected through modifiers, order, etc.
-func (s *Secret) GetValue(name string) (ent.Value, error) {
-	return s.selectValues.Get(name)
+func (_m *Secret) GetValue(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // QueryProject queries the "project" edge of the Secret entity.
-func (s *Secret) QueryProject() *ProjectQuery {
-	return NewSecretClient(s.config).QueryProject(s)
+func (_m *Secret) QueryProject() *ProjectQuery {
+	return NewSecretClient(_m.config).QueryProject(_m)
 }
 
 // Update returns a builder for updating this Secret.
 // Note that you need to call Secret.Unwrap() before calling this method if this Secret
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (s *Secret) Update() *SecretUpdateOne {
-	return NewSecretClient(s.config).UpdateOne(s)
+func (_m *Secret) Update() *SecretUpdateOne {
+	return NewSecretClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the Secret entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (s *Secret) Unwrap() *Secret {
-	_tx, ok := s.config.driver.(*txDriver)
+func (_m *Secret) Unwrap() *Secret {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: Secret is not a transactional entity")
 	}
-	s.config.driver = _tx.drv
-	return s
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (s *Secret) String() string {
+func (_m *Secret) String() string {
 	var builder strings.Builder
 	builder.WriteString("Secret(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", s.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("name=")
-	builder.WriteString(s.Name)
+	builder.WriteString(_m.Name)
 	builder.WriteString(", ")
 	builder.WriteString("value=")
-	builder.WriteString(s.Value)
+	builder.WriteString(_m.Value)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
-	builder.WriteString(s.CreatedAt.Format(time.ANSIC))
+	builder.WriteString(_m.CreatedAt.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("updated_at=")
-	builder.WriteString(s.UpdatedAt.Format(time.ANSIC))
+	builder.WriteString(_m.UpdatedAt.Format(time.ANSIC))
 	builder.WriteByte(')')
 	return builder.String()
 }

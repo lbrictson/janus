@@ -4,13 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/dustin/go-humanize"
-	"github.com/labstack/echo/v4"
-	"github.com/lbrictson/janus/ent"
-	"github.com/lbrictson/janus/ent/job"
-	"github.com/lbrictson/janus/ent/jobhistory"
-	"github.com/lbrictson/janus/ent/schema"
-	"github.com/robfig/cron/v3"
 	"html/template"
 	"io"
 	"log/slog"
@@ -18,6 +11,14 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/dustin/go-humanize"
+	"github.com/labstack/echo/v4"
+	"github.com/lbrictson/janus/ent"
+	"github.com/lbrictson/janus/ent/job"
+	"github.com/lbrictson/janus/ent/jobhistory"
+	"github.com/lbrictson/janus/ent/schema"
+	"github.com/robfig/cron/v3"
 )
 
 func renderCreateJobView(db *ent.Client) echo.HandlerFunc {
@@ -48,7 +49,7 @@ func renderCreateJobView(db *ent.Client) echo.HandlerFunc {
 	}
 }
 
-func formCreateJob(db *ent.Client, config *Config) echo.HandlerFunc {
+func formCreateJob(db *ent.Client) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		self, _ := getSelf(c, db)
 		// Define our form structure to use Echo's binding
@@ -105,6 +106,7 @@ func formCreateJob(db *ent.Client, config *Config) echo.HandlerFunc {
 
 		// Process arguments from form data
 		argNames := c.Request().Form["arg_names[]"]
+		argTypes := c.Request().Form["arg_types[]"]
 		argDefaults := c.Request().Form["arg_defaults[]"]
 		argAllowedValues := c.Request().Form["arg_allowed_values[]"]
 		argSensitive := c.Request().Form["arg_sensitive[]"]
@@ -151,8 +153,13 @@ func formCreateJob(db *ent.Client, config *Config) echo.HandlerFunc {
 			if argDefaults[i] == "" {
 				doesJobHaveArgumentWithoutDefaultValue = true
 			}
+			argType := "string" // Default type
+			if i < len(argTypes) && argTypes[i] != "" {
+				argType = argTypes[i]
+			}
 			arguments = append(arguments, schema.JobArgument{
 				Name:          argNames[i],
+				Type:          argType,
 				DefaultValue:  argDefaults[i],
 				AllowedValues: allowedValues,
 				Sensitive:     sensitiveMap[i],
@@ -399,6 +406,7 @@ func formEditJob(db *ent.Client) echo.HandlerFunc {
 		allowConcurrentRuns := c.FormValue("allow_concurrent_runs") == "on"
 		requiresFileUpload := c.FormValue("requires_file_upload") == "on"
 		argNames := c.Request().Form["arg_names[]"]
+		argTypes := c.Request().Form["arg_types[]"]
 		argDefaults := c.Request().Form["arg_defaults[]"]
 		argAllowedValues := c.Request().Form["arg_allowed_values[]"]
 		argSensitive := c.Request().Form["arg_sensitive[]"]
@@ -444,8 +452,13 @@ func formEditJob(db *ent.Client) echo.HandlerFunc {
 			if argDefaults[i] == "" {
 				doesJobHaveArgumentWithoutDefaultValue = true
 			}
+			argType := "string" // Default type
+			if i < len(argTypes) && argTypes[i] != "" {
+				argType = argTypes[i]
+			}
 			arguments = append(arguments, schema.JobArgument{
 				Name:          argNames[i],
+				Type:          argType,
 				DefaultValue:  argDefaults[i],
 				AllowedValues: allowedValues,
 				Sensitive:     sensitiveMap[i],
@@ -726,6 +739,17 @@ func renderJobHistoryView(db *ent.Client) echo.HandlerFunc {
 		FriendlyTime     string
 		FriendlyDuration string
 	}
+	type PaginationInfo struct {
+		CurrentPage  int
+		TotalPages   int
+		TotalItems   int
+		ItemsPerPage int
+		HasPrev      bool
+		HasNext      bool
+		StartItem    int
+		EndItem      int
+		Pages        []int
+	}
 	return func(c echo.Context) error {
 		self, _ := getSelf(c, db)
 		jobID := c.Param("job_id")
@@ -740,10 +764,50 @@ func renderJobHistoryView(db *ent.Client) echo.HandlerFunc {
 		if !canUserViewProject(db, self.ID, j.Edges.Project.ID) {
 			return renderErrorPage(c, "You do not have permission to view this job history", http.StatusForbidden)
 		}
-		histories, err := db.JobHistory.Query().Where(jobhistory.HasJobWith(job.IDEQ(jobIDInt))).WithProject().WithJob().Order(ent.Desc(jobhistory.FieldCreatedAt)).All(c.Request().Context())
+
+		// Parse pagination parameters
+		page := 1
+		pageStr := c.QueryParam("page")
+		if pageStr != "" {
+			if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
+				page = p
+			}
+		}
+
+		limit := 50
+		limitStr := c.QueryParam("limit")
+		if limitStr != "" {
+			if l, err := strconv.Atoi(limitStr); err == nil && l > 0 && l <= 100 {
+				limit = l
+			}
+		}
+
+		// Get total count
+		totalCount, err := db.JobHistory.Query().Where(jobhistory.HasJobWith(job.IDEQ(jobIDInt))).Count(c.Request().Context())
+		if err != nil {
+			return renderErrorPage(c, "Error counting job histories", http.StatusInternalServerError)
+		}
+
+		// Calculate pagination values
+		totalPages := (totalCount + limit - 1) / limit
+		if page > totalPages && totalPages > 0 {
+			page = totalPages
+		}
+		offset := (page - 1) * limit
+
+		// Get paginated histories
+		histories, err := db.JobHistory.Query().
+			Where(jobhistory.HasJobWith(job.IDEQ(jobIDInt))).
+			WithProject().
+			WithJob().
+			Order(ent.Desc(jobhistory.FieldCreatedAt)).
+			Limit(limit).
+			Offset(offset).
+			All(c.Request().Context())
 		if err != nil {
 			return renderErrorPage(c, "Error getting job histories from database", http.StatusInternalServerError)
 		}
+
 		niceHistories := make([]NiceHistory, 0)
 		for _, h := range histories {
 			niceHistories = append(niceHistories, NiceHistory{
@@ -751,10 +815,51 @@ func renderJobHistoryView(db *ent.Client) echo.HandlerFunc {
 				FriendlyTime: humanize.Time(h.CreatedAt),
 			})
 		}
+
+		// Calculate page numbers to display
+		pages := []int{}
+		startPage := page - 2
+		if startPage < 1 {
+			startPage = 1
+		}
+		endPage := startPage + 4
+		if endPage > totalPages {
+			endPage = totalPages
+		}
+		if endPage-startPage < 4 && startPage > 1 {
+			startPage = endPage - 4
+			if startPage < 1 {
+				startPage = 1
+			}
+		}
+		for i := startPage; i <= endPage; i++ {
+			pages = append(pages, i)
+		}
+
+		// Calculate item range
+		startItem := offset + 1
+		endItem := offset + len(histories)
+		if totalCount == 0 {
+			startItem = 0
+		}
+
+		pagination := PaginationInfo{
+			CurrentPage:  page,
+			TotalPages:   totalPages,
+			TotalItems:   totalCount,
+			ItemsPerPage: limit,
+			HasPrev:      page > 1,
+			HasNext:      page < totalPages,
+			StartItem:    startItem,
+			EndItem:      endItem,
+			Pages:        pages,
+		}
+
 		return c.Render(http.StatusOK, "job-histories", map[string]any{
-			"Job":     j,
-			"History": niceHistories,
-			"Project": j.Edges.Project,
+			"Job":        j,
+			"History":    niceHistories,
+			"Project":    j.Edges.Project,
+			"Pagination": pagination,
 		})
 	}
 }

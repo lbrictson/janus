@@ -1602,18 +1602,20 @@ func (m *DataConfigMutation) ResetEdge(name string) error {
 // InboundWebhookMutation represents an operation that mutates the InboundWebhook nodes in the graph.
 type InboundWebhookMutation struct {
 	config
-	op            Op
-	typ           string
-	id            *int
-	key           *string
-	created_by    *string
-	created_at    *time.Time
-	clearedFields map[string]struct{}
-	job           *int
-	clearedjob    bool
-	done          bool
-	oldValue      func(context.Context) (*InboundWebhook, error)
-	predicates    []predicate.InboundWebhook
+	op              Op
+	typ             string
+	id              *int
+	key             *string
+	created_by      *string
+	created_at      *time.Time
+	require_api_key *bool
+	api_key         *string
+	clearedFields   map[string]struct{}
+	job             *int
+	clearedjob      bool
+	done            bool
+	oldValue        func(context.Context) (*InboundWebhook, error)
+	predicates      []predicate.InboundWebhook
 }
 
 var _ ent.Mutation = (*InboundWebhookMutation)(nil)
@@ -1822,6 +1824,91 @@ func (m *InboundWebhookMutation) ResetCreatedAt() {
 	m.created_at = nil
 }
 
+// SetRequireAPIKey sets the "require_api_key" field.
+func (m *InboundWebhookMutation) SetRequireAPIKey(b bool) {
+	m.require_api_key = &b
+}
+
+// RequireAPIKey returns the value of the "require_api_key" field in the mutation.
+func (m *InboundWebhookMutation) RequireAPIKey() (r bool, exists bool) {
+	v := m.require_api_key
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRequireAPIKey returns the old "require_api_key" field's value of the InboundWebhook entity.
+// If the InboundWebhook object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *InboundWebhookMutation) OldRequireAPIKey(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRequireAPIKey is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRequireAPIKey requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRequireAPIKey: %w", err)
+	}
+	return oldValue.RequireAPIKey, nil
+}
+
+// ResetRequireAPIKey resets all changes to the "require_api_key" field.
+func (m *InboundWebhookMutation) ResetRequireAPIKey() {
+	m.require_api_key = nil
+}
+
+// SetAPIKey sets the "api_key" field.
+func (m *InboundWebhookMutation) SetAPIKey(s string) {
+	m.api_key = &s
+}
+
+// APIKey returns the value of the "api_key" field in the mutation.
+func (m *InboundWebhookMutation) APIKey() (r string, exists bool) {
+	v := m.api_key
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAPIKey returns the old "api_key" field's value of the InboundWebhook entity.
+// If the InboundWebhook object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *InboundWebhookMutation) OldAPIKey(ctx context.Context) (v *string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAPIKey is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAPIKey requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAPIKey: %w", err)
+	}
+	return oldValue.APIKey, nil
+}
+
+// ClearAPIKey clears the value of the "api_key" field.
+func (m *InboundWebhookMutation) ClearAPIKey() {
+	m.api_key = nil
+	m.clearedFields[inboundwebhook.FieldAPIKey] = struct{}{}
+}
+
+// APIKeyCleared returns if the "api_key" field was cleared in this mutation.
+func (m *InboundWebhookMutation) APIKeyCleared() bool {
+	_, ok := m.clearedFields[inboundwebhook.FieldAPIKey]
+	return ok
+}
+
+// ResetAPIKey resets all changes to the "api_key" field.
+func (m *InboundWebhookMutation) ResetAPIKey() {
+	m.api_key = nil
+	delete(m.clearedFields, inboundwebhook.FieldAPIKey)
+}
+
 // SetJobID sets the "job" edge to the Job entity by id.
 func (m *InboundWebhookMutation) SetJobID(id int) {
 	m.job = &id
@@ -1895,7 +1982,7 @@ func (m *InboundWebhookMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *InboundWebhookMutation) Fields() []string {
-	fields := make([]string, 0, 3)
+	fields := make([]string, 0, 5)
 	if m.key != nil {
 		fields = append(fields, inboundwebhook.FieldKey)
 	}
@@ -1904,6 +1991,12 @@ func (m *InboundWebhookMutation) Fields() []string {
 	}
 	if m.created_at != nil {
 		fields = append(fields, inboundwebhook.FieldCreatedAt)
+	}
+	if m.require_api_key != nil {
+		fields = append(fields, inboundwebhook.FieldRequireAPIKey)
+	}
+	if m.api_key != nil {
+		fields = append(fields, inboundwebhook.FieldAPIKey)
 	}
 	return fields
 }
@@ -1919,6 +2012,10 @@ func (m *InboundWebhookMutation) Field(name string) (ent.Value, bool) {
 		return m.CreatedBy()
 	case inboundwebhook.FieldCreatedAt:
 		return m.CreatedAt()
+	case inboundwebhook.FieldRequireAPIKey:
+		return m.RequireAPIKey()
+	case inboundwebhook.FieldAPIKey:
+		return m.APIKey()
 	}
 	return nil, false
 }
@@ -1934,6 +2031,10 @@ func (m *InboundWebhookMutation) OldField(ctx context.Context, name string) (ent
 		return m.OldCreatedBy(ctx)
 	case inboundwebhook.FieldCreatedAt:
 		return m.OldCreatedAt(ctx)
+	case inboundwebhook.FieldRequireAPIKey:
+		return m.OldRequireAPIKey(ctx)
+	case inboundwebhook.FieldAPIKey:
+		return m.OldAPIKey(ctx)
 	}
 	return nil, fmt.Errorf("unknown InboundWebhook field %s", name)
 }
@@ -1964,6 +2065,20 @@ func (m *InboundWebhookMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCreatedAt(v)
 		return nil
+	case inboundwebhook.FieldRequireAPIKey:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRequireAPIKey(v)
+		return nil
+	case inboundwebhook.FieldAPIKey:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAPIKey(v)
+		return nil
 	}
 	return fmt.Errorf("unknown InboundWebhook field %s", name)
 }
@@ -1993,7 +2108,11 @@ func (m *InboundWebhookMutation) AddField(name string, value ent.Value) error {
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
 func (m *InboundWebhookMutation) ClearedFields() []string {
-	return nil
+	var fields []string
+	if m.FieldCleared(inboundwebhook.FieldAPIKey) {
+		fields = append(fields, inboundwebhook.FieldAPIKey)
+	}
+	return fields
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
@@ -2006,6 +2125,11 @@ func (m *InboundWebhookMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *InboundWebhookMutation) ClearField(name string) error {
+	switch name {
+	case inboundwebhook.FieldAPIKey:
+		m.ClearAPIKey()
+		return nil
+	}
 	return fmt.Errorf("unknown InboundWebhook nullable field %s", name)
 }
 
@@ -2021,6 +2145,12 @@ func (m *InboundWebhookMutation) ResetField(name string) error {
 		return nil
 	case inboundwebhook.FieldCreatedAt:
 		m.ResetCreatedAt()
+		return nil
+	case inboundwebhook.FieldRequireAPIKey:
+		m.ResetRequireAPIKey()
+		return nil
+	case inboundwebhook.FieldAPIKey:
+		m.ResetAPIKey()
 		return nil
 	}
 	return fmt.Errorf("unknown InboundWebhook field %s", name)

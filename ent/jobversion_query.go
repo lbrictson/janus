@@ -31,44 +31,44 @@ type JobVersionQuery struct {
 }
 
 // Where adds a new predicate for the JobVersionQuery builder.
-func (jvq *JobVersionQuery) Where(ps ...predicate.JobVersion) *JobVersionQuery {
-	jvq.predicates = append(jvq.predicates, ps...)
-	return jvq
+func (_q *JobVersionQuery) Where(ps ...predicate.JobVersion) *JobVersionQuery {
+	_q.predicates = append(_q.predicates, ps...)
+	return _q
 }
 
 // Limit the number of records to be returned by this query.
-func (jvq *JobVersionQuery) Limit(limit int) *JobVersionQuery {
-	jvq.ctx.Limit = &limit
-	return jvq
+func (_q *JobVersionQuery) Limit(limit int) *JobVersionQuery {
+	_q.ctx.Limit = &limit
+	return _q
 }
 
 // Offset to start from.
-func (jvq *JobVersionQuery) Offset(offset int) *JobVersionQuery {
-	jvq.ctx.Offset = &offset
-	return jvq
+func (_q *JobVersionQuery) Offset(offset int) *JobVersionQuery {
+	_q.ctx.Offset = &offset
+	return _q
 }
 
 // Unique configures the query builder to filter duplicate records on query.
 // By default, unique is set to true, and can be disabled using this method.
-func (jvq *JobVersionQuery) Unique(unique bool) *JobVersionQuery {
-	jvq.ctx.Unique = &unique
-	return jvq
+func (_q *JobVersionQuery) Unique(unique bool) *JobVersionQuery {
+	_q.ctx.Unique = &unique
+	return _q
 }
 
 // Order specifies how the records should be ordered.
-func (jvq *JobVersionQuery) Order(o ...jobversion.OrderOption) *JobVersionQuery {
-	jvq.order = append(jvq.order, o...)
-	return jvq
+func (_q *JobVersionQuery) Order(o ...jobversion.OrderOption) *JobVersionQuery {
+	_q.order = append(_q.order, o...)
+	return _q
 }
 
 // QueryJob chains the current query on the "job" edge.
-func (jvq *JobVersionQuery) QueryJob() *JobQuery {
-	query := (&JobClient{config: jvq.config}).Query()
+func (_q *JobVersionQuery) QueryJob() *JobQuery {
+	query := (&JobClient{config: _q.config}).Query()
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := jvq.prepareQuery(ctx); err != nil {
+		if err := _q.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
-		selector := jvq.sqlQuery(ctx)
+		selector := _q.sqlQuery(ctx)
 		if err := selector.Err(); err != nil {
 			return nil, err
 		}
@@ -77,7 +77,7 @@ func (jvq *JobVersionQuery) QueryJob() *JobQuery {
 			sqlgraph.To(job.Table, job.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, jobversion.JobTable, jobversion.JobColumn),
 		)
-		fromU = sqlgraph.SetNeighbors(jvq.driver.Dialect(), step)
+		fromU = sqlgraph.SetNeighbors(_q.driver.Dialect(), step)
 		return fromU, nil
 	}
 	return query
@@ -85,8 +85,8 @@ func (jvq *JobVersionQuery) QueryJob() *JobQuery {
 
 // First returns the first JobVersion entity from the query.
 // Returns a *NotFoundError when no JobVersion was found.
-func (jvq *JobVersionQuery) First(ctx context.Context) (*JobVersion, error) {
-	nodes, err := jvq.Limit(1).All(setContextOp(ctx, jvq.ctx, ent.OpQueryFirst))
+func (_q *JobVersionQuery) First(ctx context.Context) (*JobVersion, error) {
+	nodes, err := _q.Limit(1).All(setContextOp(ctx, _q.ctx, ent.OpQueryFirst))
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +97,8 @@ func (jvq *JobVersionQuery) First(ctx context.Context) (*JobVersion, error) {
 }
 
 // FirstX is like First, but panics if an error occurs.
-func (jvq *JobVersionQuery) FirstX(ctx context.Context) *JobVersion {
-	node, err := jvq.First(ctx)
+func (_q *JobVersionQuery) FirstX(ctx context.Context) *JobVersion {
+	node, err := _q.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -107,9 +107,9 @@ func (jvq *JobVersionQuery) FirstX(ctx context.Context) *JobVersion {
 
 // FirstID returns the first JobVersion ID from the query.
 // Returns a *NotFoundError when no JobVersion ID was found.
-func (jvq *JobVersionQuery) FirstID(ctx context.Context) (id int, err error) {
+func (_q *JobVersionQuery) FirstID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = jvq.Limit(1).IDs(setContextOp(ctx, jvq.ctx, ent.OpQueryFirstID)); err != nil {
+	if ids, err = _q.Limit(1).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryFirstID)); err != nil {
 		return
 	}
 	if len(ids) == 0 {
@@ -120,8 +120,8 @@ func (jvq *JobVersionQuery) FirstID(ctx context.Context) (id int, err error) {
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (jvq *JobVersionQuery) FirstIDX(ctx context.Context) int {
-	id, err := jvq.FirstID(ctx)
+func (_q *JobVersionQuery) FirstIDX(ctx context.Context) int {
+	id, err := _q.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
@@ -131,8 +131,8 @@ func (jvq *JobVersionQuery) FirstIDX(ctx context.Context) int {
 // Only returns a single JobVersion entity found by the query, ensuring it only returns one.
 // Returns a *NotSingularError when more than one JobVersion entity is found.
 // Returns a *NotFoundError when no JobVersion entities are found.
-func (jvq *JobVersionQuery) Only(ctx context.Context) (*JobVersion, error) {
-	nodes, err := jvq.Limit(2).All(setContextOp(ctx, jvq.ctx, ent.OpQueryOnly))
+func (_q *JobVersionQuery) Only(ctx context.Context) (*JobVersion, error) {
+	nodes, err := _q.Limit(2).All(setContextOp(ctx, _q.ctx, ent.OpQueryOnly))
 	if err != nil {
 		return nil, err
 	}
@@ -147,8 +147,8 @@ func (jvq *JobVersionQuery) Only(ctx context.Context) (*JobVersion, error) {
 }
 
 // OnlyX is like Only, but panics if an error occurs.
-func (jvq *JobVersionQuery) OnlyX(ctx context.Context) *JobVersion {
-	node, err := jvq.Only(ctx)
+func (_q *JobVersionQuery) OnlyX(ctx context.Context) *JobVersion {
+	node, err := _q.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -158,9 +158,9 @@ func (jvq *JobVersionQuery) OnlyX(ctx context.Context) *JobVersion {
 // OnlyID is like Only, but returns the only JobVersion ID in the query.
 // Returns a *NotSingularError when more than one JobVersion ID is found.
 // Returns a *NotFoundError when no entities are found.
-func (jvq *JobVersionQuery) OnlyID(ctx context.Context) (id int, err error) {
+func (_q *JobVersionQuery) OnlyID(ctx context.Context) (id int, err error) {
 	var ids []int
-	if ids, err = jvq.Limit(2).IDs(setContextOp(ctx, jvq.ctx, ent.OpQueryOnlyID)); err != nil {
+	if ids, err = _q.Limit(2).IDs(setContextOp(ctx, _q.ctx, ent.OpQueryOnlyID)); err != nil {
 		return
 	}
 	switch len(ids) {
@@ -175,8 +175,8 @@ func (jvq *JobVersionQuery) OnlyID(ctx context.Context) (id int, err error) {
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (jvq *JobVersionQuery) OnlyIDX(ctx context.Context) int {
-	id, err := jvq.OnlyID(ctx)
+func (_q *JobVersionQuery) OnlyIDX(ctx context.Context) int {
+	id, err := _q.OnlyID(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -184,18 +184,18 @@ func (jvq *JobVersionQuery) OnlyIDX(ctx context.Context) int {
 }
 
 // All executes the query and returns a list of JobVersions.
-func (jvq *JobVersionQuery) All(ctx context.Context) ([]*JobVersion, error) {
-	ctx = setContextOp(ctx, jvq.ctx, ent.OpQueryAll)
-	if err := jvq.prepareQuery(ctx); err != nil {
+func (_q *JobVersionQuery) All(ctx context.Context) ([]*JobVersion, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryAll)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
 	qr := querierAll[[]*JobVersion, *JobVersionQuery]()
-	return withInterceptors[[]*JobVersion](ctx, jvq, qr, jvq.inters)
+	return withInterceptors[[]*JobVersion](ctx, _q, qr, _q.inters)
 }
 
 // AllX is like All, but panics if an error occurs.
-func (jvq *JobVersionQuery) AllX(ctx context.Context) []*JobVersion {
-	nodes, err := jvq.All(ctx)
+func (_q *JobVersionQuery) AllX(ctx context.Context) []*JobVersion {
+	nodes, err := _q.All(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -203,20 +203,20 @@ func (jvq *JobVersionQuery) AllX(ctx context.Context) []*JobVersion {
 }
 
 // IDs executes the query and returns a list of JobVersion IDs.
-func (jvq *JobVersionQuery) IDs(ctx context.Context) (ids []int, err error) {
-	if jvq.ctx.Unique == nil && jvq.path != nil {
-		jvq.Unique(true)
+func (_q *JobVersionQuery) IDs(ctx context.Context) (ids []int, err error) {
+	if _q.ctx.Unique == nil && _q.path != nil {
+		_q.Unique(true)
 	}
-	ctx = setContextOp(ctx, jvq.ctx, ent.OpQueryIDs)
-	if err = jvq.Select(jobversion.FieldID).Scan(ctx, &ids); err != nil {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryIDs)
+	if err = _q.Select(jobversion.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
 	return ids, nil
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (jvq *JobVersionQuery) IDsX(ctx context.Context) []int {
-	ids, err := jvq.IDs(ctx)
+func (_q *JobVersionQuery) IDsX(ctx context.Context) []int {
+	ids, err := _q.IDs(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -224,17 +224,17 @@ func (jvq *JobVersionQuery) IDsX(ctx context.Context) []int {
 }
 
 // Count returns the count of the given query.
-func (jvq *JobVersionQuery) Count(ctx context.Context) (int, error) {
-	ctx = setContextOp(ctx, jvq.ctx, ent.OpQueryCount)
-	if err := jvq.prepareQuery(ctx); err != nil {
+func (_q *JobVersionQuery) Count(ctx context.Context) (int, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryCount)
+	if err := _q.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
-	return withInterceptors[int](ctx, jvq, querierCount[*JobVersionQuery](), jvq.inters)
+	return withInterceptors[int](ctx, _q, querierCount[*JobVersionQuery](), _q.inters)
 }
 
 // CountX is like Count, but panics if an error occurs.
-func (jvq *JobVersionQuery) CountX(ctx context.Context) int {
-	count, err := jvq.Count(ctx)
+func (_q *JobVersionQuery) CountX(ctx context.Context) int {
+	count, err := _q.Count(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -242,9 +242,9 @@ func (jvq *JobVersionQuery) CountX(ctx context.Context) int {
 }
 
 // Exist returns true if the query has elements in the graph.
-func (jvq *JobVersionQuery) Exist(ctx context.Context) (bool, error) {
-	ctx = setContextOp(ctx, jvq.ctx, ent.OpQueryExist)
-	switch _, err := jvq.FirstID(ctx); {
+func (_q *JobVersionQuery) Exist(ctx context.Context) (bool, error) {
+	ctx = setContextOp(ctx, _q.ctx, ent.OpQueryExist)
+	switch _, err := _q.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
 	case err != nil:
@@ -255,8 +255,8 @@ func (jvq *JobVersionQuery) Exist(ctx context.Context) (bool, error) {
 }
 
 // ExistX is like Exist, but panics if an error occurs.
-func (jvq *JobVersionQuery) ExistX(ctx context.Context) bool {
-	exist, err := jvq.Exist(ctx)
+func (_q *JobVersionQuery) ExistX(ctx context.Context) bool {
+	exist, err := _q.Exist(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -265,32 +265,32 @@ func (jvq *JobVersionQuery) ExistX(ctx context.Context) bool {
 
 // Clone returns a duplicate of the JobVersionQuery builder, including all associated steps. It can be
 // used to prepare common query builders and use them differently after the clone is made.
-func (jvq *JobVersionQuery) Clone() *JobVersionQuery {
-	if jvq == nil {
+func (_q *JobVersionQuery) Clone() *JobVersionQuery {
+	if _q == nil {
 		return nil
 	}
 	return &JobVersionQuery{
-		config:     jvq.config,
-		ctx:        jvq.ctx.Clone(),
-		order:      append([]jobversion.OrderOption{}, jvq.order...),
-		inters:     append([]Interceptor{}, jvq.inters...),
-		predicates: append([]predicate.JobVersion{}, jvq.predicates...),
-		withJob:    jvq.withJob.Clone(),
+		config:     _q.config,
+		ctx:        _q.ctx.Clone(),
+		order:      append([]jobversion.OrderOption{}, _q.order...),
+		inters:     append([]Interceptor{}, _q.inters...),
+		predicates: append([]predicate.JobVersion{}, _q.predicates...),
+		withJob:    _q.withJob.Clone(),
 		// clone intermediate query.
-		sql:  jvq.sql.Clone(),
-		path: jvq.path,
+		sql:  _q.sql.Clone(),
+		path: _q.path,
 	}
 }
 
 // WithJob tells the query-builder to eager-load the nodes that are connected to
 // the "job" edge. The optional arguments are used to configure the query builder of the edge.
-func (jvq *JobVersionQuery) WithJob(opts ...func(*JobQuery)) *JobVersionQuery {
-	query := (&JobClient{config: jvq.config}).Query()
+func (_q *JobVersionQuery) WithJob(opts ...func(*JobQuery)) *JobVersionQuery {
+	query := (&JobClient{config: _q.config}).Query()
 	for _, opt := range opts {
 		opt(query)
 	}
-	jvq.withJob = query
-	return jvq
+	_q.withJob = query
+	return _q
 }
 
 // GroupBy is used to group vertices by one or more fields/columns.
@@ -307,10 +307,10 @@ func (jvq *JobVersionQuery) WithJob(opts ...func(*JobQuery)) *JobVersionQuery {
 //		GroupBy(jobversion.FieldCreatedAt).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-func (jvq *JobVersionQuery) GroupBy(field string, fields ...string) *JobVersionGroupBy {
-	jvq.ctx.Fields = append([]string{field}, fields...)
-	grbuild := &JobVersionGroupBy{build: jvq}
-	grbuild.flds = &jvq.ctx.Fields
+func (_q *JobVersionQuery) GroupBy(field string, fields ...string) *JobVersionGroupBy {
+	_q.ctx.Fields = append([]string{field}, fields...)
+	grbuild := &JobVersionGroupBy{build: _q}
+	grbuild.flds = &_q.ctx.Fields
 	grbuild.label = jobversion.Label
 	grbuild.scan = grbuild.Scan
 	return grbuild
@@ -328,55 +328,55 @@ func (jvq *JobVersionQuery) GroupBy(field string, fields ...string) *JobVersionG
 //	client.JobVersion.Query().
 //		Select(jobversion.FieldCreatedAt).
 //		Scan(ctx, &v)
-func (jvq *JobVersionQuery) Select(fields ...string) *JobVersionSelect {
-	jvq.ctx.Fields = append(jvq.ctx.Fields, fields...)
-	sbuild := &JobVersionSelect{JobVersionQuery: jvq}
+func (_q *JobVersionQuery) Select(fields ...string) *JobVersionSelect {
+	_q.ctx.Fields = append(_q.ctx.Fields, fields...)
+	sbuild := &JobVersionSelect{JobVersionQuery: _q}
 	sbuild.label = jobversion.Label
-	sbuild.flds, sbuild.scan = &jvq.ctx.Fields, sbuild.Scan
+	sbuild.flds, sbuild.scan = &_q.ctx.Fields, sbuild.Scan
 	return sbuild
 }
 
 // Aggregate returns a JobVersionSelect configured with the given aggregations.
-func (jvq *JobVersionQuery) Aggregate(fns ...AggregateFunc) *JobVersionSelect {
-	return jvq.Select().Aggregate(fns...)
+func (_q *JobVersionQuery) Aggregate(fns ...AggregateFunc) *JobVersionSelect {
+	return _q.Select().Aggregate(fns...)
 }
 
-func (jvq *JobVersionQuery) prepareQuery(ctx context.Context) error {
-	for _, inter := range jvq.inters {
+func (_q *JobVersionQuery) prepareQuery(ctx context.Context) error {
+	for _, inter := range _q.inters {
 		if inter == nil {
 			return fmt.Errorf("ent: uninitialized interceptor (forgotten import ent/runtime?)")
 		}
 		if trv, ok := inter.(Traverser); ok {
-			if err := trv.Traverse(ctx, jvq); err != nil {
+			if err := trv.Traverse(ctx, _q); err != nil {
 				return err
 			}
 		}
 	}
-	for _, f := range jvq.ctx.Fields {
+	for _, f := range _q.ctx.Fields {
 		if !jobversion.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("ent: invalid field %q for query", f)}
 		}
 	}
-	if jvq.path != nil {
-		prev, err := jvq.path(ctx)
+	if _q.path != nil {
+		prev, err := _q.path(ctx)
 		if err != nil {
 			return err
 		}
-		jvq.sql = prev
+		_q.sql = prev
 	}
 	return nil
 }
 
-func (jvq *JobVersionQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*JobVersion, error) {
+func (_q *JobVersionQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*JobVersion, error) {
 	var (
 		nodes       = []*JobVersion{}
-		withFKs     = jvq.withFKs
-		_spec       = jvq.querySpec()
+		withFKs     = _q.withFKs
+		_spec       = _q.querySpec()
 		loadedTypes = [1]bool{
-			jvq.withJob != nil,
+			_q.withJob != nil,
 		}
 	)
-	if jvq.withJob != nil {
+	if _q.withJob != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -386,7 +386,7 @@ func (jvq *JobVersionQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 		return (*JobVersion).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
-		node := &JobVersion{config: jvq.config}
+		node := &JobVersion{config: _q.config}
 		nodes = append(nodes, node)
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
@@ -394,14 +394,14 @@ func (jvq *JobVersionQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
-	if err := sqlgraph.QueryNodes(ctx, jvq.driver, _spec); err != nil {
+	if err := sqlgraph.QueryNodes(ctx, _q.driver, _spec); err != nil {
 		return nil, err
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
-	if query := jvq.withJob; query != nil {
-		if err := jvq.loadJob(ctx, query, nodes, nil,
+	if query := _q.withJob; query != nil {
+		if err := _q.loadJob(ctx, query, nodes, nil,
 			func(n *JobVersion, e *Job) { n.Edges.Job = e }); err != nil {
 			return nil, err
 		}
@@ -409,7 +409,7 @@ func (jvq *JobVersionQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 	return nodes, nil
 }
 
-func (jvq *JobVersionQuery) loadJob(ctx context.Context, query *JobQuery, nodes []*JobVersion, init func(*JobVersion), assign func(*JobVersion, *Job)) error {
+func (_q *JobVersionQuery) loadJob(ctx context.Context, query *JobQuery, nodes []*JobVersion, init func(*JobVersion), assign func(*JobVersion, *Job)) error {
 	ids := make([]int, 0, len(nodes))
 	nodeids := make(map[int][]*JobVersion)
 	for i := range nodes {
@@ -442,24 +442,24 @@ func (jvq *JobVersionQuery) loadJob(ctx context.Context, query *JobQuery, nodes 
 	return nil
 }
 
-func (jvq *JobVersionQuery) sqlCount(ctx context.Context) (int, error) {
-	_spec := jvq.querySpec()
-	_spec.Node.Columns = jvq.ctx.Fields
-	if len(jvq.ctx.Fields) > 0 {
-		_spec.Unique = jvq.ctx.Unique != nil && *jvq.ctx.Unique
+func (_q *JobVersionQuery) sqlCount(ctx context.Context) (int, error) {
+	_spec := _q.querySpec()
+	_spec.Node.Columns = _q.ctx.Fields
+	if len(_q.ctx.Fields) > 0 {
+		_spec.Unique = _q.ctx.Unique != nil && *_q.ctx.Unique
 	}
-	return sqlgraph.CountNodes(ctx, jvq.driver, _spec)
+	return sqlgraph.CountNodes(ctx, _q.driver, _spec)
 }
 
-func (jvq *JobVersionQuery) querySpec() *sqlgraph.QuerySpec {
+func (_q *JobVersionQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(jobversion.Table, jobversion.Columns, sqlgraph.NewFieldSpec(jobversion.FieldID, field.TypeInt))
-	_spec.From = jvq.sql
-	if unique := jvq.ctx.Unique; unique != nil {
+	_spec.From = _q.sql
+	if unique := _q.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
-	} else if jvq.path != nil {
+	} else if _q.path != nil {
 		_spec.Unique = true
 	}
-	if fields := jvq.ctx.Fields; len(fields) > 0 {
+	if fields := _q.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, jobversion.FieldID)
 		for i := range fields {
@@ -468,20 +468,20 @@ func (jvq *JobVersionQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
-	if ps := jvq.predicates; len(ps) > 0 {
+	if ps := _q.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if limit := jvq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
-	if offset := jvq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
-	if ps := jvq.order; len(ps) > 0 {
+	if ps := _q.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
@@ -491,33 +491,33 @@ func (jvq *JobVersionQuery) querySpec() *sqlgraph.QuerySpec {
 	return _spec
 }
 
-func (jvq *JobVersionQuery) sqlQuery(ctx context.Context) *sql.Selector {
-	builder := sql.Dialect(jvq.driver.Dialect())
+func (_q *JobVersionQuery) sqlQuery(ctx context.Context) *sql.Selector {
+	builder := sql.Dialect(_q.driver.Dialect())
 	t1 := builder.Table(jobversion.Table)
-	columns := jvq.ctx.Fields
+	columns := _q.ctx.Fields
 	if len(columns) == 0 {
 		columns = jobversion.Columns
 	}
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
-	if jvq.sql != nil {
-		selector = jvq.sql
+	if _q.sql != nil {
+		selector = _q.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
-	if jvq.ctx.Unique != nil && *jvq.ctx.Unique {
+	if _q.ctx.Unique != nil && *_q.ctx.Unique {
 		selector.Distinct()
 	}
-	for _, p := range jvq.predicates {
+	for _, p := range _q.predicates {
 		p(selector)
 	}
-	for _, p := range jvq.order {
+	for _, p := range _q.order {
 		p(selector)
 	}
-	if offset := jvq.ctx.Offset; offset != nil {
+	if offset := _q.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
-	if limit := jvq.ctx.Limit; limit != nil {
+	if limit := _q.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
 	return selector
@@ -530,41 +530,41 @@ type JobVersionGroupBy struct {
 }
 
 // Aggregate adds the given aggregation functions to the group-by query.
-func (jvgb *JobVersionGroupBy) Aggregate(fns ...AggregateFunc) *JobVersionGroupBy {
-	jvgb.fns = append(jvgb.fns, fns...)
-	return jvgb
+func (_g *JobVersionGroupBy) Aggregate(fns ...AggregateFunc) *JobVersionGroupBy {
+	_g.fns = append(_g.fns, fns...)
+	return _g
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (jvgb *JobVersionGroupBy) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, jvgb.build.ctx, ent.OpQueryGroupBy)
-	if err := jvgb.build.prepareQuery(ctx); err != nil {
+func (_g *JobVersionGroupBy) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _g.build.ctx, ent.OpQueryGroupBy)
+	if err := _g.build.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*JobVersionQuery, *JobVersionGroupBy](ctx, jvgb.build, jvgb, jvgb.build.inters, v)
+	return scanWithInterceptors[*JobVersionQuery, *JobVersionGroupBy](ctx, _g.build, _g, _g.build.inters, v)
 }
 
-func (jvgb *JobVersionGroupBy) sqlScan(ctx context.Context, root *JobVersionQuery, v any) error {
+func (_g *JobVersionGroupBy) sqlScan(ctx context.Context, root *JobVersionQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
-	aggregation := make([]string, 0, len(jvgb.fns))
-	for _, fn := range jvgb.fns {
+	aggregation := make([]string, 0, len(_g.fns))
+	for _, fn := range _g.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
 	if len(selector.SelectedColumns()) == 0 {
-		columns := make([]string, 0, len(*jvgb.flds)+len(jvgb.fns))
-		for _, f := range *jvgb.flds {
+		columns := make([]string, 0, len(*_g.flds)+len(_g.fns))
+		for _, f := range *_g.flds {
 			columns = append(columns, selector.C(f))
 		}
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
-	selector.GroupBy(selector.Columns(*jvgb.flds...)...)
+	selector.GroupBy(selector.Columns(*_g.flds...)...)
 	if err := selector.Err(); err != nil {
 		return err
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := jvgb.build.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _g.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()
@@ -578,27 +578,27 @@ type JobVersionSelect struct {
 }
 
 // Aggregate adds the given aggregation functions to the selector query.
-func (jvs *JobVersionSelect) Aggregate(fns ...AggregateFunc) *JobVersionSelect {
-	jvs.fns = append(jvs.fns, fns...)
-	return jvs
+func (_s *JobVersionSelect) Aggregate(fns ...AggregateFunc) *JobVersionSelect {
+	_s.fns = append(_s.fns, fns...)
+	return _s
 }
 
 // Scan applies the selector query and scans the result into the given value.
-func (jvs *JobVersionSelect) Scan(ctx context.Context, v any) error {
-	ctx = setContextOp(ctx, jvs.ctx, ent.OpQuerySelect)
-	if err := jvs.prepareQuery(ctx); err != nil {
+func (_s *JobVersionSelect) Scan(ctx context.Context, v any) error {
+	ctx = setContextOp(ctx, _s.ctx, ent.OpQuerySelect)
+	if err := _s.prepareQuery(ctx); err != nil {
 		return err
 	}
-	return scanWithInterceptors[*JobVersionQuery, *JobVersionSelect](ctx, jvs.JobVersionQuery, jvs, jvs.inters, v)
+	return scanWithInterceptors[*JobVersionQuery, *JobVersionSelect](ctx, _s.JobVersionQuery, _s, _s.inters, v)
 }
 
-func (jvs *JobVersionSelect) sqlScan(ctx context.Context, root *JobVersionQuery, v any) error {
+func (_s *JobVersionSelect) sqlScan(ctx context.Context, root *JobVersionQuery, v any) error {
 	selector := root.sqlQuery(ctx)
-	aggregation := make([]string, 0, len(jvs.fns))
-	for _, fn := range jvs.fns {
+	aggregation := make([]string, 0, len(_s.fns))
+	for _, fn := range _s.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
-	switch n := len(*jvs.selector.flds); {
+	switch n := len(*_s.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
@@ -606,7 +606,7 @@ func (jvs *JobVersionSelect) sqlScan(ctx context.Context, root *JobVersionQuery,
 	}
 	rows := &sql.Rows{}
 	query, args := selector.Query()
-	if err := jvs.driver.Query(ctx, query, args, rows); err != nil {
+	if err := _s.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
 	defer rows.Close()

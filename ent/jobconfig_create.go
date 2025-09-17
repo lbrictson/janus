@@ -20,47 +20,47 @@ type JobConfigCreate struct {
 }
 
 // SetMaxConcurrentJobs sets the "max_concurrent_jobs" field.
-func (jcc *JobConfigCreate) SetMaxConcurrentJobs(i int) *JobConfigCreate {
-	jcc.mutation.SetMaxConcurrentJobs(i)
-	return jcc
+func (_c *JobConfigCreate) SetMaxConcurrentJobs(v int) *JobConfigCreate {
+	_c.mutation.SetMaxConcurrentJobs(v)
+	return _c
 }
 
 // SetNillableMaxConcurrentJobs sets the "max_concurrent_jobs" field if the given value is not nil.
-func (jcc *JobConfigCreate) SetNillableMaxConcurrentJobs(i *int) *JobConfigCreate {
-	if i != nil {
-		jcc.SetMaxConcurrentJobs(*i)
+func (_c *JobConfigCreate) SetNillableMaxConcurrentJobs(v *int) *JobConfigCreate {
+	if v != nil {
+		_c.SetMaxConcurrentJobs(*v)
 	}
-	return jcc
+	return _c
 }
 
 // SetDefaultTimeoutSeconds sets the "default_timeout_seconds" field.
-func (jcc *JobConfigCreate) SetDefaultTimeoutSeconds(i int) *JobConfigCreate {
-	jcc.mutation.SetDefaultTimeoutSeconds(i)
-	return jcc
+func (_c *JobConfigCreate) SetDefaultTimeoutSeconds(v int) *JobConfigCreate {
+	_c.mutation.SetDefaultTimeoutSeconds(v)
+	return _c
 }
 
 // SetNillableDefaultTimeoutSeconds sets the "default_timeout_seconds" field if the given value is not nil.
-func (jcc *JobConfigCreate) SetNillableDefaultTimeoutSeconds(i *int) *JobConfigCreate {
-	if i != nil {
-		jcc.SetDefaultTimeoutSeconds(*i)
+func (_c *JobConfigCreate) SetNillableDefaultTimeoutSeconds(v *int) *JobConfigCreate {
+	if v != nil {
+		_c.SetDefaultTimeoutSeconds(*v)
 	}
-	return jcc
+	return _c
 }
 
 // Mutation returns the JobConfigMutation object of the builder.
-func (jcc *JobConfigCreate) Mutation() *JobConfigMutation {
-	return jcc.mutation
+func (_c *JobConfigCreate) Mutation() *JobConfigMutation {
+	return _c.mutation
 }
 
 // Save creates the JobConfig in the database.
-func (jcc *JobConfigCreate) Save(ctx context.Context) (*JobConfig, error) {
-	jcc.defaults()
-	return withHooks(ctx, jcc.sqlSave, jcc.mutation, jcc.hooks)
+func (_c *JobConfigCreate) Save(ctx context.Context) (*JobConfig, error) {
+	_c.defaults()
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (jcc *JobConfigCreate) SaveX(ctx context.Context) *JobConfig {
-	v, err := jcc.Save(ctx)
+func (_c *JobConfigCreate) SaveX(ctx context.Context) *JobConfig {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -68,47 +68,47 @@ func (jcc *JobConfigCreate) SaveX(ctx context.Context) *JobConfig {
 }
 
 // Exec executes the query.
-func (jcc *JobConfigCreate) Exec(ctx context.Context) error {
-	_, err := jcc.Save(ctx)
+func (_c *JobConfigCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jcc *JobConfigCreate) ExecX(ctx context.Context) {
-	if err := jcc.Exec(ctx); err != nil {
+func (_c *JobConfigCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (jcc *JobConfigCreate) defaults() {
-	if _, ok := jcc.mutation.MaxConcurrentJobs(); !ok {
+func (_c *JobConfigCreate) defaults() {
+	if _, ok := _c.mutation.MaxConcurrentJobs(); !ok {
 		v := jobconfig.DefaultMaxConcurrentJobs
-		jcc.mutation.SetMaxConcurrentJobs(v)
+		_c.mutation.SetMaxConcurrentJobs(v)
 	}
-	if _, ok := jcc.mutation.DefaultTimeoutSeconds(); !ok {
+	if _, ok := _c.mutation.DefaultTimeoutSeconds(); !ok {
 		v := jobconfig.DefaultDefaultTimeoutSeconds
-		jcc.mutation.SetDefaultTimeoutSeconds(v)
+		_c.mutation.SetDefaultTimeoutSeconds(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (jcc *JobConfigCreate) check() error {
-	if _, ok := jcc.mutation.MaxConcurrentJobs(); !ok {
+func (_c *JobConfigCreate) check() error {
+	if _, ok := _c.mutation.MaxConcurrentJobs(); !ok {
 		return &ValidationError{Name: "max_concurrent_jobs", err: errors.New(`ent: missing required field "JobConfig.max_concurrent_jobs"`)}
 	}
-	if _, ok := jcc.mutation.DefaultTimeoutSeconds(); !ok {
+	if _, ok := _c.mutation.DefaultTimeoutSeconds(); !ok {
 		return &ValidationError{Name: "default_timeout_seconds", err: errors.New(`ent: missing required field "JobConfig.default_timeout_seconds"`)}
 	}
 	return nil
 }
 
-func (jcc *JobConfigCreate) sqlSave(ctx context.Context) (*JobConfig, error) {
-	if err := jcc.check(); err != nil {
+func (_c *JobConfigCreate) sqlSave(ctx context.Context) (*JobConfig, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := jcc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, jcc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -116,21 +116,21 @@ func (jcc *JobConfigCreate) sqlSave(ctx context.Context) (*JobConfig, error) {
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	jcc.mutation.id = &_node.ID
-	jcc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (jcc *JobConfigCreate) createSpec() (*JobConfig, *sqlgraph.CreateSpec) {
+func (_c *JobConfigCreate) createSpec() (*JobConfig, *sqlgraph.CreateSpec) {
 	var (
-		_node = &JobConfig{config: jcc.config}
+		_node = &JobConfig{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(jobconfig.Table, sqlgraph.NewFieldSpec(jobconfig.FieldID, field.TypeInt))
 	)
-	if value, ok := jcc.mutation.MaxConcurrentJobs(); ok {
+	if value, ok := _c.mutation.MaxConcurrentJobs(); ok {
 		_spec.SetField(jobconfig.FieldMaxConcurrentJobs, field.TypeInt, value)
 		_node.MaxConcurrentJobs = value
 	}
-	if value, ok := jcc.mutation.DefaultTimeoutSeconds(); ok {
+	if value, ok := _c.mutation.DefaultTimeoutSeconds(); ok {
 		_spec.SetField(jobconfig.FieldDefaultTimeoutSeconds, field.TypeInt, value)
 		_node.DefaultTimeoutSeconds = value
 	}
@@ -145,16 +145,16 @@ type JobConfigCreateBulk struct {
 }
 
 // Save creates the JobConfig entities in the database.
-func (jccb *JobConfigCreateBulk) Save(ctx context.Context) ([]*JobConfig, error) {
-	if jccb.err != nil {
-		return nil, jccb.err
+func (_c *JobConfigCreateBulk) Save(ctx context.Context) ([]*JobConfig, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(jccb.builders))
-	nodes := make([]*JobConfig, len(jccb.builders))
-	mutators := make([]Mutator, len(jccb.builders))
-	for i := range jccb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*JobConfig, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := jccb.builders[i]
+			builder := _c.builders[i]
 			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*JobConfigMutation)
@@ -168,11 +168,11 @@ func (jccb *JobConfigCreateBulk) Save(ctx context.Context) ([]*JobConfig, error)
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, jccb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, jccb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -196,7 +196,7 @@ func (jccb *JobConfigCreateBulk) Save(ctx context.Context) ([]*JobConfig, error)
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, jccb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -204,8 +204,8 @@ func (jccb *JobConfigCreateBulk) Save(ctx context.Context) ([]*JobConfig, error)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (jccb *JobConfigCreateBulk) SaveX(ctx context.Context) []*JobConfig {
-	v, err := jccb.Save(ctx)
+func (_c *JobConfigCreateBulk) SaveX(ctx context.Context) []*JobConfig {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -213,14 +213,14 @@ func (jccb *JobConfigCreateBulk) SaveX(ctx context.Context) []*JobConfig {
 }
 
 // Exec executes the query.
-func (jccb *JobConfigCreateBulk) Exec(ctx context.Context) error {
-	_, err := jccb.Save(ctx)
+func (_c *JobConfigCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jccb *JobConfigCreateBulk) ExecX(ctx context.Context) {
-	if err := jccb.Exec(ctx); err != nil {
+func (_c *JobConfigCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

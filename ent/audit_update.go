@@ -22,24 +22,24 @@ type AuditUpdate struct {
 }
 
 // Where appends a list predicates to the AuditUpdate builder.
-func (au *AuditUpdate) Where(ps ...predicate.Audit) *AuditUpdate {
-	au.mutation.Where(ps...)
-	return au
+func (_u *AuditUpdate) Where(ps ...predicate.Audit) *AuditUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Mutation returns the AuditMutation object of the builder.
-func (au *AuditUpdate) Mutation() *AuditMutation {
-	return au.mutation
+func (_u *AuditUpdate) Mutation() *AuditMutation {
+	return _u.mutation
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (au *AuditUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, au.sqlSave, au.mutation, au.hooks)
+func (_u *AuditUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (au *AuditUpdate) SaveX(ctx context.Context) int {
-	affected, err := au.Save(ctx)
+func (_u *AuditUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -47,28 +47,28 @@ func (au *AuditUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (au *AuditUpdate) Exec(ctx context.Context) error {
-	_, err := au.Save(ctx)
+func (_u *AuditUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (au *AuditUpdate) ExecX(ctx context.Context) {
-	if err := au.Exec(ctx); err != nil {
+func (_u *AuditUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (au *AuditUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *AuditUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(audit.Table, audit.Columns, sqlgraph.NewFieldSpec(audit.FieldID, field.TypeInt))
-	if ps := au.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, au.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{audit.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -76,8 +76,8 @@ func (au *AuditUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		return 0, err
 	}
-	au.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // AuditUpdateOne is the builder for updating a single Audit entity.
@@ -89,31 +89,31 @@ type AuditUpdateOne struct {
 }
 
 // Mutation returns the AuditMutation object of the builder.
-func (auo *AuditUpdateOne) Mutation() *AuditMutation {
-	return auo.mutation
+func (_u *AuditUpdateOne) Mutation() *AuditMutation {
+	return _u.mutation
 }
 
 // Where appends a list predicates to the AuditUpdate builder.
-func (auo *AuditUpdateOne) Where(ps ...predicate.Audit) *AuditUpdateOne {
-	auo.mutation.Where(ps...)
-	return auo
+func (_u *AuditUpdateOne) Where(ps ...predicate.Audit) *AuditUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (auo *AuditUpdateOne) Select(field string, fields ...string) *AuditUpdateOne {
-	auo.fields = append([]string{field}, fields...)
-	return auo
+func (_u *AuditUpdateOne) Select(field string, fields ...string) *AuditUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated Audit entity.
-func (auo *AuditUpdateOne) Save(ctx context.Context) (*Audit, error) {
-	return withHooks(ctx, auo.sqlSave, auo.mutation, auo.hooks)
+func (_u *AuditUpdateOne) Save(ctx context.Context) (*Audit, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (auo *AuditUpdateOne) SaveX(ctx context.Context) *Audit {
-	node, err := auo.Save(ctx)
+func (_u *AuditUpdateOne) SaveX(ctx context.Context) *Audit {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -121,26 +121,26 @@ func (auo *AuditUpdateOne) SaveX(ctx context.Context) *Audit {
 }
 
 // Exec executes the query on the entity.
-func (auo *AuditUpdateOne) Exec(ctx context.Context) error {
-	_, err := auo.Save(ctx)
+func (_u *AuditUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (auo *AuditUpdateOne) ExecX(ctx context.Context) {
-	if err := auo.Exec(ctx); err != nil {
+func (_u *AuditUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (auo *AuditUpdateOne) sqlSave(ctx context.Context) (_node *Audit, err error) {
+func (_u *AuditUpdateOne) sqlSave(ctx context.Context) (_node *Audit, err error) {
 	_spec := sqlgraph.NewUpdateSpec(audit.Table, audit.Columns, sqlgraph.NewFieldSpec(audit.FieldID, field.TypeInt))
-	id, ok := auo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Audit.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := auo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, audit.FieldID)
 		for _, f := range fields {
@@ -152,17 +152,17 @@ func (auo *AuditUpdateOne) sqlSave(ctx context.Context) (_node *Audit, err error
 			}
 		}
 	}
-	if ps := auo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	_node = &Audit{config: auo.config}
+	_node = &Audit{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, auo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{audit.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -170,6 +170,6 @@ func (auo *AuditUpdateOne) sqlSave(ctx context.Context) (_node *Audit, err error
 		}
 		return nil, err
 	}
-	auo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

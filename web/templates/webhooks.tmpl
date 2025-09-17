@@ -30,6 +30,7 @@
                         <tr>
                             <th>Webhook</th>
                             <th>Target Job</th>
+                            <th>API Key Required</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -43,6 +44,15 @@
                                 <td>
                                     <a class="btn-outline-light btn btn-sm"
                                        href="{{ .JobLink }}">{{.JobName}} ({{.ProjectName}})</a>
+                                </td>
+                                <td>
+                                    {{if .RequireAPIKey}}
+                                        <span class="badge bg-success">Yes</span>
+                                        <button class="btn btn-outline-info btn-sm ms-2"
+                                                onclick="showAPIKey('{{.APIKey}}')">View API Key</button>
+                                    {{else}}
+                                        <span class="badge bg-secondary">No</span>
+                                    {{end}}
                                 </td>
                                 <td>
                                     <button onclick="confirmDelete('{{.ID}}')"
@@ -78,13 +88,91 @@
         </div>
     </div>
 
+    <!-- API Key Modal -->
+    <div class="modal fade" id="apiKeyModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">API Key</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">API Key (include in X-API-KEY header)</label>
+                        <input type="text" class="form-control font-monospace" id="apiKeyValue" readonly>
+                    </div>
+                    <div class="alert alert-info">
+                        <strong>Example usage:</strong>
+                        <pre class="mb-0">curl -X POST \
+  -H "X-API-KEY: &lt;api-key&gt;" \
+  &lt;webhook-url&gt;</pre>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="copyAPIKey()">Copy API Key</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{if .NewWebhook}}
+    <!-- New Webhook Created Modal -->
+    <div class="modal fade" id="newWebhookModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Webhook Created Successfully</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <strong>Important:</strong> Save this API key now. You can view it again later from the webhooks list.
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Webhook URL</label>
+                        <input type="text" class="form-control font-monospace" value="{{.NewWebhook.URL}}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">API Key (Required in X-API-KEY header)</label>
+                        <input type="text" class="form-control font-monospace" id="newApiKey" value="{{.NewWebhook.APIKey}}" readonly>
+                    </div>
+                    <div class="alert alert-info">
+                        <strong>Example usage:</strong>
+                        <pre class="mb-0">curl -X POST \
+  -H "X-API-KEY: {{.NewWebhook.APIKey}}" \
+  {{.NewWebhook.URL}}</pre>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="copyNewAPIKey()">Copy API Key</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{end}}
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const urlModal = new bootstrap.Modal(document.getElementById('urlModal'));
+        const apiKeyModal = new bootstrap.Modal(document.getElementById('apiKeyModal'));
+        {{if .NewWebhook}}
+        const newWebhookModal = new bootstrap.Modal(document.getElementById('newWebhookModal'));
+        // Show the new webhook modal on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            newWebhookModal.show();
+        });
+        {{end}}
 
         function showWebhookURL(url) {
             document.getElementById('webhookURL').value = url;
             urlModal.show();
+        }
+
+        function showAPIKey(apiKey) {
+            document.getElementById('apiKeyValue').value = apiKey;
+            apiKeyModal.show();
         }
 
         function copyURL() {
@@ -93,8 +181,36 @@
             document.execCommand('copy');
             url.blur();
 
-            // Optional: Show feedback
-            const button = document.querySelector('.modal-footer .btn-primary');
+            // Show feedback
+            const button = document.querySelector('#urlModal .modal-footer .btn-primary');
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        }
+
+        function copyAPIKey() {
+            const apiKey = document.getElementById('apiKeyValue');
+            apiKey.select();
+            document.execCommand('copy');
+            apiKey.blur();
+
+            const button = document.querySelector('#apiKeyModal .modal-footer .btn-primary');
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        }
+
+        function copyNewAPIKey() {
+            const apiKey = document.getElementById('newApiKey');
+            apiKey.select();
+            document.execCommand('copy');
+            apiKey.blur();
+
+            const button = document.querySelector('#newWebhookModal .modal-footer .btn-primary');
             const originalText = button.textContent;
             button.textContent = 'Copied!';
             setTimeout(() => {
@@ -173,6 +289,15 @@
                                         <option value="{{.ID}}">{{.Name}} in project {{.Edges.Project.Name}}</option>
                                     {{end}}
                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="requireApiKey" name="require_api_key">
+                                    <label class="form-check-label" for="requireApiKey">
+                                        Require API Key Authentication (X-API-KEY header)
+                                    </label>
+                                    <div class="form-text">When enabled, webhook requests must include a valid API key in the X-API-KEY header</div>
+                                </div>
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary">Create Webhook</button>

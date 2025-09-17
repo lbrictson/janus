@@ -2,13 +2,14 @@ package pkg
 
 import (
 	"context"
-	"github.com/lbrictson/janus/ent"
-	"github.com/lbrictson/janus/ent/jobhistory"
 	"log/slog"
 	"time"
+
+	"github.com/lbrictson/janus/ent"
+	"github.com/lbrictson/janus/ent/jobhistory"
 )
 
-func RunStaleJobCleaner(db *ent.Client, config Config) {
+func RunStaleJobCleaner(db *ent.Client) {
 	// Get all jobs that are running
 	for {
 		runningJobs, err := db.JobHistory.Query().WithJob().Where(jobhistory.StatusEQ("running")).All(context.Background())
@@ -38,7 +39,7 @@ func RunStaleJobCleaner(db *ent.Client, config Config) {
 	}
 }
 
-func RunJobCleaner(db *ent.Client, config Config) {
+func RunJobCleaner(db *ent.Client) {
 	for {
 		c, err := db.DataConfig.Query().First(context.Background())
 		if err != nil {

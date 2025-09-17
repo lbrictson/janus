@@ -25,254 +25,254 @@ type JobCreate struct {
 }
 
 // SetName sets the "name" field.
-func (jc *JobCreate) SetName(s string) *JobCreate {
-	jc.mutation.SetName(s)
-	return jc
+func (_c *JobCreate) SetName(v string) *JobCreate {
+	_c.mutation.SetName(v)
+	return _c
 }
 
 // SetDescription sets the "description" field.
-func (jc *JobCreate) SetDescription(s string) *JobCreate {
-	jc.mutation.SetDescription(s)
-	return jc
+func (_c *JobCreate) SetDescription(v string) *JobCreate {
+	_c.mutation.SetDescription(v)
+	return _c
 }
 
 // SetNillableDescription sets the "description" field if the given value is not nil.
-func (jc *JobCreate) SetNillableDescription(s *string) *JobCreate {
-	if s != nil {
-		jc.SetDescription(*s)
+func (_c *JobCreate) SetNillableDescription(v *string) *JobCreate {
+	if v != nil {
+		_c.SetDescription(*v)
 	}
-	return jc
+	return _c
 }
 
 // SetCronSchedule sets the "cron_schedule" field.
-func (jc *JobCreate) SetCronSchedule(s string) *JobCreate {
-	jc.mutation.SetCronSchedule(s)
-	return jc
+func (_c *JobCreate) SetCronSchedule(v string) *JobCreate {
+	_c.mutation.SetCronSchedule(v)
+	return _c
 }
 
 // SetNillableCronSchedule sets the "cron_schedule" field if the given value is not nil.
-func (jc *JobCreate) SetNillableCronSchedule(s *string) *JobCreate {
-	if s != nil {
-		jc.SetCronSchedule(*s)
+func (_c *JobCreate) SetNillableCronSchedule(v *string) *JobCreate {
+	if v != nil {
+		_c.SetCronSchedule(*v)
 	}
-	return jc
+	return _c
 }
 
 // SetScheduleEnabled sets the "schedule_enabled" field.
-func (jc *JobCreate) SetScheduleEnabled(b bool) *JobCreate {
-	jc.mutation.SetScheduleEnabled(b)
-	return jc
+func (_c *JobCreate) SetScheduleEnabled(v bool) *JobCreate {
+	_c.mutation.SetScheduleEnabled(v)
+	return _c
 }
 
 // SetNillableScheduleEnabled sets the "schedule_enabled" field if the given value is not nil.
-func (jc *JobCreate) SetNillableScheduleEnabled(b *bool) *JobCreate {
-	if b != nil {
-		jc.SetScheduleEnabled(*b)
+func (_c *JobCreate) SetNillableScheduleEnabled(v *bool) *JobCreate {
+	if v != nil {
+		_c.SetScheduleEnabled(*v)
 	}
-	return jc
+	return _c
 }
 
 // SetAllowConcurrentRuns sets the "allow_concurrent_runs" field.
-func (jc *JobCreate) SetAllowConcurrentRuns(b bool) *JobCreate {
-	jc.mutation.SetAllowConcurrentRuns(b)
-	return jc
+func (_c *JobCreate) SetAllowConcurrentRuns(v bool) *JobCreate {
+	_c.mutation.SetAllowConcurrentRuns(v)
+	return _c
 }
 
 // SetNillableAllowConcurrentRuns sets the "allow_concurrent_runs" field if the given value is not nil.
-func (jc *JobCreate) SetNillableAllowConcurrentRuns(b *bool) *JobCreate {
-	if b != nil {
-		jc.SetAllowConcurrentRuns(*b)
+func (_c *JobCreate) SetNillableAllowConcurrentRuns(v *bool) *JobCreate {
+	if v != nil {
+		_c.SetAllowConcurrentRuns(*v)
 	}
-	return jc
+	return _c
 }
 
 // SetArguments sets the "arguments" field.
-func (jc *JobCreate) SetArguments(sa []schema.JobArgument) *JobCreate {
-	jc.mutation.SetArguments(sa)
-	return jc
+func (_c *JobCreate) SetArguments(v []schema.JobArgument) *JobCreate {
+	_c.mutation.SetArguments(v)
+	return _c
 }
 
 // SetRequiresFileUpload sets the "requires_file_upload" field.
-func (jc *JobCreate) SetRequiresFileUpload(b bool) *JobCreate {
-	jc.mutation.SetRequiresFileUpload(b)
-	return jc
+func (_c *JobCreate) SetRequiresFileUpload(v bool) *JobCreate {
+	_c.mutation.SetRequiresFileUpload(v)
+	return _c
 }
 
 // SetNillableRequiresFileUpload sets the "requires_file_upload" field if the given value is not nil.
-func (jc *JobCreate) SetNillableRequiresFileUpload(b *bool) *JobCreate {
-	if b != nil {
-		jc.SetRequiresFileUpload(*b)
+func (_c *JobCreate) SetNillableRequiresFileUpload(v *bool) *JobCreate {
+	if v != nil {
+		_c.SetRequiresFileUpload(*v)
 	}
-	return jc
+	return _c
 }
 
 // SetAverageDurationMs sets the "average_duration_ms" field.
-func (jc *JobCreate) SetAverageDurationMs(i int64) *JobCreate {
-	jc.mutation.SetAverageDurationMs(i)
-	return jc
+func (_c *JobCreate) SetAverageDurationMs(v int64) *JobCreate {
+	_c.mutation.SetAverageDurationMs(v)
+	return _c
 }
 
 // SetNillableAverageDurationMs sets the "average_duration_ms" field if the given value is not nil.
-func (jc *JobCreate) SetNillableAverageDurationMs(i *int64) *JobCreate {
-	if i != nil {
-		jc.SetAverageDurationMs(*i)
+func (_c *JobCreate) SetNillableAverageDurationMs(v *int64) *JobCreate {
+	if v != nil {
+		_c.SetAverageDurationMs(*v)
 	}
-	return jc
+	return _c
 }
 
 // SetTimeoutSeconds sets the "timeout_seconds" field.
-func (jc *JobCreate) SetTimeoutSeconds(i int) *JobCreate {
-	jc.mutation.SetTimeoutSeconds(i)
-	return jc
+func (_c *JobCreate) SetTimeoutSeconds(v int) *JobCreate {
+	_c.mutation.SetTimeoutSeconds(v)
+	return _c
 }
 
 // SetNillableTimeoutSeconds sets the "timeout_seconds" field if the given value is not nil.
-func (jc *JobCreate) SetNillableTimeoutSeconds(i *int) *JobCreate {
-	if i != nil {
-		jc.SetTimeoutSeconds(*i)
+func (_c *JobCreate) SetNillableTimeoutSeconds(v *int) *JobCreate {
+	if v != nil {
+		_c.SetTimeoutSeconds(*v)
 	}
-	return jc
+	return _c
 }
 
 // SetLastEditTime sets the "last_edit_time" field.
-func (jc *JobCreate) SetLastEditTime(t time.Time) *JobCreate {
-	jc.mutation.SetLastEditTime(t)
-	return jc
+func (_c *JobCreate) SetLastEditTime(v time.Time) *JobCreate {
+	_c.mutation.SetLastEditTime(v)
+	return _c
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (jc *JobCreate) SetCreatedAt(t time.Time) *JobCreate {
-	jc.mutation.SetCreatedAt(t)
-	return jc
+func (_c *JobCreate) SetCreatedAt(v time.Time) *JobCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
 }
 
 // SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (jc *JobCreate) SetNillableCreatedAt(t *time.Time) *JobCreate {
-	if t != nil {
-		jc.SetCreatedAt(*t)
+func (_c *JobCreate) SetNillableCreatedAt(v *time.Time) *JobCreate {
+	if v != nil {
+		_c.SetCreatedAt(*v)
 	}
-	return jc
+	return _c
 }
 
 // SetNotifyOnStartChannelIds sets the "notify_on_start_channel_ids" field.
-func (jc *JobCreate) SetNotifyOnStartChannelIds(i []int) *JobCreate {
-	jc.mutation.SetNotifyOnStartChannelIds(i)
-	return jc
+func (_c *JobCreate) SetNotifyOnStartChannelIds(v []int) *JobCreate {
+	_c.mutation.SetNotifyOnStartChannelIds(v)
+	return _c
 }
 
 // SetNotifyOnSuccessChannelIds sets the "notify_on_success_channel_ids" field.
-func (jc *JobCreate) SetNotifyOnSuccessChannelIds(i []int) *JobCreate {
-	jc.mutation.SetNotifyOnSuccessChannelIds(i)
-	return jc
+func (_c *JobCreate) SetNotifyOnSuccessChannelIds(v []int) *JobCreate {
+	_c.mutation.SetNotifyOnSuccessChannelIds(v)
+	return _c
 }
 
 // SetNotifyOnFailureChannelIds sets the "notify_on_failure_channel_ids" field.
-func (jc *JobCreate) SetNotifyOnFailureChannelIds(i []int) *JobCreate {
-	jc.mutation.SetNotifyOnFailureChannelIds(i)
-	return jc
+func (_c *JobCreate) SetNotifyOnFailureChannelIds(v []int) *JobCreate {
+	_c.mutation.SetNotifyOnFailureChannelIds(v)
+	return _c
 }
 
 // SetLastRunTime sets the "last_run_time" field.
-func (jc *JobCreate) SetLastRunTime(t time.Time) *JobCreate {
-	jc.mutation.SetLastRunTime(t)
-	return jc
+func (_c *JobCreate) SetLastRunTime(v time.Time) *JobCreate {
+	_c.mutation.SetLastRunTime(v)
+	return _c
 }
 
 // SetNextCronRunTime sets the "next_cron_run_time" field.
-func (jc *JobCreate) SetNextCronRunTime(t time.Time) *JobCreate {
-	jc.mutation.SetNextCronRunTime(t)
-	return jc
+func (_c *JobCreate) SetNextCronRunTime(v time.Time) *JobCreate {
+	_c.mutation.SetNextCronRunTime(v)
+	return _c
 }
 
 // SetScript sets the "script" field.
-func (jc *JobCreate) SetScript(s string) *JobCreate {
-	jc.mutation.SetScript(s)
-	return jc
+func (_c *JobCreate) SetScript(v string) *JobCreate {
+	_c.mutation.SetScript(v)
+	return _c
 }
 
 // SetLastRunSuccess sets the "last_run_success" field.
-func (jc *JobCreate) SetLastRunSuccess(b bool) *JobCreate {
-	jc.mutation.SetLastRunSuccess(b)
-	return jc
+func (_c *JobCreate) SetLastRunSuccess(v bool) *JobCreate {
+	_c.mutation.SetLastRunSuccess(v)
+	return _c
 }
 
 // SetNillableLastRunSuccess sets the "last_run_success" field if the given value is not nil.
-func (jc *JobCreate) SetNillableLastRunSuccess(b *bool) *JobCreate {
-	if b != nil {
-		jc.SetLastRunSuccess(*b)
+func (_c *JobCreate) SetNillableLastRunSuccess(v *bool) *JobCreate {
+	if v != nil {
+		_c.SetLastRunSuccess(*v)
 	}
-	return jc
+	return _c
 }
 
 // SetCreatedByAPI sets the "created_by_api" field.
-func (jc *JobCreate) SetCreatedByAPI(b bool) *JobCreate {
-	jc.mutation.SetCreatedByAPI(b)
-	return jc
+func (_c *JobCreate) SetCreatedByAPI(v bool) *JobCreate {
+	_c.mutation.SetCreatedByAPI(v)
+	return _c
 }
 
 // SetNillableCreatedByAPI sets the "created_by_api" field if the given value is not nil.
-func (jc *JobCreate) SetNillableCreatedByAPI(b *bool) *JobCreate {
-	if b != nil {
-		jc.SetCreatedByAPI(*b)
+func (_c *JobCreate) SetNillableCreatedByAPI(v *bool) *JobCreate {
+	if v != nil {
+		_c.SetCreatedByAPI(*v)
 	}
-	return jc
+	return _c
 }
 
 // SetProjectID sets the "project" edge to the Project entity by ID.
-func (jc *JobCreate) SetProjectID(id int) *JobCreate {
-	jc.mutation.SetProjectID(id)
-	return jc
+func (_c *JobCreate) SetProjectID(id int) *JobCreate {
+	_c.mutation.SetProjectID(id)
+	return _c
 }
 
 // SetProject sets the "project" edge to the Project entity.
-func (jc *JobCreate) SetProject(p *Project) *JobCreate {
-	return jc.SetProjectID(p.ID)
+func (_c *JobCreate) SetProject(v *Project) *JobCreate {
+	return _c.SetProjectID(v.ID)
 }
 
 // AddHistoryIDs adds the "history" edge to the JobHistory entity by IDs.
-func (jc *JobCreate) AddHistoryIDs(ids ...int) *JobCreate {
-	jc.mutation.AddHistoryIDs(ids...)
-	return jc
+func (_c *JobCreate) AddHistoryIDs(ids ...int) *JobCreate {
+	_c.mutation.AddHistoryIDs(ids...)
+	return _c
 }
 
 // AddHistory adds the "history" edges to the JobHistory entity.
-func (jc *JobCreate) AddHistory(j ...*JobHistory) *JobCreate {
-	ids := make([]int, len(j))
-	for i := range j {
-		ids[i] = j[i].ID
+func (_c *JobCreate) AddHistory(v ...*JobHistory) *JobCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return jc.AddHistoryIDs(ids...)
+	return _c.AddHistoryIDs(ids...)
 }
 
 // AddVersionIDs adds the "versions" edge to the JobVersion entity by IDs.
-func (jc *JobCreate) AddVersionIDs(ids ...int) *JobCreate {
-	jc.mutation.AddVersionIDs(ids...)
-	return jc
+func (_c *JobCreate) AddVersionIDs(ids ...int) *JobCreate {
+	_c.mutation.AddVersionIDs(ids...)
+	return _c
 }
 
 // AddVersions adds the "versions" edges to the JobVersion entity.
-func (jc *JobCreate) AddVersions(j ...*JobVersion) *JobCreate {
-	ids := make([]int, len(j))
-	for i := range j {
-		ids[i] = j[i].ID
+func (_c *JobCreate) AddVersions(v ...*JobVersion) *JobCreate {
+	ids := make([]int, len(v))
+	for i := range v {
+		ids[i] = v[i].ID
 	}
-	return jc.AddVersionIDs(ids...)
+	return _c.AddVersionIDs(ids...)
 }
 
 // Mutation returns the JobMutation object of the builder.
-func (jc *JobCreate) Mutation() *JobMutation {
-	return jc.mutation
+func (_c *JobCreate) Mutation() *JobMutation {
+	return _c.mutation
 }
 
 // Save creates the Job in the database.
-func (jc *JobCreate) Save(ctx context.Context) (*Job, error) {
-	jc.defaults()
-	return withHooks(ctx, jc.sqlSave, jc.mutation, jc.hooks)
+func (_c *JobCreate) Save(ctx context.Context) (*Job, error) {
+	_c.defaults()
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (jc *JobCreate) SaveX(ctx context.Context) *Job {
-	v, err := jc.Save(ctx)
+func (_c *JobCreate) SaveX(ctx context.Context) *Job {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -280,106 +280,106 @@ func (jc *JobCreate) SaveX(ctx context.Context) *Job {
 }
 
 // Exec executes the query.
-func (jc *JobCreate) Exec(ctx context.Context) error {
-	_, err := jc.Save(ctx)
+func (_c *JobCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jc *JobCreate) ExecX(ctx context.Context) {
-	if err := jc.Exec(ctx); err != nil {
+func (_c *JobCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // defaults sets the default values of the builder before save.
-func (jc *JobCreate) defaults() {
-	if _, ok := jc.mutation.ScheduleEnabled(); !ok {
+func (_c *JobCreate) defaults() {
+	if _, ok := _c.mutation.ScheduleEnabled(); !ok {
 		v := job.DefaultScheduleEnabled
-		jc.mutation.SetScheduleEnabled(v)
+		_c.mutation.SetScheduleEnabled(v)
 	}
-	if _, ok := jc.mutation.AllowConcurrentRuns(); !ok {
+	if _, ok := _c.mutation.AllowConcurrentRuns(); !ok {
 		v := job.DefaultAllowConcurrentRuns
-		jc.mutation.SetAllowConcurrentRuns(v)
+		_c.mutation.SetAllowConcurrentRuns(v)
 	}
-	if _, ok := jc.mutation.RequiresFileUpload(); !ok {
+	if _, ok := _c.mutation.RequiresFileUpload(); !ok {
 		v := job.DefaultRequiresFileUpload
-		jc.mutation.SetRequiresFileUpload(v)
+		_c.mutation.SetRequiresFileUpload(v)
 	}
-	if _, ok := jc.mutation.AverageDurationMs(); !ok {
+	if _, ok := _c.mutation.AverageDurationMs(); !ok {
 		v := job.DefaultAverageDurationMs
-		jc.mutation.SetAverageDurationMs(v)
+		_c.mutation.SetAverageDurationMs(v)
 	}
-	if _, ok := jc.mutation.TimeoutSeconds(); !ok {
+	if _, ok := _c.mutation.TimeoutSeconds(); !ok {
 		v := job.DefaultTimeoutSeconds
-		jc.mutation.SetTimeoutSeconds(v)
+		_c.mutation.SetTimeoutSeconds(v)
 	}
-	if _, ok := jc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		v := job.DefaultCreatedAt()
-		jc.mutation.SetCreatedAt(v)
+		_c.mutation.SetCreatedAt(v)
 	}
-	if _, ok := jc.mutation.LastRunSuccess(); !ok {
+	if _, ok := _c.mutation.LastRunSuccess(); !ok {
 		v := job.DefaultLastRunSuccess
-		jc.mutation.SetLastRunSuccess(v)
+		_c.mutation.SetLastRunSuccess(v)
 	}
-	if _, ok := jc.mutation.CreatedByAPI(); !ok {
+	if _, ok := _c.mutation.CreatedByAPI(); !ok {
 		v := job.DefaultCreatedByAPI
-		jc.mutation.SetCreatedByAPI(v)
+		_c.mutation.SetCreatedByAPI(v)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (jc *JobCreate) check() error {
-	if _, ok := jc.mutation.Name(); !ok {
+func (_c *JobCreate) check() error {
+	if _, ok := _c.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Job.name"`)}
 	}
-	if v, ok := jc.mutation.Name(); ok {
+	if v, ok := _c.mutation.Name(); ok {
 		if err := job.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf(`ent: validator failed for field "Job.name": %w`, err)}
 		}
 	}
-	if _, ok := jc.mutation.ScheduleEnabled(); !ok {
+	if _, ok := _c.mutation.ScheduleEnabled(); !ok {
 		return &ValidationError{Name: "schedule_enabled", err: errors.New(`ent: missing required field "Job.schedule_enabled"`)}
 	}
-	if _, ok := jc.mutation.AllowConcurrentRuns(); !ok {
+	if _, ok := _c.mutation.AllowConcurrentRuns(); !ok {
 		return &ValidationError{Name: "allow_concurrent_runs", err: errors.New(`ent: missing required field "Job.allow_concurrent_runs"`)}
 	}
-	if _, ok := jc.mutation.RequiresFileUpload(); !ok {
+	if _, ok := _c.mutation.RequiresFileUpload(); !ok {
 		return &ValidationError{Name: "requires_file_upload", err: errors.New(`ent: missing required field "Job.requires_file_upload"`)}
 	}
-	if _, ok := jc.mutation.LastEditTime(); !ok {
+	if _, ok := _c.mutation.LastEditTime(); !ok {
 		return &ValidationError{Name: "last_edit_time", err: errors.New(`ent: missing required field "Job.last_edit_time"`)}
 	}
-	if _, ok := jc.mutation.CreatedAt(); !ok {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Job.created_at"`)}
 	}
-	if _, ok := jc.mutation.LastRunTime(); !ok {
+	if _, ok := _c.mutation.LastRunTime(); !ok {
 		return &ValidationError{Name: "last_run_time", err: errors.New(`ent: missing required field "Job.last_run_time"`)}
 	}
-	if _, ok := jc.mutation.NextCronRunTime(); !ok {
+	if _, ok := _c.mutation.NextCronRunTime(); !ok {
 		return &ValidationError{Name: "next_cron_run_time", err: errors.New(`ent: missing required field "Job.next_cron_run_time"`)}
 	}
-	if _, ok := jc.mutation.Script(); !ok {
+	if _, ok := _c.mutation.Script(); !ok {
 		return &ValidationError{Name: "script", err: errors.New(`ent: missing required field "Job.script"`)}
 	}
-	if _, ok := jc.mutation.LastRunSuccess(); !ok {
+	if _, ok := _c.mutation.LastRunSuccess(); !ok {
 		return &ValidationError{Name: "last_run_success", err: errors.New(`ent: missing required field "Job.last_run_success"`)}
 	}
-	if _, ok := jc.mutation.CreatedByAPI(); !ok {
+	if _, ok := _c.mutation.CreatedByAPI(); !ok {
 		return &ValidationError{Name: "created_by_api", err: errors.New(`ent: missing required field "Job.created_by_api"`)}
 	}
-	if len(jc.mutation.ProjectIDs()) == 0 {
+	if len(_c.mutation.ProjectIDs()) == 0 {
 		return &ValidationError{Name: "project", err: errors.New(`ent: missing required edge "Job.project"`)}
 	}
 	return nil
 }
 
-func (jc *JobCreate) sqlSave(ctx context.Context) (*Job, error) {
-	if err := jc.check(); err != nil {
+func (_c *JobCreate) sqlSave(ctx context.Context) (*Job, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := jc.createSpec()
-	if err := sqlgraph.CreateNode(ctx, jc.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -387,93 +387,93 @@ func (jc *JobCreate) sqlSave(ctx context.Context) (*Job, error) {
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	jc.mutation.id = &_node.ID
-	jc.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (jc *JobCreate) createSpec() (*Job, *sqlgraph.CreateSpec) {
+func (_c *JobCreate) createSpec() (*Job, *sqlgraph.CreateSpec) {
 	var (
-		_node = &Job{config: jc.config}
+		_node = &Job{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(job.Table, sqlgraph.NewFieldSpec(job.FieldID, field.TypeInt))
 	)
-	if value, ok := jc.mutation.Name(); ok {
+	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(job.FieldName, field.TypeString, value)
 		_node.Name = value
 	}
-	if value, ok := jc.mutation.Description(); ok {
+	if value, ok := _c.mutation.Description(); ok {
 		_spec.SetField(job.FieldDescription, field.TypeString, value)
 		_node.Description = value
 	}
-	if value, ok := jc.mutation.CronSchedule(); ok {
+	if value, ok := _c.mutation.CronSchedule(); ok {
 		_spec.SetField(job.FieldCronSchedule, field.TypeString, value)
 		_node.CronSchedule = value
 	}
-	if value, ok := jc.mutation.ScheduleEnabled(); ok {
+	if value, ok := _c.mutation.ScheduleEnabled(); ok {
 		_spec.SetField(job.FieldScheduleEnabled, field.TypeBool, value)
 		_node.ScheduleEnabled = value
 	}
-	if value, ok := jc.mutation.AllowConcurrentRuns(); ok {
+	if value, ok := _c.mutation.AllowConcurrentRuns(); ok {
 		_spec.SetField(job.FieldAllowConcurrentRuns, field.TypeBool, value)
 		_node.AllowConcurrentRuns = value
 	}
-	if value, ok := jc.mutation.Arguments(); ok {
+	if value, ok := _c.mutation.Arguments(); ok {
 		_spec.SetField(job.FieldArguments, field.TypeJSON, value)
 		_node.Arguments = value
 	}
-	if value, ok := jc.mutation.RequiresFileUpload(); ok {
+	if value, ok := _c.mutation.RequiresFileUpload(); ok {
 		_spec.SetField(job.FieldRequiresFileUpload, field.TypeBool, value)
 		_node.RequiresFileUpload = value
 	}
-	if value, ok := jc.mutation.AverageDurationMs(); ok {
+	if value, ok := _c.mutation.AverageDurationMs(); ok {
 		_spec.SetField(job.FieldAverageDurationMs, field.TypeInt64, value)
 		_node.AverageDurationMs = value
 	}
-	if value, ok := jc.mutation.TimeoutSeconds(); ok {
+	if value, ok := _c.mutation.TimeoutSeconds(); ok {
 		_spec.SetField(job.FieldTimeoutSeconds, field.TypeInt, value)
 		_node.TimeoutSeconds = value
 	}
-	if value, ok := jc.mutation.LastEditTime(); ok {
+	if value, ok := _c.mutation.LastEditTime(); ok {
 		_spec.SetField(job.FieldLastEditTime, field.TypeTime, value)
 		_node.LastEditTime = value
 	}
-	if value, ok := jc.mutation.CreatedAt(); ok {
+	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(job.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
 	}
-	if value, ok := jc.mutation.NotifyOnStartChannelIds(); ok {
+	if value, ok := _c.mutation.NotifyOnStartChannelIds(); ok {
 		_spec.SetField(job.FieldNotifyOnStartChannelIds, field.TypeJSON, value)
 		_node.NotifyOnStartChannelIds = value
 	}
-	if value, ok := jc.mutation.NotifyOnSuccessChannelIds(); ok {
+	if value, ok := _c.mutation.NotifyOnSuccessChannelIds(); ok {
 		_spec.SetField(job.FieldNotifyOnSuccessChannelIds, field.TypeJSON, value)
 		_node.NotifyOnSuccessChannelIds = value
 	}
-	if value, ok := jc.mutation.NotifyOnFailureChannelIds(); ok {
+	if value, ok := _c.mutation.NotifyOnFailureChannelIds(); ok {
 		_spec.SetField(job.FieldNotifyOnFailureChannelIds, field.TypeJSON, value)
 		_node.NotifyOnFailureChannelIds = value
 	}
-	if value, ok := jc.mutation.LastRunTime(); ok {
+	if value, ok := _c.mutation.LastRunTime(); ok {
 		_spec.SetField(job.FieldLastRunTime, field.TypeTime, value)
 		_node.LastRunTime = value
 	}
-	if value, ok := jc.mutation.NextCronRunTime(); ok {
+	if value, ok := _c.mutation.NextCronRunTime(); ok {
 		_spec.SetField(job.FieldNextCronRunTime, field.TypeTime, value)
 		_node.NextCronRunTime = value
 	}
-	if value, ok := jc.mutation.Script(); ok {
+	if value, ok := _c.mutation.Script(); ok {
 		_spec.SetField(job.FieldScript, field.TypeString, value)
 		_node.Script = value
 	}
-	if value, ok := jc.mutation.LastRunSuccess(); ok {
+	if value, ok := _c.mutation.LastRunSuccess(); ok {
 		_spec.SetField(job.FieldLastRunSuccess, field.TypeBool, value)
 		_node.LastRunSuccess = value
 	}
-	if value, ok := jc.mutation.CreatedByAPI(); ok {
+	if value, ok := _c.mutation.CreatedByAPI(); ok {
 		_spec.SetField(job.FieldCreatedByAPI, field.TypeBool, value)
 		_node.CreatedByAPI = value
 	}
-	if nodes := jc.mutation.ProjectIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.ProjectIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
@@ -490,7 +490,7 @@ func (jc *JobCreate) createSpec() (*Job, *sqlgraph.CreateSpec) {
 		_node.project_jobs = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := jc.mutation.HistoryIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.HistoryIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -506,7 +506,7 @@ func (jc *JobCreate) createSpec() (*Job, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := jc.mutation.VersionsIDs(); len(nodes) > 0 {
+	if nodes := _c.mutation.VersionsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
@@ -533,16 +533,16 @@ type JobCreateBulk struct {
 }
 
 // Save creates the Job entities in the database.
-func (jcb *JobCreateBulk) Save(ctx context.Context) ([]*Job, error) {
-	if jcb.err != nil {
-		return nil, jcb.err
+func (_c *JobCreateBulk) Save(ctx context.Context) ([]*Job, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(jcb.builders))
-	nodes := make([]*Job, len(jcb.builders))
-	mutators := make([]Mutator, len(jcb.builders))
-	for i := range jcb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*Job, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := jcb.builders[i]
+			builder := _c.builders[i]
 			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*JobMutation)
@@ -556,11 +556,11 @@ func (jcb *JobCreateBulk) Save(ctx context.Context) ([]*Job, error) {
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, jcb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, jcb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -584,7 +584,7 @@ func (jcb *JobCreateBulk) Save(ctx context.Context) ([]*Job, error) {
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, jcb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -592,8 +592,8 @@ func (jcb *JobCreateBulk) Save(ctx context.Context) ([]*Job, error) {
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (jcb *JobCreateBulk) SaveX(ctx context.Context) []*Job {
-	v, err := jcb.Save(ctx)
+func (_c *JobCreateBulk) SaveX(ctx context.Context) []*Job {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -601,14 +601,14 @@ func (jcb *JobCreateBulk) SaveX(ctx context.Context) []*Job {
 }
 
 // Exec executes the query.
-func (jcb *JobCreateBulk) Exec(ctx context.Context) error {
-	_, err := jcb.Save(ctx)
+func (_c *JobCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (jcb *JobCreateBulk) ExecX(ctx context.Context) {
-	if err := jcb.Exec(ctx); err != nil {
+func (_c *JobCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

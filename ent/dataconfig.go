@@ -37,7 +37,7 @@ func (*DataConfig) scanValues(columns []string) ([]any, error) {
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
 // to the DataConfig fields.
-func (dc *DataConfig) assignValues(columns []string, values []any) error {
+func (_m *DataConfig) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
@@ -48,15 +48,15 @@ func (dc *DataConfig) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			dc.ID = int(value.Int64)
+			_m.ID = int(value.Int64)
 		case dataconfig.FieldDaysToKeep:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field days_to_keep", values[i])
 			} else if value.Valid {
-				dc.DaysToKeep = int(value.Int64)
+				_m.DaysToKeep = int(value.Int64)
 			}
 		default:
-			dc.selectValues.Set(columns[i], values[i])
+			_m.selectValues.Set(columns[i], values[i])
 		}
 	}
 	return nil
@@ -64,35 +64,35 @@ func (dc *DataConfig) assignValues(columns []string, values []any) error {
 
 // Value returns the ent.Value that was dynamically selected and assigned to the DataConfig.
 // This includes values selected through modifiers, order, etc.
-func (dc *DataConfig) Value(name string) (ent.Value, error) {
-	return dc.selectValues.Get(name)
+func (_m *DataConfig) Value(name string) (ent.Value, error) {
+	return _m.selectValues.Get(name)
 }
 
 // Update returns a builder for updating this DataConfig.
 // Note that you need to call DataConfig.Unwrap() before calling this method if this DataConfig
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (dc *DataConfig) Update() *DataConfigUpdateOne {
-	return NewDataConfigClient(dc.config).UpdateOne(dc)
+func (_m *DataConfig) Update() *DataConfigUpdateOne {
+	return NewDataConfigClient(_m.config).UpdateOne(_m)
 }
 
 // Unwrap unwraps the DataConfig entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (dc *DataConfig) Unwrap() *DataConfig {
-	_tx, ok := dc.config.driver.(*txDriver)
+func (_m *DataConfig) Unwrap() *DataConfig {
+	_tx, ok := _m.config.driver.(*txDriver)
 	if !ok {
 		panic("ent: DataConfig is not a transactional entity")
 	}
-	dc.config.driver = _tx.drv
-	return dc
+	_m.config.driver = _tx.drv
+	return _m
 }
 
 // String implements the fmt.Stringer.
-func (dc *DataConfig) String() string {
+func (_m *DataConfig) String() string {
 	var builder strings.Builder
 	builder.WriteString("DataConfig(")
-	builder.WriteString(fmt.Sprintf("id=%v, ", dc.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("days_to_keep=")
-	builder.WriteString(fmt.Sprintf("%v", dc.DaysToKeep))
+	builder.WriteString(fmt.Sprintf("%v", _m.DaysToKeep))
 	builder.WriteByte(')')
 	return builder.String()
 }

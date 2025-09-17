@@ -20,6 +20,10 @@ const (
 	FieldCreatedBy = "created_by"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
+	// FieldRequireAPIKey holds the string denoting the require_api_key field in the database.
+	FieldRequireAPIKey = "require_api_key"
+	// FieldAPIKey holds the string denoting the api_key field in the database.
+	FieldAPIKey = "api_key"
 	// EdgeJob holds the string denoting the job edge name in mutations.
 	EdgeJob = "job"
 	// Table holds the table name of the inboundwebhook in the database.
@@ -39,6 +43,8 @@ var Columns = []string{
 	FieldKey,
 	FieldCreatedBy,
 	FieldCreatedAt,
+	FieldRequireAPIKey,
+	FieldAPIKey,
 }
 
 // ForeignKeys holds the SQL foreign-keys that are owned by the "inbound_webhooks"
@@ -65,6 +71,8 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
 	DefaultCreatedAt func() time.Time
+	// DefaultRequireAPIKey holds the default value on creation for the "require_api_key" field.
+	DefaultRequireAPIKey bool
 )
 
 // OrderOption defines the ordering options for the InboundWebhook queries.
@@ -88,6 +96,16 @@ func ByCreatedBy(opts ...sql.OrderTermOption) OrderOption {
 // ByCreatedAt orders the results by the created_at field.
 func ByCreatedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCreatedAt, opts...).ToFunc()
+}
+
+// ByRequireAPIKey orders the results by the require_api_key field.
+func ByRequireAPIKey(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldRequireAPIKey, opts...).ToFunc()
+}
+
+// ByAPIKey orders the results by the api_key field.
+func ByAPIKey(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAPIKey, opts...).ToFunc()
 }
 
 // ByJobField orders the results by job field.

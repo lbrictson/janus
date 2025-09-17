@@ -24,91 +24,125 @@ type InboundWebhookUpdate struct {
 }
 
 // Where appends a list predicates to the InboundWebhookUpdate builder.
-func (iwu *InboundWebhookUpdate) Where(ps ...predicate.InboundWebhook) *InboundWebhookUpdate {
-	iwu.mutation.Where(ps...)
-	return iwu
+func (_u *InboundWebhookUpdate) Where(ps ...predicate.InboundWebhook) *InboundWebhookUpdate {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // SetKey sets the "key" field.
-func (iwu *InboundWebhookUpdate) SetKey(s string) *InboundWebhookUpdate {
-	iwu.mutation.SetKey(s)
-	return iwu
+func (_u *InboundWebhookUpdate) SetKey(v string) *InboundWebhookUpdate {
+	_u.mutation.SetKey(v)
+	return _u
 }
 
 // SetNillableKey sets the "key" field if the given value is not nil.
-func (iwu *InboundWebhookUpdate) SetNillableKey(s *string) *InboundWebhookUpdate {
-	if s != nil {
-		iwu.SetKey(*s)
+func (_u *InboundWebhookUpdate) SetNillableKey(v *string) *InboundWebhookUpdate {
+	if v != nil {
+		_u.SetKey(*v)
 	}
-	return iwu
+	return _u
 }
 
 // SetCreatedBy sets the "created_by" field.
-func (iwu *InboundWebhookUpdate) SetCreatedBy(s string) *InboundWebhookUpdate {
-	iwu.mutation.SetCreatedBy(s)
-	return iwu
+func (_u *InboundWebhookUpdate) SetCreatedBy(v string) *InboundWebhookUpdate {
+	_u.mutation.SetCreatedBy(v)
+	return _u
 }
 
 // SetNillableCreatedBy sets the "created_by" field if the given value is not nil.
-func (iwu *InboundWebhookUpdate) SetNillableCreatedBy(s *string) *InboundWebhookUpdate {
-	if s != nil {
-		iwu.SetCreatedBy(*s)
+func (_u *InboundWebhookUpdate) SetNillableCreatedBy(v *string) *InboundWebhookUpdate {
+	if v != nil {
+		_u.SetCreatedBy(*v)
 	}
-	return iwu
+	return _u
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (iwu *InboundWebhookUpdate) SetCreatedAt(t time.Time) *InboundWebhookUpdate {
-	iwu.mutation.SetCreatedAt(t)
-	return iwu
+func (_u *InboundWebhookUpdate) SetCreatedAt(v time.Time) *InboundWebhookUpdate {
+	_u.mutation.SetCreatedAt(v)
+	return _u
 }
 
 // SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (iwu *InboundWebhookUpdate) SetNillableCreatedAt(t *time.Time) *InboundWebhookUpdate {
-	if t != nil {
-		iwu.SetCreatedAt(*t)
+func (_u *InboundWebhookUpdate) SetNillableCreatedAt(v *time.Time) *InboundWebhookUpdate {
+	if v != nil {
+		_u.SetCreatedAt(*v)
 	}
-	return iwu
+	return _u
+}
+
+// SetRequireAPIKey sets the "require_api_key" field.
+func (_u *InboundWebhookUpdate) SetRequireAPIKey(v bool) *InboundWebhookUpdate {
+	_u.mutation.SetRequireAPIKey(v)
+	return _u
+}
+
+// SetNillableRequireAPIKey sets the "require_api_key" field if the given value is not nil.
+func (_u *InboundWebhookUpdate) SetNillableRequireAPIKey(v *bool) *InboundWebhookUpdate {
+	if v != nil {
+		_u.SetRequireAPIKey(*v)
+	}
+	return _u
+}
+
+// SetAPIKey sets the "api_key" field.
+func (_u *InboundWebhookUpdate) SetAPIKey(v string) *InboundWebhookUpdate {
+	_u.mutation.SetAPIKey(v)
+	return _u
+}
+
+// SetNillableAPIKey sets the "api_key" field if the given value is not nil.
+func (_u *InboundWebhookUpdate) SetNillableAPIKey(v *string) *InboundWebhookUpdate {
+	if v != nil {
+		_u.SetAPIKey(*v)
+	}
+	return _u
+}
+
+// ClearAPIKey clears the value of the "api_key" field.
+func (_u *InboundWebhookUpdate) ClearAPIKey() *InboundWebhookUpdate {
+	_u.mutation.ClearAPIKey()
+	return _u
 }
 
 // SetJobID sets the "job" edge to the Job entity by ID.
-func (iwu *InboundWebhookUpdate) SetJobID(id int) *InboundWebhookUpdate {
-	iwu.mutation.SetJobID(id)
-	return iwu
+func (_u *InboundWebhookUpdate) SetJobID(id int) *InboundWebhookUpdate {
+	_u.mutation.SetJobID(id)
+	return _u
 }
 
 // SetNillableJobID sets the "job" edge to the Job entity by ID if the given value is not nil.
-func (iwu *InboundWebhookUpdate) SetNillableJobID(id *int) *InboundWebhookUpdate {
+func (_u *InboundWebhookUpdate) SetNillableJobID(id *int) *InboundWebhookUpdate {
 	if id != nil {
-		iwu = iwu.SetJobID(*id)
+		_u = _u.SetJobID(*id)
 	}
-	return iwu
+	return _u
 }
 
 // SetJob sets the "job" edge to the Job entity.
-func (iwu *InboundWebhookUpdate) SetJob(j *Job) *InboundWebhookUpdate {
-	return iwu.SetJobID(j.ID)
+func (_u *InboundWebhookUpdate) SetJob(v *Job) *InboundWebhookUpdate {
+	return _u.SetJobID(v.ID)
 }
 
 // Mutation returns the InboundWebhookMutation object of the builder.
-func (iwu *InboundWebhookUpdate) Mutation() *InboundWebhookMutation {
-	return iwu.mutation
+func (_u *InboundWebhookUpdate) Mutation() *InboundWebhookMutation {
+	return _u.mutation
 }
 
 // ClearJob clears the "job" edge to the Job entity.
-func (iwu *InboundWebhookUpdate) ClearJob() *InboundWebhookUpdate {
-	iwu.mutation.ClearJob()
-	return iwu
+func (_u *InboundWebhookUpdate) ClearJob() *InboundWebhookUpdate {
+	_u.mutation.ClearJob()
+	return _u
 }
 
 // Save executes the query and returns the number of nodes affected by the update operation.
-func (iwu *InboundWebhookUpdate) Save(ctx context.Context) (int, error) {
-	return withHooks(ctx, iwu.sqlSave, iwu.mutation, iwu.hooks)
+func (_u *InboundWebhookUpdate) Save(ctx context.Context) (int, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (iwu *InboundWebhookUpdate) SaveX(ctx context.Context) int {
-	affected, err := iwu.Save(ctx)
+func (_u *InboundWebhookUpdate) SaveX(ctx context.Context) int {
+	affected, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -116,37 +150,46 @@ func (iwu *InboundWebhookUpdate) SaveX(ctx context.Context) int {
 }
 
 // Exec executes the query.
-func (iwu *InboundWebhookUpdate) Exec(ctx context.Context) error {
-	_, err := iwu.Save(ctx)
+func (_u *InboundWebhookUpdate) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (iwu *InboundWebhookUpdate) ExecX(ctx context.Context) {
-	if err := iwu.Exec(ctx); err != nil {
+func (_u *InboundWebhookUpdate) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (iwu *InboundWebhookUpdate) sqlSave(ctx context.Context) (n int, err error) {
+func (_u *InboundWebhookUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(inboundwebhook.Table, inboundwebhook.Columns, sqlgraph.NewFieldSpec(inboundwebhook.FieldID, field.TypeInt))
-	if ps := iwu.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := iwu.mutation.Key(); ok {
+	if value, ok := _u.mutation.Key(); ok {
 		_spec.SetField(inboundwebhook.FieldKey, field.TypeString, value)
 	}
-	if value, ok := iwu.mutation.CreatedBy(); ok {
+	if value, ok := _u.mutation.CreatedBy(); ok {
 		_spec.SetField(inboundwebhook.FieldCreatedBy, field.TypeString, value)
 	}
-	if value, ok := iwu.mutation.CreatedAt(); ok {
+	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(inboundwebhook.FieldCreatedAt, field.TypeTime, value)
 	}
-	if iwu.mutation.JobCleared() {
+	if value, ok := _u.mutation.RequireAPIKey(); ok {
+		_spec.SetField(inboundwebhook.FieldRequireAPIKey, field.TypeBool, value)
+	}
+	if value, ok := _u.mutation.APIKey(); ok {
+		_spec.SetField(inboundwebhook.FieldAPIKey, field.TypeString, value)
+	}
+	if _u.mutation.APIKeyCleared() {
+		_spec.ClearField(inboundwebhook.FieldAPIKey, field.TypeString)
+	}
+	if _u.mutation.JobCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -159,7 +202,7 @@ func (iwu *InboundWebhookUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iwu.mutation.JobIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.JobIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -175,7 +218,7 @@ func (iwu *InboundWebhookUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if n, err = sqlgraph.UpdateNodes(ctx, iwu.driver, _spec); err != nil {
+	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{inboundwebhook.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -183,8 +226,8 @@ func (iwu *InboundWebhookUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		return 0, err
 	}
-	iwu.mutation.done = true
-	return n, nil
+	_u.mutation.done = true
+	return _node, nil
 }
 
 // InboundWebhookUpdateOne is the builder for updating a single InboundWebhook entity.
@@ -196,98 +239,132 @@ type InboundWebhookUpdateOne struct {
 }
 
 // SetKey sets the "key" field.
-func (iwuo *InboundWebhookUpdateOne) SetKey(s string) *InboundWebhookUpdateOne {
-	iwuo.mutation.SetKey(s)
-	return iwuo
+func (_u *InboundWebhookUpdateOne) SetKey(v string) *InboundWebhookUpdateOne {
+	_u.mutation.SetKey(v)
+	return _u
 }
 
 // SetNillableKey sets the "key" field if the given value is not nil.
-func (iwuo *InboundWebhookUpdateOne) SetNillableKey(s *string) *InboundWebhookUpdateOne {
-	if s != nil {
-		iwuo.SetKey(*s)
+func (_u *InboundWebhookUpdateOne) SetNillableKey(v *string) *InboundWebhookUpdateOne {
+	if v != nil {
+		_u.SetKey(*v)
 	}
-	return iwuo
+	return _u
 }
 
 // SetCreatedBy sets the "created_by" field.
-func (iwuo *InboundWebhookUpdateOne) SetCreatedBy(s string) *InboundWebhookUpdateOne {
-	iwuo.mutation.SetCreatedBy(s)
-	return iwuo
+func (_u *InboundWebhookUpdateOne) SetCreatedBy(v string) *InboundWebhookUpdateOne {
+	_u.mutation.SetCreatedBy(v)
+	return _u
 }
 
 // SetNillableCreatedBy sets the "created_by" field if the given value is not nil.
-func (iwuo *InboundWebhookUpdateOne) SetNillableCreatedBy(s *string) *InboundWebhookUpdateOne {
-	if s != nil {
-		iwuo.SetCreatedBy(*s)
+func (_u *InboundWebhookUpdateOne) SetNillableCreatedBy(v *string) *InboundWebhookUpdateOne {
+	if v != nil {
+		_u.SetCreatedBy(*v)
 	}
-	return iwuo
+	return _u
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (iwuo *InboundWebhookUpdateOne) SetCreatedAt(t time.Time) *InboundWebhookUpdateOne {
-	iwuo.mutation.SetCreatedAt(t)
-	return iwuo
+func (_u *InboundWebhookUpdateOne) SetCreatedAt(v time.Time) *InboundWebhookUpdateOne {
+	_u.mutation.SetCreatedAt(v)
+	return _u
 }
 
 // SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (iwuo *InboundWebhookUpdateOne) SetNillableCreatedAt(t *time.Time) *InboundWebhookUpdateOne {
-	if t != nil {
-		iwuo.SetCreatedAt(*t)
+func (_u *InboundWebhookUpdateOne) SetNillableCreatedAt(v *time.Time) *InboundWebhookUpdateOne {
+	if v != nil {
+		_u.SetCreatedAt(*v)
 	}
-	return iwuo
+	return _u
+}
+
+// SetRequireAPIKey sets the "require_api_key" field.
+func (_u *InboundWebhookUpdateOne) SetRequireAPIKey(v bool) *InboundWebhookUpdateOne {
+	_u.mutation.SetRequireAPIKey(v)
+	return _u
+}
+
+// SetNillableRequireAPIKey sets the "require_api_key" field if the given value is not nil.
+func (_u *InboundWebhookUpdateOne) SetNillableRequireAPIKey(v *bool) *InboundWebhookUpdateOne {
+	if v != nil {
+		_u.SetRequireAPIKey(*v)
+	}
+	return _u
+}
+
+// SetAPIKey sets the "api_key" field.
+func (_u *InboundWebhookUpdateOne) SetAPIKey(v string) *InboundWebhookUpdateOne {
+	_u.mutation.SetAPIKey(v)
+	return _u
+}
+
+// SetNillableAPIKey sets the "api_key" field if the given value is not nil.
+func (_u *InboundWebhookUpdateOne) SetNillableAPIKey(v *string) *InboundWebhookUpdateOne {
+	if v != nil {
+		_u.SetAPIKey(*v)
+	}
+	return _u
+}
+
+// ClearAPIKey clears the value of the "api_key" field.
+func (_u *InboundWebhookUpdateOne) ClearAPIKey() *InboundWebhookUpdateOne {
+	_u.mutation.ClearAPIKey()
+	return _u
 }
 
 // SetJobID sets the "job" edge to the Job entity by ID.
-func (iwuo *InboundWebhookUpdateOne) SetJobID(id int) *InboundWebhookUpdateOne {
-	iwuo.mutation.SetJobID(id)
-	return iwuo
+func (_u *InboundWebhookUpdateOne) SetJobID(id int) *InboundWebhookUpdateOne {
+	_u.mutation.SetJobID(id)
+	return _u
 }
 
 // SetNillableJobID sets the "job" edge to the Job entity by ID if the given value is not nil.
-func (iwuo *InboundWebhookUpdateOne) SetNillableJobID(id *int) *InboundWebhookUpdateOne {
+func (_u *InboundWebhookUpdateOne) SetNillableJobID(id *int) *InboundWebhookUpdateOne {
 	if id != nil {
-		iwuo = iwuo.SetJobID(*id)
+		_u = _u.SetJobID(*id)
 	}
-	return iwuo
+	return _u
 }
 
 // SetJob sets the "job" edge to the Job entity.
-func (iwuo *InboundWebhookUpdateOne) SetJob(j *Job) *InboundWebhookUpdateOne {
-	return iwuo.SetJobID(j.ID)
+func (_u *InboundWebhookUpdateOne) SetJob(v *Job) *InboundWebhookUpdateOne {
+	return _u.SetJobID(v.ID)
 }
 
 // Mutation returns the InboundWebhookMutation object of the builder.
-func (iwuo *InboundWebhookUpdateOne) Mutation() *InboundWebhookMutation {
-	return iwuo.mutation
+func (_u *InboundWebhookUpdateOne) Mutation() *InboundWebhookMutation {
+	return _u.mutation
 }
 
 // ClearJob clears the "job" edge to the Job entity.
-func (iwuo *InboundWebhookUpdateOne) ClearJob() *InboundWebhookUpdateOne {
-	iwuo.mutation.ClearJob()
-	return iwuo
+func (_u *InboundWebhookUpdateOne) ClearJob() *InboundWebhookUpdateOne {
+	_u.mutation.ClearJob()
+	return _u
 }
 
 // Where appends a list predicates to the InboundWebhookUpdate builder.
-func (iwuo *InboundWebhookUpdateOne) Where(ps ...predicate.InboundWebhook) *InboundWebhookUpdateOne {
-	iwuo.mutation.Where(ps...)
-	return iwuo
+func (_u *InboundWebhookUpdateOne) Where(ps ...predicate.InboundWebhook) *InboundWebhookUpdateOne {
+	_u.mutation.Where(ps...)
+	return _u
 }
 
 // Select allows selecting one or more fields (columns) of the returned entity.
 // The default is selecting all fields defined in the entity schema.
-func (iwuo *InboundWebhookUpdateOne) Select(field string, fields ...string) *InboundWebhookUpdateOne {
-	iwuo.fields = append([]string{field}, fields...)
-	return iwuo
+func (_u *InboundWebhookUpdateOne) Select(field string, fields ...string) *InboundWebhookUpdateOne {
+	_u.fields = append([]string{field}, fields...)
+	return _u
 }
 
 // Save executes the query and returns the updated InboundWebhook entity.
-func (iwuo *InboundWebhookUpdateOne) Save(ctx context.Context) (*InboundWebhook, error) {
-	return withHooks(ctx, iwuo.sqlSave, iwuo.mutation, iwuo.hooks)
+func (_u *InboundWebhookUpdateOne) Save(ctx context.Context) (*InboundWebhook, error) {
+	return withHooks(ctx, _u.sqlSave, _u.mutation, _u.hooks)
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (iwuo *InboundWebhookUpdateOne) SaveX(ctx context.Context) *InboundWebhook {
-	node, err := iwuo.Save(ctx)
+func (_u *InboundWebhookUpdateOne) SaveX(ctx context.Context) *InboundWebhook {
+	node, err := _u.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -295,26 +372,26 @@ func (iwuo *InboundWebhookUpdateOne) SaveX(ctx context.Context) *InboundWebhook 
 }
 
 // Exec executes the query on the entity.
-func (iwuo *InboundWebhookUpdateOne) Exec(ctx context.Context) error {
-	_, err := iwuo.Save(ctx)
+func (_u *InboundWebhookUpdateOne) Exec(ctx context.Context) error {
+	_, err := _u.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (iwuo *InboundWebhookUpdateOne) ExecX(ctx context.Context) {
-	if err := iwuo.Exec(ctx); err != nil {
+func (_u *InboundWebhookUpdateOne) ExecX(ctx context.Context) {
+	if err := _u.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
-func (iwuo *InboundWebhookUpdateOne) sqlSave(ctx context.Context) (_node *InboundWebhook, err error) {
+func (_u *InboundWebhookUpdateOne) sqlSave(ctx context.Context) (_node *InboundWebhook, err error) {
 	_spec := sqlgraph.NewUpdateSpec(inboundwebhook.Table, inboundwebhook.Columns, sqlgraph.NewFieldSpec(inboundwebhook.FieldID, field.TypeInt))
-	id, ok := iwuo.mutation.ID()
+	id, ok := _u.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "InboundWebhook.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
-	if fields := iwuo.fields; len(fields) > 0 {
+	if fields := _u.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, inboundwebhook.FieldID)
 		for _, f := range fields {
@@ -326,23 +403,32 @@ func (iwuo *InboundWebhookUpdateOne) sqlSave(ctx context.Context) (_node *Inboun
 			}
 		}
 	}
-	if ps := iwuo.mutation.predicates; len(ps) > 0 {
+	if ps := _u.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	if value, ok := iwuo.mutation.Key(); ok {
+	if value, ok := _u.mutation.Key(); ok {
 		_spec.SetField(inboundwebhook.FieldKey, field.TypeString, value)
 	}
-	if value, ok := iwuo.mutation.CreatedBy(); ok {
+	if value, ok := _u.mutation.CreatedBy(); ok {
 		_spec.SetField(inboundwebhook.FieldCreatedBy, field.TypeString, value)
 	}
-	if value, ok := iwuo.mutation.CreatedAt(); ok {
+	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(inboundwebhook.FieldCreatedAt, field.TypeTime, value)
 	}
-	if iwuo.mutation.JobCleared() {
+	if value, ok := _u.mutation.RequireAPIKey(); ok {
+		_spec.SetField(inboundwebhook.FieldRequireAPIKey, field.TypeBool, value)
+	}
+	if value, ok := _u.mutation.APIKey(); ok {
+		_spec.SetField(inboundwebhook.FieldAPIKey, field.TypeString, value)
+	}
+	if _u.mutation.APIKeyCleared() {
+		_spec.ClearField(inboundwebhook.FieldAPIKey, field.TypeString)
+	}
+	if _u.mutation.JobCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -355,7 +441,7 @@ func (iwuo *InboundWebhookUpdateOne) sqlSave(ctx context.Context) (_node *Inboun
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iwuo.mutation.JobIDs(); len(nodes) > 0 {
+	if nodes := _u.mutation.JobIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
@@ -371,10 +457,10 @@ func (iwuo *InboundWebhookUpdateOne) sqlSave(ctx context.Context) (_node *Inboun
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	_node = &InboundWebhook{config: iwuo.config}
+	_node = &InboundWebhook{config: _u.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
-	if err = sqlgraph.UpdateNode(ctx, iwuo.driver, _spec); err != nil {
+	if err = sqlgraph.UpdateNode(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{inboundwebhook.Label}
 		} else if sqlgraph.IsConstraintError(err) {
@@ -382,6 +468,6 @@ func (iwuo *InboundWebhookUpdateOne) sqlSave(ctx context.Context) (_node *Inboun
 		}
 		return nil, err
 	}
-	iwuo.mutation.done = true
+	_u.mutation.done = true
 	return _node, nil
 }

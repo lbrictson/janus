@@ -70,6 +70,16 @@ func CreatedAt(v time.Time) predicate.InboundWebhook {
 	return predicate.InboundWebhook(sql.FieldEQ(FieldCreatedAt, v))
 }
 
+// RequireAPIKey applies equality check predicate on the "require_api_key" field. It's identical to RequireAPIKeyEQ.
+func RequireAPIKey(v bool) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldEQ(FieldRequireAPIKey, v))
+}
+
+// APIKey applies equality check predicate on the "api_key" field. It's identical to APIKeyEQ.
+func APIKey(v string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldEQ(FieldAPIKey, v))
+}
+
 // KeyEQ applies the EQ predicate on the "key" field.
 func KeyEQ(v string) predicate.InboundWebhook {
 	return predicate.InboundWebhook(sql.FieldEQ(FieldKey, v))
@@ -238,6 +248,91 @@ func CreatedAtLT(v time.Time) predicate.InboundWebhook {
 // CreatedAtLTE applies the LTE predicate on the "created_at" field.
 func CreatedAtLTE(v time.Time) predicate.InboundWebhook {
 	return predicate.InboundWebhook(sql.FieldLTE(FieldCreatedAt, v))
+}
+
+// RequireAPIKeyEQ applies the EQ predicate on the "require_api_key" field.
+func RequireAPIKeyEQ(v bool) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldEQ(FieldRequireAPIKey, v))
+}
+
+// RequireAPIKeyNEQ applies the NEQ predicate on the "require_api_key" field.
+func RequireAPIKeyNEQ(v bool) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldNEQ(FieldRequireAPIKey, v))
+}
+
+// APIKeyEQ applies the EQ predicate on the "api_key" field.
+func APIKeyEQ(v string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldEQ(FieldAPIKey, v))
+}
+
+// APIKeyNEQ applies the NEQ predicate on the "api_key" field.
+func APIKeyNEQ(v string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldNEQ(FieldAPIKey, v))
+}
+
+// APIKeyIn applies the In predicate on the "api_key" field.
+func APIKeyIn(vs ...string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldIn(FieldAPIKey, vs...))
+}
+
+// APIKeyNotIn applies the NotIn predicate on the "api_key" field.
+func APIKeyNotIn(vs ...string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldNotIn(FieldAPIKey, vs...))
+}
+
+// APIKeyGT applies the GT predicate on the "api_key" field.
+func APIKeyGT(v string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldGT(FieldAPIKey, v))
+}
+
+// APIKeyGTE applies the GTE predicate on the "api_key" field.
+func APIKeyGTE(v string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldGTE(FieldAPIKey, v))
+}
+
+// APIKeyLT applies the LT predicate on the "api_key" field.
+func APIKeyLT(v string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldLT(FieldAPIKey, v))
+}
+
+// APIKeyLTE applies the LTE predicate on the "api_key" field.
+func APIKeyLTE(v string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldLTE(FieldAPIKey, v))
+}
+
+// APIKeyContains applies the Contains predicate on the "api_key" field.
+func APIKeyContains(v string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldContains(FieldAPIKey, v))
+}
+
+// APIKeyHasPrefix applies the HasPrefix predicate on the "api_key" field.
+func APIKeyHasPrefix(v string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldHasPrefix(FieldAPIKey, v))
+}
+
+// APIKeyHasSuffix applies the HasSuffix predicate on the "api_key" field.
+func APIKeyHasSuffix(v string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldHasSuffix(FieldAPIKey, v))
+}
+
+// APIKeyIsNil applies the IsNil predicate on the "api_key" field.
+func APIKeyIsNil() predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldIsNull(FieldAPIKey))
+}
+
+// APIKeyNotNil applies the NotNil predicate on the "api_key" field.
+func APIKeyNotNil() predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldNotNull(FieldAPIKey))
+}
+
+// APIKeyEqualFold applies the EqualFold predicate on the "api_key" field.
+func APIKeyEqualFold(v string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldEqualFold(FieldAPIKey, v))
+}
+
+// APIKeyContainsFold applies the ContainsFold predicate on the "api_key" field.
+func APIKeyContainsFold(v string) predicate.InboundWebhook {
+	return predicate.InboundWebhook(sql.FieldContainsFold(FieldAPIKey, v))
 }
 
 // HasJob applies the HasEdge predicate on the "job" edge.

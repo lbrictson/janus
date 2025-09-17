@@ -19,18 +19,18 @@ type AuditCreate struct {
 }
 
 // Mutation returns the AuditMutation object of the builder.
-func (ac *AuditCreate) Mutation() *AuditMutation {
-	return ac.mutation
+func (_c *AuditCreate) Mutation() *AuditMutation {
+	return _c.mutation
 }
 
 // Save creates the Audit in the database.
-func (ac *AuditCreate) Save(ctx context.Context) (*Audit, error) {
-	return withHooks(ctx, ac.sqlSave, ac.mutation, ac.hooks)
+func (_c *AuditCreate) Save(ctx context.Context) (*Audit, error) {
+	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
 // SaveX calls Save and panics if Save returns an error.
-func (ac *AuditCreate) SaveX(ctx context.Context) *Audit {
-	v, err := ac.Save(ctx)
+func (_c *AuditCreate) SaveX(ctx context.Context) *Audit {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -38,29 +38,29 @@ func (ac *AuditCreate) SaveX(ctx context.Context) *Audit {
 }
 
 // Exec executes the query.
-func (ac *AuditCreate) Exec(ctx context.Context) error {
-	_, err := ac.Save(ctx)
+func (_c *AuditCreate) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (ac *AuditCreate) ExecX(ctx context.Context) {
-	if err := ac.Exec(ctx); err != nil {
+func (_c *AuditCreate) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
 
 // check runs all checks and user-defined validators on the builder.
-func (ac *AuditCreate) check() error {
+func (_c *AuditCreate) check() error {
 	return nil
 }
 
-func (ac *AuditCreate) sqlSave(ctx context.Context) (*Audit, error) {
-	if err := ac.check(); err != nil {
+func (_c *AuditCreate) sqlSave(ctx context.Context) (*Audit, error) {
+	if err := _c.check(); err != nil {
 		return nil, err
 	}
-	_node, _spec := ac.createSpec()
-	if err := sqlgraph.CreateNode(ctx, ac.driver, _spec); err != nil {
+	_node, _spec := _c.createSpec()
+	if err := sqlgraph.CreateNode(ctx, _c.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
@@ -68,14 +68,14 @@ func (ac *AuditCreate) sqlSave(ctx context.Context) (*Audit, error) {
 	}
 	id := _spec.ID.Value.(int64)
 	_node.ID = int(id)
-	ac.mutation.id = &_node.ID
-	ac.mutation.done = true
+	_c.mutation.id = &_node.ID
+	_c.mutation.done = true
 	return _node, nil
 }
 
-func (ac *AuditCreate) createSpec() (*Audit, *sqlgraph.CreateSpec) {
+func (_c *AuditCreate) createSpec() (*Audit, *sqlgraph.CreateSpec) {
 	var (
-		_node = &Audit{config: ac.config}
+		_node = &Audit{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(audit.Table, sqlgraph.NewFieldSpec(audit.FieldID, field.TypeInt))
 	)
 	return _node, _spec
@@ -89,16 +89,16 @@ type AuditCreateBulk struct {
 }
 
 // Save creates the Audit entities in the database.
-func (acb *AuditCreateBulk) Save(ctx context.Context) ([]*Audit, error) {
-	if acb.err != nil {
-		return nil, acb.err
+func (_c *AuditCreateBulk) Save(ctx context.Context) ([]*Audit, error) {
+	if _c.err != nil {
+		return nil, _c.err
 	}
-	specs := make([]*sqlgraph.CreateSpec, len(acb.builders))
-	nodes := make([]*Audit, len(acb.builders))
-	mutators := make([]Mutator, len(acb.builders))
-	for i := range acb.builders {
+	specs := make([]*sqlgraph.CreateSpec, len(_c.builders))
+	nodes := make([]*Audit, len(_c.builders))
+	mutators := make([]Mutator, len(_c.builders))
+	for i := range _c.builders {
 		func(i int, root context.Context) {
-			builder := acb.builders[i]
+			builder := _c.builders[i]
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*AuditMutation)
 				if !ok {
@@ -111,11 +111,11 @@ func (acb *AuditCreateBulk) Save(ctx context.Context) ([]*Audit, error) {
 				var err error
 				nodes[i], specs[i] = builder.createSpec()
 				if i < len(mutators)-1 {
-					_, err = mutators[i+1].Mutate(root, acb.builders[i+1].mutation)
+					_, err = mutators[i+1].Mutate(root, _c.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
 					// Invoke the actual operation on the latest mutation in the chain.
-					if err = sqlgraph.BatchCreate(ctx, acb.driver, spec); err != nil {
+					if err = sqlgraph.BatchCreate(ctx, _c.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
 							err = &ConstraintError{msg: err.Error(), wrap: err}
 						}
@@ -139,7 +139,7 @@ func (acb *AuditCreateBulk) Save(ctx context.Context) ([]*Audit, error) {
 		}(i, ctx)
 	}
 	if len(mutators) > 0 {
-		if _, err := mutators[0].Mutate(ctx, acb.builders[0].mutation); err != nil {
+		if _, err := mutators[0].Mutate(ctx, _c.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
@@ -147,8 +147,8 @@ func (acb *AuditCreateBulk) Save(ctx context.Context) ([]*Audit, error) {
 }
 
 // SaveX is like Save, but panics if an error occurs.
-func (acb *AuditCreateBulk) SaveX(ctx context.Context) []*Audit {
-	v, err := acb.Save(ctx)
+func (_c *AuditCreateBulk) SaveX(ctx context.Context) []*Audit {
+	v, err := _c.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -156,14 +156,14 @@ func (acb *AuditCreateBulk) SaveX(ctx context.Context) []*Audit {
 }
 
 // Exec executes the query.
-func (acb *AuditCreateBulk) Exec(ctx context.Context) error {
-	_, err := acb.Save(ctx)
+func (_c *AuditCreateBulk) Exec(ctx context.Context) error {
+	_, err := _c.Save(ctx)
 	return err
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (acb *AuditCreateBulk) ExecX(ctx context.Context) {
-	if err := acb.Exec(ctx); err != nil {
+func (_c *AuditCreateBulk) ExecX(ctx context.Context) {
+	if err := _c.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
