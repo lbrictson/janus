@@ -23,6 +23,7 @@ nav:
     - Secrets: understanding-jobs/secrets.md
     - Scheduling: understanding-jobs/scheduling.md
     - Notifications: understanding-jobs/notifications.md
+    - Webhook Trigger: understanding-jobs/webhooks.md
     - Advanced Settings: understanding-jobs/advanced-settings.md
   - User Management:
     - Global Roles: user-management/user-roles.md
