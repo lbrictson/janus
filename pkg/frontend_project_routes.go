@@ -2,16 +2,17 @@ package pkg
 
 import (
 	"fmt"
+	"log/slog"
+	"net/http"
+	"strconv"
+	"strings"
+
 	"github.com/dustin/go-humanize"
 	"github.com/labstack/echo/v4"
 	"github.com/lbrictson/janus/ent"
 	"github.com/lbrictson/janus/ent/job"
 	"github.com/lbrictson/janus/ent/jobhistory"
 	"github.com/lbrictson/janus/ent/project"
-	"log/slog"
-	"net/http"
-	"strconv"
-	"strings"
 )
 
 func renderNewProjectView(c echo.Context) error {
@@ -92,7 +93,7 @@ func renderProjectViewPage(db *ent.Client) echo.HandlerFunc {
 		if userPermissions[projIDInt] == "Edit" {
 			canEdit = true
 		}
-		j, err := db.Job.Query().WithProject().WithHistory().Where(job.HasProjectWith(project.IDEQ(projIDInt))).All(c.Request().Context())
+		j, err := db.Job.Query().WithProject().WithHistory().Where(job.HasProjectWith(project.IDEQ(projIDInt))).Order(ent.Asc(job.FieldName)).All(c.Request().Context())
 		if err != nil {
 			slog.Error("error getting jobs for project", "error", err)
 			return renderErrorPage(c, "Error getting jobs for project", http.StatusInternalServerError)
