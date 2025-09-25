@@ -317,6 +317,7 @@ func executeScript(ctx context.Context, script string, runID int, environmentVar
 	// Create command with interpreter
 	cmd := exec.CommandContext(ctx, scriptPath)
 	// Set env variables
+	cmd.Env = os.Environ()
 	cmd.Env = append(cmd.Env, environmentVariables...)
 	// Create pipes for stdout and stderr
 	stdout, err := cmd.StdoutPipe()
