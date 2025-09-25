@@ -17,8 +17,9 @@ WORKDIR /
 
 COPY --from=build-stage /janus /janus
 RUN mkdir /data
-RUN apt update && apt install -y ca-certificates python3 python3-pip curl wget pipx awscli ssh sshpass tree git gnupg apt-transport-https ansible jq yq rsync rclone software-properties-common gnupg httpie
+RUN apt update && apt install -y ca-certificates python3 python3-pip curl wget pipx unzip ssh sshpass tree git gnupg apt-transport-https ansible jq yq rsync rclone software-properties-common gnupg httpie
 RUN pipx install --include-deps ansible && pipx install --include-deps pipenv && pipx ensurepath
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install && rm -rf awscliv2.zip aws
 RUN curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg && chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 RUN echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list && chmod 644 /etc/apt/sources.list.d/kubernetes.list
 RUN wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
